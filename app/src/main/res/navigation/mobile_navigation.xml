@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.run.ultimate_fitness.ui.home.HomeFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/navigation_nutrition"
+        android:name="com.run.ultimate_fitness.ui.nutrition.NutritionFragment"
+        android:label="Nutrition"
+        tools:layout="@layout/fragment_nutrition" />
+
+    <fragment
+        android:id="@+id/navigation_workouts"
+        android:name="com.run.ultimate_fitness.ui.workouts.WorkoutsFragment"
+        android:label="Workouts"
+        tools:layout="@layout/fragment_workouts"/>
+
+    <fragment
+        android:id="@+id/navigation_inbox"
+        android:name="com.run.ultimate_fitness.ui.inbox.InboxFragment"
+        android:label="Inbox"
+        tools:layout="@layout/fragment_inbox"/>
+
+    <fragment
+        android:id="@+id/navigation_appointments"
+        android:name="com.run.ultimate_fitness.ui.appointments.AppointmentsFragment"
+        android:label="Appointments"
+        tools:layout="@layout/fragment_appointments"/>
+
+
+</navigation>
