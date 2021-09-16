@@ -14,13 +14,16 @@
         <entry key="..\:/Users/Hp/AndroidStudioProjects/Ultimate_Fitness/app/src/main/res/layout/fragment_workouts.xml" value="0.190625" />
         <entry key="app/src/main/res/drawable/ic_appointments.xml" value="0.20462962962962963" />
         <entry key="app/src/main/res/drawable/ic_dashboard_black_24dp.xml" value="0.20462962962962963" />
+        <entry key="app/src/main/res/drawable/ic_home_black_24dp.xml" value="0.24635416666666668" />
         <entry key="app/src/main/res/drawable/ic_inbox.xml" value="0.20462962962962963" />
         <entry key="app/src/main/res/drawable/ic_notifications_black_24dp.xml" value="0.20462962962962963" />
         <entry key="app/src/main/res/drawable/ic_nutrition.xml" value="0.20462962962962963" />
+        <entry key="app/src/main/res/drawable/ic_steps.xml" value="0.41333333333333333" />
+        <entry key="app/src/main/res/drawable/ic_water.xml" value="0.41333333333333333" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_appointments.xml" value="0.17074275362318841" />
         <entry key="app/src/main/res/layout/fragment_dashboard.xml" value="0.17074275362318841" />
-        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_inbox.xml" value="0.17074275362318841" />
         <entry key="app/src/main/res/layout/fragment_notifications.xml" value="0.17074275362318841" />
         <entry key="app/src/main/res/layout/fragment_nutrition.xml" value="0.17074275362318841" />
