@@ -1,8 +1,13 @@
 package com.run.ultimate_fitness;
 
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -16,6 +21,12 @@ import com.run.ultimate_fitness.databinding.ActivityMainBinding;
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
+
+    private int CurrentProgress = 0;
+    private ProgressBar progressBar;
+    private Button btnDrink;
+    private TextView txtWaterDrank;
+    public int water = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +47,38 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(binding.navView, navController);
         getSupportActionBar().hide();
 
+        txtWaterDrank = findViewById(R.id.txtWaterDrank);
+        btnDrink = findViewById(R.id.btnDrinkWater);
+        progressBar = findViewById(R.id.progressBarSteps);
+        //progressBar.setMax(100);
+
+    //countDownTimer.start();
+
+
+
     }
+    CountDownTimer countDownTimer = new CountDownTimer(11*1000,1000) {
+        @Override
+        public void onTick(long l) {
+            CurrentProgress = CurrentProgress + 10;
+            progressBar.setProgress(CurrentProgress);
 
+        }
 
+        @Override
+        public void onFinish() {
+
+        }
+
+    };
+
+        public void drinkWater(View view)
+        {
+            water++;
+             String waterDrank = String.valueOf(water);
+             String waterProgress = waterDrank + "/8";
+             //txtWaterDrank.setText("");
+            System.out.println(waterProgress);
+        }
 
 }

@@ -20,10 +20,10 @@
         <entry key="app/src/main/res/drawable/ic_nutrition.xml" value="0.20462962962962963" />
         <entry key="app/src/main/res/drawable/ic_steps.xml" value="0.41333333333333333" />
         <entry key="app/src/main/res/drawable/ic_water.xml" value="0.41333333333333333" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_appointments.xml" value="0.17074275362318841" />
         <entry key="app/src/main/res/layout/fragment_dashboard.xml" value="0.17074275362318841" />
-        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.2958041958041958" />
         <entry key="app/src/main/res/layout/fragment_inbox.xml" value="0.17074275362318841" />
         <entry key="app/src/main/res/layout/fragment_notifications.xml" value="0.17074275362318841" />
         <entry key="app/src/main/res/layout/fragment_nutrition.xml" value="0.17074275362318841" />
