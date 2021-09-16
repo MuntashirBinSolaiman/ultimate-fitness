@@ -1,16 +1,14 @@
 package com.run.ultimate_fitness.ui.nutrition;
 
-import androidx.lifecycle.ViewModelProvider;
-
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.run.ultimate_fitness.R;
 
@@ -21,6 +19,8 @@ public class NutritionFragment extends Fragment {
     public static NutritionFragment newInstance() {
         return new NutritionFragment();
     }
+
+
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -34,5 +34,7 @@ public class NutritionFragment extends Fragment {
         mViewModel = new ViewModelProvider(this).get(NutritionViewModel.class);
         // TODO: Use the ViewModel
     }
+
+
 
 }

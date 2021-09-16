@@ -1,22 +1,22 @@
 package com.run.ultimate_fitness.ui.inbox;
 
-import androidx.lifecycle.ViewModelProvider;
-
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.run.ultimate_fitness.R;
 
 public class InboxFragment extends Fragment {
 
     private InboxViewModel mViewModel;
+
+
 
     public static InboxFragment newInstance() {
         return new InboxFragment();
@@ -26,6 +26,8 @@ public class InboxFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_inbox, container, false);
+
+
     }
 
     @Override
