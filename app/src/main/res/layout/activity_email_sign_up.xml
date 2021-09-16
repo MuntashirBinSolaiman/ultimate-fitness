@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient"
+    tools:context=".EmailSignUp">
+
+
+<androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradient"
@@ -29,7 +38,7 @@
         android:background="#876EA6"
         android:drawableLeft="@drawable/ic_action_user"
         android:ems="10"
-        android:hint="Username"
+        android:hint="Email"
         android:inputType="textPersonName"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -94,15 +103,15 @@
 
             <TextView
                 android:id="@+id/textView"
-                android:layout_width="126dp"
-                android:layout_height="36dp"
+                android:layout_width="118dp"
+                android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
                 android:layout_centerInParent="true"
-                android:layout_marginStart="89dp"
-                android:layout_marginEnd="85dp"
-                android:layout_marginBottom="5dp"
+                android:layout_marginStart="91dp"
+                android:layout_marginEnd="91dp"
+                android:layout_marginBottom="15dp"
                 android:text="Register Email"
                 android:textColor="#AFABAB"
                 android:textSize="18sp" />
@@ -110,4 +119,19 @@
 
     </androidx.cardview.widget.CardView>
 
+    <ProgressBar
+        android:id="@+id/EmailProgressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.746"
+        tools:ignore="MissingConstraints" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
