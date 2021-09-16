@@ -3,6 +3,15 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Hp/AndroidStudioProjects/Ultimate_Fitness/app/src/main/res/layout/activity_email_sign_up.xml" value="0.6" />
+        <entry key="..\:/Users/Hp/AndroidStudioProjects/Ultimate_Fitness/app/src/main/res/layout/activity_login_page2.xml" value="0.2" />
+        <entry key="..\:/Users/Hp/AndroidStudioProjects/Ultimate_Fitness/app/src/main/res/layout/activity_main.xml" value="0.190625" />
+        <entry key="..\:/Users/Hp/AndroidStudioProjects/Ultimate_Fitness/app/src/main/res/layout/activity_sign_up_information.xml" value="0.176" />
+        <entry key="..\:/Users/Hp/AndroidStudioProjects/Ultimate_Fitness/app/src/main/res/layout/fragment_appointments.xml" value="0.190625" />
+        <entry key="..\:/Users/Hp/AndroidStudioProjects/Ultimate_Fitness/app/src/main/res/layout/fragment_home.xml" value="0.190625" />
+        <entry key="..\:/Users/Hp/AndroidStudioProjects/Ultimate_Fitness/app/src/main/res/layout/fragment_inbox.xml" value="0.190625" />
+        <entry key="..\:/Users/Hp/AndroidStudioProjects/Ultimate_Fitness/app/src/main/res/layout/fragment_nutrition.xml" value="0.190625" />
+        <entry key="..\:/Users/Hp/AndroidStudioProjects/Ultimate_Fitness/app/src/main/res/layout/fragment_workouts.xml" value="0.190625" />
         <entry key="app/src/main/res/drawable/ic_appointments.xml" value="0.20462962962962963" />
         <entry key="app/src/main/res/drawable/ic_dashboard_black_24dp.xml" value="0.20462962962962963" />
         <entry key="app/src/main/res/drawable/ic_inbox.xml" value="0.20462962962962963" />
