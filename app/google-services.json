@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "658556631558",
+    "project_id": "ultimate-storm",
+    "storage_bucket": "ultimate-storm.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:658556631558:android:960323ad5b1170ab10e187",
+        "android_client_info": {
+          "package_name": "com.run.ultimate_fitness"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "658556631558-h9ntqfh2cm6tifahe0gkq0s5sc15ga04.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA23uuOC1nYzApqZie05B165nI_YgUoSPI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "658556631558-h9ntqfh2cm6tifahe0gkq0s5sc15ga04.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
