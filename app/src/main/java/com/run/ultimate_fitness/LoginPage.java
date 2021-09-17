@@ -46,7 +46,7 @@ public class LoginPage extends AppCompatActivity {
     }
 
     public void forgotPassword(View view){
-        Intent intent = new Intent(this, EmailSignUp.class);
+        Intent intent = new Intent(this, ForgotPassword.class);
         startActivity(intent);
     }
 

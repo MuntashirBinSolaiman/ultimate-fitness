@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     private int CurrentProgress = 0;
     private ProgressBar progressBar;
     private Button btnDrink;
-    private TextView txtWaterDrank;
+    private TextView txtWaterDrankk;
     public int water = 0;
 
     @Override
@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(binding.navView, navController);
         getSupportActionBar().hide();
 
-        txtWaterDrank = findViewById(R.id.txtWaterDrank);
+        txtWaterDrankk = findViewById(R.id.txtWaterDrank);
         btnDrink = findViewById(R.id.btnDrinkWater);
         progressBar = findViewById(R.id.progressBarSteps);
         //progressBar.setMax(100);
@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
             water++;
              String waterDrank = String.valueOf(water);
              String waterProgress = waterDrank + "/8";
-             //txtWaterDrank.setText("");
+             txtWaterDrankk.setText("" + water );
             System.out.println(waterProgress);
         }
 
