@@ -51,12 +51,15 @@
                         android:layout_gravity="top|left" />
 
                 <ImageView
-                    android:layout_gravity="top|right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_row="0"
                     android:layout_column="1"
+                    android:layout_gravity="top|right"
                     android:layout_marginTop="40dp"
                     android:layout_marginRight="10dp"
-                    android:src="@drawable/ic_settings"/>
+                    android:onClick="goToProfile"
+                    android:src="@drawable/ic_settings" />
 
 <!--                    <TextView
                         android:layout_width="wrap_content"

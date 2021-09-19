@@ -13,5 +13,8 @@
     <color name="light_blue_A400">#FF00B0FF</color>
     <color name="black_overlay">#66000000</color>
     <color name="light_grey">#D3D3D3</color>
+    <color name="login_color_scheme">#FF3A5C</color>
+    <color name="darker_grey">#979797</color>
+
 
 </resources>

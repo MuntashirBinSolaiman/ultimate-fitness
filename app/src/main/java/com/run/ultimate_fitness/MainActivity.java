@@ -1,5 +1,6 @@
 package com.run.ultimate_fitness;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
@@ -79,6 +80,11 @@ public class MainActivity extends AppCompatActivity {
              String waterProgress = waterDrank + "/8";
              txtWaterDrankk.setText("" + water );
             System.out.println(waterProgress);
+        }
+
+        public void goToProfile(View view){
+            Intent intent = new Intent(MainActivity.this, ProfilePage.class);
+            startActivity(intent);
         }
 
 }
