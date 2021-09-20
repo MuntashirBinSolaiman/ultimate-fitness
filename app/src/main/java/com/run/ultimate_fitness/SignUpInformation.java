@@ -95,29 +95,35 @@ public class SignUpInformation extends AppCompatActivity {
         Double finalWeight = Double.parseDouble(weight);
         Double finalHeight = Double.parseDouble(height);
 
-        User user = new User(firstName,lastName,finalPhone,finalWeight,finalHeight);
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("Users")
-                .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                .set(user)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if(task.isSuccessful()){
-                            Toast.makeText(SignUpInformation.this,"User has been successfully registered", Toast.LENGTH_LONG).show();
+        try
+        {
+            User user = new User(firstName,lastName,finalPhone,finalWeight,finalHeight);
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            db.collection("Users")
+                    .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                    .set(user)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if(task.isSuccessful()){
+                                Toast.makeText(SignUpInformation.this,"User has been successfully registered", Toast.LENGTH_LONG).show();
 
-                            //progressBar.setVisibility(View.VISIBLE);
+                                //progressBar.setVisibility(View.VISIBLE);
 
-                            saveDataLocal(firstName,lastName,phoneNumber,weight,height);
+                                saveDataLocal(firstName,lastName,phoneNumber,weight,height);
 
-                            Intent intent = new Intent(SignUpInformation.this, MainActivity.class);
-                            startActivity(intent);
-                        }else{
-                            Toast.makeText(SignUpInformation.this,"Failed to Register! Please try again!", Toast.LENGTH_LONG).show();
-                            //progressBar.setVisibility(View.GONE);
+                                Intent intent = new Intent(SignUpInformation.this, MainActivity.class);
+                                startActivity(intent);
+                            }else{
+                                Toast.makeText(SignUpInformation.this,"Failed to Register! Please try again!", Toast.LENGTH_LONG).show();
+                                //progressBar.setVisibility(View.GONE);
+                            }
                         }
-                    }
-                });
+                    });}
+        catch(Exception e)
+        {}
+
+
     }
 
     private void saveDataLocal(String firstName,String lastName,String phoneNumber,String weight,String height){

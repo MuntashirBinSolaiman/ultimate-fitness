@@ -55,50 +55,53 @@ public class EditProfile extends AppCompatActivity {
 
     public void updateUser(View view){
 
-        String firstName = firstNameTxt.getText().toString();
-        String lastName = lastNameTxt.getText().toString();
-        String phoneNumber = phoneNumberEdit.getText().toString();
-        String weight = weightTxt.getText().toString();
-        String height = heightTxt.getText().toString();
+        try {
+            String firstName = firstNameTxt.getText().toString();
+            String lastName = lastNameTxt.getText().toString();
+            String phoneNumber = phoneNumberEdit.getText().toString();
+            String weight = weightTxt.getText().toString();
+            String height = heightTxt.getText().toString();
 
-        if(!firstName.isEmpty()){
-            SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString(FIRST_NAME,firstName);
-            editor.commit();
-        }
+            if(!firstName.isEmpty()){
+                SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString(FIRST_NAME,firstName);
+                editor.commit();
+            }
 
-        if(!lastName.isEmpty()){
-            SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString(LAST_NAME,lastName);
-            editor.commit();
-        }
+            if(!lastName.isEmpty()){
+                SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString(LAST_NAME,lastName);
+                editor.commit();
+            }
 
-        if(!phoneNumber.isEmpty()){
-            SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString(PHONE_NUMBER,phoneNumber);
-            editor.commit();
-        }
+            if(!phoneNumber.isEmpty()){
+                SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString(PHONE_NUMBER,phoneNumber);
+                editor.commit();
+            }
 
-        if(!weight.isEmpty()){
-            SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString(WEIGHT,weight);
-            editor.commit();
-        }
+            if(!weight.isEmpty()){
+                SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString(WEIGHT,weight);
+                editor.commit();
+            }
 
-        if(!height.isEmpty()){
-            SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString(HEIGHT,height);
-            editor.commit();
-        }
+            if(!height.isEmpty()){
+                SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString(HEIGHT,height);
+                editor.commit();
+            }
 
-        //progressBar.setVisibility(View.VISIBLE);
+            //progressBar.setVisibility(View.VISIBLE);
 
-        updateOnline();
+            updateOnline();
+
+        }catch (Exception e){}
     }
 
     private void updateOnline(){

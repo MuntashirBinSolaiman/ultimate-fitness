@@ -37,7 +37,8 @@ public class EmailSignUp extends AppCompatActivity {
     }
 
     public void registerEmail(View view){
-        AddToFirebase();
+        try{AddToFirebase();}catch(Exception e){}
+
     }
 
     private void AddToFirebase(){
