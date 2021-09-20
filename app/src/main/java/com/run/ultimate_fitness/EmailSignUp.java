@@ -23,7 +23,6 @@ public class EmailSignUp extends AppCompatActivity {
     private EditText emailAddressTxt,passwordTxt,confirmPasswordTxt;
     private ProgressBar secondProgressBar;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

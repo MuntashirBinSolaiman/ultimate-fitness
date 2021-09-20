@@ -10,6 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Ultimate_Fitness">
         <activity
+            android:name=".EditProfile"
+            android:exported="true" />
+        <activity
+            android:name=".ChangePassword"
+            android:exported="true" />
+        <activity
             android:name=".ProfilePage"
             android:exported="true" />
         <activity

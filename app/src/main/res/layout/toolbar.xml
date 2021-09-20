@@ -20,6 +20,7 @@
             android:layout_alignParentLeft="true"/>
 
         <TextView
+            android:id="@+id/toolbarTextView"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -29,6 +30,7 @@
             android:textStyle="bold"
             android:textColor="@color/black"/>
         <TextView
+            android:id="@+id/toolbarLogoutTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Logout"

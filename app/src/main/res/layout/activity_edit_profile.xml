@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ProfilePage">
+    tools:context=".EditProfile">
 
     <include layout="@layout/toolbar"/>
 
@@ -27,19 +26,11 @@
                 android:paddingTop="15dp">
 
                 <de.hdodenhof.circleimageview.CircleImageView
+                    android:onClick="editProfilePic"
                     android:layout_width="110dp"
                     android:layout_height="110dp"
                     android:src="@drawable/ombati" />
-                <TextView
-                    android:id="@+id/fullnameProfileTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Peter Ombati"
-                    android:textColor="@color/login_color_scheme"
-                    android:textSize="20dp"
-                    android:layout_marginTop="8dp"
-                    android:textStyle="bold"/>
-                <View
+
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="@color/login_color_scheme"
@@ -48,7 +39,6 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/firstNameTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -68,16 +58,17 @@
                     android:textStyle="bold"
                     android:textSize="18dp"
                     android:textColor="@color/black"
-                    android:layout_marginLeft="5dp"/>
+                    android:layout_marginLeft="5dp"
+                    android:importantForAutofill="no" />
 
-                <TextView
-                    android:id="@+id/firstNameProfileTextView"
-                    android:layout_width="wrap_content"
+                <EditText
+                    android:id="@+id/firstNameChangeTextView"
+                    android:layout_width="251dp"
                     android:layout_height="wrap_content"
-                    android:text="Peter"
                     android:layout_marginLeft="25dp"
-                    android:textSize="18dp"
-                    android:textColor="@color/darker_grey"/>
+                    android:hint="Tap here"
+                    android:textColor="@color/darker_grey"
+                    android:textSize="18dp"/>
             </LinearLayout>
             <View
                 android:layout_width="match_parent"
@@ -89,34 +80,35 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="25dp"
+                android:layout_marginTop="20dp"
+                android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:paddingStart="15dp"
-                android:paddingEnd="15dp"
-                android:layout_marginTop="20dp"
-                android:gravity="center_vertical">
+                android:paddingEnd="15dp">
 
                 <ImageView
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:src="@drawable/ic_person"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Last Name"
-                    android:textStyle="bold"
-                    android:textSize="18dp"
-                    android:textColor="@color/black"
-                    android:layout_marginLeft="5dp"/>
+                    android:src="@drawable/ic_person" />
 
                 <TextView
-                    android:id="@+id/lastNameProfileTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Ombati"
-                    android:layout_marginLeft="25dp"
+                    android:layout_marginLeft="5dp"
+                    android:text="Last Name"
+                    android:textColor="@color/black"
                     android:textSize="18dp"
-                    android:textColor="@color/darker_grey"/>
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/lastNameChangeEditText"
+                    android:layout_width="248dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="25dp"
+                    android:hint="Tap here"
+                    android:textColor="@color/darker_grey"
+                    android:textSize="18dp" />
             </LinearLayout>
             <View
                 android:layout_width="match_parent"
@@ -148,14 +140,14 @@
                     android:textColor="@color/black"
                     android:layout_marginLeft="5dp"/>
 
-                <TextView
-                    android:id="@+id/phoneNumberProfileTextView"
-                    android:layout_width="wrap_content"
+                <EditText
+                    android:id="@+id/phoneNumberChangeEditText"
+                    android:layout_width="209dp"
                     android:layout_height="wrap_content"
-                    android:text="0810489078"
                     android:layout_marginLeft="25dp"
-                    android:textSize="18dp"
-                    android:textColor="@color/darker_grey"/>
+                    android:hint="Tap here"
+                    android:textColor="@color/darker_grey"
+                    android:textSize="18dp" />
             </LinearLayout>
             <View
                 android:layout_width="match_parent"
@@ -187,14 +179,15 @@
                     android:textColor="@color/black"
                     android:layout_marginLeft="5dp"/>
 
-                <TextView
-                    android:id="@+id/heightProfileTextView"
-                    android:layout_width="wrap_content"
+                <EditText
+                    android:id="@+id/heightChangeEditText"
+                    android:layout_width="279dp"
                     android:layout_height="wrap_content"
-                    android:text="1.75m"
                     android:layout_marginLeft="25dp"
+                    android:hint="Tap here"
+                    android:textColor="@color/darker_grey"
                     android:textSize="18dp"
-                    android:textColor="@color/darker_grey"/>
+                    android:importantForAutofill="no" />
             </LinearLayout>
             <View
                 android:layout_width="match_parent"
@@ -226,14 +219,14 @@
                     android:textColor="@color/black"
                     android:layout_marginLeft="5dp"/>
 
-                <TextView
-                    android:id="@+id/weightProfileTextView"
-                    android:layout_width="wrap_content"
+                <EditText
+                    android:id="@+id/weightChangeEditText"
+                    android:layout_width="280dp"
                     android:layout_height="wrap_content"
-                    android:text="73.4 Kgs"
                     android:layout_marginLeft="25dp"
-                    android:textSize="18dp"
-                    android:textColor="@color/darker_grey"/>
+                    android:hint="Tap here"
+                    android:textColor="@color/darker_grey"
+                    android:textSize="18dp" />
             </LinearLayout>
             <View
                 android:layout_width="match_parent"
@@ -251,42 +244,16 @@
                 android:gravity="center">
 
                 <TextView
-                    android:onClick="editProfileButton"
+                    android:onClick="updateUser"
                     android:layout_width="180dp"
                     android:layout_height="50dp"
                     android:background="@drawable/bg_button"
-                    android:text="Edit Profile"
+                    android:text="Update Profile"
                     android:padding="10dp"
                     android:gravity="center"
                     android:textSize="18dp"
-                    android:drawableLeft="@drawable/ic_edit"
+                    android:drawableLeft="@drawable/ic_arrow_upward"
                     android:paddingLeft="-10dp"/>
-
-                <TextView
-                    android:onClick="changePasswordsButton"
-                    android:layout_width="240dp"
-                    android:layout_height="50dp"
-                    android:background="@drawable/bg_button"
-                    android:text="Change Password"
-                    android:padding="10dp"
-                    android:gravity="center"
-                    android:textSize="18dp"
-                    android:drawableLeft="@drawable/ic_lock"
-                    android:paddingLeft="20dp"
-                    android:layout_marginTop="15dp"/>
-
-                <TextView
-                    android:onClick="deleteProfileButton"
-                    android:layout_width="300dp"
-                    android:layout_height="50dp"
-                    android:background="@drawable/bg_button"
-                    android:text="Delete Profile"
-                    android:padding="10dp"
-                    android:gravity="center"
-                    android:textSize="18dp"
-                    android:drawableLeft="@drawable/ic_delete"
-                    android:paddingLeft="40dp"
-                    android:layout_marginTop="30dp"/>
 
             </LinearLayout>
 
