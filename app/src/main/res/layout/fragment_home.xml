@@ -42,6 +42,7 @@
 
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/icon_user"
+                        android:onClick="goToProfile"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_row="0"
@@ -58,7 +59,6 @@
                     android:layout_gravity="top|right"
                     android:layout_marginTop="40dp"
                     android:layout_marginRight="10dp"
-                    android:onClick="goToProfile"
                     android:src="@drawable/ic_settings" />
 
 <!--                    <TextView
