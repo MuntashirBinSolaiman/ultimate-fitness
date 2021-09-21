@@ -37,8 +37,7 @@ public class EmailSignUp extends AppCompatActivity {
     }
 
     public void registerEmail(View view){
-        try{AddToFirebase();}catch(Exception e){}
-
+        AddToFirebase();
     }
 
     private void AddToFirebase(){
@@ -94,6 +93,8 @@ public class EmailSignUp extends AppCompatActivity {
                             //progressBar.setVisibility(View.VISIBLE);
                             Toast.makeText(EmailSignUp.this,"Email and password registered successfully",Toast.LENGTH_LONG).show();
                             Intent intent = new Intent(EmailSignUp.this, SignUpInformation.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(intent);
                         }else{
                             //something went wrong

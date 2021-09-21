@@ -28,6 +28,7 @@ public class SignUpInformation extends AppCompatActivity {
     public static final String PHONE_NUMBER ="phoneNumber";
     public static final String WEIGHT ="weight";
     public static final String HEIGHT ="height";
+    public static final String IS_LOGGED_IN ="isLoggedIn";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,36 +96,31 @@ public class SignUpInformation extends AppCompatActivity {
         Double finalWeight = Double.parseDouble(weight);
         Double finalHeight = Double.parseDouble(height);
 
-        try
-        {
-            User user = new User(firstName,lastName,finalPhone,finalWeight,finalHeight);
-            FirebaseFirestore db = FirebaseFirestore.getInstance();
-            db.collection("Users")
-                    .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                    .set(user)
-                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if(task.isSuccessful()){
-                                Toast.makeText(SignUpInformation.this,"User has been successfully registered", Toast.LENGTH_LONG).show();
+        User user = new User(firstName,lastName,finalPhone,finalWeight,finalHeight);
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("Users")
+                .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .set(user)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if(task.isSuccessful()){
+                            Toast.makeText(SignUpInformation.this,"User has been successfully registered", Toast.LENGTH_LONG).show();
 
-                                //progressBar.setVisibility(View.VISIBLE);
+                            //progressBar.setVisibility(View.VISIBLE);
 
-                                saveDataLocal(firstName,lastName,phoneNumber,weight,height);
+                            saveDataLocal(firstName,lastName,phoneNumber,weight,height);
 
-                                Intent intent = new Intent(SignUpInformation.this, MainActivity.class);
-                                startActivity(intent);
-                            }else{
-                                Toast.makeText(SignUpInformation.this,"Failed to Register! Please try again!", Toast.LENGTH_LONG).show();
-                                //progressBar.setVisibility(View.GONE);
-                            }
+                            Intent intent = new Intent(SignUpInformation.this, MainActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(intent);
+                        }else{
+                            Toast.makeText(SignUpInformation.this,"Failed to Register! Please try again!", Toast.LENGTH_LONG).show();
+                            //progressBar.setVisibility(View.GONE);
                         }
-                    });}
-        catch(Exception e)
-        {}
-
-
-    }
+                    }
+                });}
 
     private void saveDataLocal(String firstName,String lastName,String phoneNumber,String weight,String height){
         SharedPreferences sharedPreferences = getSharedPreferences(USER_PREFS,MODE_PRIVATE);
@@ -135,6 +131,7 @@ public class SignUpInformation extends AppCompatActivity {
         editor.putString(PHONE_NUMBER,phoneNumber);
         editor.putString(WEIGHT,weight);
         editor.putString(HEIGHT,height);
+        editor.putBoolean(IS_LOGGED_IN,true);
         editor.commit();
     }
 }

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +23,7 @@ public class ChangePassword extends AppCompatActivity {
 
     private TextView toolDisplay, toolLogout;
     private EditText oldPasswordTxt, newPasswordTxt, confirmPasswordTxt, emailTxt;
+    private ImageView backButtonImage;
     private FirebaseUser user;
 
 
@@ -40,9 +42,17 @@ public class ChangePassword extends AppCompatActivity {
         newPasswordTxt = findViewById(R.id.newPasswordChangeEditText);
         confirmPasswordTxt = findViewById(R.id.confirmPasswordChangeEditText);
         emailTxt = findViewById(R.id.emailChangeEditText);
+        backButtonImage =findViewById(R.id.toolbarBackButton);
 
         toolDisplay.setText("Change Password");
         toolLogout.setVisibility(View.GONE);
+
+        backButtonImage.setOnClickListener(v -> {
+            Intent intent = new Intent(ChangePassword.this, ProfilePage.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        });
     }
 
     public void updatePassword(View view){

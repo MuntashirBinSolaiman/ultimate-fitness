@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
@@ -12,9 +13,16 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 
 public class LoginPage extends AppCompatActivity {
@@ -22,12 +30,29 @@ public class LoginPage extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private EditText loginEmailTxt, loginPasswordTxt;
     private ProgressBar TheProgressBar;
+    private String firstName,lastName, phoneNumber, weight,height;
 
+    public static final String USER_PREFS ="userPrefs";
+    public static final String FIRST_NAME ="firstName";
+    public static final String LAST_NAME ="lastName";
+    public static final String PHONE_NUMBER ="phoneNumber";
+    public static final String WEIGHT ="weight";
+    public static final String HEIGHT ="height";
+    public static final String IS_LOGGED_IN ="isLoggedIn";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_page2);
+
+        SharedPreferences sharedPreferences = getSharedPreferences(USER_PREFS, MODE_PRIVATE);
+        boolean loggedIn = sharedPreferences.getBoolean(IS_LOGGED_IN,false);
+        if (loggedIn) {
+            Intent intent = new Intent(LoginPage.this, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        }
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -87,14 +112,58 @@ public class LoginPage extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
-                            Intent intent = new Intent(LoginPage.this, MainActivity.class);
-                            startActivity(intent);
+                            loadData();
                         }else{
                             Toast.makeText(LoginPage.this,"Failed to login! Please check your credentials", Toast.LENGTH_LONG).show();
                             TheProgressBar.setVisibility(View.GONE);
                         }
                     }
                 });
+    }
+
+    private void loadData(){
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        DocumentReference noteRef = db.collection("Users")
+                .document(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                noteRef.get()
+                        .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                            @Override
+                            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                if(documentSnapshot.exists()){
+
+                                    String firstName = documentSnapshot.getString("firstName");
+                                    String lastName = documentSnapshot.getString("lastName");
+                                    String phoneNumber = documentSnapshot.getLong("phoneNumber").toString();
+                                    String weight = documentSnapshot.getDouble("weight").toString();
+                                    String height = documentSnapshot.getDouble("height").toString();
+
+                                    SharedPreferences sharedPreferences = getSharedPreferences(USER_PREFS, MODE_PRIVATE);
+                                    SharedPreferences.Editor editor = sharedPreferences.edit();
+
+                                    editor.putString(FIRST_NAME, firstName);
+                                    editor.putString(LAST_NAME, lastName);
+                                    editor.putString(PHONE_NUMBER, phoneNumber);
+                                    editor.putString(WEIGHT, weight);
+                                    editor.putString(HEIGHT, height);
+                                    editor.putBoolean(IS_LOGGED_IN, true);
+                                    editor.commit();
+
+                                    Intent intent = new Intent(LoginPage.this, MainActivity.class);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                    startActivity(intent);
+                                }else{
+                                    Toast.makeText(LoginPage.this,"Document does not exist",Toast.LENGTH_LONG).show();
+                                }
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(LoginPage.this,"Error!!",Toast.LENGTH_LONG).show();
+                            }
+                        });
     }
 
 }

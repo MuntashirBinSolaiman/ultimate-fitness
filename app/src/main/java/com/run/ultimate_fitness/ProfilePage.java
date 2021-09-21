@@ -1,18 +1,27 @@
 package com.run.ultimate_fitness;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class ProfilePage extends AppCompatActivity {
 
     TextView logoutText, firstNameTextView,lastNameTextView, phoneNumberTextView,heightTextView,weightTextView, fullnameTextView;
+    private ImageView backButtonImage;
 
     public static final String USER_PREFS ="userPrefs";
     public static final String FIRST_NAME ="firstName";
@@ -20,6 +29,7 @@ public class ProfilePage extends AppCompatActivity {
     public static final String PHONE_NUMBER ="phoneNumber";
     public static final String WEIGHT ="weight";
     public static final String HEIGHT ="height";
+    public static final String IS_LOGGED_IN ="isLoggedIn";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,18 +43,34 @@ public class ProfilePage extends AppCompatActivity {
         phoneNumberTextView = findViewById(R.id.phoneNumberProfileTextView);
         heightTextView = findViewById(R.id.heightProfileTextView);
         weightTextView = findViewById(R.id.weightProfileTextView);
+        backButtonImage =findViewById(R.id.toolbarBackButton);
 
         loadValues();
 
         logoutText.setOnClickListener(v -> {
             FirebaseAuth.getInstance().signOut();
+
             Intent intent = new Intent(ProfilePage.this, LoginPage.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            clearData();
             startActivity(intent);
         });
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
         }
+
+        backButtonImage.setOnClickListener(v -> {
+            Intent intent = new Intent(ProfilePage.this, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        });
+    }
+
+    public void onImageClick(View v) {
+
     }
 
     public void editProfileButton(View view){
@@ -52,18 +78,17 @@ public class ProfilePage extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public  void changePasswordsButton(View view){
+    public void changePasswordsButton(View view){
         Intent intent = new Intent(this, ChangePassword.class);
         startActivity(intent);
 
     }
 
-    public  void deleteProfileButton(View view){
-        //Intent intent = new Intent(this, LoginPage.class);
-        //startActivity(intent);
+    public void deleteProfileButton(View view){
+        deleteProfile();
     }
 
-    public void loadValues(){
+    private void loadValues(){
         SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
 
         String firstName = sharedPreferences.getString(FIRST_NAME,"");
@@ -80,4 +105,47 @@ public class ProfilePage extends AppCompatActivity {
         heightTextView.setText(height);
         weightTextView.setText(weight);
     }
+
+    private void clearData(){
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear();
+        editor.commit();
+    }
+
+    private void deleteProfile(){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("Users")
+                .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .delete()
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if(task.isSuccessful()){
+                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                            user.delete()
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if(task.isSuccessful()){
+                                                Toast.makeText(ProfilePage.this,"Profile deleted successfully", Toast.LENGTH_LONG).show();
+                                                clearData();
+                                                Intent intent = new Intent(ProfilePage.this, LoginPage.class);
+                                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                                startActivity(intent);
+
+                                            }else{
+                                                Toast.makeText(ProfilePage.this,"Failed to delete profile please check internet connection", Toast.LENGTH_LONG).show();
+                                                //progressBar.setVisibility(View.GONE);
+                                            }
+                                        }
+                                    });
+                        }else{
+                            Toast.makeText(ProfilePage.this,"Failed to delete data!", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+    }
 }
+

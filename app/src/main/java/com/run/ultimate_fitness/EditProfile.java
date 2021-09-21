@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,6 +20,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class EditProfile extends AppCompatActivity {
 
     private TextView toolDisplayView, toolLogoutView;
+    private ImageView backButtonImage;
     private EditText firstNameTxt, lastNameTxt, phoneNumberEdit, heightTxt, weightTxt;
 
     public static final String USER_PREFS ="userPrefs";
@@ -40,6 +42,7 @@ public class EditProfile extends AppCompatActivity {
 
         toolDisplayView = findViewById(R.id.toolbarTextView);
         toolLogoutView = findViewById(R.id.toolbarLogoutTextView);
+        backButtonImage =findViewById(R.id.toolbarBackButton);
 
         firstNameTxt = findViewById(R.id.firstNameChangeTextView);
         lastNameTxt = findViewById(R.id.lastNameChangeEditText);
@@ -49,59 +52,61 @@ public class EditProfile extends AppCompatActivity {
 
         toolDisplayView.setText("Edit Profile");
         toolLogoutView.setVisibility(View.GONE);
+
+        backButtonImage.setOnClickListener(v -> {
+            Intent intent = new Intent(EditProfile.this, ProfilePage.class);
+            startActivity(intent);
+        });
     }
 
     public void editProfilePic(View view){    }
 
     public void updateUser(View view){
 
-        try {
-            String firstName = firstNameTxt.getText().toString();
-            String lastName = lastNameTxt.getText().toString();
-            String phoneNumber = phoneNumberEdit.getText().toString();
-            String weight = weightTxt.getText().toString();
-            String height = heightTxt.getText().toString();
+        String firstName = firstNameTxt.getText().toString();
+        String lastName = lastNameTxt.getText().toString();
+        String phoneNumber = phoneNumberEdit.getText().toString();
+        String weight = weightTxt.getText().toString();
+        String height = heightTxt.getText().toString();
 
-            if(!firstName.isEmpty()){
-                SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString(FIRST_NAME,firstName);
-                editor.commit();
-            }
+        if(!firstName.isEmpty()){
+            SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString(FIRST_NAME,firstName);
+            editor.commit();
+        }
 
-            if(!lastName.isEmpty()){
-                SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString(LAST_NAME,lastName);
-                editor.commit();
-            }
+        if(!lastName.isEmpty()){
+            SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString(LAST_NAME,lastName);
+            editor.commit();
+        }
 
-            if(!phoneNumber.isEmpty()){
-                SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString(PHONE_NUMBER,phoneNumber);
-                editor.commit();
-            }
+        if(!phoneNumber.isEmpty()){
+            SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString(PHONE_NUMBER,phoneNumber);
+            editor.commit();
+        }
 
-            if(!weight.isEmpty()){
-                SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString(WEIGHT,weight);
-                editor.commit();
-            }
+        if(!weight.isEmpty()){
+            SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString(WEIGHT,weight);
+            editor.commit();
+        }
 
-            if(!height.isEmpty()){
-                SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString(HEIGHT,height);
-                editor.commit();
-            }
+        if(!height.isEmpty()){
+            SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString(HEIGHT,height);
+            editor.commit();
+        }
 
-            //progressBar.setVisibility(View.VISIBLE);
+        //progressBar.setVisibility(View.VISIBLE);
 
-            updateOnline();
-
-        }catch (Exception e){}
+        updateOnline();
     }
 
     private void updateOnline(){
