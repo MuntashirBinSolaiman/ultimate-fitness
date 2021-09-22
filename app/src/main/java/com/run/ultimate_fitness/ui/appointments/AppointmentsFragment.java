@@ -4,6 +4,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,6 +16,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.run.ultimate_fitness.R;
 
 public class AppointmentsFragment extends Fragment {
+    private WebView mWebView;
 
     private AppointmentsViewModel mViewModel;
 
@@ -23,7 +27,19 @@ public class AppointmentsFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_appointments, container, false);
+        View view = inflater.inflate(R.layout.fragment_appointments, container, false);
+
+        mWebView = (WebView) view.findViewById(R.id.webView_Appointments);
+        mWebView.loadUrl("https://www.monash.edu");
+
+        // Enable Javascript
+        WebSettings webSettings = mWebView.getSettings();
+        webSettings.setJavaScriptEnabled(true);
+
+        //Forces the browser to open in the application instead of external browser
+        mWebView.setWebViewClient(new WebViewClient());
+
+        return view;
     }
 
     @Override

@@ -6,14 +6,10 @@
     android:layout_height="match_parent"
     tools:context=".ui.appointments.AppointmentsFragment">
 
-    <TextView
-        android:text="Appointments Page"
+
+    <WebView
+        android:id="@+id/webView_Appointments"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="match_parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
