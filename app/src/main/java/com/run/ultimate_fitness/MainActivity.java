@@ -1,11 +1,10 @@
 package com.run.ultimate_fitness;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -15,6 +14,8 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.run.ultimate_fitness.databinding.ActivityMainBinding;
@@ -23,11 +24,18 @@ public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
 
+
+/*Home tab*/
     private int CurrentProgress = 0;
     private ProgressBar progressBar;
     private Button btnDrink;
     private TextView txtWaterDrankk;
     public int water = 0;
+
+    /*Workouts Tab*/
+    private RecyclerView homeWorkouts;
+    private RecyclerView.Adapter adapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,38 +56,56 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(binding.navView, navController);
         getSupportActionBar().hide();
 
+
+        /*Home tab*/
         txtWaterDrankk = findViewById(R.id.txtWaterDrank);
         btnDrink = findViewById(R.id.btnDrinkWater);
         progressBar = findViewById(R.id.progressBarSteps);
-        //progressBar.setMax(100);
+        progressBar.setMax(100);
 
-    //countDownTimer.start();
+        /*Workouts tab*/
+        homeWorkouts = findViewById(R.id.Rvhome_workouts);
+        homeWorkouts = (RecyclerView) findViewById(R.id.Rvhome_workouts);
+
 
 
 
     }
-    CountDownTimer countDownTimer = new CountDownTimer(11*1000,1000) {
-        @Override
-        public void onTick(long l) {
-            CurrentProgress = CurrentProgress + 10;
-            progressBar.setProgress(CurrentProgress);
 
-        }
 
-        @Override
-        public void onFinish() {
 
-        }
 
-    };
 
-        public void drinkWater(View view)
+    public void drinkWater(View view)
         {
             water++;
              String waterDrank = String.valueOf(water);
              String waterProgress = waterDrank + "/8";
-             txtWaterDrankk.setText("" + water );
+             txtWaterDrankk.setText("" + waterProgress );
             System.out.println(waterProgress);
+            CurrentProgress = CurrentProgress + 10;
+            progressBar.setProgress(CurrentProgress);
+            if (water == 8)
+            {
+                new AlertDialog.Builder(this)
+                        .setTitle("Achievement")
+                        .setMessage("You have completed your daily water goal!")
+
+                        // Specifying a listener allows you to take an action before dismissing the dialog.
+                        // The dialog is automatically dismissed when a dialog button is clicked.
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // Continue with delete operation
+                            }
+                        }).show();
+/*
+
+                        // A null listener allows the button to dismiss the dialog and take no further action.
+                        .setNegativeButton(android.R.string.ok, null)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+*/
+            }
         }
 
         public void goToProfile(View view){

@@ -12,6 +12,7 @@ android {
         targetSdk 30
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -42,8 +43,6 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui:2.3.5'
     implementation 'androidx.preference:preference:1.1.1'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'com.google.firebase:firebase-auth:19.2.0'
-    implementation 'com.google.firebase:firebase-firestore:21.4.0'
     implementation 'com.mikhaellopez:circularimageview:4.3.0'
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
@@ -52,4 +51,15 @@ dependencies {
 
 
     implementation 'de.hdodenhof:circleimageview:3.1.0'
+
+    /*FIREBASE*/
+    implementation 'com.google.firebase:firebase-auth:19.2.0'
+    implementation 'com.google.firebase:firebase-firestore:21.4.0'
+    implementation 'com.google.firebase:firebase-messaging:22.0.0'
+
+    //Multidex
+    implementation 'androidx.multidex:multidex:2.0.1'
+
+
+
 }

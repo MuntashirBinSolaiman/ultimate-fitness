@@ -16,5 +16,12 @@
     <color name="login_color_scheme">#FF3A5C</color>
     <color name="darker_grey">#979797</color>
 
+    <!--Chat Colours-->
+    <color name="primary_text">#142232</color>
+    <color name="secondary_text">#757575</color>
+    <color name="input_background">#ECECEC</color>
+    <color name="icon_backround">#20FFFFFF</color>
+    <color name="error">#B00020</color>
+    <color name="received_message_background">#090D16</color>
 
 </resources>
