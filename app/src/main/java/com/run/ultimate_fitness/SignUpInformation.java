@@ -139,7 +139,7 @@ public class SignUpInformation extends AppCompatActivity {
         editor.putString(PHONE_NUMBER,phoneNumber);
         editor.putString(WEIGHT,weight);
         editor.putString(HEIGHT,height);
-        editor.putBoolean(IS_LOGGED_IN,true);
-        editor.commit();
+        editor.putBoolean(IS_LOGGED_IN,false);
+        editor.apply();
     }
 }

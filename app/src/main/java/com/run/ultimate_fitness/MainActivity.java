@@ -3,6 +3,7 @@ package com.run.ultimate_fitness;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -17,12 +18,20 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.facebook.stetho.Stetho;
+import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.run.ultimate_fitness.adapters.DBAdapter;
 import com.run.ultimate_fitness.databinding.ActivityMainBinding;
+
+import okhttp3.OkHttpClient;
 
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
+
+    public static final String IS_LOGGED_IN ="isLoggedIn";
+    public static final String USER_PREFS ="userPrefs";
 
 
 /*Home tab*/
@@ -40,6 +49,15 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        SharedPreferences sharedPreferences = getSharedPreferences(USER_PREFS, MODE_PRIVATE);
+        boolean loggedIn = sharedPreferences.getBoolean(IS_LOGGED_IN,true);
+        if (loggedIn) {
+            Intent intent = new Intent(MainActivity.this, LoginPage.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        }
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -66,6 +84,36 @@ public class MainActivity extends AppCompatActivity {
         /*Workouts tab*/
         homeWorkouts = findViewById(R.id.Rvhome_workouts);
         homeWorkouts = (RecyclerView) findViewById(R.id.Rvhome_workouts);
+
+        /*Food Database stuff----------------------------------------------------------------*/
+
+        /*Stetho-------------------------------------------------*/
+        Stetho.initializeWithDefaults(this);
+
+        new OkHttpClient.Builder()
+                .addNetworkInterceptor(new StethoInterceptor())
+                .build();
+
+        /* Food Database---------------------------------------------- */
+        DBAdapter db = new DBAdapter(this);
+        db.open();
+
+        /* Food Setup------------------------------------------------- */
+        //count row in food
+        int numberRows = db.count("food");
+
+        //will only run setup if table is empty
+        if (numberRows < 1) {
+            //Run setup
+            //Toast.makeText(this, "Loading setup...", Toast.LENGTH_LONG).show();
+            DBSetupInsert setupInsert = new DBSetupInsert(this);
+            setupInsert.insertAllFood();
+            setupInsert.insertAllCategories();
+            //Toast.makeText(this, "Setup Completed!", Toast.LENGTH_LONG).show();
+        }
+
+        /*close database*/
+        db.close();
 
 
 
