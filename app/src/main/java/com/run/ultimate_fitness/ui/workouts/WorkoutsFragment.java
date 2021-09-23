@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WorkoutsFragment extends Fragment {
-//hey
+
     RecyclerView recyclerView;
     List<workoutsModel> workoutsList;
 
@@ -50,9 +50,24 @@ public class WorkoutsFragment extends Fragment {
     private List<workoutsModel> initData() {
 
         workoutsList = new ArrayList<>();
-        workoutsList.add(new workoutsModel("Push Ups", "Arms", R.drawable.ombati));
-        workoutsList.add(new workoutsModel("Push Ups", "Arms", R.drawable.img_home_workouts));
-        workoutsList.add(new workoutsModel("Push Ups", "Arms", R.drawable.img_home_workouts));
+
+        workoutsList.add(new workoutsModel("Tricep Dips", "Tricep", R.drawable.img_home_workouts));
+
+        workoutsList.add(new workoutsModel("Jump Squats", "Legs", R.drawable.img_home_workouts));
+        workoutsList.add(new workoutsModel("Split Squats", "Legs", R.drawable.img_home_workouts));
+        workoutsList.add(new workoutsModel("Forward Box Squat Lunges", "Legs", R.drawable.img_home_workouts));
+        workoutsList.add(new workoutsModel("Reverse Box Squat Lunge", "Legs", R.drawable.img_home_workouts));
+        workoutsList.add(new workoutsModel("Calf Raises", "Legs", R.drawable.img_home_workouts));
+
+        workoutsList.add(new workoutsModel("Chest Incline", "Chest", R.drawable.img_home_workouts));
+        workoutsList.add(new workoutsModel("Chest Decline", "Chest", R.drawable.img_home_workouts));
+        workoutsList.add(new workoutsModel("Chest Standard", "Chest", R.drawable.img_home_workouts));
+        workoutsList.add(new workoutsModel("Diamonds", "Chest", R.drawable.img_home_workouts));
+        workoutsList.add(new workoutsModel("Zig-Zag", "Chest", R.drawable.img_home_workouts));
+
+        workoutsList.add(new workoutsModel("Pull-Ups", "Back", R.drawable.img_home_workouts));
+
+
         return workoutsList;
     }
 
