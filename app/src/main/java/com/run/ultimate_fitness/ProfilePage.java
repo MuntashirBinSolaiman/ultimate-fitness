@@ -8,7 +8,6 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.util.Base64;
 import android.view.View;
 import android.widget.ImageView;
@@ -23,7 +22,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class ProfilePage extends AppCompatActivity {
 
-    TextView logoutText, firstNameTextView,lastNameTextView, phoneNumberTextView,heightTextView,weightTextView, fullnameTextView;
+    TextView logoutText, firstNameTextView,lastNameTextView, phoneNumberTextView,heightTextView,weightTextView, fullNameTextView;
     private ImageView backButtonImage, displayImage;
 
     public static final String USER_PREFS ="userPrefs";
@@ -43,7 +42,7 @@ public class ProfilePage extends AppCompatActivity {
         displayImage = findViewById(R.id.profilePicture);
         firstNameTextView = findViewById(R.id.firstNameProfileTextView);
         lastNameTextView = findViewById(R.id.lastNameProfileTextView);
-        fullnameTextView = findViewById(R.id.fullnameProfileTextView);
+        fullNameTextView = findViewById(R.id.fullnameProfileTextView);
         phoneNumberTextView = findViewById(R.id.phoneNumberProfileTextView);
         heightTextView = findViewById(R.id.heightProfileTextView);
         weightTextView = findViewById(R.id.weightProfileTextView);
@@ -101,7 +100,7 @@ public class ProfilePage extends AppCompatActivity {
 
         firstNameTextView.setText(firstName);
         lastNameTextView.setText(lastName);
-        fullnameTextView.setText(fullName);
+        fullNameTextView.setText(fullName);
         phoneNumberTextView.setText(phoneNumber);
         heightTextView.setText(height);
         weightTextView.setText(weight);
