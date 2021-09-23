@@ -5,8 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.util.Base64;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -21,7 +24,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class ProfilePage extends AppCompatActivity {
 
     TextView logoutText, firstNameTextView,lastNameTextView, phoneNumberTextView,heightTextView,weightTextView, fullnameTextView;
-    private ImageView backButtonImage;
+    private ImageView backButtonImage, displayImage;
 
     public static final String USER_PREFS ="userPrefs";
     public static final String FIRST_NAME ="firstName";
@@ -29,7 +32,7 @@ public class ProfilePage extends AppCompatActivity {
     public static final String PHONE_NUMBER ="phoneNumber";
     public static final String WEIGHT ="weight";
     public static final String HEIGHT ="height";
-    public static final String IS_LOGGED_IN ="isLoggedIn";
+    public static final String PICTURE ="picture";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +40,7 @@ public class ProfilePage extends AppCompatActivity {
         setContentView(R.layout.activity_profile_page);
 
         logoutText = findViewById(R.id.toolbarLogoutTextView);
+        displayImage = findViewById(R.id.profilePicture);
         firstNameTextView = findViewById(R.id.firstNameProfileTextView);
         lastNameTextView = findViewById(R.id.lastNameProfileTextView);
         fullnameTextView = findViewById(R.id.fullnameProfileTextView);
@@ -92,14 +96,16 @@ public class ProfilePage extends AppCompatActivity {
         String phoneNumber = sharedPreferences.getString(PHONE_NUMBER,"");
         String weight = sharedPreferences.getString(WEIGHT,"");
         String height = sharedPreferences.getString(HEIGHT,"");
-        String fullname = firstName +" "+ lastName;
+        String picture = sharedPreferences.getString(PICTURE,"");
+        String fullName = firstName +" "+ lastName;
 
         firstNameTextView.setText(firstName);
         lastNameTextView.setText(lastName);
-        fullnameTextView.setText(fullname);
+        fullnameTextView.setText(fullName);
         phoneNumberTextView.setText(phoneNumber);
         heightTextView.setText(height);
         weightTextView.setText(weight);
+        displayImage.setImageBitmap(StringToBitMap(picture));
     }
 
     private void clearData(){
@@ -142,6 +148,17 @@ public class ProfilePage extends AppCompatActivity {
                         }
                     }
                 });
+    }
+
+    public Bitmap StringToBitMap(String encodedString){
+        try {
+            byte [] encodeByte= Base64.decode(encodedString,Base64.DEFAULT);
+            Bitmap bitmap= BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+            return bitmap;
+        } catch(Exception e) {
+            e.getMessage();
+            return null;
+        }
     }
 }
 

@@ -19,6 +19,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -31,6 +32,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,6 +50,7 @@ public class EditProfile extends AppCompatActivity {
     public static final String PHONE_NUMBER ="phoneNumber";
     public static final String WEIGHT ="weight";
     public static final String HEIGHT ="height";
+    public static final String PICTURE ="picture";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +78,8 @@ public class EditProfile extends AppCompatActivity {
         toolDisplayView.setText("Edit Profile");
         toolLogoutView.setVisibility(View.GONE);
 
+        loadImage();
+
         backButtonImage.setOnClickListener(v -> {
             Intent intent = new Intent(EditProfile.this, ProfilePage.class);
             startActivity(intent);
@@ -85,7 +90,8 @@ public class EditProfile extends AppCompatActivity {
 
         if(checkAndRequestPermissions(EditProfile.this)) {
             chooseImage(EditProfile.this);
-        } }
+        }
+    }
 
     public void updateUser(View view){
 
@@ -145,12 +151,14 @@ public class EditProfile extends AppCompatActivity {
         String phoneNumber = sharedPreferences.getString(PHONE_NUMBER,"");
         String weight = sharedPreferences.getString(WEIGHT,"");
         String height = sharedPreferences.getString(HEIGHT,"");
+        String picture = sharedPreferences.getString(PICTURE,"");
 
         int finalPhone = Integer.parseInt(phoneNumber);
         Double finalWeight = Double.parseDouble(weight);
         Double finalHeight = Double.parseDouble(height);
 
-        User user = new User(firstName,lastName,finalPhone,finalWeight,finalHeight);
+
+        User user = new User(firstName,lastName,finalPhone,finalWeight,finalHeight,picture);
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("Users")
@@ -259,6 +267,12 @@ public class EditProfile extends AppCompatActivity {
                 case 0:
                     if (resultCode == RESULT_OK && data != null) {
                         Bitmap selectedImage = (Bitmap) data.getExtras().get("data");
+
+                        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString(PICTURE,BitMapToString(selectedImage));
+                        editor.apply();
+
                         profilePicImage.setImageBitmap(selectedImage);
                     }
                     break;
@@ -272,7 +286,14 @@ public class EditProfile extends AppCompatActivity {
                                 cursor.moveToFirst();
                                 int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
                                 String picturePath = cursor.getString(columnIndex);
+
                                 profilePicImage.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+                                String bitMapAgain = BitMapToString(BitmapFactory.decodeFile(picturePath));
+                                SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                editor.putString(PICTURE,bitMapAgain);
+                                editor.apply();
+
                                 cursor.close();
                             }
                         }
@@ -281,4 +302,31 @@ public class EditProfile extends AppCompatActivity {
             }
         }
     }
+
+    public String BitMapToString(Bitmap bitmap) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+        byte[] b = baos.toByteArray();
+        String temp = Base64.encodeToString(b, Base64.DEFAULT);
+        return temp;
+    }
+
+    public Bitmap StringToBitMap(String encodedString){
+        try {
+            byte [] encodeByte= Base64.decode(encodedString,Base64.DEFAULT);
+            Bitmap bitmap= BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+            return bitmap;
+        } catch(Exception e) {
+            e.getMessage();
+            return null;
+        }
+    }
+
+    public void loadImage(){
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
+        String picture = sharedPreferences.getString(PICTURE,"");
+        profilePicImage.setImageBitmap(StringToBitMap(picture));
+    }
+
+
 }

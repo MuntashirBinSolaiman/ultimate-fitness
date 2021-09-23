@@ -41,6 +41,7 @@ public class LoginPage extends AppCompatActivity {
     public static final String PHONE_NUMBER ="phoneNumber";
     public static final String WEIGHT ="weight";
     public static final String HEIGHT ="height";
+    public static final String PICTURE ="picture";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -137,6 +138,7 @@ public class LoginPage extends AppCompatActivity {
                             String phoneNumber = documentSnapshot.getLong("phoneNumber").toString();
                             String weight = documentSnapshot.getDouble("weight").toString();
                             String height = documentSnapshot.getDouble("height").toString();
+                            String picture = documentSnapshot.getString("picture").toString();
 
                             SharedPreferences sharedPreferences = getSharedPreferences(USER_PREFS, MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -146,6 +148,7 @@ public class LoginPage extends AppCompatActivity {
                             editor.putString(PHONE_NUMBER, phoneNumber);
                             editor.putString(WEIGHT, weight);
                             editor.putString(HEIGHT, height);
+                            editor.putString(PICTURE, picture);
                             editor.putBoolean(IS_LOGGED_IN, false);
                             editor.apply();
 
