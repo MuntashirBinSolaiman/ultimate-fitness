@@ -34,13 +34,13 @@ public class LoginPage extends AppCompatActivity {
     private String firstName,lastName, phoneNumber, weight,height;
     private TextView loginButton;
 
+    public static final String IS_LOGGED_IN ="isLoggedIn";
     public static final String USER_PREFS ="userPrefs";
     public static final String FIRST_NAME ="firstName";
     public static final String LAST_NAME ="lastName";
     public static final String PHONE_NUMBER ="phoneNumber";
     public static final String WEIGHT ="weight";
     public static final String HEIGHT ="height";
-    public static final String IS_LOGGED_IN ="isLoggedIn";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,15 +49,6 @@ public class LoginPage extends AppCompatActivity {
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
-        }
-
-        SharedPreferences sharedPreferences = getSharedPreferences(USER_PREFS, MODE_PRIVATE);
-        boolean loggedIn = sharedPreferences.getBoolean(IS_LOGGED_IN,false);
-        if (loggedIn) {
-            Intent intent = new Intent(LoginPage.this, MainActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
         }
 
         mAuth = FirebaseAuth.getInstance();
@@ -155,8 +146,8 @@ public class LoginPage extends AppCompatActivity {
                             editor.putString(PHONE_NUMBER, phoneNumber);
                             editor.putString(WEIGHT, weight);
                             editor.putString(HEIGHT, height);
-                            editor.putBoolean(IS_LOGGED_IN, true);
-                            editor.commit();
+                            editor.putBoolean(IS_LOGGED_IN, false);
+                            editor.apply();
 
                             Intent intent = new Intent(LoginPage.this, MainActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
