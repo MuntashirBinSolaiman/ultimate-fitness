@@ -12,7 +12,7 @@
         <GridLayout
             android:id="@+id/gridTop"
             android:layout_width="match_parent"
-            android:layout_height="175dp"
+            android:layout_height="100dp"
             android:columnCount="1"
             android:rowCount="1"
             android:paddingBottom="10dp">
