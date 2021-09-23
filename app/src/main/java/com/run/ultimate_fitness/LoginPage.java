@@ -10,7 +10,6 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -32,7 +31,6 @@ public class LoginPage extends AppCompatActivity {
     private EditText loginEmailTxt, loginPasswordTxt;
     private ProgressBar TheProgressBar;
     private String firstName,lastName, phoneNumber, weight,height;
-    private TextView loginButton;
 
     public static final String USER_PREFS ="userPrefs";
     public static final String FIRST_NAME ="firstName";
@@ -47,10 +45,6 @@ public class LoginPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_page2);
 
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().hide();
-        }
-
         SharedPreferences sharedPreferences = getSharedPreferences(USER_PREFS, MODE_PRIVATE);
         boolean loggedIn = sharedPreferences.getBoolean(IS_LOGGED_IN,false);
         if (loggedIn) {
@@ -64,8 +58,7 @@ public class LoginPage extends AppCompatActivity {
 
         loginEmailTxt = findViewById(R.id.loginUsernameEditText);
         loginPasswordTxt = findViewById(R.id.loginPasswordEditText);
-        TheProgressBar = findViewById(R.id.loginProgressbar);
-        loginButton = findViewById(R.id.loginButton);
+        TheProgressBar = findViewById(R.id.emailProgressBar);
     }
 
     public void login(View view){
@@ -112,7 +105,6 @@ public class LoginPage extends AppCompatActivity {
             return;
         }
 
-        loginButton.setVisibility(View.GONE);
         TheProgressBar.setVisibility(View.VISIBLE);
 
         mAuth.signInWithEmailAndPassword(email,password)
@@ -124,7 +116,6 @@ public class LoginPage extends AppCompatActivity {
                         }else{
                             Toast.makeText(LoginPage.this,"Failed to login! Please check your credentials", Toast.LENGTH_LONG).show();
                             TheProgressBar.setVisibility(View.GONE);
-                            loginButton.setVisibility(View.VISIBLE);
                         }
                     }
                 });
@@ -164,7 +155,6 @@ public class LoginPage extends AppCompatActivity {
                                     startActivity(intent);
                                 }else{
                                     Toast.makeText(LoginPage.this,"Document does not exist",Toast.LENGTH_LONG).show();
-                                    loginButton.setVisibility(View.VISIBLE);
                                 }
                             }
                         })

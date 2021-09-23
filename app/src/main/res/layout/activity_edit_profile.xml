@@ -26,7 +26,6 @@
                 android:paddingTop="15dp">
 
                 <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/imageImageView"
                     android:onClick="editProfilePic"
                     android:layout_width="110dp"
                     android:layout_height="110dp"
@@ -55,7 +54,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="First Name  "
+                    android:text="FirstName"
                     android:textStyle="bold"
                     android:textSize="18dp"
                     android:textColor="@color/black"
@@ -64,11 +63,10 @@
 
                 <EditText
                     android:id="@+id/firstNameChangeTextView"
-                    android:layout_width="239dp"
+                    android:layout_width="251dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="25dp"
                     android:hint="Tap here"
-                    android:inputType="textPersonName"
                     android:textColor="@color/darker_grey"
                     android:textSize="18dp"/>
             </LinearLayout>
@@ -98,20 +96,19 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
-                    android:text="Last Name   "
+                    android:text="Last Name"
                     android:textColor="@color/black"
                     android:textSize="18dp"
                     android:textStyle="bold" />
 
                 <EditText
                     android:id="@+id/lastNameChangeEditText"
-                    android:layout_width="239dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="248dp"
+                    android:layout_height="match_parent"
                     android:layout_marginLeft="25dp"
                     android:hint="Tap here"
-                    android:inputType="textPersonName"
                     android:textColor="@color/darker_grey"
-                    android:textSize="18dp"/>
+                    android:textSize="18dp" />
             </LinearLayout>
             <View
                 android:layout_width="match_parent"
@@ -149,7 +146,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="25dp"
                     android:hint="Tap here"
-                    android:inputType="phone"
                     android:textColor="@color/darker_grey"
                     android:textSize="18dp" />
             </LinearLayout>
@@ -191,7 +187,6 @@
                     android:hint="Tap here"
                     android:textColor="@color/darker_grey"
                     android:textSize="18dp"
-                    android:inputType="numberDecimal"
                     android:importantForAutofill="no" />
             </LinearLayout>
             <View
@@ -231,8 +226,7 @@
                     android:layout_marginLeft="25dp"
                     android:hint="Tap here"
                     android:textColor="@color/darker_grey"
-                    android:textSize="18dp"
-                    android:inputType="numberDecimal"/>
+                    android:textSize="18dp" />
             </LinearLayout>
             <View
                 android:layout_width="match_parent"
@@ -249,15 +243,7 @@
                 android:orientation="vertical"
                 android:gravity="center">
 
-                <ProgressBar
-                    android:id="@+id/updateProgressbar"
-                    style="?android:attr/progressBarStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:visibility="gone"/>
-
                 <TextView
-                    android:id="@+id/updateUserButton"
                     android:onClick="updateUser"
                     android:layout_width="180dp"
                     android:layout_height="50dp"
