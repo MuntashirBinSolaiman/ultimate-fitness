@@ -10,6 +10,7 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -31,6 +32,7 @@ public class LoginPage extends AppCompatActivity {
     private EditText loginEmailTxt, loginPasswordTxt;
     private ProgressBar TheProgressBar;
     private String firstName,lastName, phoneNumber, weight,height;
+    private TextView loginButton;
 
     public static final String USER_PREFS ="userPrefs";
     public static final String FIRST_NAME ="firstName";
@@ -45,6 +47,10 @@ public class LoginPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_page2);
 
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
+
         SharedPreferences sharedPreferences = getSharedPreferences(USER_PREFS, MODE_PRIVATE);
         boolean loggedIn = sharedPreferences.getBoolean(IS_LOGGED_IN,false);
         if (loggedIn) {
@@ -58,7 +64,8 @@ public class LoginPage extends AppCompatActivity {
 
         loginEmailTxt = findViewById(R.id.loginUsernameEditText);
         loginPasswordTxt = findViewById(R.id.loginPasswordEditText);
-        TheProgressBar = findViewById(R.id.emailProgressBar);
+        TheProgressBar = findViewById(R.id.loginProgressbar);
+        loginButton = findViewById(R.id.loginButton);
     }
 
     public void login(View view){
@@ -105,6 +112,7 @@ public class LoginPage extends AppCompatActivity {
             return;
         }
 
+        loginButton.setVisibility(View.GONE);
         TheProgressBar.setVisibility(View.VISIBLE);
 
         mAuth.signInWithEmailAndPassword(email,password)
@@ -116,6 +124,7 @@ public class LoginPage extends AppCompatActivity {
                         }else{
                             Toast.makeText(LoginPage.this,"Failed to login! Please check your credentials", Toast.LENGTH_LONG).show();
                             TheProgressBar.setVisibility(View.GONE);
+                            loginButton.setVisibility(View.VISIBLE);
                         }
                     }
                 });
@@ -126,44 +135,45 @@ public class LoginPage extends AppCompatActivity {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         DocumentReference noteRef = db.collection("Users")
                 .document(FirebaseAuth.getInstance().getCurrentUser().getUid());
-                noteRef.get()
-                        .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                            @Override
-                            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                if(documentSnapshot.exists()){
+        noteRef.get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        if(documentSnapshot.exists()){
 
-                                    String firstName = documentSnapshot.getString("firstName");
-                                    String lastName = documentSnapshot.getString("lastName");
-                                    String phoneNumber = documentSnapshot.getLong("phoneNumber").toString();
-                                    String weight = documentSnapshot.getDouble("weight").toString();
-                                    String height = documentSnapshot.getDouble("height").toString();
+                            String firstName = documentSnapshot.getString("firstName");
+                            String lastName = documentSnapshot.getString("lastName");
+                            String phoneNumber = documentSnapshot.getLong("phoneNumber").toString();
+                            String weight = documentSnapshot.getDouble("weight").toString();
+                            String height = documentSnapshot.getDouble("height").toString();
 
-                                    SharedPreferences sharedPreferences = getSharedPreferences(USER_PREFS, MODE_PRIVATE);
-                                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                            SharedPreferences sharedPreferences = getSharedPreferences(USER_PREFS, MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
 
-                                    editor.putString(FIRST_NAME, firstName);
-                                    editor.putString(LAST_NAME, lastName);
-                                    editor.putString(PHONE_NUMBER, phoneNumber);
-                                    editor.putString(WEIGHT, weight);
-                                    editor.putString(HEIGHT, height);
-                                    editor.putBoolean(IS_LOGGED_IN, true);
-                                    editor.commit();
+                            editor.putString(FIRST_NAME, firstName);
+                            editor.putString(LAST_NAME, lastName);
+                            editor.putString(PHONE_NUMBER, phoneNumber);
+                            editor.putString(WEIGHT, weight);
+                            editor.putString(HEIGHT, height);
+                            editor.putBoolean(IS_LOGGED_IN, true);
+                            editor.commit();
 
-                                    Intent intent = new Intent(LoginPage.this, MainActivity.class);
-                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                    startActivity(intent);
-                                }else{
-                                    Toast.makeText(LoginPage.this,"Document does not exist",Toast.LENGTH_LONG).show();
-                                }
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(LoginPage.this,"Error!!",Toast.LENGTH_LONG).show();
-                            }
-                        });
+                            Intent intent = new Intent(LoginPage.this, MainActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(intent);
+                        }else{
+                            Toast.makeText(LoginPage.this,"Document does not exist",Toast.LENGTH_LONG).show();
+                            loginButton.setVisibility(View.VISIBLE);
+                        }
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(LoginPage.this,"Error!!",Toast.LENGTH_LONG).show();
+                    }
+                });
     }
 
 }

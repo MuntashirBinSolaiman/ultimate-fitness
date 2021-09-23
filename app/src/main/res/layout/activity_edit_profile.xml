@@ -26,15 +26,16 @@
                 android:paddingTop="15dp">
 
                 <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/imageImageView"
                     android:onClick="editProfilePic"
                     android:layout_width="110dp"
                     android:layout_height="110dp"
                     android:src="@drawable/ombati" />
 
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/login_color_scheme"
-                    android:layout_marginTop="10dp"/>
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/login_color_scheme"
+                android:layout_marginTop="10dp"/>
 
             </LinearLayout>
 
@@ -54,7 +55,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="FirstName"
+                    android:text="First Name  "
                     android:textStyle="bold"
                     android:textSize="18dp"
                     android:textColor="@color/black"
@@ -63,10 +64,11 @@
 
                 <EditText
                     android:id="@+id/firstNameChangeTextView"
-                    android:layout_width="251dp"
+                    android:layout_width="239dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="25dp"
                     android:hint="Tap here"
+                    android:inputType="textPersonName"
                     android:textColor="@color/darker_grey"
                     android:textSize="18dp"/>
             </LinearLayout>
@@ -96,19 +98,20 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
-                    android:text="Last Name"
+                    android:text="Last Name   "
                     android:textColor="@color/black"
                     android:textSize="18dp"
                     android:textStyle="bold" />
 
                 <EditText
                     android:id="@+id/lastNameChangeEditText"
-                    android:layout_width="248dp"
-                    android:layout_height="match_parent"
+                    android:layout_width="239dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="25dp"
                     android:hint="Tap here"
+                    android:inputType="textPersonName"
                     android:textColor="@color/darker_grey"
-                    android:textSize="18dp" />
+                    android:textSize="18dp"/>
             </LinearLayout>
             <View
                 android:layout_width="match_parent"
@@ -146,6 +149,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="25dp"
                     android:hint="Tap here"
+                    android:inputType="phone"
                     android:textColor="@color/darker_grey"
                     android:textSize="18dp" />
             </LinearLayout>
@@ -187,6 +191,7 @@
                     android:hint="Tap here"
                     android:textColor="@color/darker_grey"
                     android:textSize="18dp"
+                    android:inputType="numberDecimal"
                     android:importantForAutofill="no" />
             </LinearLayout>
             <View
@@ -226,7 +231,8 @@
                     android:layout_marginLeft="25dp"
                     android:hint="Tap here"
                     android:textColor="@color/darker_grey"
-                    android:textSize="18dp" />
+                    android:textSize="18dp"
+                    android:inputType="numberDecimal"/>
             </LinearLayout>
             <View
                 android:layout_width="match_parent"
@@ -243,7 +249,15 @@
                 android:orientation="vertical"
                 android:gravity="center">
 
+                <ProgressBar
+                    android:id="@+id/updateProgressbar"
+                    style="?android:attr/progressBarStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"/>
+
                 <TextView
+                    android:id="@+id/updateUserButton"
                     android:onClick="updateUser"
                     android:layout_width="180dp"
                     android:layout_height="50dp"
