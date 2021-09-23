@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -20,6 +21,7 @@ public class SignUpInformation extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private EditText firstNameTxt,lastNameTxt,phoneNumberTxt, weightNameTxt,heightNameTxt;
+    private TextView addInfoButton;
     private ProgressBar progressBar;
 
     public static final String USER_PREFS ="userPrefs";
@@ -47,11 +49,14 @@ public class SignUpInformation extends AppCompatActivity {
         weightNameTxt = findViewById(R.id.weightEditTextNumberDecimal);
         heightNameTxt = findViewById(R.id.heightEditTextNumberDecimal);
         progressBar = findViewById(R.id.registerProgressBar);
+        addInfoButton = findViewById(R.id.submitInformationButton);
     }
 
     public void submitInformation(View view){
         registerUser();
     }
+
+    public  void addProfilePic(View view){}
 
     private void registerUser(){
         String firstName = firstNameTxt.getText().toString();
@@ -90,7 +95,8 @@ public class SignUpInformation extends AppCompatActivity {
             return;
         }
 
-        //progressBar.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.VISIBLE);
+        addInfoButton.setVisibility(View.GONE);
 
         int finalPhone = Integer.parseInt(phoneNumber);
         Double finalWeight = Double.parseDouble(weight);
@@ -107,7 +113,8 @@ public class SignUpInformation extends AppCompatActivity {
                         if(task.isSuccessful()){
                             Toast.makeText(SignUpInformation.this,"User has been successfully registered", Toast.LENGTH_LONG).show();
 
-                            //progressBar.setVisibility(View.VISIBLE);
+                            progressBar.setVisibility(View.VISIBLE);
+                            addInfoButton.setVisibility(View.GONE);
 
                             saveDataLocal(firstName,lastName,phoneNumber,weight,height);
 
@@ -117,7 +124,8 @@ public class SignUpInformation extends AppCompatActivity {
                             startActivity(intent);
                         }else{
                             Toast.makeText(SignUpInformation.this,"Failed to Register! Please try again!", Toast.LENGTH_LONG).show();
-                            //progressBar.setVisibility(View.GONE);
+                            progressBar.setVisibility(View.GONE);
+                            addInfoButton.setVisibility(View.VISIBLE);
                         }
                     }
                 });}
