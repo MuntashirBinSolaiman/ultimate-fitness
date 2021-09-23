@@ -104,6 +104,15 @@
                 app:cardCornerRadius="8dp"
                 app:cardElevation="4dp">
 
+                <ImageButton
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right|top"
+                    android:background="@color/white"
+                    android:padding="5dp"
+                    android:src="@drawable/ic_more" />
+
 
                 <GridLayout
                     android:layout_width="match_parent"
@@ -175,7 +184,9 @@
 
             </androidx.cardview.widget.CardView>
 
-?            <FrameLayout
+            ?
+
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_columnSpan="2">
@@ -196,6 +207,15 @@
                         android:layout_margin="8dp"
                         app:cardCornerRadius="8dp"
                         app:cardElevation="4dp">
+
+                        <ImageButton
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right|top"
+                            android:background="@color/white"
+                            android:padding="5dp"
+                            android:src="@drawable/ic_more" />
 
 
                         <GridLayout
@@ -271,9 +291,7 @@
                             android:layout_height="match_parent"
                             android:layout_gravity="center"
                             android:columnCount="1"
-                            android:paddingLeft="4dp"
                             android:rowCount="1">
-
 
 
                             <LinearLayout
@@ -284,8 +302,8 @@
 
                                 <ProgressBar
                                     android:id="@+id/progressBarSteps"
-                                    android:layout_width="100dp"
-                                    android:layout_height="100dp"
+                                    android:layout_width="75dp"
+                                    android:layout_height="75dp"
                                     android:indeterminateOnly="true" />
 
                             </LinearLayout>
@@ -307,6 +325,15 @@
                 android:layout_margin="8dp"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="4dp">
+
+                <ImageButton
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right|top"
+                    android:background="@color/white"
+                    android:padding="5dp"
+                    android:src="@drawable/ic_more" />
 
 
                 <GridLayout

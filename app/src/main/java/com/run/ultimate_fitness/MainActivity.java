@@ -77,8 +77,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
-
     public void drinkWater(View view)
         {
             water++;

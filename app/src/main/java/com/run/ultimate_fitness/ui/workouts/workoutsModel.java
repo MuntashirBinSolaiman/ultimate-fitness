@@ -5,6 +5,10 @@ public class workoutsModel {
     private String workout_name;
     private String workout_zone;
     private String workout_description;
+    private int workout_image;
+
+
+
 
     public int getWorkout_image() {
         return workout_image;
@@ -13,9 +17,6 @@ public class workoutsModel {
     public void setWorkout_image(int workout_image) {
         this.workout_image = workout_image;
     }
-
-    private int workout_image;
-
 
 
 
@@ -36,6 +37,8 @@ public class workoutsModel {
     public void setWorkout_name(String workout_name) {
         this.workout_name = workout_name;
     }
+
+
 
     public String getWorkout_description() {
         return workout_description;

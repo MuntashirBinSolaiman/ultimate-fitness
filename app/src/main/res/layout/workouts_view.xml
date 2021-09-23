@@ -14,31 +14,31 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:cardCornerRadius="15dp"
-        app:cardElevation="10dp">
+        app:cardCornerRadius="15dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="10dp">
+            android:padding="0dp">
 
             <ImageView
                 android:id="@+id/img_workout"
-                android:layout_width="200dp"
-                android:layout_height="150dp"
+                android:layout_width="250dp"
+                android:layout_height="141dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ombati" />
+                app:srcCompat="@drawable/img_home_workouts" />
 
             <TextView
                 android:id="@+id/txtWorkoutZone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Muscle Zone"
-                android:textSize="15dp"
+                android:textSize="14dp"
                 android:textStyle="bold"
+                android:paddingLeft="10dp"
                 app:layout_constraintStart_toStartOf="@+id/img_workout"
                 app:layout_constraintTop_toBottomOf="@+id/img_workout" />
 
@@ -46,8 +46,10 @@
                 android:id="@+id/txtWorkoutName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
                 android:text="Exercise Name"
-                android:textSize="18dp"
+                android:textSize="14dp"
+                android:paddingBottom="5dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/img_workout"
                 app:layout_constraintTop_toBottomOf="@+id/txtWorkoutZone" />
