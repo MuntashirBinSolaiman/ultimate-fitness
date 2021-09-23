@@ -9,6 +9,7 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -21,19 +22,26 @@ public class EmailSignUp extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private EditText emailAddressTxt,passwordTxt,confirmPasswordTxt;
-    private ProgressBar secondProgressBar;
+    private TextView addEmailButton;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_email_sign_up);
 
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
+
+
         mAuth = FirebaseAuth.getInstance();
 
         emailAddressTxt = findViewById(R.id.signUpUsernameEditText);
+        addEmailButton =findViewById(R.id.addEmailButton);
         passwordTxt = findViewById(R.id.signUpPasswordEditText);
         confirmPasswordTxt = findViewById(R.id.confirmSignUpPassword);
-        secondProgressBar = findViewById(R.id.emailProgressBar);
+        progressBar = findViewById(R.id.loginProgressbar);
     }
 
     public void registerEmail(View view){
@@ -83,14 +91,17 @@ public class EmailSignUp extends AppCompatActivity {
             return;
         }
 
-        //secondProgressBar.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.VISIBLE);
+        addEmailButton.setVisibility(View.GONE);
 
         mAuth.createUserWithEmailAndPassword(email,password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
-                            //progressBar.setVisibility(View.VISIBLE);
+                            progressBar.setVisibility(View.VISIBLE);
+                            addEmailButton.setVisibility(View.GONE);
+
                             Toast.makeText(EmailSignUp.this,"Email and password registered successfully",Toast.LENGTH_LONG).show();
                             Intent intent = new Intent(EmailSignUp.this, SignUpInformation.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -99,7 +110,8 @@ public class EmailSignUp extends AppCompatActivity {
                         }else{
                             //something went wrong
                             Toast.makeText(EmailSignUp.this,"Failed to registers email and password", Toast.LENGTH_LONG).show();
-                            secondProgressBar.setVisibility(View.GONE);
+                            progressBar.setVisibility(View.GONE);
+                            addEmailButton.setVisibility(View.VISIBLE);
                         }
                     }
                 });
