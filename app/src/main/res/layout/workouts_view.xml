@@ -15,7 +15,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:padding="0dp"
-        app:cardCornerRadius="2.5dp"
+        app:cardCornerRadius="1dp"
         android:elevation="0dp">
 
 
@@ -58,6 +58,12 @@
                 android:paddingBottom="5dp"
                 app:layout_constraintBottom_toBottomOf="@id/img_workout"
                 app:layout_constraintStart_toStartOf="@+id/img_workout"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_arrow_forward"
+                />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
