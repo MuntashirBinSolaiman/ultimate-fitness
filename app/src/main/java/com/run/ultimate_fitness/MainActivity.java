@@ -57,20 +57,20 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         SharedPreferences sharedPreferences = getSharedPreferences(USER_PREFS, MODE_PRIVATE);
-        boolean loggedIn = sharedPreferences.getBoolean(IS_LOGGED_IN,true);
+        boolean loggedIn = sharedPreferences.getBoolean(IS_LOGGED_IN,false);
         if (loggedIn) {
             Intent intent = new Intent(MainActivity.this, LoginPage.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
-
-            loadImage();
         }
 
-        profilePicImage = findViewById(R.id.icon_user);
+
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
@@ -83,6 +83,9 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
         getSupportActionBar().hide();
+
+        profilePicImage = findViewById(R.id.icon_user);
+        loadImage();
 
 
         /*Home tab*/

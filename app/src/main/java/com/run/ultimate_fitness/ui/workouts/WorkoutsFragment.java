@@ -2,6 +2,10 @@ package com.run.ultimate_fitness.ui.workouts;
 
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -10,9 +14,11 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.run.ultimate_fitness.R;
 import com.run.ultimate_fitness.adapters.workoutsAdapter;
@@ -35,6 +41,9 @@ public class WorkoutsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_workouts, container, false);
+
+
+
 
         recyclerView = view.findViewById(R.id.Rvhome_workouts);
 
