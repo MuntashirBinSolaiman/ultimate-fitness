@@ -3,6 +3,7 @@ package com.run.ultimate_fitness;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -24,6 +25,9 @@ public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
 
+    public static final String IS_LOGGED_IN ="isLoggedIn";
+    public static final String USER_PREFS ="userPrefs";
+
 
 /*Home tab*/
     private int CurrentProgress = 0;
@@ -40,6 +44,15 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        SharedPreferences sharedPreferences = getSharedPreferences(USER_PREFS, MODE_PRIVATE);
+        boolean loggedIn = sharedPreferences.getBoolean(IS_LOGGED_IN,true);
+        if (loggedIn) {
+            Intent intent = new Intent(MainActivity.this, LoginPage.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        }
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());

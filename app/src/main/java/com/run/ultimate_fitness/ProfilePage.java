@@ -50,6 +50,7 @@ public class ProfilePage extends AppCompatActivity {
         logoutText.setOnClickListener(v -> {
             FirebaseAuth.getInstance().signOut();
 
+
             Intent intent = new Intent(ProfilePage.this, LoginPage.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -69,10 +70,6 @@ public class ProfilePage extends AppCompatActivity {
         });
     }
 
-    public void onImageClick(View v) {
-
-    }
-
     public void editProfileButton(View view){
         Intent intent = new Intent(this, EditProfile.class);
         startActivity(intent);
@@ -81,7 +78,6 @@ public class ProfilePage extends AppCompatActivity {
     public void changePasswordsButton(View view){
         Intent intent = new Intent(this, ChangePassword.class);
         startActivity(intent);
-
     }
 
     public void deleteProfileButton(View view){
@@ -110,7 +106,7 @@ public class ProfilePage extends AppCompatActivity {
         SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.clear();
-        editor.commit();
+        editor.apply();
     }
 
     private void deleteProfile(){
