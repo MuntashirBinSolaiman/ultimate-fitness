@@ -65,8 +65,6 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         }
 
-
-
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 

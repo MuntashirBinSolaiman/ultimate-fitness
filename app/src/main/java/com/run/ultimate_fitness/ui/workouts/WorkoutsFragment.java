@@ -1,5 +1,7 @@
 package com.run.ultimate_fitness.ui.workouts;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Context;
@@ -30,6 +32,10 @@ public class WorkoutsFragment extends Fragment {
 
     RecyclerView recyclerView;
     List<workoutsModel> workoutsList;
+    private ImageView profilePicImage;
+
+    public static final String PICTURE ="picture";
+    public static final String USER_PREFS ="userPrefs";
 
     private WorkoutsViewModel mViewModel;
 
@@ -42,10 +48,9 @@ public class WorkoutsFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_workouts, container, false);
 
-
-
-
         recyclerView = view.findViewById(R.id.Rvhome_workouts);
+        profilePicImage = view.findViewById(R.id.icon_user);
+        loadImage();
 
         //recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
@@ -85,6 +90,23 @@ public class WorkoutsFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         mViewModel = new ViewModelProvider(this).get(WorkoutsViewModel.class);
         // TODO: Use the ViewModel
+    }
+
+    public Bitmap StringToBitMap(String encodedString){
+        try {
+            byte [] encodeByte= Base64.decode(encodedString,Base64.DEFAULT);
+            Bitmap bitmap= BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+            return bitmap;
+        } catch(Exception e) {
+            e.getMessage();
+            return null;
+        }
+    }
+
+    public  void loadImage(){
+        SharedPreferences sharedPreferences = getActivity().getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
+        String picture = sharedPreferences.getString(PICTURE,"");
+        profilePicImage.setImageBitmap(StringToBitMap(picture));
     }
 
 }
