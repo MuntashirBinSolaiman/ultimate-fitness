@@ -5,14 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.home.HomeFragment"
-    android:background="@color/light_grey">
+    android:background="@drawable/img_background">
 
 
 
         <GridLayout
             android:id="@+id/gridTop"
             android:layout_width="match_parent"
-            android:layout_height="175dp"
+            android:layout_height="100dp"
             android:columnCount="1"
             android:rowCount="1"
             android:paddingBottom="10dp">

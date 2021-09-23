@@ -18,8 +18,13 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.facebook.stetho.Stetho;
+import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.run.ultimate_fitness.adapters.DBAdapter;
 import com.run.ultimate_fitness.databinding.ActivityMainBinding;
+
+import okhttp3.OkHttpClient;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -79,6 +84,36 @@ public class MainActivity extends AppCompatActivity {
         /*Workouts tab*/
         homeWorkouts = findViewById(R.id.Rvhome_workouts);
         homeWorkouts = (RecyclerView) findViewById(R.id.Rvhome_workouts);
+
+        /*Food Database stuff----------------------------------------------------------------*/
+
+        /*Stetho-------------------------------------------------*/
+        Stetho.initializeWithDefaults(this);
+
+        new OkHttpClient.Builder()
+                .addNetworkInterceptor(new StethoInterceptor())
+                .build();
+
+        /* Food Database---------------------------------------------- */
+        DBAdapter db = new DBAdapter(this);
+        db.open();
+
+        /* Food Setup------------------------------------------------- */
+        //count row in food
+        int numberRows = db.count("food");
+
+        //will only run setup if table is empty
+        if (numberRows < 1) {
+            //Run setup
+            //Toast.makeText(this, "Loading setup...", Toast.LENGTH_LONG).show();
+            DBSetupInsert setupInsert = new DBSetupInsert(this);
+            setupInsert.insertAllFood();
+            setupInsert.insertAllCategories();
+            //Toast.makeText(this, "Setup Completed!", Toast.LENGTH_LONG).show();
+        }
+
+        /*close database*/
+        db.close();
 
 
 
