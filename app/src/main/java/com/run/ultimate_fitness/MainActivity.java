@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
 
         SharedPreferences sharedPreferences = getSharedPreferences(USER_PREFS, MODE_PRIVATE);
         boolean loggedIn = sharedPreferences.getBoolean(IS_LOGGED_IN,false);
-        if (loggedIn) {
+        if (!loggedIn) {
             Intent intent = new Intent(MainActivity.this, LoginPage.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
         // menu should be considered as top level destinations.
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.navigation_home, R.id.navigation_nutrition, R.id.navigation_workouts,
-                R.id.navigation_inbox, R.id.navigation_appointments)
+                R.id.navigation_inbox)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
@@ -162,6 +162,12 @@ public class MainActivity extends AppCompatActivity {
     public void goToProfile(View view){
             Intent intent = new Intent(MainActivity.this, ProfilePage.class);
             startActivity(intent);
+        }
+
+        public void goToStepCounter(View view){
+           Intent intent = new Intent(MainActivity.this, StepCounter.class);
+           startActivity(intent);
+
         }
 
     public Bitmap StringToBitMap(String encodedString){

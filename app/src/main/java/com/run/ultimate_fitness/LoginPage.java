@@ -149,7 +149,7 @@ public class LoginPage extends AppCompatActivity {
                             editor.putString(WEIGHT, weight);
                             editor.putString(HEIGHT, height);
                             editor.putString(PICTURE, picture);
-                            editor.putBoolean(IS_LOGGED_IN, false);
+                            editor.putBoolean(IS_LOGGED_IN, true);
                             editor.apply();
 
                             Intent intent = new Intent(LoginPage.this, MainActivity.class);

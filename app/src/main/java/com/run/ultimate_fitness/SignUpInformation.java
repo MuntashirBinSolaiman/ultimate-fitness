@@ -168,7 +168,7 @@ public class SignUpInformation extends AppCompatActivity {
         editor.putString(PHONE_NUMBER,phoneNumber);
         editor.putString(WEIGHT,weight);
         editor.putString(HEIGHT,height);
-        editor.putBoolean(IS_LOGGED_IN,false);
+        editor.putBoolean(IS_LOGGED_IN,true);
         editor.putString(PICTURE,picture);
         editor.apply();
     }
