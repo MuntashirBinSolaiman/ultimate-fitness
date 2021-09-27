@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".WorkoutsGoalPage">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true">
+
+        <RelativeLayout
+            android:id="@+id/SummerBody"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:padding="20dp">
+
+            <Button
+                android:id="@+id/btnSummerBody"
+                android:layout_width="250dp"
+                android:layout_height="125dp"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/goal_selector"
+                android:onClick="clickSummerBody"
+                android:text="Refine Silhouette/Summer Body" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/GainMuscle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/SummerBody"
+            android:layout_centerHorizontal="true"
+            android:padding="20dp">
+
+            <Button
+                android:id="@+id/btnGainMuscle"
+                android:layout_width="250dp"
+                android:layout_height="125dp"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/goal_selector"
+                android:onClick="clickGainMuscle"
+                android:text="Buff String/Gain Muscle" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/LoseWeight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/GainMuscle"
+            android:layout_centerHorizontal="true"
+            android:padding="20dp">
+
+            <Button
+                android:id="@+id/btnLoseWeight"
+                android:layout_width="250dp"
+                android:layout_height="125dp"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/goal_selector"
+                android:onClick="clickLoseWeight"
+                android:text="Lose Weight" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/LoseWeightQuick"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/LoseWeight"
+            android:layout_centerHorizontal="true"
+            android:padding="20dp">
+
+            <Button
+                android:id="@+id/btnLoseWeightQuick"
+                android:layout_width="250dp"
+                android:layout_height="125dp"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/goal_selector"
+                android:onClick="clickLoseExtraWeight"
+                android:text="Lose Extra KGs quickly" />
+        </RelativeLayout>
+
+    </RelativeLayout>
+</RelativeLayout>
