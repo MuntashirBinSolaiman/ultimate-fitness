@@ -216,7 +216,7 @@ public class NutritionFragment extends Fragment implements RemoveClickListner {
         builder.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
 
         EditText etTitle = builder.findViewById(R.id.etTitle);
-        etTitle.setHint("Add Your Calories");
+        etTitle.setHint("Add Food/Exercise");
         EditText etDescription = builder.findViewById(R.id.etDescription);
         Button tvDone = builder.findViewById(R.id.btnAddItem);
         //Imageview to close the view , using which we are adding calories data
