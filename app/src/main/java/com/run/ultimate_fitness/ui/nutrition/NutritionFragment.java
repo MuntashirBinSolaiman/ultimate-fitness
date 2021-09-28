@@ -325,7 +325,7 @@ public class NutritionFragment extends Fragment implements RemoveClickListner {
         Button tvDone = builder.findViewById(R.id.btnAddItem);
 
         EditText etTitle = builder.findViewById(R.id.etGoal);
-        etTitle.setHint("Goal");
+        etTitle.setHint("Goal Daily Calories");
         ImageView imageView = builder.findViewById(R.id.close);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
