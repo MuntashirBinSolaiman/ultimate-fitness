@@ -1,6 +1,8 @@
 package com.run.ultimate_fitness.water;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -14,6 +16,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.run.ultimate_fitness.MainActivity;
 import com.run.ultimate_fitness.R;
 
 import java.text.DateFormat;
@@ -31,6 +34,10 @@ public class Water_Tracker_Activity extends AppCompatActivity {
     private ArrayAdapter waterArrayAdapter;
     private Water_Tracker_DOBHelper waterTrackerDobHelper;
 
+    public static final String USER_PREFS ="userPrefs";
+    public static final String WATER ="water";
+
+
     Button insert, update, delete, view, open_calendar;
 
 
@@ -38,6 +45,8 @@ public class Water_Tracker_Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.water_tracker_activity_main);
+
+
 
         text_view_progress = findViewById(R.id.text_view_progress);
         progressBar = findViewById(R.id.progress_bar);
@@ -50,6 +59,12 @@ public class Water_Tracker_Activity extends AppCompatActivity {
         lv_view = findViewById(R.id.lv_view);
 
         waterTrackerDobHelper = new Water_Tracker_DOBHelper(Water_Tracker_Activity.this);
+
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
+
+        cups_of_water = sharedPreferences.getInt(WATER, 0);
+        text_view_progress.setText("" + cups_of_water );
+
 
         //ShowWaterEntryOnListView(dobHelper);
 
@@ -174,6 +189,8 @@ public class Water_Tracker_Activity extends AppCompatActivity {
         });
 
 
+
+
     }
 
     /*private void ShowWaterEntryOnListView(DOBHelper dobHelper) {
@@ -187,9 +204,18 @@ public class Water_Tracker_Activity extends AppCompatActivity {
             String waterDrank = String.valueOf(cups_of_water);
             String waterProgress = waterDrank + "";
             text_view_progress.setText("" + cups_of_water );
+
+
+
+
             System.out.println(waterProgress);
             updateProgressBar();
         }
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt(WATER, cups_of_water);
+        editor.apply();
+
     }
 
     public void remove_drinkWater(View view) {
@@ -198,12 +224,29 @@ public class Water_Tracker_Activity extends AppCompatActivity {
             String waterDrank = String.valueOf(cups_of_water);
             String waterProgress = waterDrank + "";
             text_view_progress.setText("" + cups_of_water );
+
             System.out.println(waterProgress);
             updateProgressBar();
         }
+
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt(WATER, cups_of_water);
+        editor.apply();
+
     }
 
     public void updateProgressBar() {
         progressBar.setProgress(cups_of_water);
+    }
+
+    @Override
+    public void onBackPressed(){
+
+        Intent intent = new Intent(Water_Tracker_Activity.this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+
     }
 }

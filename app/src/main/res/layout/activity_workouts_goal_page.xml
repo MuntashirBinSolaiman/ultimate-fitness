@@ -25,6 +25,7 @@
                 android:layout_height="125dp"
                 android:layout_centerHorizontal="true"
                 android:background="@drawable/goal_selector"
+                android:backgroundTint="@color/white"
                 android:onClick="clickSummerBody"
                 android:text="Refine Silhouette/Summer Body" />
 

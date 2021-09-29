@@ -33,18 +33,14 @@ public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
     private ImageView profilePicImage;
+    private TextView userName;
 
     public static final String IS_LOGGED_IN ="isLoggedIn";
     public static final String PICTURE ="picture";
+
     public static final String USER_PREFS ="userPrefs";
 
 
-/*Home tab*/
-    private int CurrentProgress = 0;
-    private ProgressBar progressBar;
-    private Button btnDrink;
-    private TextView txtWaterDrankk;
-    public int water = 0;
 
     /*Workouts Tab*/
     private RecyclerView homeWorkouts;
@@ -85,15 +81,6 @@ public class MainActivity extends AppCompatActivity {
         loadImage();
 
 
-        /*Home tab*/
-        txtWaterDrankk = findViewById(R.id.txtWaterDrank);
-        btnDrink = findViewById(R.id.btnDrinkWater);
-        progressBar = findViewById(R.id.progressBarSteps);
-        progressBar.setMax(100);
-
-        /*Workouts tab*/
-        homeWorkouts = findViewById(R.id.Rvhome_workouts);
-        homeWorkouts = (RecyclerView) findViewById(R.id.Rvhome_workouts);
 
         /*Food Database stuff----------------------------------------------------------------*/
 
@@ -107,36 +94,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void drinkWater(View view){
-            water++;
-             String waterDrank = String.valueOf(water);
-             String waterProgress = waterDrank + "/8";
-             txtWaterDrankk.setText("" + waterProgress );
-            System.out.println(waterProgress);
-            CurrentProgress = CurrentProgress + 10;
-            progressBar.setProgress(CurrentProgress);
-            if (water == 8)
-            {
-                new AlertDialog.Builder(this)
-                        .setTitle("Achievement")
-                        .setMessage("You have completed your daily water goal!")
-
-                        // Specifying a listener allows you to take an action before dismissing the dialog.
-                        // The dialog is automatically dismissed when a dialog button is clicked.
-                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                // Continue with delete operation
-                            }
-                        }).show();
-/*
-
-                        // A null listener allows the button to dismiss the dialog and take no further action.
-                        .setNegativeButton(android.R.string.ok, null)
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .show();
-*/
-            }
-        }
 
     public void goToProfile(View view){
             Intent intent = new Intent(MainActivity.this, ProfilePage.class);
@@ -147,11 +104,13 @@ public class MainActivity extends AppCompatActivity {
 
     public void goToWaterTracker(View view) {
         Intent intent = new Intent(MainActivity.this, Water_Tracker_Activity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
 
 
-        public void goToStepCounter(View view){
+    public void goToStepCounter(View view){
            Intent intent = new Intent(MainActivity.this, StepCounter.class);
            startActivity(intent);
 
@@ -171,7 +130,8 @@ public class MainActivity extends AppCompatActivity {
     public  void loadImage(){
             SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
             String picture = sharedPreferences.getString(PICTURE,"");
-            profilePicImage.setImageBitmap(StringToBitMap(picture));
+        profilePicImage.setImageBitmap(StringToBitMap(picture));
+
         }
 
 }

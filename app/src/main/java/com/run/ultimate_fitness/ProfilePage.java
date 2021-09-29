@@ -33,6 +33,7 @@ public class ProfilePage extends AppCompatActivity {
     public static final String HEIGHT ="height";
     public static final String PICTURE ="picture";
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
