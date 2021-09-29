@@ -38,6 +38,10 @@ public class ProfilePage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_page);
 
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
+
         logoutText = findViewById(R.id.toolbarLogoutTextView);
         displayImage = findViewById(R.id.profilePicture);
         firstNameTextView = findViewById(R.id.firstNameProfileTextView);
@@ -52,18 +56,13 @@ public class ProfilePage extends AppCompatActivity {
 
         logoutText.setOnClickListener(v -> {
             FirebaseAuth.getInstance().signOut();
+            clearData();
 
-
-            Intent intent = new Intent(ProfilePage.this, LoginPage.class);
+            Intent intent = new Intent(ProfilePage.this, MainActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            clearData();
             startActivity(intent);
         });
-
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().hide();
-        }
 
         backButtonImage.setOnClickListener(v -> {
             Intent intent = new Intent(ProfilePage.this, MainActivity.class);
@@ -102,8 +101,8 @@ public class ProfilePage extends AppCompatActivity {
         lastNameTextView.setText(lastName);
         fullNameTextView.setText(fullName);
         phoneNumberTextView.setText(phoneNumber);
-        heightTextView.setText(height);
-        weightTextView.setText(weight);
+        heightTextView.setText(height + "m");
+        weightTextView.setText(weight + "Kgs");
         displayImage.setImageBitmap(StringToBitMap(picture));
     }
 
@@ -131,7 +130,7 @@ public class ProfilePage extends AppCompatActivity {
                                             if(task.isSuccessful()){
                                                 Toast.makeText(ProfilePage.this,"Profile deleted successfully", Toast.LENGTH_LONG).show();
                                                 clearData();
-                                                Intent intent = new Intent(ProfilePage.this, LoginPage.class);
+                                                Intent intent = new Intent(ProfilePage.this, MainActivity.class);
                                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                                 startActivity(intent);

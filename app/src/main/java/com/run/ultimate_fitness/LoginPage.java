@@ -3,6 +3,7 @@ package com.run.ultimate_fitness;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -58,6 +59,13 @@ public class LoginPage extends AppCompatActivity {
         loginPasswordTxt = findViewById(R.id.loginPasswordEditText);
         TheProgressBar = findViewById(R.id.loginProgressbar);
         loginButton = findViewById(R.id.loginButton);
+    }
+
+    public void onBackPressed(){
+        Intent a = new Intent(Intent.ACTION_MAIN);
+        a.addCategory(Intent.CATEGORY_HOME);
+        a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(a);
     }
 
     public void login(View view){

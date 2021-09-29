@@ -139,6 +139,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void goToProfile(View view){
             Intent intent = new Intent(MainActivity.this, ProfilePage.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
         }
 

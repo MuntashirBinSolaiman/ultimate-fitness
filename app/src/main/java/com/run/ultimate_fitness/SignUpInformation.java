@@ -157,7 +157,8 @@ public class SignUpInformation extends AppCompatActivity {
                             addInfoButton.setVisibility(View.VISIBLE);
                         }
                     }
-                });}
+                });
+    }
 
     private void saveDataLocal(String firstName,String lastName,String phoneNumber,String weight,String height,String picture){
         SharedPreferences sharedPreferences = getSharedPreferences(USER_PREFS,MODE_PRIVATE);

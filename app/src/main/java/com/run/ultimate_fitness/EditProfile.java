@@ -42,6 +42,7 @@ public class EditProfile extends AppCompatActivity {
     private ImageView backButtonImage, profilePicImage;
     private EditText firstNameTxt, lastNameTxt, phoneNumberEdit, heightTxt, weightTxt;
     private ProgressBar progressBar;
+    private String pictureString;
 
     public static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 101;
     public static final String USER_PREFS ="userPrefs";
@@ -105,35 +106,35 @@ public class EditProfile extends AppCompatActivity {
             SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString(FIRST_NAME,firstName);
-            editor.commit();
+            editor.apply();
         }
 
         if(!lastName.isEmpty()){
             SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString(LAST_NAME,lastName);
-            editor.commit();
+            editor.apply();
         }
 
         if(!phoneNumber.isEmpty()){
             SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString(PHONE_NUMBER,phoneNumber);
-            editor.commit();
+            editor.apply();
         }
 
         if(!weight.isEmpty()){
             SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString(WEIGHT,weight);
-            editor.commit();
+            editor.apply();
         }
 
         if(!height.isEmpty()){
             SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString(HEIGHT,height);
-            editor.commit();
+            editor.apply();
         }
 
         progressBar.setVisibility(View.VISIBLE);
@@ -142,7 +143,15 @@ public class EditProfile extends AppCompatActivity {
         updateOnline();
     }
 
+    private void updatePicture(){
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(PICTURE, pictureString);
+    }
+
     private void updateOnline(){
+
+        updatePicture();
 
         SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
 
@@ -267,12 +276,7 @@ public class EditProfile extends AppCompatActivity {
                 case 0:
                     if (resultCode == RESULT_OK && data != null) {
                         Bitmap selectedImage = (Bitmap) data.getExtras().get("data");
-
-                        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putString(PICTURE,BitMapToString(selectedImage));
-                        editor.apply();
-
+                        pictureString = BitMapToString(selectedImage);
                         profilePicImage.setImageBitmap(selectedImage);
                     }
                     break;
@@ -286,27 +290,23 @@ public class EditProfile extends AppCompatActivity {
                                 cursor.moveToFirst();
                                 int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
                                 String picturePath = cursor.getString(columnIndex);
-
+                                pictureString = BitMapToString(BitmapFactory.decodeFile(picturePath));
                                 profilePicImage.setImageBitmap(BitmapFactory.decodeFile(picturePath));
-                                String bitMapAgain = BitMapToString(BitmapFactory.decodeFile(picturePath));
-                                SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
-                                SharedPreferences.Editor editor = sharedPreferences.edit();
-                                editor.putString(PICTURE,bitMapAgain);
-                                editor.apply();
-
                                 cursor.close();
                             }
                         }
                     }
                     break;
             }
-        }
+         }
     }
 
     public String BitMapToString(Bitmap bitmap) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
-        byte[] b = baos.toByteArray();
+        byte[] b = baos.toByteArray();SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
+        String picture = sharedPreferences.getString(PICTURE,"");
+        profilePicImage.setImageBitmap(StringToBitMap(picture));
         String temp = Base64.encodeToString(b, Base64.DEFAULT);
         return temp;
     }
@@ -327,6 +327,4 @@ public class EditProfile extends AppCompatActivity {
         String picture = sharedPreferences.getString(PICTURE,"");
         profilePicImage.setImageBitmap(StringToBitMap(picture));
     }
-
-
 }
