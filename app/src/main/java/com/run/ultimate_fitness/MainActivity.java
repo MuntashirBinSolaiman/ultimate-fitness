@@ -25,6 +25,7 @@ import com.facebook.stetho.Stetho;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.run.ultimate_fitness.databinding.ActivityMainBinding;
+import com.run.ultimate_fitness.water.Water_Tracker_Activity;
 
 import okhttp3.OkHttpClient;
 
@@ -143,6 +144,12 @@ public class MainActivity extends AppCompatActivity {
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
         }
+
+    public void goToWaterTracker(View view) {
+        Intent intent = new Intent(MainActivity.this, Water_Tracker_Activity.class);
+        startActivity(intent);
+    }
+
 
         public void goToStepCounter(View view){
            Intent intent = new Intent(MainActivity.this, StepCounter.class);

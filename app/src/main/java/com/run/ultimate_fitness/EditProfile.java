@@ -44,6 +44,8 @@ public class EditProfile extends AppCompatActivity {
     private ProgressBar progressBar;
     private String pictureString;
 
+    public String workoutGoal = "";
+
     public static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 101;
     public static final String USER_PREFS ="userPrefs";
     public static final String FIRST_NAME ="firstName";
@@ -167,7 +169,7 @@ public class EditProfile extends AppCompatActivity {
         Double finalHeight = Double.parseDouble(height);
 
 
-        User user = new User(firstName,lastName,finalPhone,finalWeight,finalHeight,picture);
+        User user = new User(firstName,lastName,finalPhone,finalWeight,finalHeight,picture,workoutGoal);
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("Users")

@@ -20,6 +20,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Ultimate_Fitness">
+
+        <activity
+            android:name=".water.Water_Tracker_Activity"
+            android:exported="true" />
+
         <activity
             android:name=".WorkoutsGoalPage"
             android:exported="true" />
