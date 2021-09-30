@@ -64,6 +64,7 @@ public class Water_Tracker_Activity extends AppCompatActivity {
 
         cups_of_water = sharedPreferences.getInt(WATER, 0);
         text_view_progress.setText("" + cups_of_water );
+        progressBar.setMax(8);
 
 
         //ShowWaterEntryOnListView(dobHelper);
@@ -199,7 +200,7 @@ public class Water_Tracker_Activity extends AppCompatActivity {
     }*/
 
     public void drinkWater(View view) {
-        if (cups_of_water <= 99) {
+        if (cups_of_water <= 8) {
             cups_of_water++;
             String waterDrank = String.valueOf(cups_of_water);
             String waterProgress = waterDrank + "";

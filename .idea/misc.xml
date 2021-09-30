@@ -34,6 +34,7 @@
         <entry key="app/src/main/res/drawable/ic_nutrition.xml" value="0.20462962962962963" />
         <entry key="app/src/main/res/drawable/ic_steps.xml" value="0.41333333333333333" />
         <entry key="app/src/main/res/drawable/ic_water.xml" value="0.41333333333333333" />
+        <entry key="app/src/main/res/drawable/water_tracker_circle_progress_bar.xml" value="0.25592105263157894" />
         <entry key="app/src/main/res/layout/activity_edit_profile.xml" value="0.4036458333333333" />
         <entry key="app/src/main/res/layout/activity_forgot_password.xml" value="0.4036458333333333" />
         <entry key="app/src/main/res/layout/activity_login_page2.xml" value="0.4036458333333333" />

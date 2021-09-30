@@ -287,6 +287,7 @@
                             android:rowCount="1">
 
 
+
                             <LinearLayout
 
                                 android:layout_width="wrap_content"
@@ -294,12 +295,26 @@
                                 android:layout_gravity="center_horizontal|center_vertical">
 
                                 <ProgressBar
-                                    android:id="@+id/progressBarSteps"
-                                    android:layout_width="75dp"
-                                    android:layout_height="75dp"
-                                    android:indeterminateOnly="true" />
+                                    android:id="@+id/progress_bar"
+                                    android:layout_width="125dp"
+                                    android:layout_height="125dp"
+                                    android:ems="10"
+                                    android:indeterminateOnly="false"
+                                    android:padding="10dp"
+                                    android:progressDrawable="@drawable/water_tracker_circle_progress_bar"
+                                    tools:progress="0" />
+
 
                             </LinearLayout>
+
+                            <TextView
+                                android:id="@+id/text_view_progress"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                                tools:text="0" />
+
                         </GridLayout>
 
                     </androidx.cardview.widget.CardView>

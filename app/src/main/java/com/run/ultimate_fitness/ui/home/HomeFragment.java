@@ -34,6 +34,7 @@ public class HomeFragment extends Fragment {
     private FragmentHomeBinding binding;
     private ImageView profilePicImage;
     private TextView userName;
+    private TextView text_view_progress;
 
     public static final String PICTURE ="picture";
     public static final String FIRST_NAME ="firstName";
@@ -80,14 +81,19 @@ public class HomeFragment extends Fragment {
         profilePicImage = root.findViewById(R.id.icon_user);
         userName = root.findViewById(R.id.txtUsername);
         loadImage();
+        progressBar = root.findViewById(R.id.progress_bar);
+        text_view_progress = root.findViewById(R.id.text_view_progress);
 
         txtWaterDrankk = root.findViewById(R.id.txtWaterDrank);
         btnDrink = root.findViewById(R.id.btnDrinkWater);
-        progressBar = root.findViewById(R.id.progressBarSteps);
         progressBar.setMax(8);
+
+
 
         water = sharedPreferences.getInt(WATER, 0);
         txtWaterDrankk.setText(water + "/8");
+        text_view_progress.setText("" + water );
+
 
 
 
@@ -149,8 +155,8 @@ public class HomeFragment extends Fragment {
         txtWaterDrankk.setText("" + waterProgress );
         System.out.println(waterProgress);
         CurrentProgress = CurrentProgress + 10;
-        progressBar.setProgress(CurrentProgress);
-        if (water == 8)
+        progressBar.setProgress(water);
+        if (water >= 8)
         {
             new AlertDialog.Builder(this.getContext())
                     .setTitle("Achievement")
