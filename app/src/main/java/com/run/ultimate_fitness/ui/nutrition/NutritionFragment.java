@@ -24,7 +24,6 @@ import com.run.ultimate_fitness.R;
 import com.run.ultimate_fitness.RecyclerViewData;
 import com.run.ultimate_fitness.RemoveClickListner;
 import com.run.ultimate_fitness.adapters.RecyclerAdapter;
-import com.run.ultimate_fitness.adapters.workoutsAdapter;
 
 import java.util.ArrayList;
 

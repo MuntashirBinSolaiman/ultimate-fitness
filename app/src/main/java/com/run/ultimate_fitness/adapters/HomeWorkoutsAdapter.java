@@ -14,11 +14,11 @@ import com.run.ultimate_fitness.ui.workouts.workoutsModel;
 
 import java.util.List;
 
-public class workoutsAdapter extends RecyclerView.Adapter<workoutsAdapter.ViewHolder> {
+public class HomeWorkoutsAdapter extends RecyclerView.Adapter<HomeWorkoutsAdapter.ViewHolder> {
 
     List<workoutsModel>workoutsList1;
 
-    public workoutsAdapter(List<workoutsModel> workoutsList){
+    public HomeWorkoutsAdapter(List<workoutsModel> workoutsList){
 
         this.workoutsList1 = workoutsList;
     }
@@ -27,14 +27,14 @@ public class workoutsAdapter extends RecyclerView.Adapter<workoutsAdapter.ViewHo
 
     @NonNull
     @Override
-    public workoutsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public HomeWorkoutsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.workouts_view, parent, false);
         ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull workoutsAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull HomeWorkoutsAdapter.ViewHolder holder, int position) {
 
         holder.workoutImage.setImageResource(workoutsList1.get(position).getWorkout_image());
         holder.txtWorkoutName.setText(workoutsList1.get(position).getWorkout_name());

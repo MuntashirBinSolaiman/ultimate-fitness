@@ -13,27 +13,31 @@
         android:layout_row="0"
         android:layout_column="0" />
 
-    <TextView
-        android:text="Exercise Name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_columnWeight="1"
-        android:layout_marginLeft="10dp"
-        android:textSize="30dp"
-        android:textColor="@color/black"
-        android:id="@+id/textViewCountry"
-        android:layout_row="0"
-        android:layout_column="1" />
 
+    <RelativeLayout>
     <TextView
-        android:text="Muscle Zone"
+        android:id="@+id/txtWorkoutName"
+        android:text="Exercise Name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_columnWeight="1"
         android:layout_marginLeft="10dp"
         android:textSize="20dp"
         android:textColor="@color/black"
-        android:id="@+id/textViewCapital"
+        android:layout_row="0"
+        android:layout_column="1" />
+
+    <TextView
+        android:layout_below="@id/txtWorkoutName"
+        android:id="@+id/txtWorkoutZone"
+        android:text="Muscle Zone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_columnWeight="1"
+        android:layout_marginLeft="10dp"
+        android:textSize="15dp"
+        android:textColor="@color/black"
         android:layout_row="1"
         android:layout_column="1" />
+    </RelativeLayout>
 </GridLayout>

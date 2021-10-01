@@ -4,7 +4,6 @@ import static android.content.Context.MODE_PRIVATE;
 
 import androidx.lifecycle.ViewModelProvider;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -24,7 +23,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.run.ultimate_fitness.R;
-import com.run.ultimate_fitness.adapters.workoutsAdapter;
+import com.run.ultimate_fitness.adapters.HomeWorkoutsAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +32,7 @@ public class WorkoutsFragment extends Fragment {
 
     RecyclerView recyclerView;
     List<workoutsModel> workoutsList;
-    private ImageView profilePicImage;
+    private ImageView profilePicImage, imgGymWorkouts;
     private TextView userName;
 
     public static final String PICTURE ="picture";
@@ -54,14 +53,19 @@ public class WorkoutsFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.Rvhome_workouts);
         profilePicImage = view.findViewById(R.id.icon_user);
+
         userName = view.findViewById(R.id.txtUsername);
+
+
+
+
         loadImage();
 
         //recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
 
         //initData();
-        recyclerView.setAdapter(new workoutsAdapter(initData()));
+        recyclerView.setAdapter(new HomeWorkoutsAdapter(initData()));
 
         return view;
     }
