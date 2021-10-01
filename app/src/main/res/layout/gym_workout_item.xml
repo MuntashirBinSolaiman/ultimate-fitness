@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    <ImageView
+        android:src="@drawable/ombati"
+        android:layout_rowSpan="2"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+
+        android:scaleType="fitXY"
+        android:id="@+id/imageViewFlag"
+        android:layout_row="0"
+        android:layout_column="0" />
+
+    <TextView
+        android:text="Exercise Name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_columnWeight="1"
+        android:layout_marginLeft="10dp"
+        android:textSize="30dp"
+        android:textColor="@color/black"
+        android:id="@+id/textViewCountry"
+        android:layout_row="0"
+        android:layout_column="1" />
+
+    <TextView
+        android:text="Muscle Zone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_columnWeight="1"
+        android:layout_marginLeft="10dp"
+        android:textSize="20dp"
+        android:textColor="@color/black"
+        android:id="@+id/textViewCapital"
+        android:layout_row="1"
+        android:layout_column="1" />
+</GridLayout>

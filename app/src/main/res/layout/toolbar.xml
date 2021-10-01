@@ -7,38 +7,39 @@
     >
 
     <LinearLayout
+        android:id="@+id/liner_ll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
         android:orientation="horizontal"
-        android:id="@+id/liner_ll">
+        android:padding="10dp">
 
         <ImageView
             android:id="@+id/toolbarBackButton"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@drawable/ic_arrow_back"
-            android:layout_alignParentLeft="true"/>
+            android:layout_alignParentLeft="true"
+            android:src="@drawable/ic_arrow_back" />
 
         <TextView
             android:id="@+id/toolbarTextView"
-            android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Account Settings"
-            android:textSize="16dp"
+            android:layout_weight="1"
             android:gravity="center"
-            android:textStyle="bold"
-            android:textColor="@color/black"/>
+            android:text="Account Settings"
+            android:textColor="@color/black"
+            android:textSize="16dp"
+            android:textStyle="bold" />
+
         <TextView
             android:id="@+id/toolbarLogoutTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
             android:text="Logout"
             android:textColor="@color/login_color_scheme"
-            android:layout_alignParentRight="true"
-            android:textStyle="normal"
-            android:textSize="15dp"/>
+            android:textSize="15dp"
+            android:textStyle="normal" />
     </LinearLayout>
 
     <View

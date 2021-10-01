@@ -25,6 +25,7 @@ import com.facebook.stetho.Stetho;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.run.ultimate_fitness.databinding.ActivityMainBinding;
+import com.run.ultimate_fitness.ui.workouts.GymWorkouts;
 import com.run.ultimate_fitness.water.Water_Tracker_Activity;
 
 import okhttp3.OkHttpClient;
@@ -115,6 +116,13 @@ public class MainActivity extends AppCompatActivity {
            startActivity(intent);
 
         }
+
+    public void goToGymWorkouts(View view){
+        Intent intent = new Intent(MainActivity.this, GymWorkouts.class);
+        startActivity(intent);
+
+    }
+
 
     public Bitmap StringToBitMap(String encodedString){
         try {

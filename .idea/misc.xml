@@ -37,6 +37,7 @@
         <entry key="app/src/main/res/drawable/water_tracker_circle_progress_bar.xml" value="0.25592105263157894" />
         <entry key="app/src/main/res/layout/activity_edit_profile.xml" value="0.4036458333333333" />
         <entry key="app/src/main/res/layout/activity_forgot_password.xml" value="0.4036458333333333" />
+        <entry key="app/src/main/res/layout/activity_gym_workouts.xml" value="0.23684210526315788" />
         <entry key="app/src/main/res/layout/activity_login_page2.xml" value="0.4036458333333333" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_profile_page.xml" value="0.4036458333333333" />
@@ -53,8 +54,12 @@
         <entry key="app/src/main/res/layout/fragment_nutrition.xml" value="0.17074275362318841" />
         <entry key="app/src/main/res/layout/fragment_workouts.xml" value="0.25" />
         <entry key="app/src/main/res/layout/goal_selector.xml" value="0.25493421052631576" />
+        <entry key="app/src/main/res/layout/gym_workout_item.xml" value="0.24572368421052632" />
         <entry key="app/src/main/res/layout/nutrition_fragment.xml" value="0.2" />
         <entry key="app/src/main/res/layout/settings_activity.xml" value="0.17074275362318841" />
+        <entry key="app/src/main/res/layout/toolbar.xml" value="0.21379781420765026" />
+        <entry key="app/src/main/res/layout/topBar.xml" value="0.24572368421052632" />
+        <entry key="app/src/main/res/layout/topbar.xml" value="0.25296052631578947" />
         <entry key="app/src/main/res/layout/water_tracker_activity_main.xml" value="0.24572368421052632" />
         <entry key="app/src/main/res/layout/workouts_view.xml" value="0.25" />
         <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.33" />

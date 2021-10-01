@@ -20,11 +20,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Ultimate_Fitness">
+        <activity
+            android:name=".ui.workouts.GymWorkouts"
+            android:exported="true" />
+
 
         <activity
             android:name=".water.Water_Tracker_Activity"
             android:exported="true" />
-
         <activity
             android:name=".WorkoutsGoalPage"
             android:exported="true" />
@@ -61,8 +64,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <!--             android:windowSoftInputMode="adjustResize" -->
+        </activity> <!-- android:windowSoftInputMode="adjustResize" -->
         <service android:name=".firebase.MessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
