@@ -155,7 +155,7 @@ public class HomeFragment extends Fragment {
         txtWaterDrankk.setText("" + waterProgress );
         System.out.println(waterProgress);
         CurrentProgress = CurrentProgress + 10;
-        progressBar.setProgress(water);
+        //progressBar.setProgress(water);
         if (water >= 8)
         {
             new AlertDialog.Builder(this.getContext())
