@@ -24,4 +24,15 @@
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="calories">Calories</string>
     <string name="add">Add</string>
+
+    <!-- Water Tracker -->
+    <string name="date">Date :</string>
+    <string name="_500ml">+ 500ml</string>
+    <string name="_Remove500ml">- 500ml</string>
+    <string name="view_table">View Progress</string>
+    <string name="delete_entry">Delete Entry</string>
+    <string name="open_calendar">Open Calendar</string>
+    <string name="add_to_table">Add to Progress</string>
+
+
 </resources>

@@ -21,6 +21,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.run.ultimate_fitness.R;
 import com.run.ultimate_fitness.adapters.workoutsAdapter;
@@ -33,8 +34,11 @@ public class WorkoutsFragment extends Fragment {
     RecyclerView recyclerView;
     List<workoutsModel> workoutsList;
     private ImageView profilePicImage;
+    private TextView userName;
 
     public static final String PICTURE ="picture";
+    public static final String FIRST_NAME ="firstName";
+    public static final String LAST_NAME ="lastName";
     public static final String USER_PREFS ="userPrefs";
 
     private WorkoutsViewModel mViewModel;
@@ -50,6 +54,7 @@ public class WorkoutsFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.Rvhome_workouts);
         profilePicImage = view.findViewById(R.id.icon_user);
+        userName = view.findViewById(R.id.txtUsername);
         loadImage();
 
         //recyclerView.setHasFixedSize(true);
@@ -106,6 +111,12 @@ public class WorkoutsFragment extends Fragment {
     public  void loadImage(){
         SharedPreferences sharedPreferences = getActivity().getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
         String picture = sharedPreferences.getString(PICTURE,"");
+        String firstName = sharedPreferences.getString(FIRST_NAME,"");
+        String lastName = sharedPreferences.getString(LAST_NAME,"");
+
+
+        userName.setText("Welcome, " + firstName);
+
         profilePicImage.setImageBitmap(StringToBitMap(picture));
     }
 

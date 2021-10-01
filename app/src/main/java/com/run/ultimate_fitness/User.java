@@ -2,7 +2,10 @@ package com.run.ultimate_fitness;
 
 public class User {
 
-    public String firstName,lastName,picture;
+    public String firstName;
+    public String lastName;
+    public String picture;
+    public String workoutGoal;
     public int phoneNumber;
     public Double weight,height;
 
@@ -29,12 +32,22 @@ public class User {
 
     public String getPicture(){return picture;}
 
-    public User(String firstName, String lastName, int phoneNumber, Double weight, Double height, String picture) {
+    public String getWorkoutGoal() {
+        return workoutGoal;
+    }
+
+    public void setWorkoutGoal(String workoutGoal) {
+        this.workoutGoal = workoutGoal;
+    }
+
+
+    public User(String firstName, String lastName, int phoneNumber, Double weight, Double height, String picture, String workoutGoal) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
         this.weight = weight;
         this.height = height;
         this.picture = picture;
+        this.workoutGoal = workoutGoal;
     }
 }
