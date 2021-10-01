@@ -13,7 +13,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -31,18 +33,17 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class SignUpInformation extends AppCompatActivity {
-
+//...
     private FirebaseAuth mAuth;
     private EditText firstNameTxt,lastNameTxt,phoneNumberTxt, weightNameTxt,heightNameTxt;
     private TextView addInfoButton;
     private ProgressBar progressBar;
     private ImageView profilePicImage;
-    private String pictureString;
+    private String picture,workoutGoal = "";
 
     public static final String USER_PREFS ="userPrefs";
     public static final String FIRST_NAME ="firstName";
@@ -50,6 +51,7 @@ public class SignUpInformation extends AppCompatActivity {
     public static final String PHONE_NUMBER ="phoneNumber";
     public static final String WEIGHT ="weight";
     public static final String HEIGHT ="height";
+    public static final String WORKOUT_GOAL ="workoutGoal";
     public static final String IS_LOGGED_IN ="isLoggedIn";
     public static final String PICTURE ="picture";
     public static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 101;
@@ -126,13 +128,11 @@ public class SignUpInformation extends AppCompatActivity {
         progressBar.setVisibility(View.VISIBLE);
         addInfoButton.setVisibility(View.GONE);
 
-        updatePicture();
-
         int finalPhone = Integer.parseInt(phoneNumber);
         Double finalWeight = Double.parseDouble(weight);
         Double finalHeight = Double.parseDouble(height);
 
-        User user = new User(firstName,lastName,finalPhone,finalWeight,finalHeight, pictureString);
+        User user = new User(firstName,lastName,finalPhone,finalWeight,finalHeight,picture,workoutGoal);
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("Users")
                 .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
@@ -146,9 +146,9 @@ public class SignUpInformation extends AppCompatActivity {
                             progressBar.setVisibility(View.VISIBLE);
                             addInfoButton.setVisibility(View.GONE);
 
-                            saveDataLocal(firstName,lastName,phoneNumber,weight,height, pictureString);
+                            saveDataLocal(firstName,lastName,phoneNumber,weight,height,picture, workoutGoal);
 
-                            Intent intent = new Intent(SignUpInformation.this, MainActivity.class);
+                            Intent intent = new Intent(SignUpInformation.this, WorkoutsGoalPage.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(intent);
@@ -161,7 +161,7 @@ public class SignUpInformation extends AppCompatActivity {
                 });
     }
 
-    private void saveDataLocal(String firstName,String lastName,String phoneNumber,String weight,String height,String picture){
+    private void saveDataLocal(String firstName,String lastName,String phoneNumber,String weight,String height,String picture,String workoutGoal){
         SharedPreferences sharedPreferences = getSharedPreferences(USER_PREFS,MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
@@ -170,6 +170,7 @@ public class SignUpInformation extends AppCompatActivity {
         editor.putString(PHONE_NUMBER,phoneNumber);
         editor.putString(WEIGHT,weight);
         editor.putString(HEIGHT,height);
+       // editor.putString(WORKOUT_GOAL,workoutGoal);
         editor.putBoolean(IS_LOGGED_IN,true);
         editor.putString(PICTURE,picture);
         editor.apply();
@@ -191,7 +192,7 @@ public class SignUpInformation extends AppCompatActivity {
                 }
                 else if(optionsMenu[i].equals("Choose from Gallery")){
                     // choose from  external storage
-                    Intent pickPhoto = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    Intent pickPhoto = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                     startActivityForResult(pickPhoto , 1);
                 }
                 else if (optionsMenu[i].equals("Exit")) {
@@ -256,34 +257,42 @@ public class SignUpInformation extends AppCompatActivity {
                 case 0:
                     if (resultCode == RESULT_OK && data != null) {
                         Bitmap selectedImage = (Bitmap) data.getExtras().get("data");
-                        pictureString = BitMapToString(selectedImage);
-                        profilePicImage.setImageBitmap(selectedImage);
+
+                        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString(PICTURE,BitMapToString(selectedImage));
+                        picture = BitMapToString(selectedImage);
+                        editor.apply();
 
                         profilePicImage.setImageBitmap(selectedImage);
                     }
                     break;
                 case 1:
-                    if(resultCode == RESULT_OK && data != null){
+                    if (resultCode == RESULT_OK && data != null) {
                         Uri selectedImage = data.getData();
-                        try {
-                            Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
-                            pictureString = BitMapToString(bitmap);
-                            profilePicImage.setImageBitmap(bitmap);
-                        } catch (IOException e) {
-                            e.printStackTrace();
+                        String[] filePathColumn = {MediaStore.Images.Media.DATA};
+                        if (selectedImage != null) {
+                            Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
+                            if (cursor != null) {
+                                cursor.moveToFirst();
+                                int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                                String picturePath = cursor.getString(columnIndex);
+
+                                profilePicImage.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+                                String bitMapAgain = BitMapToString(BitmapFactory.decodeFile(picturePath));
+                                picture =BitMapToString(BitmapFactory.decodeFile(picturePath));
+                                SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                editor.putString(PICTURE,bitMapAgain);
+                                editor.apply();
+
+                                cursor.close();
+                            }
                         }
-                        //profilePicImage.setImageURI(selectedImage);
                     }
                     break;
             }
         }
-    }
-
-    private void updatePicture(){
-        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(PICTURE, pictureString);
-        editor.apply();
     }
 
     public String BitMapToString(Bitmap bitmap) {
