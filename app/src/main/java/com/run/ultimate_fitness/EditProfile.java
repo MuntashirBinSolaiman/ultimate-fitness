@@ -43,7 +43,7 @@ public class EditProfile extends AppCompatActivity {
     private ImageView backButtonImage, profilePicImage;
     private EditText firstNameTxt, lastNameTxt, phoneNumberEdit, heightTxt, weightTxt;
     private ProgressBar progressBar;
-    private String pictureString, defaultPicture;
+    private String picture, defaultPicture;
 
     public String workoutGoal = "";
 
@@ -149,13 +149,13 @@ public class EditProfile extends AppCompatActivity {
     }
 
     private void updatePicture(){
-        if(pictureString.equals("")){
-            pictureString = loadDefault();
+        if(picture.equals("")){
+            picture = loadDefault();
         }
 
         SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(PICTURE, pictureString);
+        editor.putString(PICTURE, picture);
         editor.apply();
     }
 
@@ -284,7 +284,7 @@ public class EditProfile extends AppCompatActivity {
                 case 0:
                     if (resultCode == RESULT_OK && data != null) {
                         Bitmap selectedImage = (Bitmap) data.getExtras().get("data");
-                        pictureString = BitMapToString(selectedImage);
+                        picture = BitMapToString(selectedImage);
                         profilePicImage.setImageBitmap(selectedImage);
                     }
                     break;
@@ -293,7 +293,7 @@ public class EditProfile extends AppCompatActivity {
                         Uri selectedImage = data.getData();
                         try {
                             Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
-                            pictureString = BitMapToString(bitmap);
+                            picture = BitMapToString(bitmap);
                             profilePicImage.setImageBitmap(bitmap);
                         } catch (IOException e) {
                             e.printStackTrace();
@@ -302,7 +302,7 @@ public class EditProfile extends AppCompatActivity {
                     }
                     break;
             }
-         }
+        }
     }
 
     private String BitMapToString(Bitmap bitmap) {
