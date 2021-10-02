@@ -10,70 +10,125 @@
     <include layout="@layout/topbar"
         android:id="@+id/topBar"/>
 
-    <TextView
-        android:id="@+id/txtHome_Workouts"
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/topBar"
-        android:layout_marginTop="10dp"
-        android:fontFamily="Times New Roman"
-        android:padding="10dp"
-        android:paddingLeft="20dp"
-        android:text="Home Workouts"
-        android:textAlignment="viewStart"
-        android:textColor="@color/black"
-        android:textSize="17dp" />
+        android:layout_marginBottom="100dp">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/Rvhome_workouts"
-        android:layout_below="@id/txtHome_Workouts"
-        class="androidx.appcompat.app.AlertController$RecycleListView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingLeft="0dp">
-
-    </androidx.recyclerview.widget.RecyclerView>
-
-    <View
-        android:id="@+id/viewSeparator2"
-        android:layout_width= "275dp"
-        android:layout_height="0.2dp"
-        android:layout_below="@id/Rvhome_workouts"
-        android:background="@color/light_grey"
-        android:layout_centerHorizontal="true"
-        android:paddingRight="15dp"
-        android:layout_marginVertical="20dp"
-        android:paddingLeft="15dp"/>
-
-
-
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardView_Gym_Workouts"
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="5dp"
-            app:cardElevation="5dp"
-            android:layout_below="@id/viewSeparator2"
-            android:layout_gravity="center_horizontal"
-            android:layout_centerHorizontal="true">
+            android:paddingTop="10dp">
 
-            <ImageView
-                android:id="@+id/imgGymWorkouts"
-                android:onClick="goToGymWorkouts"
-                android:layout_width="311.1dp"
-                android:layout_height="175dp"
-                android:layout_gravity="center"
-                android:src="@drawable/img_gym_workouts" />
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView_Home_Workouts"
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="1dp">
 
-            <TextView
+                <ImageView
+                    android:id="@+id/imgHomeWorkouts"
+                    android:layout_width="311.1dp"
+                    android:layout_height="175dp"
+                    android:layout_gravity="center"
+                    android:onClick="goToGymWorkouts"
+                    android:scaleX="1.35"
+                    android:scaleY="1.35"
+                    android:src="@color/white" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="sans-serif-light"
+                    android:text="HOME WORKOUTS"
+                    android:textColor="@color/black"
+                    android:textSize="15dp"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_arrow_forward"
+                    app:tint="@color/black"
+                    android:layout_gravity="center_vertical|right"/>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/Rvhome_workouts"
+                class="androidx.appcompat.app.AlertController$RecycleListView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="GYM WORKOUTS"
-                android:textSize="25dp"
-                android:layout_gravity="center"
-                android:textColor="@color/white"
-                android:textStyle="bold"/>
-        </androidx.cardview.widget.CardView>
+                android:layout_below="@id/cardView_Home_Workouts"
+                android:layout_marginTop="10dp"
+                android:paddingLeft="0dp">
 
+            </androidx.recyclerview.widget.RecyclerView>
+
+            <View
+                android:id="@+id/viewSeparator2"
+                android:layout_width="275dp"
+                android:layout_height="0.2dp"
+                android:layout_below="@id/Rvhome_workouts"
+                android:layout_centerHorizontal="true"
+                android:layout_marginVertical="20dp"
+                android:background="@color/light_grey"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp" />
+
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView_Gym_Workouts"
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:layout_below="@id/viewSeparator2"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="1dp">
+
+                <ImageView
+                    android:id="@+id/imgGymWorkouts"
+                    android:layout_width="311.1dp"
+                    android:layout_height="175dp"
+                    android:layout_gravity="center"
+                    android:onClick="goToGymWorkouts"
+                    android:scaleX="1.35"
+                    android:scaleY="1.35"
+                    android:src="@color/white" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="GYM WORKOUTS"
+                    android:textColor="@color/black"
+                    android:textSize="15dp"
+                    android:fontFamily="sans-serif-light"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_arrow_forward"
+                    app:tint="@color/black"
+                    android:layout_gravity="center_vertical|right"/>
+
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/RvGym_workouts2"
+                class="androidx.appcompat.app.AlertController$RecycleListView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/cardView_Gym_Workouts"
+                android:layout_marginTop="10dp"
+                android:paddingLeft="0dp" />
+        </RelativeLayout>
+    </ScrollView>
 </RelativeLayout>

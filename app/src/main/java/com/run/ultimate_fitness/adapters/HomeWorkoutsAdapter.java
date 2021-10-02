@@ -60,6 +60,8 @@ public class HomeWorkoutsAdapter extends RecyclerView.Adapter<HomeWorkoutsAdapte
             txtWorkoutName = itemView.findViewById(R.id.txtWorkoutName);
             txtWorkoutZone = itemView.findViewById(R.id.txtWorkoutZone);
 
+
+
         }
     }
 }

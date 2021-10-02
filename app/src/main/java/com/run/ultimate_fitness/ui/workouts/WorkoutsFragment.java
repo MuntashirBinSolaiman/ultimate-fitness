@@ -30,7 +30,7 @@ import java.util.List;
 
 public class WorkoutsFragment extends Fragment {
 
-    RecyclerView recyclerView;
+    RecyclerView recyclerView, recyclerView2;
     List<workoutsModel> workoutsList;
     private ImageView profilePicImage, imgGymWorkouts;
     private TextView userName;
@@ -52,6 +52,8 @@ public class WorkoutsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_workouts, container, false);
 
         recyclerView = view.findViewById(R.id.Rvhome_workouts);
+        recyclerView2 = view.findViewById(R.id.RvGym_workouts2);
+
         profilePicImage = view.findViewById(R.id.icon_user);
 
         userName = view.findViewById(R.id.txtUsername);
@@ -63,9 +65,13 @@ public class WorkoutsFragment extends Fragment {
 
         //recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        recyclerView2.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+
 
         //initData();
         recyclerView.setAdapter(new HomeWorkoutsAdapter(initData()));
+        recyclerView2.setAdapter(new HomeWorkoutsAdapter(initData()));
+
 
         return view;
     }

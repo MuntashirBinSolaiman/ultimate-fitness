@@ -118,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
     public void goToGymWorkouts(View view){
-        Intent intent = new Intent(MainActivity.this, StepCounter.class);
+        Intent intent = new Intent(MainActivity.this, GymWorkouts.class);
         startActivity(intent);
 
     }
