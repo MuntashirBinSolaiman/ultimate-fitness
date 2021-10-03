@@ -27,6 +27,8 @@
         <entry key="app/src/main/res/drawable/goal_selector.xml" value="0.26513157894736844" />
         <entry key="app/src/main/res/drawable/ic_appointments.xml" value="0.20462962962962963" />
         <entry key="app/src/main/res/drawable/ic_dashboard_black_24dp.xml" value="0.20462962962962963" />
+        <entry key="app/src/main/res/drawable/ic_down_arrow.xml" value="0.26513157894736844" />
+        <entry key="app/src/main/res/drawable/ic_dwon_arrow.xml" value="0.26513157894736844" />
         <entry key="app/src/main/res/drawable/ic_edit.xml" value="0.41333333333333333" />
         <entry key="app/src/main/res/drawable/ic_home_black_24dp.xml" value="0.24635416666666668" />
         <entry key="app/src/main/res/drawable/ic_inbox.xml" value="0.20462962962962963" />

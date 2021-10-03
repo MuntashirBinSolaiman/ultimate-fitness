@@ -153,15 +153,40 @@
             app:cardCornerRadius="50dp"
             android:background="@drawable/img_background">
 
+
+
             <GridLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:columnCount="2"
-                android:paddingTop="25dp"
+                android:paddingTop="10dp"
                 android:paddingBottom="100dp"
                 android:rowCount="4">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_columnSpan="2">
+
+                <ImageView
+                    android:id="@+id/imgHideMainCard"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_down_arrow"
+                    android:layout_gravity="center_horizontal|top"/>
+
+                    <ImageView
+                        android:id="@+id/imgShowMainCard"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_up_arrow"
+                        android:layout_gravity="center_horizontal|top"
+                        android:visibility="invisible"/>
+
+
+                </FrameLayout>
 
 
                 <androidx.cardview.widget.CardView
@@ -174,7 +199,8 @@
                     android:layout_gravity="fill"
                     android:layout_margin="8dp"
                     app:cardCornerRadius="8dp"
-                    app:cardElevation="4dp">
+                    app:cardElevation="4dp"
+                    android:layout_marginTop="30dp">
 
                     <ImageButton
                         android:layout_width="wrap_content"
@@ -419,6 +445,8 @@
                 </androidx.cardview.widget.CardView>
 
             </GridLayout>
+
+
         </androidx.cardview.widget.CardView>
 
 </RelativeLayout>

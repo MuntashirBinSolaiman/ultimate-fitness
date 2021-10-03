@@ -35,9 +35,9 @@ public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
     private FragmentHomeBinding binding;
-    private ImageView profilePicImage;
+    private ImageView profilePicImage, imgHideMainCard, imgShowMainCard;
     private TextView userName;
-    private TextView text_view_progress, txtSteps, txtCalories, txtGlasses;
+    private TextView txtWaterDrank2, txtSteps, txtCalories, txtGlasses;
 
     public static final String PICTURE ="picture";
     public static final String FIRST_NAME ="firstName";
@@ -48,7 +48,7 @@ public class HomeFragment extends Fragment {
     String waterProgress;
 
     private RelativeLayout waterLayout, stepsLayout, caloriesLayout;
-    private CardView waterCard, stepsCard, caloriesCard;
+    private CardView waterCard, stepsCard, caloriesCard, mainCard;
 
 
 
@@ -93,6 +93,7 @@ public class HomeFragment extends Fragment {
         stepsLayout =  root.findViewById(R.id.layout_stepsProgress);
         caloriesLayout =  root.findViewById(R.id.layout_caloriesProgress);
 
+        mainCard = root.findViewById(R.id.card_main);
         waterCard = root.findViewById(R.id.waterCard);
         stepsCard = root.findViewById(R.id.stepsCard);
         caloriesCard = root.findViewById(R.id.caloriesCard);
@@ -117,7 +118,7 @@ public class HomeFragment extends Fragment {
         txtCaloriesEaten = root.findViewById(R.id.txtCalorieProgress);
         txtCaloriesEaten.setText("0/0");
 
-        text_view_progress = root.findViewById(R.id.txtWaterProgress);
+        txtWaterDrank2 = root.findViewById(R.id.txtWaterProgress);
 
         txtSteps = root.findViewById(R.id.txtSteps);
         txtSteps.setText("Steps");
@@ -132,9 +133,30 @@ public class HomeFragment extends Fragment {
 
         water = sharedPreferences.getInt(WATER, 0);
         txtWaterDrank.setText(water + "/8");
-        text_view_progress.setText("" + water );
+        txtWaterDrank2.setText(water + "/8");
 
 
+        imgHideMainCard = root.findViewById(R.id.imgHideMainCard);
+        imgShowMainCard = root.findViewById(R.id.imgShowMainCard);
+
+
+        imgHideMainCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                imgHideMainCard.setVisibility(View.INVISIBLE);
+                imgShowMainCard.setVisibility(View.VISIBLE);
+                mainCard.animate().translationY(500);
+            }
+        });
+        imgShowMainCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                imgShowMainCard.setVisibility(View.INVISIBLE);
+                imgHideMainCard.setVisibility(View.VISIBLE);
+                mainCard.animate().translationY(0);
+
+            }
+        });
 
 
 
@@ -240,6 +262,7 @@ public class HomeFragment extends Fragment {
         waterDrank = String.valueOf(water);
         waterProgress = waterDrank + "/8";
         txtWaterDrank.setText("" + waterProgress );
+        txtWaterDrank2.setText("" + waterProgress);
         System.out.println(waterProgress);
         CurrentProgress = CurrentProgress + 10;
         //progressBar.setProgress(water);
@@ -267,6 +290,8 @@ public class HomeFragment extends Fragment {
 
         }
     }
+
+
 
 
 
