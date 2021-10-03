@@ -6,15 +6,18 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -46,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
     /*Workouts Tab*/
     private RecyclerView homeWorkouts;
     private RecyclerView.Adapter adapter;
+
+
 
 
     @Override
@@ -83,6 +88,8 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
+
         /*Food Database stuff----------------------------------------------------------------*/
 
         /*Stetho-------------------------------------------------*/
@@ -112,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void goToStepCounter(View view){
-           Intent intent = new Intent(MainActivity.this, StepCounter.class);
+           Intent intent = new Intent(MainActivity.this, WorkoutPage.class);
            startActivity(intent);
 
         }
@@ -141,5 +148,12 @@ public class MainActivity extends AppCompatActivity {
         profilePicImage.setImageBitmap(StringToBitMap(picture));
 
         }
+
+        public void goToBookings(View view){
+            Intent intent = new Intent(MainActivity.this, WebPage.class);
+            startActivity(intent);
+        }
+
+
 
 }

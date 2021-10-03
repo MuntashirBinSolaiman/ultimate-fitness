@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.text.Layout;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,10 +16,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -34,7 +37,7 @@ public class HomeFragment extends Fragment {
     private FragmentHomeBinding binding;
     private ImageView profilePicImage;
     private TextView userName;
-    private TextView text_view_progress;
+    private TextView text_view_progress, txtSteps, txtCalories, txtGlasses;
 
     public static final String PICTURE ="picture";
     public static final String FIRST_NAME ="firstName";
@@ -44,14 +47,17 @@ public class HomeFragment extends Fragment {
     String waterDrank ;
     String waterProgress;
 
+    private RelativeLayout waterLayout, stepsLayout, caloriesLayout;
+    private CardView waterCard, stepsCard, caloriesCard;
+
 
 
     public static final String USER_PREFS ="userPrefs";
 
     private static  int CurrentProgress = 0;
-    private ProgressBar progressBar;
+    private ProgressBar waterProgressBar, stepsProgressBar, caloriesProgressBar;
     public Button btnDrink;
-    private TextView txtWaterDrankk;
+    private TextView txtWaterDrank, txtStepsTaken, txtCaloriesEaten;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -81,23 +87,58 @@ public class HomeFragment extends Fragment {
         profilePicImage = root.findViewById(R.id.icon_user);
         userName = root.findViewById(R.id.txtUsername);
         loadImage();
-        progressBar = root.findViewById(R.id.progress_bar);
-        text_view_progress = root.findViewById(R.id.text_view_progress);
 
-        txtWaterDrankk = root.findViewById(R.id.txtWaterDrank);
+
+        waterLayout =  root.findViewById(R.id.layout_waterProgress);
+        stepsLayout =  root.findViewById(R.id.layout_stepsProgress);
+        caloriesLayout =  root.findViewById(R.id.layout_caloriesProgress);
+
+        waterCard = root.findViewById(R.id.waterCard);
+        stepsCard = root.findViewById(R.id.stepsCard);
+        caloriesCard = root.findViewById(R.id.caloriesCard);
+
+
+
+        waterProgressBar = root.findViewById(R.id.waterProgress_bar);
+        stepsProgressBar = root.findViewById(R.id.stepsProgress_bar);
+        caloriesProgressBar = root.findViewById(R.id.calorieProgress_bar);
+
+
+
+
+        txtWaterDrank = root.findViewById(R.id.txtWaterDrank);
+
+        txtGlasses = root.findViewById(R.id.txtGlasses);
+        txtGlasses.setText("Glasses");
+
+        txtStepsTaken = root.findViewById(R.id.txtStepsProgress);
+        txtStepsTaken.setText("0/0");
+
+        txtCaloriesEaten = root.findViewById(R.id.txtCalorieProgress);
+        txtCaloriesEaten.setText("0/0");
+
+        text_view_progress = root.findViewById(R.id.txtWaterProgress);
+
+        txtSteps = root.findViewById(R.id.txtSteps);
+        txtSteps.setText("Steps");
+
+        txtCalories = root.findViewById(R.id.txtCalories);
+        txtCalories.setText("Calories");
+
         btnDrink = root.findViewById(R.id.btnDrinkWater);
-        progressBar.setMax(8);
+        waterProgressBar.setMax(8);
 
 
 
         water = sharedPreferences.getInt(WATER, 0);
-        txtWaterDrankk.setText(water + "/8");
+        txtWaterDrank.setText(water + "/8");
         text_view_progress.setText("" + water );
 
 
 
 
 
+        initOnClickListeners();
 
 
         btnDrink.setOnClickListener(new View.OnClickListener() {
@@ -148,11 +189,57 @@ public class HomeFragment extends Fragment {
         profilePicImage.setImageBitmap(StringToBitMap(picture));
     }
 
+    private void initOnClickListeners() {
+        waterCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                waterCardClicked();
+            }
+        });
+        stepsCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                stepsCardClicked();
+            }
+        });
+        caloriesCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                caloriesCardClicked();
+            }
+        });
+
+    }
+
+    public void waterCardClicked(){
+        waterLayout.setVisibility(View.VISIBLE);
+        stepsLayout.setVisibility(View.INVISIBLE);
+        caloriesLayout.setVisibility(View.INVISIBLE);
+
+
+    }
+    public void stepsCardClicked(){
+        waterLayout.setVisibility(View.INVISIBLE);
+        stepsLayout.setVisibility(View.VISIBLE);
+        caloriesLayout.setVisibility(View.INVISIBLE);
+
+
+    }
+    public void caloriesCardClicked(){
+        waterLayout.setVisibility(View.INVISIBLE);
+        stepsLayout.setVisibility(View.INVISIBLE);
+        caloriesLayout.setVisibility(View.VISIBLE);
+
+
+    }
+
+
+
     public void drinkWater(){
         water++;
         waterDrank = String.valueOf(water);
         waterProgress = waterDrank + "/8";
-        txtWaterDrankk.setText("" + waterProgress );
+        txtWaterDrank.setText("" + waterProgress );
         System.out.println(waterProgress);
         CurrentProgress = CurrentProgress + 10;
         //progressBar.setProgress(water);
