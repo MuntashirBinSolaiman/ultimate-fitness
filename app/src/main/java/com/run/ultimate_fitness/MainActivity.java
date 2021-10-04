@@ -119,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void goToStepCounter(View view){
-           Intent intent = new Intent(MainActivity.this, WorkoutPage.class);
+           Intent intent = new Intent(MainActivity.this, WorkoutsGoalPage.class);
            startActivity(intent);
 
         }

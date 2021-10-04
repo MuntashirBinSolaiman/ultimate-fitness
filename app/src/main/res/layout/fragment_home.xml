@@ -356,10 +356,11 @@
                                     android:orientation="vertical">
 
                                     <TextView
+                                        android:id="@+id/txtStepsTaken"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_column="1"
-                                        android:text="2/8"
+                                        android:text="0/0"
                                         android:textSize="17dp"
                                         android:textStyle="bold" />
                                 </LinearLayout>
@@ -433,10 +434,11 @@
                             android:orientation="vertical">
 
                             <TextView
+                                android:id="@+id/txtCaloriesEaten"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_column="1"
-                                android:text="2/8"
+                                android:text="0/0"
                                 android:textSize="17dp"
                                 android:textStyle="bold" />
                         </LinearLayout>

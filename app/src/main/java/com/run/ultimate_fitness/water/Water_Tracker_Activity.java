@@ -36,6 +36,9 @@ public class Water_Tracker_Activity extends AppCompatActivity {
 
     public static final String USER_PREFS ="userPrefs";
     public static final String WATER ="water";
+    public static final String WATER_GOAL ="water_goal";
+
+
 
 
     Button insert, update, delete, view, open_calendar;
@@ -63,8 +66,11 @@ public class Water_Tracker_Activity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
 
         cups_of_water = sharedPreferences.getInt(WATER, 0);
+        int waterProgress = sharedPreferences.getInt(WATER_GOAL, 0);
+
         text_view_progress.setText("" + cups_of_water );
-        progressBar.setMax(8);
+        progressBar.setMax(waterProgress);
+        progressBar.setProgress(cups_of_water);
 
 
         //ShowWaterEntryOnListView(dobHelper);
