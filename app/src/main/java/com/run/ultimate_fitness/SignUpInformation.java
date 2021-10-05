@@ -114,6 +114,12 @@ public class SignUpInformation extends AppCompatActivity {
             return;
         }
 
+        if(phoneNumber.length() > 10){
+            phoneNumberTxt.setError("Phone number is too long");
+            phoneNumberTxt.requestFocus();
+            return;
+        }
+
         if(weight.isEmpty()){
             weightNameTxt.setError("Weight is required");
             weightNameTxt.requestFocus();
@@ -208,7 +214,7 @@ public class SignUpInformation extends AppCompatActivity {
     }
 
     private void updatePicture(){
-        if(picture.equals("")){
+        if(picture.equals("") || picture.isEmpty()){
             picture = loadDefault();
         }
 

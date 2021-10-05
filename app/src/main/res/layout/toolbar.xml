@@ -3,13 +3,13 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    >
+    android:orientation="horizontal">
 
     <LinearLayout
         android:id="@+id/liner_ll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:orientation="horizontal"
         android:padding="10dp">
 
@@ -21,7 +21,7 @@
             android:src="@drawable/ic_arrow_back" />
 
         <TextView
-            android:layout_gravity="center"
+
             android:id="@+id/toolbarTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
