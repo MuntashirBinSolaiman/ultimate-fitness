@@ -3,11 +3,15 @@ package com.run.ultimate_fitness;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Base64;
 import android.view.View;
 import android.widget.ImageView;
@@ -16,6 +20,8 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -24,6 +30,11 @@ public class ProfilePage extends AppCompatActivity {
 
     TextView logoutText, firstNameTextView,lastNameTextView, phoneNumberTextView,heightTextView,weightTextView, fullNameTextView;
     private ImageView backButtonImage, displayImage;
+    private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+    public static final String CREDENTIALS_PREFS = "credentials";
+    public static final String PASSWORD = "password";
+    public static final String EMAIL = "email";
 
     public static final String USER_PREFS ="userPrefs";
     public static final String FIRST_NAME ="firstName";
@@ -84,7 +95,24 @@ public class ProfilePage extends AppCompatActivity {
     }
 
     public void deleteProfileButton(View view){
-        deleteProfile();
+
+        //deleteProfile();
+
+        new AlertDialog.Builder(this)
+                .setTitle("Delete Profile")
+                .setMessage("Are you sure you want to delete your profile?")
+
+                // Specifying a listener allows you to take an action before dismissing the dialog.
+                // The dialog is automatically dismissed when a dialog button is clicked.
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Continue with delete operation
+                        deleteProfile();
+                    }
+                })
+                .setNegativeButton(android.R.string.no, null)
+                //.setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
     }
 
     private void loadValues(){
@@ -115,41 +143,53 @@ public class ProfilePage extends AppCompatActivity {
     }
 
     private void deleteProfile(){
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("Users")
-                .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                .delete()
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if(task.isSuccessful()){
-                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                            user.delete()
-                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<Void> task) {
-                                            if(task.isSuccessful()){
-                                                Toast.makeText(ProfilePage.this,"Profile deleted successfully", Toast.LENGTH_LONG).show();
-                                                clearData();
-                                                Intent intent = new Intent(ProfilePage.this, MainActivity.class);
-                                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                                startActivity(intent);
+        SharedPreferences sharedPreferences = getSharedPreferences(CREDENTIALS_PREFS,MODE_PRIVATE);
 
-                                            }else{
-                                                Toast.makeText(ProfilePage.this,"Failed to delete profile please check internet connection", Toast.LENGTH_LONG).show();
-                                                //progressBar.setVisibility(View.GONE);
-                                            }
-                                        }
-                                    });
-                        }else{
-                            Toast.makeText(ProfilePage.this,"Failed to delete data!", Toast.LENGTH_LONG).show();
-                        }
-                    }
-                });
+        String email = sharedPreferences.getString(EMAIL,"");
+        String password = sharedPreferences.getString(PASSWORD,"");
+
+        AuthCredential credential = EmailAuthProvider.getCredential(email,password);
+
+        user.reauthenticate(credential).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                FirebaseFirestore db = FirebaseFirestore.getInstance();
+                db.collection("Users")
+                        .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                        .delete()
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if(task.isSuccessful()){
+                                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                                    user.delete()
+                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                    if(task.isSuccessful()){
+                                                        Toast.makeText(ProfilePage.this,"Profile deleted successfully", Toast.LENGTH_LONG).show();
+                                                        clearData();
+                                                        Intent intent = new Intent(ProfilePage.this, MainActivity.class);
+                                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                                        startActivity(intent);
+
+                                                    }else{
+                                                        Toast.makeText(ProfilePage.this,"Failed to delete profile please check internet connection", Toast.LENGTH_LONG).show();
+                                                        //progressBar.setVisibility(View.GONE);
+                                                    }
+                                                }
+                                            });
+                                }else{
+                                    Toast.makeText(ProfilePage.this,"Failed to delete data!", Toast.LENGTH_LONG).show();
+                                }
+                            }
+                        });
+            }
+        });
     }
 
-    public Bitmap StringToBitMap(String encodedString){
+   public Bitmap StringToBitMap(String encodedString){
         try {
             byte [] encodeByte= Base64.decode(encodedString,Base64.DEFAULT);
             Bitmap bitmap= BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);

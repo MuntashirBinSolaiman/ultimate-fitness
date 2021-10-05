@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
@@ -24,6 +25,10 @@ public class EmailSignUp extends AppCompatActivity {
     private EditText emailAddressTxt,passwordTxt,confirmPasswordTxt;
     private TextView addEmailButton;
     private ProgressBar progressBar;
+
+    public static final String CREDENTIALS_PREFS = "credentials";
+    public static final String PASSWORD = "password";
+    public static final String EMAIL = "email";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,6 +107,8 @@ public class EmailSignUp extends AppCompatActivity {
                             progressBar.setVisibility(View.VISIBLE);
                             addEmailButton.setVisibility(View.GONE);
 
+                            saveCredentials(email,password);
+
                             Toast.makeText(EmailSignUp.this,"Email and password registered successfully",Toast.LENGTH_LONG).show();
                             Intent intent = new Intent(EmailSignUp.this, SignUpInformation.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -115,5 +122,13 @@ public class EmailSignUp extends AppCompatActivity {
                         }
                     }
                 });
+    }
+
+    private void saveCredentials(String email, String password){
+        SharedPreferences sharedPreferences = getSharedPreferences(CREDENTIALS_PREFS,MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(EMAIL,email);
+        editor.putString(PASSWORD,password);
+        editor.apply();
     }
 }

@@ -24,7 +24,7 @@ public class ChangePassword extends AppCompatActivity {
     private TextView toolDisplay, toolLogout;
     private EditText oldPasswordTxt, newPasswordTxt, confirmPasswordTxt, emailTxt;
     private ImageView backButtonImage;
-    private FirebaseUser user;
+    private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
 
     @Override

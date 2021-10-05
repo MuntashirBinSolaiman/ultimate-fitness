@@ -44,7 +44,7 @@ public class SignUpInformation extends AppCompatActivity {
     private TextView addInfoButton;
     private ProgressBar progressBar;
     private ImageView profilePicImage;
-    private String picture,workoutGoal = "";
+    private String picture = "",workoutGoal = "";
 
     public static final String USER_PREFS ="userPrefs";
     public static final String FIRST_NAME ="firstName";
