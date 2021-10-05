@@ -70,7 +70,8 @@
                     android:hint="Tap here"
                     android:inputType="textPersonName"
                     android:textColor="@color/darker_grey"
-                    android:textSize="18dp"/>
+                    android:textSize="18dp"
+                    tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck" />
             </LinearLayout>
             <View
                 android:layout_width="match_parent"
@@ -189,10 +190,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="25dp"
                     android:hint="Tap here"
+                    android:importantForAutofill="no"
+                    android:inputType="numberDecimal"
                     android:textColor="@color/darker_grey"
                     android:textSize="18dp"
-                    android:inputType="numberDecimal"
-                    android:importantForAutofill="no" />
+                    tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck" />
             </LinearLayout>
             <View
                 android:layout_width="match_parent"

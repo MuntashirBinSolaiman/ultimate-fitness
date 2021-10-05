@@ -9,6 +9,7 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,10 +22,11 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class ChangePassword extends AppCompatActivity {
 
-    private TextView toolDisplay, toolLogout;
+    private TextView toolDisplay, toolLogout, updateButton, forgotPasswordButton;
     private EditText oldPasswordTxt, newPasswordTxt, confirmPasswordTxt, emailTxt;
     private ImageView backButtonImage;
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    private ProgressBar progressBar;
 
 
     @Override
@@ -36,7 +38,10 @@ public class ChangePassword extends AppCompatActivity {
             getSupportActionBar().hide();
         }
 
+        forgotPasswordButton = findViewById(R.id.forgotPasswordButton);
+        updateButton = findViewById(R.id.updatePasswordButton);
         toolDisplay = findViewById(R.id.toolbarTextView);
+        progressBar = findViewById(R.id.progressBar);
         toolLogout = findViewById(R.id.toolbarLogoutTextView);
         oldPasswordTxt = findViewById(R.id.oldPasswordChangeEditText);
         newPasswordTxt = findViewById(R.id.newPasswordChangeEditText);
@@ -53,6 +58,8 @@ public class ChangePassword extends AppCompatActivity {
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
         });
+
+
     }
 
     public void updatePassword(View view){
@@ -61,6 +68,9 @@ public class ChangePassword extends AppCompatActivity {
 
     public void forgotPassword(View view){
         Intent intent = new Intent(this, EmailSignUp.class);
+        forgotPasswordButton.setVisibility(View.GONE);
+        updateButton.setVisibility(View.GONE);
+        progressBar.setVisibility(View.VISIBLE);
         startActivity(intent);
     }
 
@@ -124,6 +134,10 @@ public class ChangePassword extends AppCompatActivity {
             return;
         }
 
+        forgotPasswordButton.setVisibility(View.GONE);
+        updateButton.setVisibility(View.GONE);
+        progressBar.setVisibility(View.VISIBLE);
+
         AuthCredential credential = EmailAuthProvider.getCredential(email,oldPassword);
 
         user.reauthenticate(credential).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -135,13 +149,22 @@ public class ChangePassword extends AppCompatActivity {
                         public void onComplete(@NonNull Task<Void> task) {
                             if(!task.isSuccessful()){
                                 Toast.makeText(ChangePassword.this,"Something went wrong please try again later",Toast.LENGTH_LONG).show();
+                                forgotPasswordButton.setVisibility(View.VISIBLE);
+                                updateButton.setVisibility(View.VISIBLE);
+                                progressBar.setVisibility(View.GONE);
                             }else {
                                 Toast.makeText(ChangePassword.this,"Password successfully updated",Toast.LENGTH_LONG).show();
+                                forgotPasswordButton.setVisibility(View.VISIBLE);
+                                updateButton.setVisibility(View.VISIBLE);
+                                progressBar.setVisibility(View.GONE);
                             }
                         }
                     });
                 }else {
                     Toast.makeText(ChangePassword.this,"Authentication failed",Toast.LENGTH_LONG).show();
+                    forgotPasswordButton.setVisibility(View.VISIBLE);
+                    updateButton.setVisibility(View.VISIBLE);
+                    progressBar.setVisibility(View.GONE);
                 }
             }
         });
