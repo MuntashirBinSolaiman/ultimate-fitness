@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -18,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.run.ultimate_fitness.MainActivity;
 import com.run.ultimate_fitness.R;
+import com.run.ultimate_fitness.StepCounter;
 
 import java.text.DateFormat;
 import java.util.Calendar;
@@ -34,22 +36,36 @@ public class Water_Tracker_Activity extends AppCompatActivity {
     private ArrayAdapter waterArrayAdapter;
     private Water_Tracker_DOBHelper waterTrackerDobHelper;
 
+    private TextView toolDisplayView, logoutText;
+    private ImageView backButtonImage;
+
     public static final String USER_PREFS ="userPrefs";
     public static final String WATER ="water";
     public static final String WATER_GOAL ="water_goal";
 
-
-
-
     Button insert, update, delete, view, open_calendar;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.water_tracker_activity_main);
 
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
 
+        logoutText = findViewById(R.id.toolbarLogoutTextView);
+        toolDisplayView = findViewById(R.id.toolbarTextView);
+        backButtonImage =findViewById(R.id.toolbarBackButton);
+
+        logoutText.setVisibility(View.GONE);
+        backButtonImage.setOnClickListener(v -> {
+            Intent intent = new Intent(Water_Tracker_Activity.this, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        });
+        toolDisplayView.setText("Water Tracker");
 
         text_view_progress = findViewById(R.id.text_view_progress);
         progressBar = findViewById(R.id.progress_bar);
@@ -129,9 +145,6 @@ public class Water_Tracker_Activity extends AppCompatActivity {
                         android.R.layout.simple_list_item_1, waterTrackerDobHelper.getInfo());
                 lv_view.setAdapter(waterArrayAdapter);
             }
-
-
-
         });
 
 
@@ -157,7 +170,6 @@ public class Water_Tracker_Activity extends AppCompatActivity {
 
                 //Display
                 //ShowWaterEntryOnListView(dobHelper);
-
 
 
                 waterArrayAdapter = new ArrayAdapter<WaterModel>(Water_Tracker_Activity.this,
