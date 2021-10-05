@@ -31,24 +31,31 @@ import com.run.ultimate_fitness.databinding.FragmentHomeBinding;
 
 public class HomeFragment extends Fragment {
 
-    public int water ;
+    public int water, waterGoal, caloriesGoal ;
+    private String stepsGoal;
 
     private HomeViewModel homeViewModel;
     private FragmentHomeBinding binding;
-    private ImageView profilePicImage;
+    private ImageView profilePicImage, imgHideMainCard, imgShowMainCard;
     private TextView userName;
-    private TextView text_view_progress, txtSteps, txtCalories, txtGlasses;
+    private TextView txtWaterDrank2, txtSteps, txtCalories, txtGlasses;
 
     public static final String PICTURE ="picture";
     public static final String FIRST_NAME ="firstName";
     public static final String LAST_NAME ="lastName";
     public static final String WATER ="water";
+    public static final String WATER_GOAL ="water_goal";
+    public static final String CALORIES_GOAL ="calories_goal";
+    public static final String STEPS_GOAL ="steps_goal";
+
+
+
 
     String waterDrank ;
     String waterProgress;
 
     private RelativeLayout waterLayout, stepsLayout, caloriesLayout;
-    private CardView waterCard, stepsCard, caloriesCard;
+    private CardView waterCard, stepsCard, caloriesCard, mainCard;
 
 
 
@@ -58,6 +65,7 @@ public class HomeFragment extends Fragment {
     private ProgressBar waterProgressBar, stepsProgressBar, caloriesProgressBar;
     public Button btnDrink;
     private TextView txtWaterDrank, txtStepsTaken, txtCaloriesEaten;
+    private TextView stepsTakenText, caloriesEatenText;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -93,6 +101,7 @@ public class HomeFragment extends Fragment {
         stepsLayout =  root.findViewById(R.id.layout_stepsProgress);
         caloriesLayout =  root.findViewById(R.id.layout_caloriesProgress);
 
+        mainCard = root.findViewById(R.id.card_main);
         waterCard = root.findViewById(R.id.waterCard);
         stepsCard = root.findViewById(R.id.stepsCard);
         caloriesCard = root.findViewById(R.id.caloriesCard);
@@ -100,6 +109,7 @@ public class HomeFragment extends Fragment {
 
 
         waterProgressBar = root.findViewById(R.id.waterProgress_bar);
+
         stepsProgressBar = root.findViewById(R.id.stepsProgress_bar);
         caloriesProgressBar = root.findViewById(R.id.calorieProgress_bar);
 
@@ -107,6 +117,9 @@ public class HomeFragment extends Fragment {
 
 
         txtWaterDrank = root.findViewById(R.id.txtWaterDrank);
+
+        stepsTakenText = root.findViewById(R.id.txtStepsTaken);
+        caloriesEatenText = root.findViewById(R.id.txtCaloriesEaten);
 
         txtGlasses = root.findViewById(R.id.txtGlasses);
         txtGlasses.setText("Glasses");
@@ -117,7 +130,7 @@ public class HomeFragment extends Fragment {
         txtCaloriesEaten = root.findViewById(R.id.txtCalorieProgress);
         txtCaloriesEaten.setText("0/0");
 
-        text_view_progress = root.findViewById(R.id.txtWaterProgress);
+        txtWaterDrank2 = root.findViewById(R.id.txtWaterProgress);
 
         txtSteps = root.findViewById(R.id.txtSteps);
         txtSteps.setText("Steps");
@@ -126,15 +139,51 @@ public class HomeFragment extends Fragment {
         txtCalories.setText("Calories");
 
         btnDrink = root.findViewById(R.id.btnDrinkWater);
-        waterProgressBar.setMax(8);
 
 
 
         water = sharedPreferences.getInt(WATER, 0);
-        txtWaterDrank.setText(water + "/8");
-        text_view_progress.setText("" + water );
+        waterGoal = sharedPreferences.getInt(WATER_GOAL, 0);
+        caloriesGoal = sharedPreferences.getInt(CALORIES_GOAL, 0);
+        stepsGoal = sharedPreferences.getString(STEPS_GOAL, "0");
+
+        caloriesEatenText.setText("0" + "/" + caloriesGoal);
+        stepsTakenText.setText("0" + "/" + stepsGoal);
 
 
+
+
+
+        waterProgressBar.setMax(waterGoal);
+
+
+        txtWaterDrank.setText(water + "/" + waterGoal);
+        txtWaterDrank2.setText(water + "/" + waterGoal);
+        waterProgressBar.setProgress(water);
+
+
+
+        imgHideMainCard = root.findViewById(R.id.imgHideMainCard);
+        imgShowMainCard = root.findViewById(R.id.imgShowMainCard);
+
+
+        imgHideMainCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                imgHideMainCard.setVisibility(View.INVISIBLE);
+                imgShowMainCard.setVisibility(View.VISIBLE);
+                mainCard.animate().translationY(500);
+            }
+        });
+        imgShowMainCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                imgShowMainCard.setVisibility(View.INVISIBLE);
+                imgHideMainCard.setVisibility(View.VISIBLE);
+                mainCard.animate().translationY(0);
+
+            }
+        });
 
 
 
@@ -238,12 +287,13 @@ public class HomeFragment extends Fragment {
     public void drinkWater(){
         water++;
         waterDrank = String.valueOf(water);
-        waterProgress = waterDrank + "/8";
+        waterProgress = waterDrank + "/" + waterGoal;
         txtWaterDrank.setText("" + waterProgress );
+        txtWaterDrank2.setText("" + waterProgress);
         System.out.println(waterProgress);
         CurrentProgress = CurrentProgress + 10;
-        //progressBar.setProgress(water);
-        if (water >= 8)
+        waterProgressBar.setProgress(water);
+        if (water == waterGoal)
         {
             new AlertDialog.Builder(this.getContext())
                     .setTitle("Achievement")
@@ -263,11 +313,31 @@ public class HomeFragment extends Fragment {
                         .setIcon(android.R.drawable.ic_dialog_alert)
                         .show();
 */
+
             water = 0;
 
         }
-    }
+
+        if (water > 13) {
+            new AlertDialog.Builder(this.getContext())
+                    .setTitle("Warning")
+                    .setMessage("Too much water within a short period of time can cause water Intoxication")
+
+                    // Specifying a listener allows you to take an action before dismissing the dialog.
+                    // The dialog is automatically dismissed when a dialog button is clicked.
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            // Continue with delete operation
+                        }
+                    }).show();
+/*
+
+                        // A null listener allows the button to dismiss the dialog and take no further action.
+                        .setNegativeButton(android.R.string.ok, null)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+ */
+            water = 0;
 
 
-
-}
+        }}}
