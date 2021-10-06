@@ -47,17 +47,17 @@
                     android:layout_alignParentRight="true"
                     android:layout_marginTop="40dp"
                     android:layout_marginRight="10dp"
-                    android:src="@drawable/ic_appointments"
-                    android:onClick="goToBookings"/>
+                    android:onClick="goToBookings"
+                    android:src="@drawable/ic_appointments" />
 
                 <TextView
                     android:id="@+id/txtUsername"
                     android:layout_width="match_parent"
-                    android:textAlignment="center"
                     android:layout_height="wrap_content"
                     android:layout_alignBottom="@+id/icon_user"
                     android:layout_centerInParent="true"
                     android:text="Welcome"
+                    android:textAlignment="center"
                     android:textColor="@color/black"
                     android:textSize="17dp"
                     android:textStyle="italic" />

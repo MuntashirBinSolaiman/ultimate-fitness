@@ -265,7 +265,7 @@
                                 android:id="@+id/btnDrinkWater"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:backgroundTint="@color/light_grey"
+                                android:backgroundTint="@color/button_color"
                                 android:onClick="drinkWater"
                                 android:text="Drink" />
 

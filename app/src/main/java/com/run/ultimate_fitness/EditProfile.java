@@ -17,6 +17,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Base64;
@@ -27,6 +28,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -36,6 +38,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class EditProfile extends AppCompatActivity {
 
@@ -43,6 +46,7 @@ public class EditProfile extends AppCompatActivity {
     private ImageView backButtonImage, profilePicImage;
     private EditText firstNameTxt, lastNameTxt, phoneNumberEdit, heightTxt, weightTxt;
     private ProgressBar progressBar;
+    private Bitmap bitmap;
     private String thePicture = "";
     public String workoutGoal = "";
 
@@ -298,14 +302,35 @@ public class EditProfile extends AppCompatActivity {
                 case 1:
                     if(resultCode == RESULT_OK && data != null){
                         Uri selectedImage = data.getData();
-                        try {
-                            Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
-                            thePicture = BitMapToString(bitmap);
-                            profilePicImage.setImageBitmap(bitmap);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        //profilePicImage.setImageURI(selectedImage);
+
+                        AsyncTask.execute(new Runnable() {
+                            @Override
+                            public void run() {
+                                //TODO your background code
+                                try {
+                                    bitmap = Glide
+                                            .with(EditProfile.this)
+                                            .asBitmap()
+                                            .load(selectedImage)
+                                            .submit()
+                                            .get();
+                                } catch (ExecutionException e) {
+                                    e.printStackTrace();
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
+
+                        new ClearSpTask(new ClearSpTask.AsynResponse() {
+                            @Override
+                            public void processFinish(Boolean output) {
+                                // you can go here
+                                thePicture = BitMapToString(bitmap);
+                                profilePicImage.setImageBitmap(bitmap);
+                            }
+                        }).execute();
+
                     }
                     break;
             }
