@@ -1,5 +1,8 @@
 package com.run.ultimate_fitness;
 
+import static android.content.ContentValues.TAG;
+import static com.run.ultimate_fitness.utils.Constants.UID;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
@@ -7,12 +10,20 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.NumberPicker;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.cometchat.pro.core.CometChat;
+import com.cometchat.pro.exceptions.CometChatException;
+import com.google.firebase.auth.FirebaseAuth;
+import com.run.ultimate_fitness.utils.Constants;
 import com.run.ultimate_fitness.water.Water_Tracker_Activity;
+
+import com.cometchat.pro.models.User;
+
 
 public class WorkoutsGoalPage extends AppCompatActivity {
 
@@ -27,6 +38,12 @@ public class WorkoutsGoalPage extends AppCompatActivity {
     private RelativeLayout fitnessLayout, stepsLayout, waterLayout, caloriesLayout;
 
     public static final String USER_PREFS ="userPrefs";
+
+    public static final String FIRST_NAME ="firstName";
+    public static final String LAST_NAME ="lastName";
+
+    private static  String fullName;
+
 
     public static final String WATER_GOAL ="water_goal";
     public static final String STEPS_GOAL ="steps_goal";
@@ -107,7 +124,33 @@ public class WorkoutsGoalPage extends AppCompatActivity {
         moveLayouts();
 
 
+        registerChatUser();
 
+
+    }
+
+    private void registerChatUser() {
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
+        fullName = sharedPreferences.getString(FIRST_NAME, "0") + " " + sharedPreferences.getString(LAST_NAME, "0");
+
+        UID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        User user = new User();
+        user.setUid(UID); // Replace with the UID for the user to be created
+        user.setName(fullName); // Replace with the name of the user
+
+
+        CometChat.createUser(user, Constants.AUTH_KEY, new CometChat.CallbackListener<User>() {
+            @Override
+            public void onSuccess(User user) {
+                Log.d("createUser", user.toString());
+            }
+
+            @Override
+            public void onError(CometChatException e) {
+                Log.e("createUser", e.getMessage());
+            }
+        });
     }
 
     @Override
@@ -171,6 +214,7 @@ public class WorkoutsGoalPage extends AppCompatActivity {
                 editor.apply();
 
 
+                chatLogin();
 
 
                 Intent intent = new Intent(WorkoutsGoalPage.this, MainActivity.class);
@@ -182,6 +226,26 @@ public class WorkoutsGoalPage extends AppCompatActivity {
         }
 
         }
+
+    private void chatLogin() {
+
+        if (CometChat.getLoggedInUser() == null) {
+            CometChat.login(UID, Constants.AUTH_KEY, new CometChat.CallbackListener<User>() {
+
+                @Override
+                public void onSuccess(User user) {
+                    Log.d(TAG, "Login Successful : " + user.toString());
+                }
+
+                @Override
+                public void onError(CometChatException e) {
+                    Log.d(TAG, "Login failed with exception: " + e.getMessage());
+                }
+            });
+        } else {
+            // User already logged in
+        }
+    }
 
     private void initOnClickListeners() {
         txtNext.setOnClickListener(new View.OnClickListener() {

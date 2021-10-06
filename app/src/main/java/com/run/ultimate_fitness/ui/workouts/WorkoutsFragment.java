@@ -98,6 +98,8 @@ public class WorkoutsFragment extends Fragment {
 
 
         return workoutsList;
+
+
     }
 
     @Override
