@@ -17,6 +17,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 
 public class EmailSignUp extends AppCompatActivity {
@@ -26,9 +27,13 @@ public class EmailSignUp extends AppCompatActivity {
     private TextView addEmailButton;
     private ProgressBar progressBar;
 
+    private String uid ="";
+
     public static final String CREDENTIALS_PREFS = "credentials";
     public static final String PASSWORD = "password";
     public static final String EMAIL = "email";
+    public static final String UID = "uid";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,6 +115,9 @@ public class EmailSignUp extends AppCompatActivity {
                             saveCredentials(email,password);
 
                             Toast.makeText(EmailSignUp.this,"Email and password registered successfully",Toast.LENGTH_LONG).show();
+
+                            uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
                             Intent intent = new Intent(EmailSignUp.this, SignUpInformation.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -127,6 +135,7 @@ public class EmailSignUp extends AppCompatActivity {
     private void saveCredentials(String email, String password){
         SharedPreferences sharedPreferences = getSharedPreferences(CREDENTIALS_PREFS,MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(UID,uid);
         editor.putString(EMAIL,email);
         editor.putString(PASSWORD,password);
         editor.apply();

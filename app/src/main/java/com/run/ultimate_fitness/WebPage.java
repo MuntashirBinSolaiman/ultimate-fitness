@@ -19,7 +19,7 @@ public class WebPage extends AppCompatActivity {
 
 
         webView = (WebView) findViewById(R.id.webView);
-        webView.loadUrl("https://monash.edu");
+        webView.loadUrl("https://ultimatefitness.company/bookings");
 
 
 

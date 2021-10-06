@@ -172,6 +172,8 @@ public class SignUpInformation extends AppCompatActivity {
                         }
                     }
                 });
+        
+
     }
 
     private void saveDataLocal(String firstName,String lastName,String phoneNumber,String weight,String height,String picture,String workoutGoal){
