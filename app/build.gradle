@@ -15,6 +15,32 @@ android {
         multiDexEnabled true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        ndk {
+            abiFilters "armeabi-v7a", "x86", "arm64-v8a", "x86_64"
+        }
+    }
+
+    sourceSets {
+        main {
+            manifest.srcFile 'src/main/AndroidManifest.xml'
+            java.srcDirs = ['src/main/java', '.apt_generated']
+            aidl.srcDirs = ['src/main/aidl', '.apt_generated']
+            res.srcDirs = [
+                    'src/main/res',
+                    'src/main/res-components',
+                    'src/main/res-components/calls',
+                    'src/main/res-components/chats',
+                    'src/main/res-componentscom.cometchat.pro.uikit.ui_components/cometchatui',
+                    'src/main/res-components/groups',
+                    'src/main/res-components/messagebubbles',
+                    'src/main/res-components/messages',
+                    'src/main/res-components/others',
+                    'src/main/res-components/shared',
+                    'src/main/res-components/userprofile',
+                    'src/main/res-components/users'
+            ]
+        }
     }
 
     buildTypes {
@@ -50,6 +76,7 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.github.bumptech.glide:glide:4.12.0'
     implementation 'com.mikhaellopez:circularimageview:4.3.0'
+    implementation 'androidx.databinding:databinding-runtime:7.0.2'
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
@@ -79,6 +106,16 @@ dependencies {
     //Chat
     implementation 'com.cometchat:pro-android-chat-sdk:3.0.1'
     implementation 'com.github.stfalcon:chatkit:0.3.3'
+    // required if you want to use Mockito for unit tests
+    testImplementation 'org.mockito:mockito-core:3.7.7'
+    // required if you want to use Mockito for Android tests
+    androidTestImplementation 'org.mockito:mockito-android:3.7.7'
+    //implementation project(path: ':uikit')
+
+    implementation 'com.google.android.material:material:1.2.0-alpha05'
+    implementation 'com.facebook.shimmer:shimmer:0.4.0'
+
+    implementation 'com.github.timigod:android-chat-ui:v0.1.4'
 
 
 }

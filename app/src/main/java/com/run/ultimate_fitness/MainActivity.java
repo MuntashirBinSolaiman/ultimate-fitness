@@ -77,6 +77,8 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         }
 
+
+
         UID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());

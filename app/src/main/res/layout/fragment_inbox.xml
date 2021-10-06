@@ -2,18 +2,56 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:chatview="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.inbox.InboxFragment">
 
-    <ListView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/ContactsListView"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/conversatonsCardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+    <RelativeLayout
+        android:id="@+id/conversationLayout"
+        android:layout_width="match_parent"
+        android:layout_height="75dp">
 
-    </ListView>
 
+        <ImageView
+            android:id="@+id/avatarImageView"
+            android:src="@drawable/ombati"
+            android:layout_width="72dp"
+            android:layout_height="75dp"
+            android:layout_marginRight="10dp" />
+
+        <TextView
+            android:text="Ultimate Fitness"
+            android:id="@+id/userNameTextView"
+            android:textSize="17dp"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@id/avatarImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/messageTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_below="@id/userNameTextView"
+            android:layout_toRightOf="@id/avatarImageView"
+            android:textColor="@color/darker_grey"
+            android:text="Welcome to Ultimate Fitness"
+            android:textSize="15dp" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/black"/>
+
+
+    </RelativeLayout>
+    </androidx.cardview.widget.CardView>
 </RelativeLayout>
