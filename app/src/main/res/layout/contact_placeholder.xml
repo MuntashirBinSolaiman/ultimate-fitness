@@ -18,7 +18,7 @@
         android:layout_marginTop="6dp"
         android:layout_marginEnd="6dp"
         android:layout_marginBottom="6dp"
-        android:src="@drawable/ombati"/>
+        android:src="@drawable/ombati" />
 
     <TextView
         android:id="@+id/textviewUserName"
