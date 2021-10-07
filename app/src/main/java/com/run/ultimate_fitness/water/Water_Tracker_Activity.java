@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -43,7 +44,7 @@ public class Water_Tracker_Activity extends AppCompatActivity {
     public static final String WATER ="water";
     public static final String WATER_GOAL ="water_goal";
 
-    Button insert, update, delete, view, open_calendar;
+    TextView insert, update, delete, view, open_calendar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

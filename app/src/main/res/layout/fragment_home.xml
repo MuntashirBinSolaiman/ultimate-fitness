@@ -96,6 +96,7 @@
 
 
     </RelativeLayout>
+
     <RelativeLayout
         android:id="@+id/layout_caloriesProgress"
         android:layout_width="match_parent"
