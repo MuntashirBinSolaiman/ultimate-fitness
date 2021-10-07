@@ -4,6 +4,7 @@ import static android.content.ContentValues.TAG;
 import static com.run.ultimate_fitness.utils.Constants.UID;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -49,6 +50,8 @@ public class WorkoutsGoalPage extends AppCompatActivity {
     public static final String STEPS_GOAL ="steps_goal";
     public static final String CALORIES_GOAL ="calories_goal";
 
+    private CardView summerBodyCard, gainMuscleCard, loseWeightCard, loseQuickWeightCard;
+
 
 
 
@@ -57,6 +60,8 @@ public class WorkoutsGoalPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_workouts_goal_page);
         getSupportActionBar().hide();
+
+        summerBodyCard = findViewById(R.id.summerBodyCard);
 
 
         stepsGoalPicker = findViewById(R.id.pickerStepsGoal);
@@ -163,18 +168,35 @@ public class WorkoutsGoalPage extends AppCompatActivity {
         switch (layoutsMove) {
             case 1:
                 fitnessLayout.animate().translationX(0);
+                fitnessLayout.setVisibility(View.VISIBLE);
+
+
                 waterLayout.animate().translationX(650);
+                waterLayout.setVisibility(View.INVISIBLE);
+
                 stepsLayout.animate().translationX(650);
+                stepsLayout.setVisibility(View.INVISIBLE);
+
                 caloriesLayout.animate().translationX(650);
+                caloriesLayout.setVisibility(View.INVISIBLE);
+
 
                 txtBack.setVisibility(View.INVISIBLE);
                 break;
 
             case 2:
                 fitnessLayout.animate().translationX(-650);
+                fitnessLayout.setVisibility(View.INVISIBLE);
+
                 waterLayout.animate().translationX(0);
+                waterLayout.setVisibility(View.VISIBLE);
+
                 stepsLayout.animate().translationX(650);
+                stepsLayout.setVisibility(View.INVISIBLE);
+
                 caloriesLayout.animate().translationX(650);
+                caloriesLayout.setVisibility(View.INVISIBLE);
+
 
                 txtBack.setVisibility(View.VISIBLE);
 
@@ -185,9 +207,17 @@ public class WorkoutsGoalPage extends AppCompatActivity {
 
             case 3:
                 fitnessLayout.animate().translationX(-650);
+                fitnessLayout.setVisibility(View.INVISIBLE);
+
                 waterLayout.animate().translationX(-650);
+                waterLayout.setVisibility(View.INVISIBLE);
+
                 stepsLayout.animate().translationX(0);
+                stepsLayout.setVisibility(View.VISIBLE);
+
                 caloriesLayout.animate().translationX(650);
+                caloriesLayout.setVisibility(View.INVISIBLE);
+
                 txtNext.setText("Next");
                 System.out.println(waterGoalFinal);
 
@@ -196,9 +226,17 @@ public class WorkoutsGoalPage extends AppCompatActivity {
 
             case 4:
                 fitnessLayout.animate().translationX(-650);
+                fitnessLayout.setVisibility(View.INVISIBLE);
+
                 waterLayout.animate().translationX(-650);
+                waterLayout.setVisibility(View.INVISIBLE);
+
                 stepsLayout.animate().translationX(-650);
+                stepsLayout.setVisibility(View.INVISIBLE);
+
                 caloriesLayout.animate().translationX(0);
+                caloriesLayout.setVisibility(View.VISIBLE);
+
                 txtNext.setText("Finish");
 
                 break;
@@ -266,6 +304,10 @@ public class WorkoutsGoalPage extends AppCompatActivity {
 
             }
         });
+
+
+
+
     }
 
 
