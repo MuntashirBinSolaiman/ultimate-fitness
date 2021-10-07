@@ -14,142 +14,151 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:paddingTop="15dp">
-
-
-        <TextView
-            android:id="@+id/tv_date"
-            android:layout_width="200dp"
-            android:layout_height="50dp"
-            android:layout_marginBottom="20dp"
-            android:ems="10"
-            android:hint="@string/date"
-            android:padding="10dp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textSize="20sp" />
-
-        <TextView
-            android:id="@+id/open_calendar"
-            android:layout_width="180dp"
-            android:layout_height="50dp"
-            android:background="@drawable/bg_button"
-            android:gravity="center"
-            android:textSize="18dp"
-            android:ems="10"
-            android:padding="10dp"
-            android:text="@string/open_calendar" />
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-        <ProgressBar
-            android:id="@+id/progress_bar"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:ems="10"
-            android:indeterminateOnly="false"
-            android:padding="10dp"
-
-            android:progressDrawable="@drawable/water_tracker_circle_progress_bar"
-            tools:progress="0" />
-
-            <TextView
-                android:id="@+id/text_view_progress"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                tools:text="0"
-                android:layout_centerInParent="true"/>
-
-            <TextView
-                android:id="@+id/txtSteps"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:paddingTop="50dp"
-                android:text="Glasses" />
-
-        </RelativeLayout>
-
-
-
-        <TextView
-            android:id="@+id/drank_button_inc"
-            android:layout_width="180dp"
-            android:layout_height="50dp"
-            android:background="@drawable/bg_button"
-            android:gravity="center"
-            android:textSize="18dp"
-            android:layout_marginTop="50dp"
-            android:ems="10"
-            android:onClick="drinkWater"
-            android:padding="10dp"
-            android:text="@string/_500ml" />
-
-        <TextView
-            android:id="@+id/drank_button_dec"
-            android:layout_width="180dp"
-            android:layout_height="50dp"
-            android:background="@drawable/bg_button"
-            android:layout_marginTop="15dp"
-            android:gravity="center"
-            android:textSize="18dp"
-            android:ems="10"
-            android:onClick="remove_drinkWater"
-            android:padding="10dp"
-            android:text="@string/_Remove500ml"
-            android:importantForAutofill="no" />
-
-        <TextView
-            android:id="@+id/add_to_database"
-            android:layout_width="180dp"
-            android:layout_height="50dp"
-            android:background="@drawable/bg_button"
-            android:gravity="center"
-            android:textSize="18dp"
-            android:layout_marginTop="15dp"
-            android:ems="10"
-            android:padding="10dp"
-            android:text="@string/add_to_table" />
-
-        <TextView
-            android:id="@+id/view_table"
-            android:layout_width="180dp"
-            android:layout_height="50dp"
-            android:background="@drawable/bg_button"
-            android:gravity="center"
-            android:textSize="18dp"
-            android:layout_marginTop="15dp"
-            android:ems="10"
-            android:padding="10dp"
-            android:text="@string/view_table" />
-        <TextView
-            android:id="@+id/delete_table"
-            android:layout_width="180dp"
-            android:layout_height="50dp"
-            android:background="@drawable/bg_button"
-            android:gravity="center"
-            android:textSize="18dp"
-            android:layout_marginTop="15dp"
-            android:ems="10"
-            android:padding="10dp"
-            android:text="@string/delete_entry" />
-
-
-        <ListView
-            android:id="@+id/lv_view"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp" />
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingTop="15dp">
+
+            <TextView
+                android:id="@+id/_date"
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:layout_marginBottom="20dp"
+                android:ems="10"
+                android:padding="10dp"
+                android:text="@string/date"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/tv_date"
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:layout_marginBottom="20dp"
+                android:ems="10"
+                android:padding="10dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/open_calendar"
+                android:layout_width="180dp"
+                android:layout_height="50dp"
+                android:background="@drawable/bg_button"
+                android:gravity="center"
+                android:textSize="18dp"
+                android:ems="10"
+                android:padding="10dp"
+                android:text="@string/open_calendar" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ProgressBar
+                    android:id="@+id/progress_bar"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:ems="10"
+                    android:indeterminateOnly="false"
+                    android:padding="10dp"
+
+                    android:progressDrawable="@drawable/water_tracker_circle_progress_bar"
+                    tools:progress="0" />
+
+                <TextView
+                    android:id="@+id/text_view_progress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    tools:text="0"
+                    android:layout_centerInParent="true"/>
+
+                <TextView
+                    android:id="@+id/txtSteps"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:paddingTop="50dp"
+                    android:text="@string/glasses" />
+
+            </RelativeLayout>
 
 
-    </LinearLayout>
+
+            <TextView
+                android:id="@+id/drank_button_inc"
+                android:layout_width="180dp"
+                android:layout_height="50dp"
+                android:background="@drawable/bg_button"
+                android:gravity="center"
+                android:textSize="18sp"
+                android:layout_marginTop="50dp"
+                android:ems="10"
+                android:onClick="drinkWater"
+                android:padding="10dp"
+                android:text="@string/add250ml" />
+
+            <TextView
+                android:id="@+id/drank_button_dec"
+                android:layout_width="180dp"
+                android:layout_height="50dp"
+                android:background="@drawable/bg_button"
+                android:layout_marginTop="15dp"
+                android:gravity="center"
+                android:textSize="18sp"
+                android:ems="10"
+                android:onClick="remove_drinkWater"
+                android:padding="10dp"
+                android:text="@string/Remove250ml"
+                android:importantForAutofill="no" />
+
+            <TextView
+                android:id="@+id/add_to_database"
+                android:layout_width="180dp"
+                android:layout_height="50dp"
+                android:background="@drawable/bg_button"
+                android:gravity="center"
+                android:textSize="18sp"
+                android:layout_marginTop="15dp"
+                android:ems="10"
+                android:padding="10dp"
+                android:text="@string/add_to_table" />
+
+            <TextView
+                android:id="@+id/view_table"
+                android:layout_width="180dp"
+                android:layout_height="50dp"
+                android:background="@drawable/bg_button"
+                android:gravity="center"
+                android:textSize="18sp"
+                android:layout_marginTop="15dp"
+                android:ems="10"
+                android:padding="10dp"
+                android:text="@string/view_table" />
+            <TextView
+                android:id="@+id/delete_table"
+                android:layout_width="180dp"
+                android:layout_height="50dp"
+                android:background="@drawable/bg_button"
+                android:gravity="center"
+                android:textSize="18sp"
+                android:layout_marginTop="15dp"
+                android:ems="10"
+                android:padding="10dp"
+                android:text="@string/delete_entry" />
+
+
+            <ListView
+                android:id="@+id/lv_view"
+                android:layout_width="match_parent"
+                android:layout_height="1000dp"
+                android:layout_marginTop="40dp" />
+
+
+        </LinearLayout>
 
     </ScrollView>
 
