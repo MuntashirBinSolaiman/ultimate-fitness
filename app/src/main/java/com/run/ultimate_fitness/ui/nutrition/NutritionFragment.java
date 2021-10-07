@@ -3,9 +3,15 @@ package com.run.ultimate_fitness.ui.nutrition;
 /* Author: Takunda Ziki
         *  Last modified: 28-10-2021 */
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.app.Dialog;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +40,15 @@ public class NutritionFragment extends Fragment implements RemoveClickListner {
     private RecyclerView mRecyclerViewSnacks;
     private RecyclerAdapter mRecyclerAdapter, mRecyclerAdapterLunch, mRecyclerAdapterDinner, mRecyclerAdapterSnacks, mRecyclerAdapterExcercise;
     private RecyclerView.LayoutManager mLayoutManager;
+
+    public static final String PICTURE ="picture";
+    public static final String FIRST_NAME ="firstName";
+    public static final String LAST_NAME ="lastName";
+    public static final String USER_PREFS ="userPrefs";
+
+    private ImageView profilePicImage;
+    private TextView userName;
+
     TextView btnAddItem, btnAddItemLunch, btnAddItemDinner, btnAddItemSnacks, btnAddItemExcercise, btnAdd;
     ArrayList<RecyclerViewData> myList = new ArrayList<>();
     ArrayList<RecyclerViewData> myListLunch = new ArrayList<>();
@@ -107,6 +122,11 @@ public class NutritionFragment extends Fragment implements RemoveClickListner {
         btnAddItemDinner = (TextView) view.findViewById(R.id.btnAddItemDinner);
         btnAddItemSnacks = (TextView) view.findViewById(R.id.btnAddItemSnacks);
         btnAddItemExcercise = (TextView) view.findViewById(R.id.btnAddItemExcercise);
+
+        profilePicImage = view.findViewById(R.id.icon_user);
+        userName = view.findViewById(R.id.txtUsername);
+
+        loadImage();
 
         //Button Click for adding Goal
         btnAdd.setOnClickListener(new View.OnClickListener() {
@@ -356,6 +376,28 @@ public class NutritionFragment extends Fragment implements RemoveClickListner {
             }
         });
         builder.show();
+    }
+
+    public Bitmap StringToBitMap(String encodedString){
+        try {
+            byte [] encodeByte= Base64.decode(encodedString,Base64.DEFAULT);
+            Bitmap bitmap= BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+            return bitmap;
+        } catch(Exception e) {
+            e.getMessage();
+            return null;
+        }
+    }
+
+    public  void loadImage() {
+        SharedPreferences sharedPreferences = getActivity().getApplicationContext().getSharedPreferences(USER_PREFS, MODE_PRIVATE);
+        String picture = sharedPreferences.getString(PICTURE, "");
+        String firstName = sharedPreferences.getString(FIRST_NAME, "");
+        String lastName = sharedPreferences.getString(LAST_NAME, "");
+
+
+        userName.setText("Welcome, " + firstName);
+        profilePicImage.setImageBitmap(StringToBitMap(picture));
     }
 
 }

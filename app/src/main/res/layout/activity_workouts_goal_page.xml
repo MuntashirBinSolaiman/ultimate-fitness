@@ -203,30 +203,33 @@
 
     <TextView
         android:id="@+id/txtNext"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:background="@drawable/bg_button"
+        android:gravity="center"
+        android:padding="10dp"
         android:text="Next"
         android:textSize="17dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/layout_fitnessGoal"
-        app:layout_constraintVertical_bias="0.19999999"/>
+        app:layout_constraintVertical_bias="0.19999999" />
 
     <TextView
         android:id="@+id/txtBack"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:background="@drawable/bg_button"
+        android:gravity="center"
+        android:padding="10dp"
         android:text="Back"
         android:textSize="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtNext"
-        app:layout_constraintVertical_bias="0.19"/>
-
-
-
+        app:layout_constraintVertical_bias="0.192" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
