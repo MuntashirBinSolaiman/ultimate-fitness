@@ -33,7 +33,7 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textSize="20sp" />
 
-        <EditText
+        <TextView
             android:id="@+id/open_calendar"
             android:layout_width="180dp"
             android:layout_height="50dp"
