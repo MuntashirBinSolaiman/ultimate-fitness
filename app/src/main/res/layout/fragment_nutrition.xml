@@ -196,7 +196,7 @@
                         android:padding="10dp"
 
                         android:textStyle="bold"
-                        android:textColor="@color/black"
+                        android:textColor="@color/login_color_scheme"
                         android:id="@+id/btnAdd"
                         android:text="Add"
                         android:layout_width="match_parent"
@@ -224,7 +224,7 @@
                         android:padding="10dp"
 
                         android:textStyle="bold"
-                        android:textColor="@color/black"
+                        android:textColor="@color/login_color_scheme"
                         android:id="@+id/btnAddItemBreakfast"
                         android:text="Add Item"
                         android:layout_width="match_parent"
@@ -259,7 +259,7 @@
                         android:padding="10dp"
 
                         android:textStyle="bold"
-                        android:textColor="@color/black"
+                        android:textColor="@color/login_color_scheme"
                         android:id="@+id/btnAddItemLunch"
                         android:text="Add Item"
                         android:layout_width="match_parent"
@@ -292,7 +292,7 @@
                         android:padding="10dp"
 
                         android:textStyle="bold"
-                        android:textColor="@color/black"
+                        android:textColor="@color/login_color_scheme"
                         android:id="@+id/btnAddItemSnacks"
                         android:text="Add Item"
                         android:layout_width="match_parent"
@@ -324,7 +324,7 @@
                     <TextView
                         android:padding="10dp"
                         android:textStyle="bold"
-                        android:textColor="@color/black"
+                        android:textColor="@color/login_color_scheme"
                         android:id="@+id/btnAddItemDinner"
                         android:text="Add Item"
                         android:layout_width="match_parent"
@@ -357,7 +357,7 @@
                         android:padding="10dp"
 
                         android:textStyle="bold"
-                        android:textColor="@color/black"
+                        android:textColor="@color/login_color_scheme"
                         android:id="@+id/btnAddItemExcercise"
                         android:text="Add Item"
                         android:layout_width="match_parent"
