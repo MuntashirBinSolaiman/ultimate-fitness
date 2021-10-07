@@ -1,5 +1,7 @@
 package com.run.ultimate_fitness;
 
+import static com.run.ultimate_fitness.utils.Constants.UID;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -44,6 +46,10 @@ public class LoginPage extends AppCompatActivity {
     public static final String HEIGHT ="height";
     public static final String PICTURE ="picture";
 
+    public static final String CREDENTIALS_PREFS = "credentials";
+    public static final String USER_UID = "uid";
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +65,9 @@ public class LoginPage extends AppCompatActivity {
         loginPasswordTxt = findViewById(R.id.loginPasswordEditText);
         TheProgressBar = findViewById(R.id.loginProgressbar);
         loginButton = findViewById(R.id.loginButton);
+
+
+
     }
 
     public void onBackPressed(){
@@ -121,6 +130,8 @@ public class LoginPage extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
                             loadData();
+                            UID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
                         }else{
                             Toast.makeText(LoginPage.this,"Failed to login! Please check your credentials", Toast.LENGTH_LONG).show();
                             TheProgressBar.setVisibility(View.GONE);
@@ -150,6 +161,14 @@ public class LoginPage extends AppCompatActivity {
 
                             SharedPreferences sharedPreferences = getSharedPreferences(USER_PREFS, MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedPreferences.edit();
+
+                            SharedPreferences sharedPreferences2 = getSharedPreferences(CREDENTIALS_PREFS, MODE_PRIVATE);
+                            SharedPreferences.Editor editor2 = sharedPreferences2.edit();
+                            editor2.putString(USER_UID, FirebaseAuth.getInstance().getCurrentUser().getUid());
+                            editor2.apply();
+
+
+
 
                             editor.putString(FIRST_NAME, firstName);
                             editor.putString(LAST_NAME, lastName);

@@ -4,6 +4,7 @@ import static android.content.ContentValues.TAG;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -23,9 +24,15 @@ public class ChatPage extends AppCompatActivity {
 
     String messageText;
     private String listenerID = "CHAT_PAGE";
-    private String receiverID;
+    public String receiverID;
     public String newMessage;
     private ChatView chatView;
+
+
+    public static final String CREDENTIALS_PREFS = "credentials";
+    public static final String USER_UID = "uid";
+    public String userUID;
+
 
     @Override
     protected void onPause() {
@@ -46,6 +53,11 @@ public class ChatPage extends AppCompatActivity {
         setContentView(R.layout.activity_chat_page);
         getSupportActionBar().hide();
 
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(CREDENTIALS_PREFS,MODE_PRIVATE);
+        userUID = sharedPreferences.getString(USER_UID, "uid");
+
+
+
 
         chatView = (ChatView) findViewById(R.id.chat_view);
 
@@ -63,7 +75,8 @@ public class ChatPage extends AppCompatActivity {
                     @Override
                     public void onTextMessageReceived(TextMessage textMessage) {
                         Log.d(TAG, "Text message received successfully: " + textMessage.toString());
-                        newMessage = textMessage.toString();
+                        //newMessage = textMessage.toString();
+                        newMessage = textMessage.getText();
                         chatView.addMessage(new ChatMessage(newMessage, System.currentTimeMillis(), ChatMessage.Type.RECEIVED));
                     }
                     @Override
@@ -82,13 +95,13 @@ public class ChatPage extends AppCompatActivity {
     }
 
     private void sendTextMessage() {
-        if (Constants.UID != Constants.MASTER_UID){
+        if (userUID.equals("lHRkYjOj2YNQnK4NNIPHw4nO8pg1")){
 
-            receiverID = Constants.MASTER_UID;
+            receiverID = "69wADqnIpqYUnmidwcZwaO5F8RL2";
         }
-        else
+        if (userUID.equals("69wADqnIpqYUnmidwcZwaO5F8RL2") )
         {
-            receiverID = "GgeJlS0TGBQ9qbweq7pKGyYzfYb2";
+            receiverID = "lHRkYjOj2YNQnK4NNIPHw4nO8pg1";
         }
          String receiverType = CometChatConstants.RECEIVER_TYPE_USER;
 

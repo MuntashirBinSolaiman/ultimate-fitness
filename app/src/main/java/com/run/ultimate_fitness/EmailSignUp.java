@@ -32,7 +32,7 @@ public class EmailSignUp extends AppCompatActivity {
     public static final String CREDENTIALS_PREFS = "credentials";
     public static final String PASSWORD = "password";
     public static final String EMAIL = "email";
-    public static final String UID = "uid";
+    public static final String USER_UID = "uid";
 
 
     @Override
@@ -135,7 +135,7 @@ public class EmailSignUp extends AppCompatActivity {
     private void saveCredentials(String email, String password){
         SharedPreferences sharedPreferences = getSharedPreferences(CREDENTIALS_PREFS,MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(UID,uid);
+        editor.putString(USER_UID,uid);
         editor.putString(EMAIL,email);
         editor.putString(PASSWORD,password);
         editor.apply();

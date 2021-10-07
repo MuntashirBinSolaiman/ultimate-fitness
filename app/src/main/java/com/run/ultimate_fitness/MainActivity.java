@@ -54,7 +54,12 @@ public class MainActivity extends AppCompatActivity {
     public static final String PICTURE ="picture";
 
     public static final String USER_PREFS ="userPrefs";
+    public static final String CREDENTIALS_PREFS = "credentials";
+    public static final String USER_UID = "uid";
 
+
+    String UID1 = "user1"; // Replace with the UID of the user to login
+    String authKey = "AUTH_KEY"; // Replace with your App Auth Key
 
 
     /*Workouts Tab*/
@@ -69,6 +74,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         SharedPreferences sharedPreferences = getSharedPreferences(USER_PREFS, MODE_PRIVATE);
+        SharedPreferences sharedPreferences2 = getSharedPreferences(CREDENTIALS_PREFS, MODE_PRIVATE);
+
         boolean loggedIn = sharedPreferences.getBoolean(IS_LOGGED_IN,false);
         if (!loggedIn) {
             Intent intent = new Intent(MainActivity.this, LoginPage.class);
@@ -79,7 +86,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        UID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -102,7 +108,10 @@ public class MainActivity extends AppCompatActivity {
         loadImage();
 
 
-
+        UID1 = sharedPreferences2.getString(USER_UID, ""); // Replace with the UID of the user to login
+        authKey = Constants.AUTH_KEY; // Replace with your App Auth Key
+        initChat();
+        loginChat();
 
 
         /*Food Database stuff----------------------------------------------------------------*/
@@ -114,8 +123,31 @@ public class MainActivity extends AppCompatActivity {
                 .addNetworkInterceptor(new StethoInterceptor())
                 .build();
         
-        initChat();
 
+
+        //UID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+
+    }
+
+    private void loginChat() {
+
+        if (CometChat.getLoggedInUser() == null) {
+            CometChat.login(UID1, authKey, new CometChat.CallbackListener<User>() {
+
+                @Override
+                public void onSuccess(User user) {
+                    Log.d(TAG, "Login Successful : " + user.toString());
+                }
+
+                @Override
+                public void onError(CometChatException e) {
+                    Log.d(TAG, "Login failed with exception: " + e.getMessage());
+                }
+            });
+        } else {
+            // User already logged in
+        }
     }
 
     private void initChat() {
@@ -129,6 +161,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onError(CometChatException e) {
             }
+
         });
     }
 
