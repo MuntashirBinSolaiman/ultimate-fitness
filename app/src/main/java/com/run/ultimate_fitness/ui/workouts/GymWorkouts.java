@@ -26,9 +26,9 @@ public class GymWorkouts extends AppCompatActivity {
         //Create Data
 
         ArrayList<workoutsModel> arrayList = new ArrayList<>();
-        arrayList.add(new workoutsModel("Push Ups", "Tricep", R.drawable.img_home_workouts));
-        arrayList.add(new workoutsModel("Push Ups", "Tricep", R.drawable.home_workouts));
-        arrayList.add(new workoutsModel("Push Ups", "Tricep", R.drawable.ombati));
+        arrayList.add(new workoutsModel("Push Ups", "Tricep", R.drawable.img_home_workouts,"Sets/reps for results: Aim for three sets of 10–15 reps, and try adding them into your workouts 2–3 times a week to add muscle definition to your arms and build strength."));
+        arrayList.add(new workoutsModel("Push Ups", "Tricep", R.drawable.home_workouts, "Sets/reps for results: Aim for three sets of 10–15 reps, and try adding them into your workouts 2–3 times a week to add muscle definition to your arms and build strength."));
+        arrayList.add(new workoutsModel("Push Ups", "Tricep", R.drawable.ombati, "Sets/reps for results: Aim for three sets of 10–15 reps, and try adding them into your workouts 2–3 times a week to add muscle definition to your arms and build strength."));
 
 
 

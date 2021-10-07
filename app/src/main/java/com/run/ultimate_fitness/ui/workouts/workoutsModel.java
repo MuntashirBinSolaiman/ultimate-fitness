@@ -50,11 +50,12 @@ public class  workoutsModel {
 
 
 
-    public workoutsModel(String workout_name, String workout_zone, int workout_image) {
+    public workoutsModel(String workout_name, String workout_zone, int workout_image, String workout_description) {
         this.workout_image = workout_image;
 
         this.workout_name = workout_name;
         this.workout_zone = workout_zone;
+        this.workout_description = workout_description;
 
 
 

@@ -61,7 +61,7 @@ public class NutritionFragment extends Fragment implements RemoveClickListner {
     String title = "", description = "";
     ImageView crossImage;
     Dialog builder;
-    int totalFood = 0, totalExcercise = 0, totalGoal = 0;
+    int totalFood = 0, totalExcercise = 0, totalGoal = 0, totalProgress;
 
     @Nullable
     @Override
@@ -370,6 +370,8 @@ public class NutritionFragment extends Fragment implements RemoveClickListner {
                 textViewGoal.setText(String.valueOf(title));
                 //Calculate Remaining Calories=totalGoal-(totalFood + totalExcercise)
                 textViewRemaining.setText(String.valueOf(totalGoal - (totalFood + totalExcercise)));
+                //calculate progress
+                totalProgress = totalGoal - (totalGoal - (totalFood + totalExcercise));
                 //remove alert Dialog
                 builder.dismiss();
 

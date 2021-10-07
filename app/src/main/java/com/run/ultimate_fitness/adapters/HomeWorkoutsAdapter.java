@@ -17,10 +17,12 @@ import java.util.List;
 public class HomeWorkoutsAdapter extends RecyclerView.Adapter<HomeWorkoutsAdapter.ViewHolder> {
 
     List<workoutsModel>workoutsList1;
+    private OnWorkoutListener mOnWorkoutListener;
 
-    public HomeWorkoutsAdapter(List<workoutsModel> workoutsList){
+    public HomeWorkoutsAdapter(List<workoutsModel> workoutsList, OnWorkoutListener onWorkoutListener){
 
         this.workoutsList1 = workoutsList;
+        this.mOnWorkoutListener = onWorkoutListener;
     }
 
 
@@ -29,7 +31,7 @@ public class HomeWorkoutsAdapter extends RecyclerView.Adapter<HomeWorkoutsAdapte
     @Override
     public HomeWorkoutsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.workouts_view, parent, false);
-        ViewHolder viewHolder = new ViewHolder(view);
+        ViewHolder viewHolder = new ViewHolder(view, mOnWorkoutListener);
         return viewHolder;
     }
 
@@ -47,21 +49,34 @@ public class HomeWorkoutsAdapter extends RecyclerView.Adapter<HomeWorkoutsAdapte
         return workoutsList1.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
+        OnWorkoutListener onWorkoutListener;
 
         ImageView workoutImage;
         TextView txtWorkoutName;
         TextView txtWorkoutZone;
 
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView, OnWorkoutListener onWorkoutListener) {
             super(itemView);
 
             workoutImage = itemView.findViewById(R.id.img_workout);
             txtWorkoutName = itemView.findViewById(R.id.txtWorkoutName);
             txtWorkoutZone = itemView.findViewById(R.id.txtWorkoutZone);
+            this.onWorkoutListener = onWorkoutListener;
 
-
+            itemView.setOnClickListener(this);
 
         }
+
+        @Override
+        public void onClick(View view) {
+
+            onWorkoutListener.onWorkoutClick(getAbsoluteAdapterPosition());
+        }
+    }
+
+    public interface OnWorkoutListener{
+        void onWorkoutClick(int position);
     }
 }
