@@ -84,12 +84,17 @@ public class EditProfile extends AppCompatActivity {
         weightTxt =findViewById(R.id.weightChangeEditText);
 
         toolDisplayView.setText("Edit Profile");
-        toolLogoutView.setVisibility(View.GONE);
 
         loadImage();
 
         backButtonImage.setOnClickListener(v -> {
             Intent intent = new Intent(EditProfile.this, ProfilePage.class);
+            startActivity(intent);
+        });
+
+        toolLogoutView.setText("Change Workout Goals");
+        toolLogoutView.setOnClickListener(v -> {
+            Intent intent = new Intent(EditProfile.this, WorkoutsGoalPage.class);
             startActivity(intent);
         });
     }
