@@ -92,7 +92,7 @@ public class EditProfile extends AppCompatActivity {
             startActivity(intent);
         });
 
-        toolLogoutView.setText("Change Workout Goals");
+        toolLogoutView.setText("Change Goals");
         toolLogoutView.setOnClickListener(v -> {
             Intent intent = new Intent(EditProfile.this, WorkoutsGoalPage.class);
             startActivity(intent);
