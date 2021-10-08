@@ -27,8 +27,9 @@
 
     <!-- Water Tracker -->
     <string name="date">Date :</string>
-    <string name="_500ml">+ 500ml</string>
-    <string name="_Remove500ml">- 500ml</string>
+    <string name="glasses">Glasses</string>
+    <string name="add250ml">+ 250ml</string>
+    <string name="Remove250ml">- 250ml</string>
     <string name="view_table">View Progress</string>
     <string name="delete_entry">Delete Entry</string>
     <string name="open_calendar">Open Calendar</string>

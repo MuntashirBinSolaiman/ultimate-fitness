@@ -22,6 +22,7 @@
         <entry key="..\:/Users/Hp/AndroidStudioProjects/Ultimate_Fitness_Android/app/src/main/res/drawable/ic_walk.xml" value="0.1" />
         <entry key="..\:/Users/Hp/AndroidStudioProjects/Ultimate_Fitness_Android/app/src/main/res/drawable/ic_water.xml" value="0.2703125" />
         <entry key="..\:/Users/Hp/AndroidStudioProjects/Ultimate_Fitness_Android/app/src/main/res/layout/activity_change_password.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Hp/AndroidStudioProjects/Ultimate_Fitness_Android/app/src/main/res/layout/activity_chat_page.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Hp/AndroidStudioProjects/Ultimate_Fitness_Android/app/src/main/res/layout/activity_edit_profile.xml" value="0.253125" />
         <entry key="..\:/Users/Hp/AndroidStudioProjects/Ultimate_Fitness_Android/app/src/main/res/layout/activity_forgot_password.xml" value="0.1" />
         <entry key="..\:/Users/Hp/AndroidStudioProjects/Ultimate_Fitness_Android/app/src/main/res/layout/activity_login_page2.xml" value="0.253125" />
@@ -32,6 +33,7 @@
         <entry key="..\:/Users/Hp/AndroidStudioProjects/Ultimate_Fitness_Android/app/src/main/res/layout/activity_workout_page.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Hp/AndroidStudioProjects/Ultimate_Fitness_Android/app/src/main/res/layout/activity_workouts_goal_page.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Hp/AndroidStudioProjects/Ultimate_Fitness_Android/app/src/main/res/layout/calories_goal.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Hp/AndroidStudioProjects/Ultimate_Fitness_Android/app/src/main/res/layout/contact_placeholder.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Hp/AndroidStudioProjects/Ultimate_Fitness_Android/app/src/main/res/layout/fitness_goals.xml" value="0.1" />
         <entry key="..\:/Users/Hp/AndroidStudioProjects/Ultimate_Fitness_Android/app/src/main/res/layout/food_view_layout.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Hp/AndroidStudioProjects/Ultimate_Fitness_Android/app/src/main/res/layout/fragment_home.xml" value="0.264" />
@@ -41,6 +43,7 @@
         <entry key="..\:/Users/Hp/AndroidStudioProjects/Ultimate_Fitness_Android/app/src/main/res/layout/topbar.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Hp/AndroidStudioProjects/Ultimate_Fitness_Android/app/src/main/res/layout/water_goal.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Hp/AndroidStudioProjects/Ultimate_Fitness_Android/app/src/main/res/layout/water_tracker_activity_main.xml" value="0.45735707591377694" />
+        <entry key="..\:/Users/zeyne/Documents/Ultimate_Fitness_Android/app/src/main/res/layout/water_tracker_activity_main.xml" value="0.20416666666666666" />
         <entry key="app/src/main/res/drawable/background_input.xml" value="0.41333333333333333" />
         <entry key="app/src/main/res/drawable/bg_button.xml" value="0.26513157894736844" />
         <entry key="app/src/main/res/drawable/goal_selector.xml" value="0.26513157894736844" />

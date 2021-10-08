@@ -132,7 +132,7 @@ public class Water_Tracker_Activity extends AppCompatActivity {
                 try {
                     waterModel = new WaterModel(-1, tvDate.getText().toString(),
                             Integer.parseInt(text_view_progress.getText().toString()));
-                    Toast.makeText(Water_Tracker_Activity.this, waterModel.toString(), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(Water_Tracker_Activity.this, waterModel.toString(), Toast.LENGTH_SHORT).show();
                 }
                 catch (Exception e){
                     Toast.makeText(Water_Tracker_Activity.this, "Error creating water entry", Toast.LENGTH_SHORT).show();
@@ -141,10 +141,10 @@ public class Water_Tracker_Activity extends AppCompatActivity {
                 Water_Tracker_DOBHelper waterTrackerDobHelper = new Water_Tracker_DOBHelper(Water_Tracker_Activity.this);
                 Boolean success = waterTrackerDobHelper.addWaterProgress(waterModel);
                 //ShowWaterEntryOnListView(dobHelper);
-                Toast.makeText(Water_Tracker_Activity.this, "Success" + " " + success, Toast.LENGTH_SHORT).show();
-                waterArrayAdapter = new ArrayAdapter<WaterModel>(Water_Tracker_Activity.this,
+                Toast.makeText(Water_Tracker_Activity.this, "Item Added:" + " " + success, Toast.LENGTH_SHORT).show();
+                /*waterArrayAdapter = new ArrayAdapter<WaterModel>(Water_Tracker_Activity.this,
                         android.R.layout.simple_list_item_1, waterTrackerDobHelper.getInfo());
-                lv_view.setAdapter(waterArrayAdapter);
+                lv_view.setAdapter(waterArrayAdapter);*/
             }
         });
 
@@ -178,7 +178,7 @@ public class Water_Tracker_Activity extends AppCompatActivity {
 
 
 
-                if(waterArrayAdapter.getCount() == 0){
+                if(waterArrayAdapter.getCount() > 0){
 
                     lv_view.setAdapter(waterArrayAdapter);
 
@@ -192,19 +192,20 @@ public class Water_Tracker_Activity extends AppCompatActivity {
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String dateD = tvDate.getText().toString();
-                waterModel = new WaterModel(-1, tvDate.getText().toString(),
-                        Integer.parseInt(text_view_progress.getText().toString()));
+                Water_Tracker_DOBHelper waterTrackerDobHelper = new Water_Tracker_DOBHelper(Water_Tracker_Activity.this);
+                Boolean success = waterTrackerDobHelper.deleteAll();
+                //ShowWaterEntryOnListView(dobHelper);
 
-                Water_Tracker_DOBHelper waterTrackerDobHelper =
-                        new Water_Tracker_DOBHelper(Water_Tracker_Activity.this);
+                if (!success){
+                    Toast.makeText(Water_Tracker_Activity.this, "All Entries Deleted", Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(Water_Tracker_Activity.this, "Entries not deleted", Toast.LENGTH_SHORT).show();
+                }
 
-                Boolean checkdelete = waterTrackerDobHelper.deleteAll(waterModel);
-
-                if(checkdelete)
-                    Toast.makeText(Water_Tracker_Activity.this, "Progress Deleted", Toast.LENGTH_SHORT).show();
-                else
-                    Toast.makeText(Water_Tracker_Activity.this, "Progress Not Deleted", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(Water_Tracker_Activity.this, "Success" + " " + success, Toast.LENGTH_SHORT).show();
+                waterArrayAdapter = new ArrayAdapter<WaterModel>(Water_Tracker_Activity.this,
+                        android.R.layout.simple_list_item_1, waterTrackerDobHelper.getInfo());
+                lv_view.setAdapter(waterArrayAdapter);
             }
         });
 

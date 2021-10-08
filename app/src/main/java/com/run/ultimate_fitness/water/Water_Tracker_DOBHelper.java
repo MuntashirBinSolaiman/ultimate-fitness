@@ -19,15 +19,15 @@ public class Water_Tracker_DOBHelper extends SQLiteOpenHelper {
     public static final String COLUMN_ID = "ID";
 
     public Water_Tracker_DOBHelper(@Nullable Context context ) {
-        super(context, "water_tracker_db", null, 1);
+        super(context, "WATER_UF.db", null, 1);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-        String createTableStatement = "CREATE TABLE " + WATER_TABLE + " " +
-                "(" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_DATE + " TEXT, "
-                + COLUMN_CUPS_OF_WATER + "INT)";// + COLUMN_SIZE_OF_CUP + " INT)";
+        String createTableStatement = "CREATE TABLE " + WATER_TABLE + " (" + COLUMN_ID
+                + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_DATE + " TEXT, " + COLUMN_CUPS_OF_WATER + " INTEGER)";
+
         db.execSQL(createTableStatement);
 
     }
@@ -37,7 +37,7 @@ public class Water_Tracker_DOBHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + WATER_TABLE);
     }
 
-    public Boolean addWaterProgress(com.run.ultimate_fitness.water.WaterModel waterModel) {
+    public Boolean addWaterProgress(WaterModel waterModel) {
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
@@ -54,9 +54,9 @@ public class Water_Tracker_DOBHelper extends SQLiteOpenHelper {
         }
     }
 
-    public boolean deleteAll(com.run.ultimate_fitness.water.WaterModel waterModel){
+    public boolean deleteAll(){
         SQLiteDatabase db = this.getWritableDatabase();
-        String queryString = "DELETE FROM " + WATER_TABLE + " WHERE " + COLUMN_ID + " = " + waterModel.getId();
+        String queryString = "DELETE FROM " + WATER_TABLE ;
 
         Cursor cursor = db.rawQuery(queryString, null);
 
@@ -68,7 +68,7 @@ public class Water_Tracker_DOBHelper extends SQLiteOpenHelper {
         }
     }
 
-    public boolean deleteOne(com.run.ultimate_fitness.water.WaterModel waterModel){
+    public boolean deleteOne(WaterModel waterModel){
         SQLiteDatabase db = this.getWritableDatabase();
         String queryString = "DELETE FROM " + WATER_TABLE + " WHERE " + COLUMN_ID + " = " + waterModel.getId() +  " AND " ;
 
@@ -78,12 +78,12 @@ public class Water_Tracker_DOBHelper extends SQLiteOpenHelper {
         if (cursor.moveToFirst()){
             return true;
         }else {
-                return false;
+            return false;
         }
-        }
+    }
 
 
-    public boolean updateData(com.run.ultimate_fitness.water.WaterModel waterModel){
+    public boolean updateData(WaterModel waterModel){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
@@ -100,9 +100,9 @@ public class Water_Tracker_DOBHelper extends SQLiteOpenHelper {
 
     }
 
-    public List<com.run.ultimate_fitness.water.WaterModel> getInfo() {
-       List<com.run.ultimate_fitness.water.WaterModel> returnList = new ArrayList<>();
-       //Getting Data
+    public List<WaterModel> getInfo() {
+        List<WaterModel> returnList = new ArrayList<>();
+        //Getting Data
         String queryString = "SELECT * FROM " + WATER_TABLE;
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -112,14 +112,14 @@ public class Water_Tracker_DOBHelper extends SQLiteOpenHelper {
         if(cursor.moveToFirst()){
             // if result true move
             do{
-               int waterID = cursor.getInt(0);
-               String waterDate = cursor.getString(1);
-               int waterCups_of_water = cursor.getInt(2);
-               //int waterSize_of_cups = cursor.getInt(3);
+                int waterID = cursor.getInt(0);
+                String waterDate = cursor.getString(1);
+                int waterCups_of_water = cursor.getInt(2);
+                //int waterSize_of_cups = cursor.getInt(3);
 
-                com.run.ultimate_fitness.water.WaterModel newWaterEntry =
-                        new com.run.ultimate_fitness.water.WaterModel(waterID, waterDate, waterCups_of_water);
-               returnList.add(newWaterEntry);
+                WaterModel newWaterEntry =
+                        new WaterModel(waterID, waterDate, waterCups_of_water);
+                returnList.add(newWaterEntry);
 
             } while (cursor.moveToNext());
         }else {
