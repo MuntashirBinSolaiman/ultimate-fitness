@@ -94,6 +94,7 @@ public class ProfilePage extends AppCompatActivity {
         startActivity(intent);
     }
 
+    //Deletes user from device and firestore database
     public void deleteProfileButton(View view){
 
         //deleteProfile();
@@ -115,6 +116,7 @@ public class ProfilePage extends AppCompatActivity {
                 .show();
     }
 
+    // Loads values from shared preferences
     private void loadValues(){
         SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
 
@@ -135,6 +137,7 @@ public class ProfilePage extends AppCompatActivity {
         displayImage.setImageBitmap(StringToBitMap(picture));
     }
 
+    //Clears shred preferences
     private void clearData(){
         SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -142,6 +145,7 @@ public class ProfilePage extends AppCompatActivity {
         editor.apply();
     }
 
+    //Connects to the database
     private void deleteProfile(){
         SharedPreferences sharedPreferences = getSharedPreferences(CREDENTIALS_PREFS,MODE_PRIVATE);
 
@@ -189,7 +193,8 @@ public class ProfilePage extends AppCompatActivity {
         });
     }
 
-   public Bitmap StringToBitMap(String encodedString){
+    //Converst string to bitmap
+    public Bitmap StringToBitMap(String encodedString){
         try {
             byte [] encodeByte= Base64.decode(encodedString,Base64.DEFAULT);
             Bitmap bitmap= BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);

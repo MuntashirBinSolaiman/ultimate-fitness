@@ -9,6 +9,7 @@ public class User {
     public int phoneNumber;
     public Double weight,height;
 
+    //This model is used to send and receive user information to the fire base database
     public User() {
     }
 
