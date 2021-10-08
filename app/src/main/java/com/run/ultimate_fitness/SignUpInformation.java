@@ -93,6 +93,7 @@ public class SignUpInformation extends AppCompatActivity {
         }
     }
 
+    //This method uploads files to firebase
     private void registerUser(){
         String firstName = firstNameTxt.getText().toString();
         String lastName = lastNameTxt.getText().toString();
@@ -176,6 +177,7 @@ public class SignUpInformation extends AppCompatActivity {
 
     }
 
+    //This method is used to save information to the shared preferences
     private void saveDataLocal(String firstName,String lastName,String phoneNumber,String weight,String height,String picture,String workoutGoal){
         SharedPreferences sharedPreferences = getSharedPreferences(USER_PREFS,MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -219,6 +221,7 @@ public class SignUpInformation extends AppCompatActivity {
         builder.show();
     }
 
+    //Uploads a default picture incase user does not select one
     private void updatePicture(){
         if(picture.equals("") || picture.isEmpty()){
             picture = loadDefault();
@@ -230,6 +233,7 @@ public class SignUpInformation extends AppCompatActivity {
         editor.apply();
     }
 
+    //Checks for permissions
     @Override
     public void onRequestPermissionsResult(int requestCode,String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -254,6 +258,7 @@ public class SignUpInformation extends AppCompatActivity {
         }
     }
 
+    //Allocates Permissions
     public static boolean checkAndRequestPermissions(final Activity context) {
         int WExtstorePermission = ContextCompat.checkSelfPermission(context,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE);
@@ -276,6 +281,7 @@ public class SignUpInformation extends AppCompatActivity {
         return true;
     }
 
+    //Opens intent for camera or gallery
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -325,12 +331,8 @@ public class SignUpInformation extends AppCompatActivity {
         }
     }
 
-    protected void onPostExecute(){
 
-        picture = BitMapToString(bitmap);
-        profilePicImage.setImageBitmap(bitmap);
-    }
-
+    //Converts bitmap to string
     public String BitMapToString(Bitmap bitmap) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);

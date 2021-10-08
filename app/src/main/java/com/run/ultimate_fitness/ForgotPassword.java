@@ -54,6 +54,8 @@ public class ForgotPassword extends AppCompatActivity {
         });
     }
 
+    //gets text from fields
+    //connects to firebase to send recovery email
     public void forgotPassword(View view) {
 
         String email = emailTxt.getText().toString().trim();

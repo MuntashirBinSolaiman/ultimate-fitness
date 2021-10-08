@@ -106,6 +106,7 @@ public class EditProfile extends AppCompatActivity {
         }
     }
 
+    //Gets information from fields
     public void updateUser(View view){
 
         try{
@@ -166,6 +167,7 @@ public class EditProfile extends AppCompatActivity {
 
 
 
+    //Uploads chances to firestore database
     private void updateOnline(){
 
         if(!thePicture.equals("") && !thePicture.equals(null)){

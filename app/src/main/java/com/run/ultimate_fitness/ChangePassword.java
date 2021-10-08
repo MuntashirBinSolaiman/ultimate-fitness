@@ -66,6 +66,7 @@ public class ChangePassword extends AppCompatActivity {
         uploadDetails();
     }
 
+    //Navigates to forgot password page
     public void forgotPassword(View view){
         Intent intent = new Intent(this, EmailSignUp.class);
         forgotPasswordButton.setVisibility(View.GONE);
@@ -74,6 +75,7 @@ public class ChangePassword extends AppCompatActivity {
         startActivity(intent);
     }
 
+    //Applies password changes to firestore
     private void uploadDetails(){
         String email = emailTxt.getText().toString();
         String oldPassword = oldPasswordTxt.getText().toString();

@@ -70,6 +70,7 @@ public class LoginPage extends AppCompatActivity {
 
     }
 
+   //Overrides back button to close app
     public void onBackPressed(){
         Intent a = new Intent(Intent.ACTION_MAIN);
         a.addCategory(Intent.CATEGORY_HOME);
@@ -81,16 +82,19 @@ public class LoginPage extends AppCompatActivity {
         logInUser();
     }
 
+    //Navigates to sign up page
     public void signUp(View view){
         Intent intent = new Intent(this, EmailSignUp.class);
         startActivity(intent);
     }
 
+    //Navigates to forgot password page
     public void forgotPassword(View view){
         Intent intent = new Intent(this, ForgotPassword.class);
         startActivity(intent);
     }
 
+    //logs in user
     private void logInUser(){
 
         String email = loginEmailTxt.getText().toString().trim();
@@ -141,6 +145,7 @@ public class LoginPage extends AppCompatActivity {
                 });
     }
 
+    //Gets data from firestore database
     private void loadData(){
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();

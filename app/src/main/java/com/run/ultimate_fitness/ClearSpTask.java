@@ -9,6 +9,7 @@ public class ClearSpTask extends AsyncTask<Void, Void, Void> {
 
     AsynResponse asynResponse = null;
 
+    //This class performs asynchronous tasks in this case getting camera image
     public ClearSpTask(AsynResponse asynResponse) {
         this.asynResponse = asynResponse;
     }

@@ -58,6 +58,7 @@ public class EmailSignUp extends AppCompatActivity {
         AddToFirebase();
     }
 
+    //Adds email and password to firebase authenticator
     private void AddToFirebase(){
         String email = emailAddressTxt.getText().toString();
         String password = passwordTxt.getText().toString();
@@ -132,6 +133,7 @@ public class EmailSignUp extends AppCompatActivity {
                 });
     }
 
+    //Saves login credentials to shared preferences
     private void saveCredentials(String email, String password){
         SharedPreferences sharedPreferences = getSharedPreferences(CREDENTIALS_PREFS,MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
