@@ -62,6 +62,10 @@ public class WorkoutsGoalPage extends AppCompatActivity {
         getSupportActionBar().hide();
 
         summerBodyCard = findViewById(R.id.summerBodyCard);
+        gainMuscleCard = findViewById(R.id.gainMuscleCard);
+        loseWeightCard = findViewById(R.id.loseWeightCard);
+        loseQuickWeightCard = findViewById(R.id.loseQuickWeightCard);
+
 
 
         stepsGoalPicker = findViewById(R.id.pickerStepsGoal);
@@ -166,6 +170,8 @@ public class WorkoutsGoalPage extends AppCompatActivity {
 
     private void moveLayouts() {
         switch (layoutsMove) {
+
+            //display the fitness goals
             case 1:
                 fitnessLayout.animate().translationX(0);
                 fitnessLayout.setVisibility(View.VISIBLE);
@@ -183,6 +189,8 @@ public class WorkoutsGoalPage extends AppCompatActivity {
 
                 txtBack.setVisibility(View.INVISIBLE);
                 break;
+
+            //display the water goals
 
             case 2:
                 fitnessLayout.animate().translationX(-650);
@@ -204,6 +212,7 @@ public class WorkoutsGoalPage extends AppCompatActivity {
 
 
                 break;
+            //steps the fitness goals
 
             case 3:
                 fitnessLayout.animate().translationX(-650);
@@ -223,6 +232,7 @@ public class WorkoutsGoalPage extends AppCompatActivity {
 
 
                 break;
+            //display the calories goals
 
             case 4:
                 fitnessLayout.animate().translationX(-650);
@@ -240,6 +250,8 @@ public class WorkoutsGoalPage extends AppCompatActivity {
                 txtNext.setText("Finish");
 
                 break;
+
+            //save the goals and go to the home page
 
             case 5:
 
@@ -264,7 +276,7 @@ public class WorkoutsGoalPage extends AppCompatActivity {
         }
 
         }
-
+//Logs the user into the chat before sending messages
     private void chatLogin() {
 
         if (CometChat.getLoggedInUser() == null) {
@@ -302,6 +314,14 @@ public class WorkoutsGoalPage extends AppCompatActivity {
                 layoutsMove--;
                 moveLayouts();
 
+            }
+        });
+
+        summerBodyCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                layoutsMove++;
+                moveLayouts();
             }
         });
 

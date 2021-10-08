@@ -40,6 +40,7 @@ public class HomeFragment extends Fragment {
     private TextView userName;
     private TextView txtWaterDrank2, txtSteps, txtCalories, txtGlasses;
 
+    public static final String USER_PREFS ="userPrefs";
     public static final String PICTURE ="picture";
     public static final String FIRST_NAME ="firstName";
     public static final String LAST_NAME ="lastName";
@@ -57,9 +58,6 @@ public class HomeFragment extends Fragment {
     private RelativeLayout waterLayout, stepsLayout, caloriesLayout;
     private CardView waterCard, stepsCard, caloriesCard, mainCard;
 
-
-
-    public static final String USER_PREFS ="userPrefs";
 
     private static  int CurrentProgress = 0;
     private ProgressBar waterProgressBar, stepsProgressBar, caloriesProgressBar;
@@ -127,8 +125,6 @@ public class HomeFragment extends Fragment {
         txtStepsTaken = root.findViewById(R.id.txtStepsProgress);
         txtStepsTaken.setText("0/0");
 
-        txtCaloriesEaten = root.findViewById(R.id.txtCalorieProgress);
-        txtCaloriesEaten.setText("0/0");
 
         txtWaterDrank2 = root.findViewById(R.id.txtWaterProgress);
 
@@ -147,6 +143,9 @@ public class HomeFragment extends Fragment {
         caloriesGoal = sharedPreferences.getInt(CALORIES_GOAL, 0);
         stepsGoal = sharedPreferences.getString(STEPS_GOAL, "0");
 
+        txtCaloriesEaten = root.findViewById(R.id.txtCalorieProgress);
+        txtCaloriesEaten.setText("0" + "/" + caloriesGoal);
+
         caloriesEatenText.setText("0" + "/" + caloriesGoal);
         stepsTakenText.setText("0" + "/" + stepsGoal);
 
@@ -160,6 +159,10 @@ public class HomeFragment extends Fragment {
         txtWaterDrank.setText(water + "/" + waterGoal);
         txtWaterDrank2.setText(water + "/" + waterGoal);
         waterProgressBar.setProgress(water);
+
+        //txtCaloriesEaten.setText(ca + "/" + waterGoal);
+        caloriesProgressBar.setProgress(caloriesGoal);
+
 
 
 
@@ -226,6 +229,7 @@ public class HomeFragment extends Fragment {
         }
     }
 
+    //Loads the profile image
     public  void loadImage(){
         SharedPreferences sharedPreferences = getActivity().getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
         String picture = sharedPreferences.getString(PICTURE,"");
@@ -239,6 +243,8 @@ public class HomeFragment extends Fragment {
     }
 
     private void initOnClickListeners() {
+
+        //On click listeners for displaying respective card on click
         waterCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -260,6 +266,7 @@ public class HomeFragment extends Fragment {
 
     }
 
+    //Displays the progress bar for each card on the home screen respectively
     public void waterCardClicked(){
         waterLayout.setVisibility(View.VISIBLE);
         stepsLayout.setVisibility(View.INVISIBLE);

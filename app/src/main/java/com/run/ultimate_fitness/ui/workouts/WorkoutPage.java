@@ -34,6 +34,7 @@ public class WorkoutPage extends AppCompatActivity {
 
         }
 
+        //Creating the video view
         videoView = findViewById(R.id.video_Workout);
         videoPath = "android.resource://" + getPackageName() + "/" + R.raw.push_ups;
         uri = Uri.parse(videoPath);

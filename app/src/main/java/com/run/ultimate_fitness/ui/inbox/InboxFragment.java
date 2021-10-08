@@ -1,12 +1,20 @@
 package com.run.ultimate_fitness.ui.inbox;
+import static android.content.Context.MODE_PRIVATE;
+
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.CalendarView;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,6 +31,13 @@ import co.intentservice.chatui.ChatView;
 
 public class InboxFragment extends Fragment {
 
+    public static final String PICTURE ="picture";
+    public static final String FIRST_NAME ="firstName";
+    public static final String LAST_NAME ="lastName";
+    public static final String USER_PREFS ="userPrefs";
+
+    private ImageView profilePicImage, imgGymWorkouts;
+    private TextView userName;
 
     private InboxViewModel mViewModel;
 
@@ -38,6 +53,10 @@ public class InboxFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_inbox, container, false);
 
 
+        profilePicImage = view.findViewById(R.id.icon_user);
+
+        userName = view.findViewById(R.id.txtUsername);
+
         conversatonsCardView = view.findViewById(R.id.conversatonsCardView);
         conversatonsCardView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,6 +66,8 @@ public class InboxFragment extends Fragment {
             }
         });
 
+
+        loadImage();
         return view;
     }
 
@@ -58,6 +79,31 @@ public class InboxFragment extends Fragment {
         mViewModel = new ViewModelProvider(this).get(InboxViewModel.class);
         // TODO: Use the ViewModel
     }
+
+    public  void loadImage(){
+        SharedPreferences sharedPreferences = getActivity().getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
+        String picture = sharedPreferences.getString(PICTURE,"");
+        String firstName = sharedPreferences.getString(FIRST_NAME,"");
+        String lastName = sharedPreferences.getString(LAST_NAME,"");
+
+
+        userName.setText("Welcome, " + firstName);
+
+        profilePicImage.setImageBitmap(StringToBitMap(picture));
+    }
+
+    public Bitmap StringToBitMap(String encodedString){
+        try {
+            byte [] encodeByte= Base64.decode(encodedString,Base64.DEFAULT);
+            Bitmap bitmap= BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+            return bitmap;
+        } catch(Exception e) {
+            e.getMessage();
+            return null;
+        }
+    }
+
+
 
 
 

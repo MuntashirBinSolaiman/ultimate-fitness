@@ -8,9 +8,13 @@
     android:layout_height="match_parent"
     tools:context=".ui.inbox.InboxFragment">
 
+    <include layout="@layout/topbar"
+        android:id="@+id/topBarLayout"/>
+
     <androidx.cardview.widget.CardView
         android:id="@+id/conversatonsCardView"
         android:layout_width="match_parent"
+        android:layout_below="@id/topBarLayout"
         android:layout_height="wrap_content">
     <RelativeLayout
         android:id="@+id/conversationLayout"
@@ -20,10 +24,10 @@
 
         <ImageView
             android:id="@+id/avatarImageView"
-            android:src="@drawable/ombati"
             android:layout_width="72dp"
             android:layout_height="75dp"
-            android:layout_marginRight="10dp" />
+            android:layout_marginRight="10dp"
+            android:src="@drawable/blankprofile" />
 
         <TextView
             android:text="Ultimate Fitness"
@@ -45,11 +49,6 @@
             android:textColor="@color/darker_grey"
             android:text="Welcome to Ultimate Fitness"
             android:textSize="15dp" />
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_alignParentBottom="true"
-            android:background="@color/black"/>
 
 
     </RelativeLayout>
