@@ -42,6 +42,7 @@ public class WorkoutsGoalPage extends AppCompatActivity {
     private RelativeLayout fitnessLayout, stepsLayout, waterLayout, caloriesLayout;
 
     public static final String USER_PREFS ="userPrefs";
+    public static final String GOALS_PREFS ="goalsPrefs";
 
     public static final String FIRST_NAME ="firstName";
     public static final String LAST_NAME ="lastName";
@@ -52,6 +53,8 @@ public class WorkoutsGoalPage extends AppCompatActivity {
     public static final String WATER_GOAL ="water_goal";
     public static final String STEPS_GOAL ="steps_goal";
     public static final String CALORIES_GOAL ="calories_goal";
+    public static final String WORKOUT_GOAL ="workout_goal";
+
 
 
 
@@ -258,12 +261,13 @@ public class WorkoutsGoalPage extends AppCompatActivity {
 
             case 5:
 
-                SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
+                SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(GOALS_PREFS,MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putInt(WATER_GOAL, waterGoalFinal);
                 editor.putInt(CALORIES_GOAL, caloriesGoalFinal);
-                System.out.println(caloriesGoalFinal);
                 editor.putString(STEPS_GOAL, stepGoalFinal);
+                editor.putString(WORKOUT_GOAL, workoutGoalFinal);
+                System.out.println(workoutGoalFinal);
                 editor.apply();
 
 
@@ -328,6 +332,8 @@ public class WorkoutsGoalPage extends AppCompatActivity {
 
 
     public void clickSummerBody(View view) {
+        workoutGoalFinal = "Summer Body";
+
         summerBodyBtn.setBackgroundResource(R.drawable.btn_red);
         gainMuscleBtn.setBackgroundResource(R.drawable.btn_black);
         loseWeightBtn.setBackgroundResource(R.drawable.btn_black);
@@ -336,6 +342,9 @@ public class WorkoutsGoalPage extends AppCompatActivity {
     }
 
     public void clickGainMuscle(View view) {
+        workoutGoalFinal = "Gain Muscle";
+
+
         summerBodyBtn.setBackgroundResource(R.drawable.btn_black);
         gainMuscleBtn.setBackgroundResource(R.drawable.btn_red);
         loseWeightBtn.setBackgroundResource(R.drawable.btn_black);
@@ -344,6 +353,8 @@ public class WorkoutsGoalPage extends AppCompatActivity {
     }
 
     public void clickLoseWeight(View view) {
+        workoutGoalFinal = "Lose Weight";
+
         summerBodyBtn.setBackgroundResource(R.drawable.btn_black);
         gainMuscleBtn.setBackgroundResource(R.drawable.btn_black);
         loseWeightBtn.setBackgroundResource(R.drawable.btn_red);
@@ -352,6 +363,8 @@ public class WorkoutsGoalPage extends AppCompatActivity {
     }
 
     public void clickLoseQuickWeight(View view) {
+        workoutGoalFinal = "Lose Quick Weight";
+
         summerBodyBtn.setBackgroundResource(R.drawable.btn_black);
         gainMuscleBtn.setBackgroundResource(R.drawable.btn_black);
         loseWeightBtn.setBackgroundResource(R.drawable.btn_black);

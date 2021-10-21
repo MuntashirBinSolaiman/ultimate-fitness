@@ -41,10 +41,14 @@ public class NutritionFragment extends Fragment implements RemoveClickListner {
     private RecyclerAdapter mRecyclerAdapter, mRecyclerAdapterLunch, mRecyclerAdapterDinner, mRecyclerAdapterSnacks, mRecyclerAdapterExcercise;
     private RecyclerView.LayoutManager mLayoutManager;
 
+    public static final String CALORIES_GOAL ="calories_goal";
+
     public static final String PICTURE ="picture";
     public static final String FIRST_NAME ="firstName";
     public static final String LAST_NAME ="lastName";
     public static final String USER_PREFS ="userPrefs";
+    public static final String GOALS_PREFS ="goalsPrefs";
+
 
     private ImageView profilePicImage;
     private TextView userName;
@@ -68,13 +72,21 @@ public class NutritionFragment extends Fragment implements RemoveClickListner {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_nutrition, container, false);
 
-       // View view = inflater.inflate(R.layout.fragment_nutrition, container, false);
+        SharedPreferences sharedPreferences = getActivity().getApplicationContext().getSharedPreferences(GOALS_PREFS, MODE_PRIVATE);
+        totalGoal = sharedPreferences.getInt(CALORIES_GOAL, 0);
+
+
+
+
+        // View view = inflater.inflate(R.layout.fragment_nutrition, container, false);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerbreakfast_view);
         mRecyclerViewDinner = (RecyclerView) view.findViewById(R.id.recyclerDinner_view);
         mRecyclerViewExercise = (RecyclerView) view.findViewById(R.id.recyclerExcercise_view);
         mRecyclerViewSnacks = (RecyclerView) view.findViewById(R.id.recyclerSnacks_view);
         RecyclerView mRecyclerViewLunch = (RecyclerView) view.findViewById(R.id.recyclerLunch_view);
         textViewGoal = view.findViewById(R.id.textGoal);
+        textViewGoal.setText(String.valueOf(sharedPreferences.getInt(CALORIES_GOAL, 0)));
+
         textViewFood = view.findViewById(R.id.textFood);
 
         textViewExcercise = view.findViewById(R.id.textExcercise);
@@ -115,7 +127,6 @@ public class NutritionFragment extends Fragment implements RemoveClickListner {
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerViewSnacks.setLayoutManager(layoutManager4);
         mRecyclerViewSnacks.setAdapter(mRecyclerAdapterSnacks);
-        btnAdd = (TextView) view.findViewById(R.id.btnAdd);
 
         btnAddItem = (TextView) view.findViewById(R.id.btnAddItemBreakfast);
         btnAddItemLunch = (TextView) view.findViewById(R.id.btnAddItemLunch);
@@ -129,12 +140,6 @@ public class NutritionFragment extends Fragment implements RemoveClickListner {
         loadImage();
 
         //Button Click for adding Goal
-        btnAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AddGoal();
-            }
-        });
         btnAddItem.setOnClickListener(new View.OnClickListener() {
             //we are sending the category id from here , like we are sending '1' as parameter that means it will
             //open the view for adding calories for Breakfast
@@ -358,8 +363,8 @@ public class NutritionFragment extends Fragment implements RemoveClickListner {
         tvDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                SharedPreferences sharedPreferences = getActivity().getApplicationContext().getSharedPreferences(GOALS_PREFS, MODE_PRIVATE);
 
-                title = etTitle.getText().toString();
                 if (title.matches("")) {
                     Toast.makeText(getActivity(), "You did not enter your Goal", Toast.LENGTH_SHORT).show();
                     return;

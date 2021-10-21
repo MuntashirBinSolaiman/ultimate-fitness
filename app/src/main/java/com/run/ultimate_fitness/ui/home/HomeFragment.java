@@ -31,7 +31,7 @@ import com.run.ultimate_fitness.databinding.FragmentHomeBinding;
 
 public class HomeFragment extends Fragment {
 
-    public int water, waterGoal, caloriesGoal ;
+    public int water, waterGoal,calories, caloriesGoal, steps ;
     private String stepsGoal;
 
     private HomeViewModel homeViewModel;
@@ -45,6 +45,11 @@ public class HomeFragment extends Fragment {
     public static final String FIRST_NAME ="firstName";
     public static final String LAST_NAME ="lastName";
     public static final String WATER ="water";
+    public static final String CALORIES ="calories";
+    public static final String STEPS ="steps";
+
+    public static final String GOALS_PREFS ="goalsPrefs";
+
     public static final String WATER_GOAL ="water_goal";
     public static final String CALORIES_GOAL ="calories_goal";
     public static final String STEPS_GOAL ="steps_goal";
@@ -69,7 +74,7 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        SharedPreferences sharedPreferences = getActivity().getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getActivity().getApplicationContext().getSharedPreferences(GOALS_PREFS,MODE_PRIVATE);
 
 
         homeViewModel =
@@ -123,7 +128,6 @@ public class HomeFragment extends Fragment {
         txtGlasses.setText("Glasses");
 
         txtStepsTaken = root.findViewById(R.id.txtStepsProgress);
-        txtStepsTaken.setText("0/0");
 
 
         txtWaterDrank2 = root.findViewById(R.id.txtWaterProgress);
@@ -139,21 +143,28 @@ public class HomeFragment extends Fragment {
 
 
         water = sharedPreferences.getInt(WATER, 0);
+        calories = sharedPreferences.getInt(CALORIES, 750);
+        steps = sharedPreferences.getInt(STEPS, 5000);
+
         waterGoal = sharedPreferences.getInt(WATER_GOAL, 0);
         caloriesGoal = sharedPreferences.getInt(CALORIES_GOAL, 0);
         stepsGoal = sharedPreferences.getString(STEPS_GOAL, "0");
 
         txtCaloriesEaten = root.findViewById(R.id.txtCalorieProgress);
-        txtCaloriesEaten.setText("0" + "/" + caloriesGoal);
+        txtCaloriesEaten.setText(calories + "/" + caloriesGoal);
 
-        caloriesEatenText.setText("0" + "/" + caloriesGoal);
-        stepsTakenText.setText("0" + "/" + stepsGoal);
+        caloriesEatenText.setText(calories + "/" + caloriesGoal);
+        stepsTakenText.setText(steps + "/" + stepsGoal);
+        txtStepsTaken.setText(steps + "/" + stepsGoal);
+
 
 
 
 
 
         waterProgressBar.setMax(waterGoal);
+        caloriesProgressBar.setMax(caloriesGoal);
+
 
 
         txtWaterDrank.setText(water + "/" + waterGoal);

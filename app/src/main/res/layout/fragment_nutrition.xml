@@ -10,9 +10,169 @@
 
     <include layout="@layout/topbar"/>
 
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginTop="10dp">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="15dp">
+            <TextView
+                android:text="Calories Remaining"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:textColor="@android:color/black"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:paddingVertical="10dp"
+                android:textStyle="bold"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:textAlignment="center"
+
+                    android:id="@+id/textGoal"
+                    android:text="0"
+                    android:layout_weight="1"
+                    android:padding="2dp"
+                    android:layout_width="match_parent"
+                    android:textColor="@android:color/black"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_weight="1"
+                    android:padding="2dp"
+                    android:layout_width="match_parent"
+                    android:text="-"
+
+                    android:textAlignment="center"
+                    android:textColor="@android:color/holo_red_dark"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/textFood"
+                    android:text="0"
+                    android:layout_weight="1"
+                    android:padding="2dp"
+                    android:textAlignment="center"
+
+                    android:layout_width="match_parent"
+                    android:textColor="@android:color/black"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:text="+"
+
+                    android:textAlignment="center"
+                    android:textColor="@android:color/holo_red_dark"                android:layout_weight="1"
+                    android:padding="2dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/textExcercise"
+                    android:text="0"
+                    android:layout_weight="1"
+                    android:padding="2dp"
+                    android:textAlignment="center"
+
+                    android:layout_width="match_parent"
+                    android:textColor="@android:color/black"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:text="="
+
+                    android:textAlignment="center"
+                    android:textColor="@android:color/holo_red_dark"                android:layout_weight="1"
+                    android:padding="2dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:textAlignment="center"
+                    android:text="0"
+                    android:id="@+id/textTotal"
+                    android:layout_weight="1"
+                    android:padding="2dp"
+                    android:layout_width="match_parent"
+                    android:textColor="@android:color/holo_green_dark"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:textAlignment="center"
+                    android:textSize="10dp"
+
+                    android:text="Goal"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:textColor="@android:color/black"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:text=" "
+
+                    android:textAlignment="center"
+                    android:textColor="@android:color/holo_red_dark"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:textSize="10dp"
+
+                    android:text="Food"
+                    android:layout_weight="1"
+                    android:textAlignment="center"
+
+                    android:layout_width="match_parent"
+                    android:textColor="@android:color/black"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:text=" "
+
+                    android:textAlignment="center"
+                    android:textColor="@android:color/holo_red_dark"                android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:textAlignment="center"
+                    android:textSize="10dp"
+
+                    android:text="Excercise"
+                    android:layout_weight="1"
+
+                    android:layout_width="match_parent"
+                    android:textColor="@android:color/black"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:text=" "
+
+                    android:textAlignment="center"
+                    android:textColor="@android:color/holo_red_dark"                android:layout_weight="1"
+                    android:padding="2dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:textAlignment="center"
+                    android:textSize="10dp"
+
+                    android:text="Remaning"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:textColor="@android:color/black"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="?attr/actionBarSize">
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:tools="http://schemas.android.com/tools"
@@ -22,188 +182,7 @@
             android:orientation="vertical"
             tools:context=".MainActivity">
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="100dp">
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:text="Calories Remaining"
-                        android:layout_weight="1"
-                        android:padding="5dp"
-                        android:layout_width="match_parent"
-                        android:textColor="@android:color/black"
-                        android:layout_height="wrap_content" />
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <TextView
-                            android:textAlignment="center"
 
-                            android:id="@+id/textGoal"
-                            android:text="0"
-                            android:layout_weight="1"
-                            android:padding="2dp"
-                            android:layout_width="match_parent"
-                            android:textColor="@android:color/black"
-                            android:layout_height="wrap_content" />
-                        <TextView
-                            android:layout_weight="1"
-                            android:padding="2dp"
-                            android:layout_width="match_parent"
-                            android:text="-"
-
-                            android:textAlignment="center"
-                            android:textColor="@android:color/holo_red_dark"
-                            android:layout_height="wrap_content" />
-
-                        <TextView
-                            android:id="@+id/textFood"
-                            android:text="0"
-                            android:layout_weight="1"
-                            android:padding="2dp"
-                            android:textAlignment="center"
-
-                            android:layout_width="match_parent"
-                            android:textColor="@android:color/black"
-                            android:layout_height="wrap_content" />
-                        <TextView
-                            android:text="+"
-
-                            android:textAlignment="center"
-                            android:textColor="@android:color/holo_red_dark"                android:layout_weight="1"
-                            android:padding="2dp"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
-                        <TextView
-                            android:id="@+id/textExcercise"
-                            android:text="0"
-                            android:layout_weight="1"
-                            android:padding="2dp"
-                            android:textAlignment="center"
-
-                            android:layout_width="match_parent"
-                            android:textColor="@android:color/black"
-                            android:layout_height="wrap_content" />
-                        <TextView
-                            android:text="="
-
-                            android:textAlignment="center"
-                            android:textColor="@android:color/holo_red_dark"                android:layout_weight="1"
-                            android:padding="2dp"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
-                        <TextView
-                            android:textAlignment="center"
-                            android:text="0"
-                            android:id="@+id/textTotal"
-                            android:layout_weight="1"
-                            android:padding="2dp"
-                            android:layout_width="match_parent"
-                            android:textColor="@android:color/holo_green_dark"
-                            android:layout_height="wrap_content" />
-
-                    </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <TextView
-                            android:textAlignment="center"
-                            android:textSize="10dp"
-
-                            android:text="Goal"
-                            android:layout_weight="1"
-                            android:layout_width="match_parent"
-                            android:textColor="@android:color/black"
-                            android:layout_height="wrap_content" />
-                        <TextView
-                            android:layout_weight="1"
-                            android:layout_width="match_parent"
-                            android:text=" "
-
-                            android:textAlignment="center"
-                            android:textColor="@android:color/holo_red_dark"
-                            android:layout_height="wrap_content" />
-
-                        <TextView
-                            android:textSize="10dp"
-
-                            android:text="Food"
-                            android:layout_weight="1"
-                            android:textAlignment="center"
-
-                            android:layout_width="match_parent"
-                            android:textColor="@android:color/black"
-                            android:layout_height="wrap_content" />
-                        <TextView
-                            android:text=" "
-
-                            android:textAlignment="center"
-                            android:textColor="@android:color/holo_red_dark"                android:layout_weight="1"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
-                        <TextView
-                            android:textAlignment="center"
-                            android:textSize="10dp"
-
-                            android:text="Excercise"
-                            android:layout_weight="1"
-
-                            android:layout_width="match_parent"
-                            android:textColor="@android:color/black"
-                            android:layout_height="wrap_content" />
-                        <TextView
-                            android:text=" "
-
-                            android:textAlignment="center"
-                            android:textColor="@android:color/holo_red_dark"                android:layout_weight="1"
-                            android:padding="2dp"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
-                        <TextView
-                            android:textAlignment="center"
-                            android:textSize="10dp"
-
-                            android:text="Remaning"
-                            android:layout_weight="1"
-                            android:layout_width="match_parent"
-                            android:textColor="@android:color/black"
-                            android:layout_height="wrap_content" />
-
-                    </LinearLayout>
-
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-            <androidx.cardview.widget.CardView
-                android:layout_margin="5dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:padding="10dp"
-                        android:textSize="18dp"
-                        android:textStyle="bold"
-                        android:textColor="#000"
-                        android:text="Goal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-                    <TextView
-                        android:padding="10dp"
-
-                        android:textStyle="bold"
-                        android:textColor="@color/login_color_scheme"
-                        android:id="@+id/btnAdd"
-                        android:text="Add"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
             <androidx.cardview.widget.CardView
                 android:layout_margin="5dp"
                 android:layout_width="match_parent"
