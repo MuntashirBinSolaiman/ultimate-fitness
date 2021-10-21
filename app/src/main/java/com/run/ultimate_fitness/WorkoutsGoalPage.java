@@ -13,6 +13,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.NumberPicker;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -33,6 +34,8 @@ public class WorkoutsGoalPage extends AppCompatActivity {
     private TextView  txtNext, txtBack;
     int layoutsMove = 1;
 
+    private Button summerBodyBtn, gainMuscleBtn, loseWeightBtn, loseQuickWeightBtn;
+
     String stepGoalFinal, workoutGoalFinal;
     public int waterGoalFinal, caloriesGoalFinal;
 
@@ -50,7 +53,6 @@ public class WorkoutsGoalPage extends AppCompatActivity {
     public static final String STEPS_GOAL ="steps_goal";
     public static final String CALORIES_GOAL ="calories_goal";
 
-    private CardView summerBodyCard, gainMuscleCard, loseWeightCard, loseQuickWeightCard;
 
 
 
@@ -61,10 +63,10 @@ public class WorkoutsGoalPage extends AppCompatActivity {
         setContentView(R.layout.activity_workouts_goal_page);
         getSupportActionBar().hide();
 
-        summerBodyCard = findViewById(R.id.summerBodyCard);
-        gainMuscleCard = findViewById(R.id.gainMuscleCard);
-        loseWeightCard = findViewById(R.id.loseWeightCard);
-        loseQuickWeightCard = findViewById(R.id.loseQuickWeightCard);
+        summerBodyBtn = findViewById(R.id.summerBodyBtn);
+        gainMuscleBtn = findViewById(R.id.gainMuscleBtn);
+        loseWeightBtn = findViewById(R.id.loseWeightBtn);
+        loseQuickWeightBtn = findViewById(R.id.loseQuickWeightBtn);
 
 
 
@@ -174,39 +176,40 @@ public class WorkoutsGoalPage extends AppCompatActivity {
             //display the fitness goals
             case 1:
                 fitnessLayout.animate().translationX(0);
-                fitnessLayout.setVisibility(View.VISIBLE);
+                fitnessLayout.animate().alpha(1.0F);
 
 
                 waterLayout.animate().translationX(650);
-                waterLayout.setVisibility(View.INVISIBLE);
+                waterLayout.animate().alpha(0.0F);
 
                 stepsLayout.animate().translationX(650);
-                stepsLayout.setVisibility(View.INVISIBLE);
+                stepsLayout.animate().alpha(0.0F);
 
                 caloriesLayout.animate().translationX(650);
-                caloriesLayout.setVisibility(View.INVISIBLE);
+                caloriesLayout.animate().alpha(0.0F);
 
 
-                txtBack.setVisibility(View.INVISIBLE);
+                txtBack.animate().alpha(0.0F);
                 break;
 
             //display the water goals
 
             case 2:
                 fitnessLayout.animate().translationX(-650);
-                fitnessLayout.setVisibility(View.INVISIBLE);
+                //fitnessLayout.setVisibility(View.INVISIBLE);
+                fitnessLayout.animate().alpha(0.0F);
 
                 waterLayout.animate().translationX(0);
-                waterLayout.setVisibility(View.VISIBLE);
+                waterLayout.animate().alpha(1.0F);
 
                 stepsLayout.animate().translationX(650);
-                stepsLayout.setVisibility(View.INVISIBLE);
+                stepsLayout.animate().alpha(0.0F);
 
                 caloriesLayout.animate().translationX(650);
-                caloriesLayout.setVisibility(View.INVISIBLE);
+                caloriesLayout.animate().alpha(0.0F);
 
 
-                txtBack.setVisibility(View.VISIBLE);
+                txtBack.animate().alpha(1.0F);
 
 
 
@@ -216,16 +219,16 @@ public class WorkoutsGoalPage extends AppCompatActivity {
 
             case 3:
                 fitnessLayout.animate().translationX(-650);
-                fitnessLayout.setVisibility(View.INVISIBLE);
+                fitnessLayout.animate().alpha(0.0F);
 
                 waterLayout.animate().translationX(-650);
-                waterLayout.setVisibility(View.INVISIBLE);
+                waterLayout.animate().alpha(0.0F);
 
                 stepsLayout.animate().translationX(0);
-                stepsLayout.setVisibility(View.VISIBLE);
+                stepsLayout.animate().alpha(1.0F);
 
                 caloriesLayout.animate().translationX(650);
-                caloriesLayout.setVisibility(View.INVISIBLE);
+                caloriesLayout.animate().alpha(0.0F);
 
                 txtNext.setText("Next");
                 System.out.println(waterGoalFinal);
@@ -236,16 +239,16 @@ public class WorkoutsGoalPage extends AppCompatActivity {
 
             case 4:
                 fitnessLayout.animate().translationX(-650);
-                fitnessLayout.setVisibility(View.INVISIBLE);
+                fitnessLayout.animate().alpha(0.0F);
 
                 waterLayout.animate().translationX(-650);
-                waterLayout.setVisibility(View.INVISIBLE);
+                waterLayout.animate().alpha(0.0F);
 
                 stepsLayout.animate().translationX(-650);
-                stepsLayout.setVisibility(View.INVISIBLE);
+                stepsLayout.animate().alpha(0.0F);
 
                 caloriesLayout.animate().translationX(0);
-                caloriesLayout.setVisibility(View.VISIBLE);
+                caloriesLayout.animate().alpha(1.0F);
 
                 txtNext.setText("Finish");
 
@@ -317,13 +320,6 @@ public class WorkoutsGoalPage extends AppCompatActivity {
             }
         });
 
-        summerBodyCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                layoutsMove++;
-                moveLayouts();
-            }
-        });
 
 
 
@@ -331,5 +327,36 @@ public class WorkoutsGoalPage extends AppCompatActivity {
     }
 
 
+    public void clickSummerBody(View view) {
+        summerBodyBtn.setBackgroundResource(R.drawable.btn_red);
+        gainMuscleBtn.setBackgroundResource(R.drawable.btn_black);
+        loseWeightBtn.setBackgroundResource(R.drawable.btn_black);
+        loseQuickWeightBtn.setBackgroundResource(R.drawable.btn_black);
+
     }
+
+    public void clickGainMuscle(View view) {
+        summerBodyBtn.setBackgroundResource(R.drawable.btn_black);
+        gainMuscleBtn.setBackgroundResource(R.drawable.btn_red);
+        loseWeightBtn.setBackgroundResource(R.drawable.btn_black);
+        loseQuickWeightBtn.setBackgroundResource(R.drawable.btn_black);
+
+    }
+
+    public void clickLoseWeight(View view) {
+        summerBodyBtn.setBackgroundResource(R.drawable.btn_black);
+        gainMuscleBtn.setBackgroundResource(R.drawable.btn_black);
+        loseWeightBtn.setBackgroundResource(R.drawable.btn_red);
+        loseQuickWeightBtn.setBackgroundResource(R.drawable.btn_black);
+
+    }
+
+    public void clickLoseQuickWeight(View view) {
+        summerBodyBtn.setBackgroundResource(R.drawable.btn_black);
+        gainMuscleBtn.setBackgroundResource(R.drawable.btn_black);
+        loseWeightBtn.setBackgroundResource(R.drawable.btn_black);
+        loseQuickWeightBtn.setBackgroundResource(R.drawable.btn_red);
+
+    }
+}
 

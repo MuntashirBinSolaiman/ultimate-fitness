@@ -52,6 +52,8 @@
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.4197916666666667" />
         <entry key="app/src/main/res/drawable/background_input.xml" value="0.41333333333333333" />
         <entry key="app/src/main/res/drawable/bg_button.xml" value="0.26513157894736844" />
+        <entry key="app/src/main/res/drawable/btn_black.xml" value="0.40520833333333334" />
+        <entry key="app/src/main/res/drawable/btn_red.xml" value="0.40520833333333334" />
         <entry key="app/src/main/res/drawable/goal_selector.xml" value="0.26513157894736844" />
         <entry key="app/src/main/res/drawable/ic_appointments.xml" value="0.20462962962962963" />
         <entry key="app/src/main/res/drawable/ic_dashboard_black_24dp.xml" value="0.20462962962962963" />
@@ -77,14 +79,15 @@
         <entry key="app/src/main/res/layout/activity_step_counter.xml" value="0.2375" />
         <entry key="app/src/main/res/layout/activity_web_page.xml" value="0.24605263157894736" />
         <entry key="app/src/main/res/layout/activity_workout_page.xml" value="0.24605263157894736" />
-        <entry key="app/src/main/res/layout/activity_workouts_goal_page.xml" value="0.15174036986735998" />
+        <entry key="app/src/main/res/layout/activity_workouts_goal_page.xml" value="0.22" />
         <entry key="app/src/main/res/layout/add_food.xml" value="0.24572368421052632" />
         <entry key="app/src/main/res/layout/add_goal.xml" value="0.24572368421052632" />
         <entry key="app/src/main/res/layout/calories_goal.xml" value="0.25493421052631576" />
+        <entry key="app/src/main/res/layout/content_gym_workouts.xml" value="0.3890625" />
         <entry key="app/src/main/res/layout/fitness_goals.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_appointments.xml" value="0.17074275362318841" />
         <entry key="app/src/main/res/layout/fragment_dashboard.xml" value="0.17074275362318841" />
-        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.22" />
         <entry key="app/src/main/res/layout/fragment_inbox.xml" value="0.17074275362318841" />
         <entry key="app/src/main/res/layout/fragment_notifications.xml" value="0.17074275362318841" />
         <entry key="app/src/main/res/layout/fragment_nutrition.xml" value="0.25" />
