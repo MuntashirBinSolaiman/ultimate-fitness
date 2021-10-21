@@ -44,6 +44,9 @@
         <entry key="..\:/Users/Hp/AndroidStudioProjects/Ultimate_Fitness_Android/app/src/main/res/layout/water_goal.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Hp/AndroidStudioProjects/Ultimate_Fitness_Android/app/src/main/res/layout/water_tracker_activity_main.xml" value="0.45735707591377694" />
         <entry key="..\:/Users/zeyne/Documents/Ultimate_Fitness_Android/app/src/main/res/layout/water_tracker_activity_main.xml" value="0.20416666666666666" />
+        <entry key="app/src/main/res-components/users/drawable/ic_splash_f.xml" value="0.24635416666666668" />
+        <entry key="app/src/main/res-components/users/drawable/ic_splash_u.xml" value="0.24635416666666668" />
+        <entry key="app/src/main/res-components/users/drawable/ic_ultimate_fintess_logo.xml" value="0.4197916666666667" />
         <entry key="app/src/main/res-components/users/mipmap-anydpi-v26/ic_launcher.xml" value="0.2953125" />
         <entry key="app/src/main/res-components/users/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.2953125" />
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.4197916666666667" />
@@ -70,6 +73,7 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_profile_page.xml" value="0.4036458333333333" />
         <entry key="app/src/main/res/layout/activity_sign_up_information.xml" value="0.21379781420765026" />
+        <entry key="app/src/main/res/layout/activity_splash_screen.xml" value="0.23020833333333332" />
         <entry key="app/src/main/res/layout/activity_step_counter.xml" value="0.2375" />
         <entry key="app/src/main/res/layout/activity_web_page.xml" value="0.24605263157894736" />
         <entry key="app/src/main/res/layout/activity_workout_page.xml" value="0.24605263157894736" />
