@@ -16,7 +16,7 @@ public class Splash_Screen extends AppCompatActivity {
     private ImageView img_U,img_F,img_Ultimate,img_Fitness;
     private Animation leftAnimation,rightAnimation,bottomAnimation, bottomAnimation2;
 
-    private static int SPLASH_SCREEN = 5000;
+    private static int SPLASH_SCREEN = 3500;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +33,9 @@ public class Splash_Screen extends AppCompatActivity {
         loadAnimations();
         doAnimations();
         goToDashboad();
+    }
+    public void onBackPressed(){
+
     }
 
     private void loadAnimations() {
