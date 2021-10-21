@@ -44,6 +44,9 @@
         <entry key="..\:/Users/Hp/AndroidStudioProjects/Ultimate_Fitness_Android/app/src/main/res/layout/water_goal.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Hp/AndroidStudioProjects/Ultimate_Fitness_Android/app/src/main/res/layout/water_tracker_activity_main.xml" value="0.45735707591377694" />
         <entry key="..\:/Users/zeyne/Documents/Ultimate_Fitness_Android/app/src/main/res/layout/water_tracker_activity_main.xml" value="0.20416666666666666" />
+        <entry key="app/src/main/res-components/users/mipmap-anydpi-v26/ic_launcher.xml" value="0.2953125" />
+        <entry key="app/src/main/res-components/users/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.2953125" />
+        <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.4197916666666667" />
         <entry key="app/src/main/res/drawable/background_input.xml" value="0.41333333333333333" />
         <entry key="app/src/main/res/drawable/bg_button.xml" value="0.26513157894736844" />
         <entry key="app/src/main/res/drawable/goal_selector.xml" value="0.26513157894736844" />
@@ -94,6 +97,8 @@
         <entry key="app/src/main/res/layout/water_tracker_activity_main.xml" value="0.24572368421052632" />
         <entry key="app/src/main/res/layout/workouts_view.xml" value="0.25" />
         <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.33" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2953125" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.2953125" />
         <entry key="app/src/main/res/xml/root_preferences.xml" value="0.24572368421052632" />
       </map>
     </option>

@@ -89,6 +89,7 @@ public class StepCounter extends AppCompatActivity implements SensorEventListene
         if( mRunning ){
 
             mStepsValue.setText( "" + sensorEvent.values[0] );
+
         }
     }
 
