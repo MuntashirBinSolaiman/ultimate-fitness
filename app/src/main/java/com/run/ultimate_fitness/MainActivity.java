@@ -5,11 +5,14 @@ import static android.content.ContentValues.TAG;
 import static com.run.ultimate_fitness.utils.Constants.UID;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Base64;
@@ -47,8 +50,9 @@ import okhttp3.OkHttpClient;
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
-    private ImageView profilePicImage;
+    private ImageView profilePicImage, bookingImage;
     private TextView userName;
+    private ProgressBar progressBar;
 
     public static final String IS_LOGGED_IN ="isLoggedIn";
     public static final String PICTURE ="picture";
@@ -67,8 +71,6 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView.Adapter adapter;
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,8 +86,6 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
-
-
 
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
@@ -106,7 +106,11 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().hide();
 
         profilePicImage = findViewById(R.id.icon_user);
+        bookingImage = findViewById(R.id.bookingsImage);
+        progressBar = findViewById(R.id.topBarProgress);
+
         loadImage();
+
 
 
         UID1 = sharedPreferences2.getString(USER_UID, ""); // Replace with the UID of the user to login
@@ -136,6 +140,7 @@ public class MainActivity extends AppCompatActivity {
         a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(a);
     }
+
     private void loginChat() {
 
         if (CometChat.getLoggedInUser() == null) {
@@ -171,8 +176,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-
-
     public void goToProfile(View view){
             Intent intent = new Intent(MainActivity.this, ProfilePage.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -187,7 +190,6 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-
     public void goToStepCounter(View view){
            Intent intent = new Intent(MainActivity.this, StepCounter.class);
            startActivity(intent);
@@ -199,7 +201,6 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
 
     }
-
 
     public Bitmap StringToBitMap(String encodedString){
         try {
@@ -219,11 +220,37 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-        public void goToBookings(View view){
-            Intent intent = new Intent(MainActivity.this, WebPage.class);
-            startActivity(intent);
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
+    public void goToBookings(View view){
+
+        if (isNetworkAvailable())
+            {
+                progressBar.setVisibility(View.VISIBLE);
+                bookingImage.setVisibility(View.GONE);
+
+                Intent intent = new Intent(MainActivity.this, WebPage.class);
+                startActivity(intent);
+
+            }else{
+
+                new AlertDialog.Builder(this)
+                        .setTitle("Check Internet connection")
+                        .setMessage("Please make sure you have an active internet connection")
+
+                        // Specifying a listener allows you to take an action before dismissing the dialog.
+                        // The dialog is automatically dismissed when a dialog button is clicked.
+                        .setPositiveButton(android.R.string.yes, null)
+                        .show();
+
+
+            }
+
+
         }
-
-
-
 }

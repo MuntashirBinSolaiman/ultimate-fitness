@@ -10,6 +10,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Base64;
@@ -85,6 +87,13 @@ public class ProfilePage extends AppCompatActivity {
         });
     }
 
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
     public void editProfileButton(View view){
         Intent intent = new Intent(this, EditProfile.class);
         startActivity(intent);
@@ -98,23 +107,39 @@ public class ProfilePage extends AppCompatActivity {
     //Deletes user from device and firestore database
     public void deleteProfileButton(View view){
 
-        //deleteProfile();
+        if (isNetworkAvailable())
+        {
+            //deleteProfile();
 
-        new AlertDialog.Builder(this)
-                .setTitle("Delete Profile")
-                .setMessage("Are you sure you want to delete your profile?")
+            new AlertDialog.Builder(this)
+                    .setTitle("Delete Profile")
+                    .setMessage("Are you sure you want to delete your profile?")
 
-                // Specifying a listener allows you to take an action before dismissing the dialog.
-                // The dialog is automatically dismissed when a dialog button is clicked.
-                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        // Continue with delete operation
-                        deleteProfile();
-                    }
-                })
-                .setNegativeButton(android.R.string.no, null)
-                //.setIcon(android.R.drawable.ic_dialog_alert)
-                .show();
+                    // Specifying a listener allows you to take an action before dismissing the dialog.
+                    // The dialog is automatically dismissed when a dialog button is clicked.
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            // Continue with delete operation
+                            deleteProfile();
+                        }
+                    })
+                    .setNegativeButton(android.R.string.no, null)
+                    //.setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
+
+        }else{
+
+            new AlertDialog.Builder(this)
+                    .setTitle("Check Internet connection")
+                    .setMessage("Please make sure you have an active internet connection")
+
+                    // Specifying a listener allows you to take an action before dismissing the dialog.
+                    // The dialog is automatically dismissed when a dialog button is clicked.
+                    .setPositiveButton(android.R.string.yes, null)
+                    .show();
+        }
+
+
     }
 
     // Loads values from shared preferences

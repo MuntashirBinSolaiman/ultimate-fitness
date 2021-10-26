@@ -6,8 +6,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
@@ -65,9 +69,13 @@ public class LoginPage extends AppCompatActivity {
         loginPasswordTxt = findViewById(R.id.loginPasswordEditText);
         TheProgressBar = findViewById(R.id.loginProgressbar);
         loginButton = findViewById(R.id.loginButton);
+    }
 
-
-
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
    //Overrides back button to close app
@@ -79,7 +87,26 @@ public class LoginPage extends AppCompatActivity {
     }
 
     public void login(View view){
-        logInUser();
+
+        if (isNetworkAvailable())
+        {
+            logInUser();
+
+        }else{
+
+            new AlertDialog.Builder(this)
+                    .setTitle("Check Internet connection")
+                    .setMessage("Please make sure you have an active internet connection")
+
+                    // Specifying a listener allows you to take an action before dismissing the dialog.
+                    // The dialog is automatically dismissed when a dialog button is clicked.
+                    .setPositiveButton(android.R.string.yes, null)
+                    .show();
+
+            TheProgressBar.setVisibility(View.GONE);
+            loginButton.setVisibility(View.VISIBLE);
+        }
+
     }
 
     //Navigates to sign up page

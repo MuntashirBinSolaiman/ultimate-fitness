@@ -36,9 +36,10 @@ public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
     private FragmentHomeBinding binding;
-    private ImageView profilePicImage, imgHideMainCard, imgShowMainCard;
+    private ImageView profilePicImage, imgHideMainCard, imgShowMainCard,bookingImage;
     private TextView userName;
     private TextView txtWaterDrank2, txtSteps, txtCalories, txtGlasses;
+    private ProgressBar progressBar;
 
     public static final String USER_PREFS ="userPrefs";
     public static final String PICTURE ="picture";
@@ -92,6 +93,15 @@ public class HomeFragment extends Fragment {
                 //textView.setText(s);
             }
         });
+
+
+        profilePicImage = root.findViewById(R.id.icon_user);
+
+        bookingImage = root.findViewById(R.id.bookingsImage);
+        progressBar = root.findViewById(R.id.topBarProgress);
+
+        progressBar.setVisibility(View.GONE);
+        bookingImage.setVisibility(View.VISIBLE);
 
 
 

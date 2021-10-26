@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,6 +20,9 @@ import com.run.ultimate_fitness.R;
 public class AppointmentsFragment extends Fragment {
     private WebView mWebView;
 
+    private ImageView bookingImage;
+    private ProgressBar progressBar;
+
     private AppointmentsViewModel mViewModel;
 
     public static AppointmentsFragment newInstance() {
@@ -28,6 +33,12 @@ public class AppointmentsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_appointments, container, false);
+
+        bookingImage = view.findViewById(R.id.bookingsImage);
+        progressBar = view.findViewById(R.id.topBarProgress);
+
+        progressBar.setVisibility(View.GONE);
+        bookingImage.setVisibility(View.VISIBLE);
 
         mWebView = (WebView) view.findViewById(R.id.webView_Appointments);
         mWebView.loadUrl("https://www.monash.edu");

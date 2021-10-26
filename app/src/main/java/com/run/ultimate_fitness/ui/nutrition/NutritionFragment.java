@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,8 +51,9 @@ public class NutritionFragment extends Fragment implements RemoveClickListner {
     public static final String GOALS_PREFS ="goalsPrefs";
 
 
-    private ImageView profilePicImage;
+    private ImageView profilePicImage, bookingImage;
     private TextView userName;
+    private ProgressBar progressBar;
 
     TextView btnAddItem, btnAddItemLunch, btnAddItemDinner, btnAddItemSnacks, btnAddItemExcercise, btnAdd;
     ArrayList<RecyclerViewData> myList = new ArrayList<>();
@@ -75,6 +77,11 @@ public class NutritionFragment extends Fragment implements RemoveClickListner {
         SharedPreferences sharedPreferences = getActivity().getApplicationContext().getSharedPreferences(GOALS_PREFS, MODE_PRIVATE);
         totalGoal = sharedPreferences.getInt(CALORIES_GOAL, 0);
 
+        bookingImage = view.findViewById(R.id.bookingsImage);
+        progressBar = view.findViewById(R.id.topBarProgress);
+
+        progressBar.setVisibility(View.GONE);
+        bookingImage.setVisibility(View.VISIBLE);
 
 
 

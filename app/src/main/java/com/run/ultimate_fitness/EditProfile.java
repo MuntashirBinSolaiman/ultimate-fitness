@@ -16,6 +16,8 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -99,6 +101,13 @@ public class EditProfile extends AppCompatActivity {
         });
     }
 
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
     public void editProfilePic(View view){
 
         if(checkAndRequestPermissions(EditProfile.this)) {
@@ -109,65 +118,83 @@ public class EditProfile extends AppCompatActivity {
     //Gets information from fields
     public void updateUser(View view){
 
-        try{
-            String firstName = firstNameTxt.getText().toString();
-            String lastName = lastNameTxt.getText().toString();
-            String phoneNumber = phoneNumberEdit.getText().toString();
-            String weight = weightTxt.getText().toString();
-            String height = heightTxt.getText().toString();
-
-            if(!firstName.isEmpty()){
-                SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString(FIRST_NAME,firstName);
-                editor.apply();
-            }
-
-            if(!lastName.isEmpty()){
-                SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString(LAST_NAME,lastName);
-                editor.apply();
-            }
-
-            if(!phoneNumber.isEmpty()){
-                SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString(PHONE_NUMBER,phoneNumber);
-                editor.apply();
-            }
-
-            if(!weight.isEmpty()){
-                SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString(WEIGHT,weight);
-                editor.apply();
-            }
-
-            if(!height.isEmpty()){
-                SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString(HEIGHT,height);
-                editor.apply();
-            }
-
-            progressBar.setVisibility(View.VISIBLE);
-            updateDataButton.setVisibility(View.GONE);
-
-
-            updateOnline();
-        }
-        catch (Exception e)
+        if (isNetworkAvailable())
         {
+            try{
+                String firstName = firstNameTxt.getText().toString();
+                String lastName = lastNameTxt.getText().toString();
+                String phoneNumber = phoneNumberEdit.getText().toString();
+                String weight = weightTxt.getText().toString();
+                String height = heightTxt.getText().toString();
+
+                if(!firstName.isEmpty()){
+                    SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString(FIRST_NAME,firstName);
+                    editor.apply();
+                }
+
+                if(!lastName.isEmpty()){
+                    SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString(LAST_NAME,lastName);
+                    editor.apply();
+                }
+
+                if(!phoneNumber.isEmpty()){
+                    SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString(PHONE_NUMBER,phoneNumber);
+                    editor.apply();
+                }
+
+                if(!weight.isEmpty()){
+                    SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString(WEIGHT,weight);
+                    editor.apply();
+                }
+
+                if(!height.isEmpty()){
+                    SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString(HEIGHT,height);
+                    editor.apply();
+                }
+
+                progressBar.setVisibility(View.VISIBLE);
+                updateDataButton.setVisibility(View.GONE);
+
+
+                updateOnline();
+            }
+            catch (Exception e)
+            {
+                progressBar.setVisibility(View.GONE);
+                updateDataButton.setVisibility(View.VISIBLE);
+                Toast.makeText(EditProfile.this,"Please make a change before uploading", Toast.LENGTH_LONG).show();
+            }
+
+        }else{
+
+            new AlertDialog.Builder(this)
+                    .setTitle("Check Internet connection")
+                    .setMessage("Please make sure you have an active internet connection")
+
+                    // Specifying a listener allows you to take an action before dismissing the dialog.
+                    // The dialog is automatically dismissed when a dialog button is clicked.
+                    .setPositiveButton(android.R.string.yes, null)
+                    .show();
+
             progressBar.setVisibility(View.GONE);
             updateDataButton.setVisibility(View.VISIBLE);
-            Toast.makeText(EditProfile.this,"Please make a change before uploading", Toast.LENGTH_LONG).show();
         }
+
+
+
     }
 
-
-
-    //Uploads chances to firestore database
+    //Uploads chances to fire store database
     private void updateOnline(){
 
         if(!thePicture.equals("") && !thePicture.equals(null)){

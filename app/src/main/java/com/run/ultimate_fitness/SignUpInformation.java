@@ -16,6 +16,8 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -82,8 +84,34 @@ public class SignUpInformation extends AppCompatActivity {
         profilePicImage = findViewById(R.id.displayPic);
     }
 
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
     public void submitInformation(View view){
-        registerUser();
+
+        if (isNetworkAvailable())
+        {
+            registerUser();
+
+        }else{
+
+            new AlertDialog.Builder(this)
+                    .setTitle("Check Internet connection")
+                    .setMessage("Please make sure you have an active internet connection")
+
+                    // Specifying a listener allows you to take an action before dismissing the dialog.
+                    // The dialog is automatically dismissed when a dialog button is clicked.
+                    .setPositiveButton(android.R.string.yes, null)
+                    .show();
+
+            progressBar.setVisibility(View.GONE);
+            addInfoButton.setVisibility(View.VISIBLE);
+        }
+
     }
 
     public  void addProfilePic(View view){
@@ -330,8 +358,6 @@ public class SignUpInformation extends AppCompatActivity {
             }
         }
     }
-
-
     //Converts bitmap to string
     public String BitMapToString(Bitmap bitmap) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();

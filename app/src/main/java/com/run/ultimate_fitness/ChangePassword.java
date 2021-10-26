@@ -3,7 +3,11 @@ package com.run.ultimate_fitness;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
@@ -58,12 +62,36 @@ public class ChangePassword extends AppCompatActivity {
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
         });
+    }
 
-
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
     public void updatePassword(View view){
-        uploadDetails();
+
+        if (isNetworkAvailable())
+        {
+            uploadDetails();
+
+        }else{
+
+            new AlertDialog.Builder(this)
+                    .setTitle("Check Internet connection")
+                    .setMessage("Please make sure you have an active internet connection")
+
+                    // Specifying a listener allows you to take an action before dismissing the dialog.
+                    // The dialog is automatically dismissed when a dialog button is clicked.
+                    .setPositiveButton(android.R.string.yes, null)
+                    .show();
+
+            forgotPasswordButton.setVisibility(View.VISIBLE);
+            updateButton.setVisibility(View.VISIBLE);
+            progressBar.setVisibility(View.GONE);
+        }
     }
 
     //Navigates to forgot password page

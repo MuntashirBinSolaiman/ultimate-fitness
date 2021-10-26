@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.CalendarView;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -36,8 +37,9 @@ public class InboxFragment extends Fragment {
     public static final String LAST_NAME ="lastName";
     public static final String USER_PREFS ="userPrefs";
 
-    private ImageView profilePicImage, imgGymWorkouts;
+    private ImageView profilePicImage, imgGymWorkouts,bookingImage;
     private TextView userName;
+    private ProgressBar progressBar;
 
     private InboxViewModel mViewModel;
 
@@ -52,6 +54,11 @@ public class InboxFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_inbox, container, false);
 
+        bookingImage = view.findViewById(R.id.bookingsImage);
+        progressBar = view.findViewById(R.id.topBarProgress);
+
+        progressBar.setVisibility(View.GONE);
+        bookingImage.setVisibility(View.VISIBLE);
 
         profilePicImage = view.findViewById(R.id.icon_user);
 
