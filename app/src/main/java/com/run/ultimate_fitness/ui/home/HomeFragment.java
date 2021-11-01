@@ -104,7 +104,31 @@ public class HomeFragment extends Fragment {
         bookingImage = root.findViewById(R.id.bookingsImage);
         progressBar = root.findViewById(R.id.topBarProgress);
 
+        bookingImage.setOnClickListener(v -> {
 
+            if (isNetworkAvailable())
+            {
+                progressBar.setVisibility(View.VISIBLE);
+                bookingImage.setVisibility(View.GONE);
+
+                Intent intent = new Intent(root.getContext(), WebPage.class);
+                startActivity(intent);
+
+            }else{
+
+                new AlertDialog.Builder(root.getContext())
+                        .setTitle("Check Internet connection")
+                        .setMessage("Please make sure you have an active internet connection")
+
+                        // Specifying a listener allows you to take an action before dismissing the dialog.
+                        // The dialog is automatically dismissed when a dialog button is clicked.
+                        .setPositiveButton(android.R.string.yes, null)
+                        .show();
+
+
+            }
+
+        });
 
 
 
@@ -378,31 +402,10 @@ public class HomeFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        bookingImage.setOnClickListener(v -> {
 
-            if (isNetworkAvailable())
-            {
-                progressBar.setVisibility(View.VISIBLE);
-                bookingImage.setVisibility(View.GONE);
+        progressBar.setVisibility(View.GONE);
+        bookingImage.setVisibility(View.VISIBLE);
 
-                Intent intent = new Intent(getContext(), WebPage.class);
-                startActivity(intent);
-
-            }else{
-
-                new AlertDialog.Builder(getContext())
-                        .setTitle("Check Internet connection")
-                        .setMessage("Please make sure you have an active internet connection")
-
-                        // Specifying a listener allows you to take an action before dismissing the dialog.
-                        // The dialog is automatically dismissed when a dialog button is clicked.
-                        .setPositiveButton(android.R.string.yes, null)
-                        .show();
-
-
-            }
-
-        });
     }
 }
 

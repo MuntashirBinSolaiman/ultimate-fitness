@@ -5,11 +5,16 @@ package com.run.ultimate_fitness.ui.nutrition;
 
 import static android.content.Context.MODE_PRIVATE;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.ColorDrawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Base64;
 import android.view.LayoutInflater;
@@ -30,6 +35,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.run.ultimate_fitness.R;
 import com.run.ultimate_fitness.RecyclerViewData;
 import com.run.ultimate_fitness.RemoveClickListner;
+import com.run.ultimate_fitness.WebPage;
 import com.run.ultimate_fitness.adapters.RecyclerAdapter;
 
 import java.util.ArrayList;
@@ -80,10 +86,31 @@ public class NutritionFragment extends Fragment implements RemoveClickListner {
         bookingImage = view.findViewById(R.id.bookingsImage);
         progressBar = view.findViewById(R.id.topBarProgress);
 
-        progressBar.setVisibility(View.GONE);
-        bookingImage.setVisibility(View.VISIBLE);
+        bookingImage.setOnClickListener(v -> {
+
+            if (isNetworkAvailable())
+            {
+                progressBar.setVisibility(View.VISIBLE);
+                bookingImage.setVisibility(View.GONE);
+
+                Intent intent = new Intent(view.getContext(), WebPage.class);
+                startActivity(intent);
+
+            }else{
+
+                new AlertDialog.Builder(view.getContext())
+                        .setTitle("Check Internet connection")
+                        .setMessage("Please make sure you have an active internet connection")
+
+                        // Specifying a listener allows you to take an action before dismissing the dialog.
+                        // The dialog is automatically dismissed when a dialog button is clicked.
+                        .setPositiveButton(android.R.string.yes, null)
+                        .show();
 
 
+            }
+
+        });
 
         // View view = inflater.inflate(R.layout.fragment_nutrition, container, false);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerbreakfast_view);
@@ -234,6 +261,15 @@ public class NutritionFragment extends Fragment implements RemoveClickListner {
             mRecyclerAdapterExcercise.notifyData(myList);
         }
 
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        progressBar.setVisibility(View.GONE);
+        bookingImage.setVisibility(View.VISIBLE);
 
     }
 
@@ -412,6 +448,13 @@ public class NutritionFragment extends Fragment implements RemoveClickListner {
 
         userName.setText("Welcome, " + firstName);
         profilePicImage.setImageBitmap(StringToBitMap(picture));
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
 }
