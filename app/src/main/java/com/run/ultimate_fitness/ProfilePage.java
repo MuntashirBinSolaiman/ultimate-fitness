@@ -71,6 +71,7 @@ public class ProfilePage extends AppCompatActivity {
         logoutText.setOnClickListener(v -> {
             FirebaseAuth.getInstance().signOut();
             clearData();
+            clearAuth();
 
             Intent intent = new Intent(ProfilePage.this, MainActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -171,6 +172,13 @@ public class ProfilePage extends AppCompatActivity {
         editor.apply();
     }
 
+    private void clearAuth(){
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(CREDENTIALS_PREFS,MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear();
+        editor.apply();
+    }
+
     //Connects to the database
     private void deleteProfile(){
         SharedPreferences sharedPreferences = getSharedPreferences(CREDENTIALS_PREFS,MODE_PRIVATE);
@@ -199,6 +207,7 @@ public class ProfilePage extends AppCompatActivity {
                                                     if(task.isSuccessful()){
                                                         Toast.makeText(ProfilePage.this,"Profile deleted successfully", Toast.LENGTH_LONG).show();
                                                         clearData();
+                                                        clearAuth();
                                                         Intent intent = new Intent(ProfilePage.this, MainActivity.class);
                                                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
