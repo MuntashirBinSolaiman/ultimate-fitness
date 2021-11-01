@@ -5,10 +5,14 @@ import static android.content.Context.MODE_PRIVATE;
 
 import androidx.lifecycle.ViewModelProvider;
 
+import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -23,9 +27,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.run.ultimate_fitness.R;
+import com.run.ultimate_fitness.WebPage;
 import com.run.ultimate_fitness.adapters.HomeWorkoutsAdapter;
 import com.run.ultimate_fitness.ui.inbox.ChatPage;
 
@@ -36,8 +42,9 @@ public class WorkoutsFragment extends Fragment implements HomeWorkoutsAdapter.On
 
     RecyclerView recyclerView, recyclerView2;
     List<workoutsModel> homeWorkoutsList;
-    private ImageView profilePicImage, imgGymWorkouts;
+    private ImageView profilePicImage, imgGymWorkouts, bookingImage;
     private TextView userName;
+    private ProgressBar progressBar;
 
     public static final String PICTURE ="picture";
     public static final String FIRST_NAME ="firstName";
@@ -62,6 +69,35 @@ public class WorkoutsFragment extends Fragment implements HomeWorkoutsAdapter.On
 
         userName = view.findViewById(R.id.txtUsername);
 
+        bookingImage = view.findViewById(R.id.bookingsImage);
+        progressBar = view.findViewById(R.id.topBarProgress);
+
+        bookingImage.setOnClickListener(v -> {
+
+            if (isNetworkAvailable())
+            {
+                progressBar.setVisibility(View.VISIBLE);
+                bookingImage.setVisibility(View.GONE);
+
+                Intent intent = new Intent(view.getContext(), WebPage.class);
+                startActivity(intent);
+
+            }else{
+
+                new AlertDialog.Builder(view.getContext())
+                        .setTitle("Check Internet connection")
+                        .setMessage("Please make sure you have an active internet connection")
+
+                        // Specifying a listener allows you to take an action before dismissing the dialog.
+                        // The dialog is automatically dismissed when a dialog button is clicked.
+                        .setPositiveButton(android.R.string.yes, null)
+                        .show();
+
+
+            }
+
+        });
+
 
 
 
@@ -78,6 +114,15 @@ public class WorkoutsFragment extends Fragment implements HomeWorkoutsAdapter.On
 
 
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        progressBar.setVisibility(View.GONE);
+        bookingImage.setVisibility(View.VISIBLE);
+
     }
 
     private List<workoutsModel> initData() {
@@ -147,5 +192,12 @@ public class WorkoutsFragment extends Fragment implements HomeWorkoutsAdapter.On
         intent.putExtra("workout_description", homeWorkoutsList.get(position).getWorkout_description());
 
         startActivity(intent);
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 }

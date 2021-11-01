@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:text="Logout"
-            android:textColor="@color/login_color_scheme"
+            android:textColor="@color/bar_and_alternate_text_color"
             android:textSize="15dp"
             android:textStyle="normal" />
     </LinearLayout>
@@ -47,7 +47,7 @@
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:layout_below="@+id/liner_ll"
-        android:background="@color/login_color_scheme"
+        android:background="@color/bar_and_alternate_text_color"
         android:paddingLeft="8dp"
         android:paddingRight="8dp" />
 

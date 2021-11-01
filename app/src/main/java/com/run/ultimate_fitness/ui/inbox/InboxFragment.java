@@ -1,10 +1,14 @@
 package com.run.ultimate_fitness.ui.inbox;
 import static android.content.Context.MODE_PRIVATE;
 
+import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Base64;
 import android.view.LayoutInflater;
@@ -59,6 +63,32 @@ public class InboxFragment extends Fragment {
 
 
 
+        bookingImage.setOnClickListener(v -> {
+
+            if (isNetworkAvailable())
+            {
+                progressBar.setVisibility(View.VISIBLE);
+                bookingImage.setVisibility(View.GONE);
+
+                Intent intent = new Intent(view.getContext(), WebPage.class);
+                startActivity(intent);
+
+            }else{
+
+                new AlertDialog.Builder(view.getContext())
+                        .setTitle("Check Internet connection")
+                        .setMessage("Please make sure you have an active internet connection")
+
+                        // Specifying a listener allows you to take an action before dismissing the dialog.
+                        // The dialog is automatically dismissed when a dialog button is clicked.
+                        .setPositiveButton(android.R.string.yes, null)
+                        .show();
+
+
+            }
+
+        });
+
         profilePicImage = view.findViewById(R.id.icon_user);
 
         userName = view.findViewById(R.id.txtUsername);
@@ -86,6 +116,15 @@ public class InboxFragment extends Fragment {
         // TODO: Use the ViewModel
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        progressBar.setVisibility(View.GONE);
+        bookingImage.setVisibility(View.VISIBLE);
+
+    }
+
     public  void loadImage(){
         SharedPreferences sharedPreferences = getActivity().getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
         String picture = sharedPreferences.getString(PICTURE,"");
@@ -110,12 +149,10 @@ public class InboxFragment extends Fragment {
     }
 
 
-    public void onResume() {
-        super.onResume();
-        progressBar.setVisibility(View.GONE);
-        bookingImage.setVisibility(View.VISIBLE);
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
-
-
-
 }

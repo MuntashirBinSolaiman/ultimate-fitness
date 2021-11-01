@@ -36,14 +36,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Peter Ombati"
-                    android:textColor="@color/login_color_scheme"
+                    android:textColor="@color/bar_and_alternate_text_color"
                     android:textSize="20dp"
                     android:layout_marginTop="8dp"
                     android:textStyle="bold"/>
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/login_color_scheme"
+                    android:background="@color/icon_color"
                     android:layout_marginTop="10dp"/>
 
             </LinearLayout>

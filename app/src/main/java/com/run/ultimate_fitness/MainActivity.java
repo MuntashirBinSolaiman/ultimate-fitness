@@ -50,9 +50,8 @@ import okhttp3.OkHttpClient;
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
-    private ImageView profilePicImage, bookingImage;
+    private ImageView profilePicImage;
     private TextView userName;
-    private ProgressBar progressBar;
 
     public static final String IS_LOGGED_IN ="isLoggedIn";
     public static final String PICTURE ="picture";
@@ -106,9 +105,6 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().hide();
 
         profilePicImage = findViewById(R.id.icon_user);
-        bookingImage = findViewById(R.id.bookingsImage);
-        progressBar = findViewById(R.id.topBarProgress);
-
         loadImage();
 
 
@@ -134,6 +130,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
     public void onBackPressed(){
         Intent a = new Intent(Intent.ACTION_MAIN);
         a.addCategory(Intent.CATEGORY_HOME);
@@ -220,37 +217,4 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-    private boolean isNetworkAvailable() {
-        ConnectivityManager connectivityManager
-                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
-    }
-
-    public void goToBookings(View view){
-
-        if (isNetworkAvailable())
-            {
-                progressBar.setVisibility(View.VISIBLE);
-                bookingImage.setVisibility(View.GONE);
-
-                Intent intent = new Intent(MainActivity.this, WebPage.class);
-                startActivity(intent);
-
-            }else{
-
-                new AlertDialog.Builder(this)
-                        .setTitle("Check Internet connection")
-                        .setMessage("Please make sure you have an active internet connection")
-
-                        // Specifying a listener allows you to take an action before dismissing the dialog.
-                        // The dialog is automatically dismissed when a dialog button is clicked.
-                        .setPositiveButton(android.R.string.yes, null)
-                        .show();
-
-
-            }
-
-
-        }
 }

@@ -31,6 +31,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -342,9 +343,13 @@ public class EditProfile extends AppCompatActivity {
                             public void run() {
                                 //TODO your background code
                                 try {
+                                    RequestOptions myOptions = new RequestOptions()
+                                            .override(100, 100);
+
                                     bitmap = Glide
                                             .with(EditProfile.this)
                                             .asBitmap()
+                                            .apply(myOptions)
                                             .load(selectedImage)
                                             .submit()
                                             .get();
