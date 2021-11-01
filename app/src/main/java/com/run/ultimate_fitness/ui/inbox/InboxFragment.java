@@ -57,8 +57,7 @@ public class InboxFragment extends Fragment {
         bookingImage = view.findViewById(R.id.bookingsImage);
         progressBar = view.findViewById(R.id.topBarProgress);
 
-        progressBar.setVisibility(View.GONE);
-        bookingImage.setVisibility(View.VISIBLE);
+
 
         profilePicImage = view.findViewById(R.id.icon_user);
 
@@ -94,7 +93,7 @@ public class InboxFragment extends Fragment {
         String lastName = sharedPreferences.getString(LAST_NAME,"");
 
 
-        userName.setText("Welcome, " + firstName);
+        userName.setText("INBOX");
 
         profilePicImage.setImageBitmap(StringToBitMap(picture));
     }
@@ -111,6 +110,11 @@ public class InboxFragment extends Fragment {
     }
 
 
+    public void onResume() {
+        super.onResume();
+        progressBar.setVisibility(View.GONE);
+        bookingImage.setVisibility(View.VISIBLE);
+    }
 
 
 

@@ -1,6 +1,8 @@
 package com.run.ultimate_fitness.water;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -40,9 +42,11 @@ public class Water_Tracker_Activity extends AppCompatActivity {
     private TextView toolDisplayView, logoutText;
     private ImageView backButtonImage;
 
+    public static final String GOALS_PREFS ="goalsPrefs";
     public static final String USER_PREFS ="userPrefs";
     public static final String WATER ="water";
     public static final String WATER_GOAL ="water_goal";
+    public int waterGoal;
 
     TextView insert, update, delete, view, open_calendar;
 
@@ -80,13 +84,13 @@ public class Water_Tracker_Activity extends AppCompatActivity {
 
         waterTrackerDobHelper = new Water_Tracker_DOBHelper(Water_Tracker_Activity.this);
 
-        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(GOALS_PREFS,MODE_PRIVATE);
 
         cups_of_water = sharedPreferences.getInt(WATER, 0);
-        int waterProgress = sharedPreferences.getInt(WATER_GOAL, 0);
+        waterGoal = sharedPreferences.getInt(WATER_GOAL, 0);
 
         text_view_progress.setText("" + cups_of_water );
-        progressBar.setMax(waterProgress);
+        progressBar.setMax(waterGoal);
         progressBar.setProgress(cups_of_water);
 
 
@@ -220,22 +224,46 @@ public class Water_Tracker_Activity extends AppCompatActivity {
     }*/
 
     public void drinkWater(View view) {
-        if (cups_of_water <= 8) {
+
             cups_of_water++;
             String waterDrank = String.valueOf(cups_of_water);
             String waterProgress = waterDrank + "";
             text_view_progress.setText("" + cups_of_water );
-
-
-
-
             System.out.println(waterProgress);
             updateProgressBar();
-        }
-        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putInt(WATER, cups_of_water);
-        editor.apply();
+            SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(GOALS_PREFS,MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putInt(WATER, cups_of_water);
+            editor.apply();
+
+            if (cups_of_water == waterGoal){
+
+                new AlertDialog.Builder(view.getContext())
+                        .setTitle("Achievement")
+                        .setMessage("You have completed your daily water goal!")
+
+                        // Specifying a listener allows you to take an action before dismissing the dialog.
+                        // The dialog is automatically dismissed when a dialog button is clicked.
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // Continue with delete operation
+                            }
+                        }).show();
+            }
+
+        if (cups_of_water > 13) {
+            new AlertDialog.Builder(view.getContext())
+                    .setTitle("Warning")
+                    .setMessage("Too much water within a short period of time can cause water Intoxication")
+
+                    // Specifying a listener allows you to take an action before dismissing the dialog.
+                    // The dialog is automatically dismissed when a dialog button is clicked.
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            // Continue with delete operation
+                        }
+                    }).show();
+    }
 
     }
 
@@ -250,7 +278,7 @@ public class Water_Tracker_Activity extends AppCompatActivity {
             updateProgressBar();
         }
 
-        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(GOALS_PREFS,MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putInt(WATER, cups_of_water);
         editor.apply();

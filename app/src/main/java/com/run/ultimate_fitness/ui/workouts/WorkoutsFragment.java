@@ -35,7 +35,7 @@ import java.util.List;
 public class WorkoutsFragment extends Fragment implements HomeWorkoutsAdapter.OnWorkoutListener {
 
     RecyclerView recyclerView, recyclerView2;
-    List<workoutsModel> workoutsList;
+    List<workoutsModel> homeWorkoutsList;
     private ImageView profilePicImage, imgGymWorkouts;
     private TextView userName;
 
@@ -82,26 +82,25 @@ public class WorkoutsFragment extends Fragment implements HomeWorkoutsAdapter.On
 
     private List<workoutsModel> initData() {
 
-        workoutsList = new ArrayList<>();
+        homeWorkoutsList = new ArrayList<>();
 
-        workoutsList.add(new workoutsModel("Tricep Dips", "Tricep", R.drawable.img_home_workouts, "Sets/reps for results: Aim for three sets of 10–15 reps, and try adding them into your workouts 2–3 times a week to add muscle definition to your arms and build strength."));
+        homeWorkoutsList.add(new workoutsModel("Tricep Dips", "Tricep", R.drawable.home_workout_tricep_dips, "Sets/reps for results: Aim for three sets of 10–15 reps, and try adding them into your workouts 2–3 times a week to add muscle definition to your arms and build strength."));
 
-        workoutsList.add(new workoutsModel("Jump Squats", "Legs", R.drawable.img_home_workouts, "Sets/reps for results: Aim for three sets of 10–15 reps, and try adding them into your workouts 2–3 times a week to add muscle definition to your arms and build strength."));
-        workoutsList.add(new workoutsModel("Split Squats", "Legs", R.drawable.img_home_workouts,"Sets/reps for results: Aim for three sets of 10–15 reps, and try adding them into your workouts 2–3 times a week to add muscle definition to your arms and build strength."));
-        workoutsList.add(new workoutsModel("Forward Box Squat Lunges", "Legs", R.drawable.img_home_workouts,"Sets/reps for results: Aim for three sets of 10–15 reps, and try adding them into your workouts 2–3 times a week to add muscle definition to your arms and build strength."));
-        workoutsList.add(new workoutsModel("Reverse Box Squat Lunge", "Legs", R.drawable.img_home_workouts,"Sets/reps for results: Aim for three sets of 10–15 reps, and try adding them into your workouts 2–3 times a week to add muscle definition to your arms and build strength."));
-        workoutsList.add(new workoutsModel("Calf Raises", "Legs", R.drawable.img_home_workouts, "Sets/reps for results: Aim for three sets of 10–15 reps, and try adding them into your workouts 2–3 times a week to add muscle definition to your arms and build strength."));
+        homeWorkoutsList.add(new workoutsModel("Jump Squats", "Legs", R.drawable.home_workout_jump_sqauts, "Sets/reps for results: Aim for three sets of 10–15 reps, and try adding them into your workouts 2–3 times a week to add muscle definition to your arms and build strength."));
+        homeWorkoutsList.add(new workoutsModel("Split Squats", "Legs", R.drawable.home_workout_split_squats,"Sets/reps for results: Aim for three sets of 10–15 reps, and try adding them into your workouts 2–3 times a week to add muscle definition to your arms and build strength."));
+        homeWorkoutsList.add(new workoutsModel("Forward Box Squat Lunges", "Legs", R.drawable.img_home_workouts,"Sets/reps for results: Aim for three sets of 10–15 reps, and try adding them into your workouts 2–3 times a week to add muscle definition to your arms and build strength."));
+        homeWorkoutsList.add(new workoutsModel("Calf Raises", "Legs", R.drawable.img_home_workouts, "Sets/reps for results: Aim for three sets of 10–15 reps, and try adding them into your workouts 2–3 times a week to add muscle definition to your arms and build strength."));
 
-        workoutsList.add(new workoutsModel("Chest Incline", "Chest", R.drawable.img_home_workouts, "Sets/reps for results: Aim for three sets of 10–15 reps, and try adding them into your workouts 2–3 times a week to add muscle definition to your arms and build strength."));
-        workoutsList.add(new workoutsModel("Chest Decline", "Chest", R.drawable.img_home_workouts, "Sets/reps for results: Aim for three sets of 10–15 reps, and try adding them into your workouts 2–3 times a week to add muscle definition to your arms and build strength."));
-        workoutsList.add(new workoutsModel("Chest Standard", "Chest", R.drawable.img_home_workouts, "Sets/reps for results: Aim for three sets of 10–15 reps, and try adding them into your workouts 2–3 times a week to add muscle definition to your arms and build strength."));
-        workoutsList.add(new workoutsModel("Diamonds", "Chest", R.drawable.img_home_workouts, "Sets/reps for results: Aim for three sets of 10–15 reps, and try adding them into your workouts 2–3 times a week to add muscle definition to your arms and build strength."));
-        workoutsList.add(new workoutsModel("Zig-Zag", "Chest", R.drawable.img_home_workouts, "Sets/reps for results: Aim for three sets of 10–15 reps, and try adding them into your workouts 2–3 times a week to add muscle definition to your arms and build strength."));
+        homeWorkoutsList.add(new workoutsModel("Chest Incline", "Chest", R.drawable.img_home_workouts, "Sets/reps for results: Aim for three sets of 10–15 reps, and try adding them into your workouts 2–3 times a week to add muscle definition to your arms and build strength."));
+        homeWorkoutsList.add(new workoutsModel("Chest Decline", "Chest", R.drawable.img_home_workouts, "Sets/reps for results: Aim for three sets of 10–15 reps, and try adding them into your workouts 2–3 times a week to add muscle definition to your arms and build strength."));
+        homeWorkoutsList.add(new workoutsModel("Chest Standard", "Chest", R.drawable.img_home_workouts, "Sets/reps for results: Aim for three sets of 10–15 reps, and try adding them into your workouts 2–3 times a week to add muscle definition to your arms and build strength."));
+        homeWorkoutsList.add(new workoutsModel("Diamonds", "Chest", R.drawable.img_home_workouts, "Sets/reps for results: Aim for three sets of 10–15 reps, and try adding them into your workouts 2–3 times a week to add muscle definition to your arms and build strength."));
+        homeWorkoutsList.add(new workoutsModel("Zig-Zag", "Chest", R.drawable.img_home_workouts, "Sets/reps for results: Aim for three sets of 10–15 reps, and try adding them into your workouts 2–3 times a week to add muscle definition to your arms and build strength."));
 
-        workoutsList.add(new workoutsModel("Pull-Ups", "Back", R.drawable.img_home_workouts, "Sets/reps for results: Aim for three sets of 10–15 reps, and try adding them into your workouts 2–3 times a week to add muscle definition to your arms and build strength."));
+        homeWorkoutsList.add(new workoutsModel("Pull-Ups", "Back", R.drawable.img_home_workouts, "Sets/reps for results: Aim for three sets of 10–15 reps, and try adding them into your workouts 2–3 times a week to add muscle definition to your arms and build strength."));
 
 
-        return workoutsList;
+        return homeWorkoutsList;
 
 
     }
@@ -131,7 +130,7 @@ public class WorkoutsFragment extends Fragment implements HomeWorkoutsAdapter.On
         String lastName = sharedPreferences.getString(LAST_NAME,"");
 
 
-        userName.setText("Welcome, " + firstName);
+        userName.setText("WORKOUTS");
 
         profilePicImage.setImageBitmap(StringToBitMap(picture));
     }
@@ -142,10 +141,10 @@ public class WorkoutsFragment extends Fragment implements HomeWorkoutsAdapter.On
         Log.d(TAG, "Clicked Clicked");
         Intent intent = new Intent(getContext(), WorkoutPage.class);
 
-        intent.putExtra("workout_name", workoutsList.get(position).getWorkout_name());
-        intent.putExtra("workout_zone", workoutsList.get(position).getWorkout_zone());
-        intent.putExtra("workout_image", workoutsList.get(position).getWorkout_image());
-        intent.putExtra("workout_description", workoutsList.get(position).getWorkout_description());
+        intent.putExtra("workout_name", homeWorkoutsList.get(position).getWorkout_name());
+        intent.putExtra("workout_zone", homeWorkoutsList.get(position).getWorkout_zone());
+        intent.putExtra("workout_image", homeWorkoutsList.get(position).getWorkout_image());
+        intent.putExtra("workout_description", homeWorkoutsList.get(position).getWorkout_description());
 
         startActivity(intent);
     }

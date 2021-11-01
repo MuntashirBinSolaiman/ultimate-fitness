@@ -5,7 +5,9 @@ package com.run.ultimate_fitness.ui.nutrition;
 
 import static android.content.Context.MODE_PRIVATE;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -27,11 +29,14 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.run.ultimate_fitness.R;
 import com.run.ultimate_fitness.RecyclerViewData;
 import com.run.ultimate_fitness.RemoveClickListner;
 import com.run.ultimate_fitness.adapters.RecyclerAdapter;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 public class NutritionFragment extends Fragment implements RemoveClickListner {
@@ -42,21 +47,32 @@ public class NutritionFragment extends Fragment implements RemoveClickListner {
     private RecyclerAdapter mRecyclerAdapter, mRecyclerAdapterLunch, mRecyclerAdapterDinner, mRecyclerAdapterSnacks, mRecyclerAdapterExcercise;
     private RecyclerView.LayoutManager mLayoutManager;
 
-    public static final String CALORIES_GOAL ="calories_goal";
 
     public static final String PICTURE ="picture";
     public static final String FIRST_NAME ="firstName";
     public static final String LAST_NAME ="lastName";
     public static final String USER_PREFS ="userPrefs";
+
     public static final String GOALS_PREFS ="goalsPrefs";
+    public static final String CALORIES_GOAL ="calories_goal";
+    public static final String CALORIES ="calories";
+
+    public static final String LISTS_PREFS ="listsPrefs";
+
+
+
 
 
     private ImageView profilePicImage, bookingImage;
     private TextView userName;
     private ProgressBar progressBar;
+    private Button resetCaloriesBtn;
+
+
+    public View view;
 
     TextView btnAddItem, btnAddItemLunch, btnAddItemDinner, btnAddItemSnacks, btnAddItemExcercise, btnAdd;
-    ArrayList<RecyclerViewData> myList = new ArrayList<>();
+    public ArrayList<RecyclerViewData> myList = new ArrayList<>();
     ArrayList<RecyclerViewData> myListLunch = new ArrayList<>();
 
     ArrayList<RecyclerViewData> myListDinner = new ArrayList<>();
@@ -72,17 +88,18 @@ public class NutritionFragment extends Fragment implements RemoveClickListner {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_nutrition, container, false);
+        view = inflater.inflate(R.layout.fragment_nutrition, container, false);
 
         SharedPreferences sharedPreferences = getActivity().getApplicationContext().getSharedPreferences(GOALS_PREFS, MODE_PRIVATE);
         totalGoal = sharedPreferences.getInt(CALORIES_GOAL, 0);
+        totalFood = sharedPreferences.getInt(CALORIES, 0);
+
 
         bookingImage = view.findViewById(R.id.bookingsImage);
         progressBar = view.findViewById(R.id.topBarProgress);
 
-        progressBar.setVisibility(View.GONE);
-        bookingImage.setVisibility(View.VISIBLE);
 
+        resetCaloriesBtn = view.findViewById(R.id.resetCaloriesBtn);
 
 
         // View view = inflater.inflate(R.layout.fragment_nutrition, container, false);
@@ -95,6 +112,8 @@ public class NutritionFragment extends Fragment implements RemoveClickListner {
         textViewGoal.setText(String.valueOf(sharedPreferences.getInt(CALORIES_GOAL, 0)));
 
         textViewFood = view.findViewById(R.id.textFood);
+        textViewFood.setText(String.valueOf(sharedPreferences.getInt(CALORIES, 0)));
+
 
         textViewExcercise = view.findViewById(R.id.textExcercise);
         textViewRemaining = view.findViewById(R.id.textTotal);
@@ -179,7 +198,56 @@ public class NutritionFragment extends Fragment implements RemoveClickListner {
                 AddProduct("5");
             }
         });
+
+
+        calculateRemaining();
+        initResetBtn();
+        loadData();
+
         return view;
+
+    }
+
+    private void calculateRemaining() {
+        textViewRemaining.setText(String.valueOf(totalGoal - (totalFood + totalExcercise)));
+
+    }
+
+    private void initResetBtn() {
+        resetCaloriesBtn.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+
+                if (totalFood > 0){
+
+                new AlertDialog.Builder(view.getContext())
+                        .setTitle("Clear Calories")
+                        .setMessage("This will delete today's calories")
+
+                        // Specifying a listener allows you to take an action before dismissing the dialog.
+                        // The dialog is automatically dismissed when a dialog button is clicked.
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // Continue with delete operation
+                                totalFood = 0;
+                                textViewFood.setText(String.valueOf(totalFood));
+                                calculateRemaining();
+
+
+                                SharedPreferences sharedPreferences = view.getContext().getSharedPreferences(GOALS_PREFS, MODE_PRIVATE);
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                editor.putInt(CALORIES, totalFood);
+                                editor.apply();
+                            }
+                        })
+                        // A null listener allows the button to dismiss the dialog and take no further action.
+                        .setNegativeButton(android.R.string.no, null)
+                        .show();
+                }
+
+                return false;
+            }
+        });
 
     }
 
@@ -235,6 +303,12 @@ public class NutritionFragment extends Fragment implements RemoveClickListner {
         }
 
 
+        SharedPreferences sharedPreferences = view.getContext().getSharedPreferences(GOALS_PREFS,MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt(CALORIES, totalFood);
+        editor.apply();
+
+
     }
 
     //Add Total Calories For each Categories
@@ -281,6 +355,8 @@ public class NutritionFragment extends Fragment implements RemoveClickListner {
                 mLog.setTitle(title);
                 mLog.setDescription(description);
 
+
+
                 if (btn.equalsIgnoreCase("1")) {
                     //add calories for Breakfast
                     totalFood = Integer.parseInt(description) + totalFood;
@@ -288,6 +364,9 @@ public class NutritionFragment extends Fragment implements RemoveClickListner {
                     textViewRemaining.setText(String.valueOf(totalGoal - (totalFood + totalExcercise)));
                     myList.add(mLog);
                     mRecyclerAdapter.notifyData(myList);
+
+                    System.out.println();
+
                     etTitle.setText("");
                     etDescription.setText("");
                 } else if (btn.equalsIgnoreCase("2")) {
@@ -331,6 +410,19 @@ public class NutritionFragment extends Fragment implements RemoveClickListner {
                     etDescription.setText("");
                 }
 
+                //add calories progress to shared preferences
+                //saveData();
+                System.out.println(mLog.getDescription() + " " + mLog.getTitle());
+
+
+                SharedPreferences sharedPreferences = view.getContext().getSharedPreferences(GOALS_PREFS,MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putInt(CALORIES, totalFood);
+                editor.apply();
+
+
+
+
                 //refresh Recyclerviews with Updated Data
                 mRecyclerAdapter.notifyDataSetChanged();
                 mRecyclerAdapterLunch.notifyDataSetChanged();
@@ -343,6 +435,27 @@ public class NutritionFragment extends Fragment implements RemoveClickListner {
             }
         });
         builder.show();
+    }
+
+    private void saveData() {
+        SharedPreferences sharedPreferences = getActivity().getApplicationContext().getSharedPreferences(LISTS_PREFS, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(myList);
+        editor.putString(LISTS_PREFS, json);
+        editor.apply();
+    }
+
+    private void loadData() {
+        SharedPreferences sharedPreferences = getActivity().getApplicationContext().getSharedPreferences(LISTS_PREFS, MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences.getString(LISTS_PREFS, null);
+        Type type = new TypeToken<ArrayList<RecyclerViewData>>() {}.getType();
+        myList = gson.fromJson(json, type);
+
+        if (myList == null){
+            myList = new ArrayList<>();
+        }
     }
 
     //Add Calories Goal here
@@ -410,8 +523,14 @@ public class NutritionFragment extends Fragment implements RemoveClickListner {
         String lastName = sharedPreferences.getString(LAST_NAME, "");
 
 
-        userName.setText("Welcome, " + firstName);
+        userName.setText("NUTRITION");
         profilePicImage.setImageBitmap(StringToBitMap(picture));
+    }
+
+    public void onResume() {
+        super.onResume();
+        progressBar.setVisibility(View.GONE);
+        bookingImage.setVisibility(View.VISIBLE);
     }
 
 }

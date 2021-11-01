@@ -70,7 +70,7 @@ public class Water_Tracker_DOBHelper extends SQLiteOpenHelper {
 
     public boolean deleteOne(WaterModel waterModel){
         SQLiteDatabase db = this.getWritableDatabase();
-        String queryString = "DELETE FROM " + WATER_TABLE + " WHERE " + COLUMN_ID + " = " + waterModel.getId() +  " AND " ;
+        String queryString = "DELETE FROM " + WATER_TABLE + " WHERE " + COLUMN_ID + " = " + waterModel.getId() ;
 
         Cursor cursor = db.rawQuery(queryString, null);
 

@@ -32,7 +32,7 @@ import com.run.ultimate_fitness.databinding.FragmentHomeBinding;
 public class HomeFragment extends Fragment {
 
     public int water, waterGoal,calories, caloriesGoal, steps ;
-    private String stepsGoal;
+    private int stepsGoal;
 
     private HomeViewModel homeViewModel;
     private FragmentHomeBinding binding;
@@ -100,8 +100,7 @@ public class HomeFragment extends Fragment {
         bookingImage = root.findViewById(R.id.bookingsImage);
         progressBar = root.findViewById(R.id.topBarProgress);
 
-        progressBar.setVisibility(View.GONE);
-        bookingImage.setVisibility(View.VISIBLE);
+
 
 
 
@@ -153,12 +152,12 @@ public class HomeFragment extends Fragment {
 
 
         water = sharedPreferences.getInt(WATER, 0);
-        calories = sharedPreferences.getInt(CALORIES, 750);
-        steps = sharedPreferences.getInt(STEPS, 5000);
+        calories = sharedPreferences.getInt(CALORIES, 0);
+        steps = sharedPreferences.getInt(STEPS, 0);
 
         waterGoal = sharedPreferences.getInt(WATER_GOAL, 0);
         caloriesGoal = sharedPreferences.getInt(CALORIES_GOAL, 0);
-        stepsGoal = sharedPreferences.getString(STEPS_GOAL, "0");
+        stepsGoal = sharedPreferences.getInt(STEPS_GOAL, 0);
 
         txtCaloriesEaten = root.findViewById(R.id.txtCalorieProgress);
         txtCaloriesEaten.setText(calories + "/" + caloriesGoal);
@@ -182,7 +181,7 @@ public class HomeFragment extends Fragment {
         waterProgressBar.setProgress(water);
 
         //txtCaloriesEaten.setText(ca + "/" + waterGoal);
-        caloriesProgressBar.setProgress(caloriesGoal);
+        caloriesProgressBar.setProgress(calories);
 
 
 
@@ -368,4 +367,14 @@ public class HomeFragment extends Fragment {
             water = 0;
 
 
-        }}}
+        }}
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        progressBar.setVisibility(View.GONE);
+        bookingImage.setVisibility(View.VISIBLE);
+    }
+}
+
+

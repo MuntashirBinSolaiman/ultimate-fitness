@@ -30,14 +30,20 @@ import com.cometchat.pro.models.User;
 public class WorkoutsGoalPage extends AppCompatActivity {
 
     private NumberPicker stepsGoalPicker, waterGoalPicker, caloriesGoalPicker;
-    String[] stepsGoal, waterGoal;
     private TextView  txtNext, txtBack;
     int layoutsMove = 1;
 
+    int minValue = 1000;
+    int maxValue = 10000;
+    int step = 1000;
+
+    public String[] stepsValueSet,waterValueSet,caloriesValueSet;
+
+
     private Button summerBodyBtn, gainMuscleBtn, loseWeightBtn, loseQuickWeightBtn;
 
-    String stepGoalFinal, workoutGoalFinal;
-    public int waterGoalFinal, caloriesGoalFinal;
+    String workoutGoalFinal;
+    public int waterGoalFinal, caloriesGoalFinal, stepGoalFinal;
 
     private RelativeLayout fitnessLayout, stepsLayout, waterLayout, caloriesLayout;
 
@@ -74,7 +80,6 @@ public class WorkoutsGoalPage extends AppCompatActivity {
 
 
         stepsGoalPicker = findViewById(R.id.pickerStepsGoal);
-        stepsGoal = getResources().getStringArray(R.array.stepsArray);
 
         waterGoalPicker = findViewById(R.id.pickerWaterGoal);
 
@@ -90,20 +95,24 @@ public class WorkoutsGoalPage extends AppCompatActivity {
         txtBack = findViewById(R.id.txtBack);
         initOnClickListeners();
 
+        initValueSets();
 
-        stepsGoalPicker.setMaxValue(4);
+        stepsGoalPicker.setMaxValue(10);
         stepsGoalPicker.setMinValue(0);
+
 
         waterGoalPicker.setMaxValue(13);
         waterGoalPicker.setMinValue(0);
+        waterGoalPicker.setValue(0);
 
-        caloriesGoalPicker.setMaxValue(2500);
-        caloriesGoalPicker.setMinValue(1200);
+        caloriesGoalPicker.setMaxValue(24);
+        caloriesGoalPicker.setMinValue(0);
 
 
 
-        stepsGoalPicker.setDisplayedValues(stepsGoal);
-        waterGoalPicker.setDisplayedValues(waterGoal);
+        stepsGoalPicker.setDisplayedValues(stepsValueSet);
+        caloriesGoalPicker.setDisplayedValues(caloriesValueSet);
+        waterGoalPicker.setDisplayedValues(waterValueSet);
 
         waterLayout.setTranslationX(650);
         stepsLayout.setTranslationX(650);
@@ -114,15 +123,16 @@ public class WorkoutsGoalPage extends AppCompatActivity {
 
         stepsGoalPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
-            public void onValueChange(NumberPicker numberPicker, int i, int steps) {
-                stepGoalFinal  = stepsGoal[steps];
+            public void onValueChange(NumberPicker numberPicker, int oldVal, int newVal) {
+                //stepsGoalPicker.setValue((newVal < oldVal )? oldVal - 1000: oldVal + 1000);
+                stepGoalFinal  = Integer.parseInt(stepsValueSet[newVal]);
             }
         });
 
         waterGoalPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
-            public void onValueChange(NumberPicker numberPicker, int i, int water) {
-                waterGoalFinal = water;
+            public void onValueChange(NumberPicker numberPicker, int oldVal, int newVal) {
+                waterGoalFinal  = Integer.parseInt(waterValueSet[newVal]);
 
             }
         });
@@ -130,8 +140,8 @@ public class WorkoutsGoalPage extends AppCompatActivity {
 
         caloriesGoalPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
-            public void onValueChange(NumberPicker numberPicker, int i, int calories) {
-                caloriesGoalFinal = calories;
+            public void onValueChange(NumberPicker numberPicker, int oldVal, int newVal) {
+                caloriesGoalFinal  = Integer.parseInt(caloriesValueSet[newVal]);
             }
         });
 
@@ -141,6 +151,23 @@ public class WorkoutsGoalPage extends AppCompatActivity {
         registerChatUser();
 
 
+    }
+
+    private void initValueSets() {
+        stepsValueSet = new String[11];
+        for (int s = 0; s <= 10000; s += 1000) {
+            stepsValueSet[s/1000] = String.valueOf(s);
+        }
+
+        waterValueSet = new String[14];
+        for (int w = 0; w <= 13; w += 1) {
+            waterValueSet[w] = String.valueOf(w);
+        }
+
+        caloriesValueSet = new String[26];
+        for (int c = 0; c <= 2500; c += 100) {
+            caloriesValueSet[(c/100) ] = String.valueOf(c);
+        }
     }
 
     private void registerChatUser() {
@@ -265,7 +292,7 @@ public class WorkoutsGoalPage extends AppCompatActivity {
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putInt(WATER_GOAL, waterGoalFinal);
                 editor.putInt(CALORIES_GOAL, caloriesGoalFinal);
-                editor.putString(STEPS_GOAL, stepGoalFinal);
+                editor.putInt(STEPS_GOAL, stepGoalFinal);
                 editor.putString(WORKOUT_GOAL, workoutGoalFinal);
                 System.out.println(workoutGoalFinal);
                 editor.apply();

@@ -117,6 +117,7 @@ dependencies {
 
     implementation 'com.github.timigod:android-chat-ui:v0.1.4'
 
+    implementation 'com.google.code.gson:gson:2.8.8'
 
 }
 
