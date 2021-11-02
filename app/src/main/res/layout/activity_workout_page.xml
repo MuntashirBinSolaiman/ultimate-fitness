@@ -39,7 +39,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/frame_Video"
-        android:layout_margin="20dp">
+        android:layout_margin="20dp"
+        >
 
         <TextView
             android:id="@+id/txt_workoutName"
@@ -59,16 +60,21 @@
             android:textSize="17dp"
             android:textStyle="bold" />
 
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txt_workoutZone"
+            >
+
         <TextView
             android:id="@+id/txt_workoutDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/txt_workoutZone"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="17dp"
-            android:text="Lorem ipsum is a pseudo-Latin text used in web design, typography, layout, and printing in place of English to emphasise design elements over content. It's also called placeholder (or filler) text. It's a convenient tool for mock-ups. It helps to outline the visual elements of a document or presentation, eg typography, font, or layout. Lorem ipsum is mostly a part of a Latin text by the classical author and philosopher Cicero. "
-            android:textSize="17dp" />
-
+            android:text="@string/placeholder_text"
+            android:textSize="17sp" />
+        </ScrollView>
 
 
     </RelativeLayout>

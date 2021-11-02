@@ -2,30 +2,18 @@ package com.run.ultimate_fitness;
 
 import static android.content.ContentValues.TAG;
 
-import static com.run.ultimate_fitness.utils.Constants.UID;
-
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -39,8 +27,8 @@ import com.cometchat.pro.models.User;
 import com.facebook.stetho.Stetho;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.auth.FirebaseAuth;
 import com.run.ultimate_fitness.databinding.ActivityMainBinding;
+import com.run.ultimate_fitness.stepCounter.StepCounterActivity;
 import com.run.ultimate_fitness.utils.Constants;
 import com.run.ultimate_fitness.water.Water_Tracker_Activity;
 import  com.run.ultimate_fitness.ui.workouts.*;
@@ -188,7 +176,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void goToStepCounter(View view){
-           Intent intent = new Intent(MainActivity.this, StepCounter.class);
+           Intent intent = new Intent(MainActivity.this, StepCounterActivity.class);
            startActivity(intent);
 
         }

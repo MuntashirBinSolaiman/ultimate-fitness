@@ -10,16 +10,16 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.run.ultimate_fitness.R;
-import com.run.ultimate_fitness.ui.workouts.workoutsModel;
+import com.run.ultimate_fitness.ui.workouts.WorkoutsModel;
 
 import java.util.List;
 
 public class HomeWorkoutsAdapter extends RecyclerView.Adapter<HomeWorkoutsAdapter.ViewHolder> {
 
-    List<workoutsModel>workoutsList1;
+    List<WorkoutsModel>workoutsList1;
     private OnWorkoutListener mOnWorkoutListener;
 
-    public HomeWorkoutsAdapter(List<workoutsModel> workoutsList, OnWorkoutListener onWorkoutListener){
+    public HomeWorkoutsAdapter(List<WorkoutsModel> workoutsList, OnWorkoutListener onWorkoutListener){
 
         this.workoutsList1 = workoutsList;
         this.mOnWorkoutListener = onWorkoutListener;

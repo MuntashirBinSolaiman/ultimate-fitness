@@ -1,6 +1,6 @@
 package com.run.ultimate_fitness.ui.workouts;
 
-public class  workoutsModel {
+public class WorkoutsModel {
 
     private String workout_name;
     private String workout_zone;
@@ -50,7 +50,7 @@ public class  workoutsModel {
 
 
 
-    public workoutsModel(String workout_name, String workout_zone, int workout_image, String workout_description) {
+    public WorkoutsModel(String workout_name, String workout_zone, int workout_image, String workout_description) {
         this.workout_image = workout_image;
 
         this.workout_name = workout_name;

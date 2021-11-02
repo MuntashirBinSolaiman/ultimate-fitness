@@ -1,4 +1,4 @@
-package com.run.ultimate_fitness;
+package com.run.ultimate_fitness.stepCounter;
 
 /* Author: Muntashir Bin Solaiman
  *  Last modified: 26-10-2021 */
@@ -14,6 +14,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.run.ultimate_fitness.MainActivity;
+import com.run.ultimate_fitness.R;
 
 
 public class StepCounter extends AppCompatActivity implements SensorEventListener {
@@ -36,7 +39,7 @@ public class StepCounter extends AppCompatActivity implements SensorEventListene
 
         setContentView(R.layout.activity_step_counter);
         mSensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
-        mStepsValue = findViewById(R.id.stepsValue);
+        //mStepsValue = findViewById(R.id.stepsValue);
 
         logoutText = findViewById(R.id.toolbarLogoutTextView);
         toolDisplayView = findViewById(R.id.toolbarTextView);

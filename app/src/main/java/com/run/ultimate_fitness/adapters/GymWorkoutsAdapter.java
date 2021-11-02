@@ -12,16 +12,16 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.run.ultimate_fitness.R;
-import com.run.ultimate_fitness.ui.workouts.workoutsModel;
+import com.run.ultimate_fitness.ui.workouts.WorkoutsModel;
 
 import java.util.ArrayList;
 
-public class GymWorkoutsAdapter extends ArrayAdapter<workoutsModel> {
+public class GymWorkoutsAdapter extends ArrayAdapter<WorkoutsModel> {
 
     private Context mContext;
     private int mResource;
 
-    public GymWorkoutsAdapter(@NonNull Context context, int resource, @NonNull ArrayList<workoutsModel> objects) {
+    public GymWorkoutsAdapter(@NonNull Context context, int resource, @NonNull ArrayList<WorkoutsModel> objects) {
         super(context, resource, objects);
 
         this.mContext = context;

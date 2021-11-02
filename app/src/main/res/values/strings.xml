@@ -50,9 +50,36 @@
         <item>"10000"</item>
     </string-array>
 
+    <string name="action_debug">Debug View</string>
+    <string name="steps_tracked">Steps Tracked: 0</string>
+    <string name="android_steps_tracked">Android Steps Tracked: 0</string>
+
+    <string name="placeholder_text">
+        Lorem ipsum is a pseudo-Latin text used in web design, typography, layout, and printing in place of
+        English to emphasise design elements over content. It\'s also called placeholder (or filler) text.
+        It\'s a convenient tool for mock-ups. It helps to outline the visual elements of a document or presentation,
+        eg typography, font, or layout. Lorem ipsum is mostly a part of a Latin text by the classical author and philosopher Cicero.
+    </string>
+
+
+
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    
+    
+    
+    <string name="abs">ABS</string>
+    <string name="back">BACK</string>
+    <string name="biceps">BICEPS</string>
+    <string name="chest">CHEST</string>
+    <string name="hamstrings">HAMSTRINGS</string>
+    <string name="hiit">HIIT</string>
+    <string name="legs">LEGS</string>
+    <string name="lower_body">LOWER BODY</string>
+    <string name="shoulders">SHOULDERS</string>
+    <string name="triceps">TRICEPS</string>
+    <string name="upper_body">UPPER BODY</string>
 
 
 </resources>

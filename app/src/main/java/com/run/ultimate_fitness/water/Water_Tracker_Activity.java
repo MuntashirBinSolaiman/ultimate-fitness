@@ -9,9 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -22,7 +20,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.run.ultimate_fitness.MainActivity;
 import com.run.ultimate_fitness.R;
-import com.run.ultimate_fitness.StepCounter;
 
 import java.text.DateFormat;
 import java.util.Calendar;
