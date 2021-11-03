@@ -18,7 +18,8 @@
             android:id="@+id/calculationsLayout"
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:padding="10dp">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -60,7 +61,8 @@
                     android:textColor="@android:color/holo_red_dark"                android:layout_weight="1"
                     android:padding="2dp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"/>
                 <TextView
                     android:id="@+id/textExcercise"
                     android:text="0"
@@ -70,7 +72,8 @@
 
                     android:layout_width="match_parent"
                     android:textColor="@android:color/black"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"/>
                 <TextView
                     android:text="="
 
@@ -137,7 +140,8 @@
 
                     android:layout_width="match_parent"
                     android:textColor="@android:color/black"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"/>
                 <TextView
                     android:text=" "
 
@@ -145,7 +149,8 @@
                     android:textColor="@android:color/holo_red_dark"                android:layout_weight="1"
                     android:padding="2dp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"/>
                 <TextView
                     android:textAlignment="center"
                     android:textSize="10dp"
@@ -158,16 +163,6 @@
 
             </LinearLayout>
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/resetCaloriesBtn"
-                android:text="Hold to reset"
-                android:layout_width="100dp"
-                android:layout_height="30dp"
-                android:textSize="11sp"
-                android:layout_gravity="center|bottom"
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/btn_red"/>
 
         </LinearLayout>
 
@@ -323,7 +318,8 @@
             <androidx.cardview.widget.CardView
                 android:layout_margin="5dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:visibility="gone">
                 <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="match_parent"

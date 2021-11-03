@@ -48,14 +48,16 @@ public class NutritionFragment extends Fragment implements RemoveClickListner {
     private RecyclerAdapter mRecyclerAdapter, mRecyclerAdapterLunch, mRecyclerAdapterDinner, mRecyclerAdapterSnacks, mRecyclerAdapterExcercise;
     private RecyclerView.LayoutManager mLayoutManager;
 
-    public static final String CALORIES_GOAL ="calories_goal";
 
     public static final String PICTURE ="picture";
     public static final String FIRST_NAME ="firstName";
     public static final String LAST_NAME ="lastName";
     public static final String USER_PREFS ="userPrefs";
-    public static final String GOALS_PREFS ="goalsPrefs";
+    public static final String CALORIES ="calories";
 
+
+    public static final String GOALS_PREFS ="goalsPrefs";
+    public static final String CALORIES_GOAL ="calories_goal";
 
     private ImageView profilePicImage, bookingImage;
     private TextView userName;
@@ -121,7 +123,7 @@ public class NutritionFragment extends Fragment implements RemoveClickListner {
         mRecyclerViewSnacks = (RecyclerView) view.findViewById(R.id.recyclerSnacks_view);
         RecyclerView mRecyclerViewLunch = (RecyclerView) view.findViewById(R.id.recyclerLunch_view);
         textViewGoal = view.findViewById(R.id.textGoal);
-        textViewGoal.setText(String.valueOf(sharedPreferences.getInt(CALORIES_GOAL, 0)));
+        textViewGoal.setText(String.valueOf(totalGoal));
         textViewFood = view.findViewById(R.id.textFood);
         textViewExcercise = view.findViewById(R.id.textExcercise);
         textViewRemaining = view.findViewById(R.id.textTotal);
@@ -135,13 +137,15 @@ public class NutritionFragment extends Fragment implements RemoveClickListner {
         myListExcercise=  dbHelper.load(5);
        //sus code below
         btnAdd = (TextView) view.findViewById(R.id.btnAddItem);
-        textViewGoal.setText(""+getGoal());
+        //textViewGoal.setText(""+getGoal());
         textViewFood.setText(""+getFood());
         textViewExcercise.setText(""+getExcercise());
         //textViewRemaining.setText(String.valueOf(getGoal() - (getFood() + getExcercise()))); */
-        totalGoal=getGoal();
+        //totalGoal=getGoal();
         totalExcercise=getExcercise();
         totalFood=getFood();
+        textViewRemaining.setText(String.valueOf(totalGoal - (totalFood + totalExcercise)));
+
 
         //Attach Linear Layout with  breakfast
         mRecyclerAdapter = new RecyclerAdapter(myList, this, "1");
@@ -289,6 +293,10 @@ public class NutritionFragment extends Fragment implements RemoveClickListner {
         }
 
 
+        SharedPreferences sharedPreferences = getContext().getApplicationContext().getSharedPreferences(GOALS_PREFS,MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt(CALORIES, totalFood);
+        editor.apply();
     }
 
     @Override
@@ -402,6 +410,12 @@ public class NutritionFragment extends Fragment implements RemoveClickListner {
                     etTitle.setText("");
                     etDescription.setText("");
                 }
+
+
+                SharedPreferences sharedPreferences = getContext().getApplicationContext().getSharedPreferences(GOALS_PREFS,MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putInt(CALORIES, totalFood);
+                editor.apply();
 
                 //refresh Recyclerviews with Updated Data
                 mRecyclerAdapter.notifyDataSetChanged();
