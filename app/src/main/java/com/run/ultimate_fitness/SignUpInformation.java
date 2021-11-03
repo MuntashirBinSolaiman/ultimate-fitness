@@ -35,12 +35,16 @@ import com.bumptech.glide.request.RequestOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 public class SignUpInformation extends AppCompatActivity {
@@ -64,11 +68,21 @@ public class SignUpInformation extends AppCompatActivity {
     public static final String PICTURE ="picture";
     public static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 101;
 
+    public static final String USER_UID = "uid";
+
+    public String uid ="";
+
+
+
+    public  DatabaseReference root ;
+    private String temp_key;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up_information);
 
+        uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
         }
@@ -84,6 +98,17 @@ public class SignUpInformation extends AppCompatActivity {
         addInfoButton = findViewById(R.id.submitInformationButton);
         profilePicImage = findViewById(R.id.displayPic);
     }
+
+    private void initChat() {
+        root = FirebaseDatabase.getInstance("https://ultimate-storm-default-rtdb.europe-west1.firebasedatabase.app").getReference();
+
+        Map<String,Object> map1 = new HashMap<String, Object>();
+        temp_key = root.push().getKey();
+        map1.put(uid, "");
+        root.updateChildren(map1);
+
+    }
+
 
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
@@ -189,6 +214,7 @@ public class SignUpInformation extends AppCompatActivity {
                             progressBar.setVisibility(View.VISIBLE);
                             addInfoButton.setVisibility(View.GONE);
 
+                            initChat();
                             saveDataLocal(firstName,lastName,phoneNumber,weight,height,picture, workoutGoal);
 
                             Intent intent = new Intent(SignUpInformation.this, WorkoutsGoalPage.class);

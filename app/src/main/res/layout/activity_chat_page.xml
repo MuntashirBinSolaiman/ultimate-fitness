@@ -8,18 +8,29 @@
     android:layout_height="match_parent"
     tools:context=".ui.inbox.InboxFragment">
 
+    <include
+        android:id="@+id/topbar"
+        layout="@layout/topbar"/>
+
     <co.intentservice.chatui.ChatView
+
         android:id="@+id/chat_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/topbar"
+
+        android:layout_marginBottom="10dp"
+        app:inputBackgroundColor="@color/light_grey"
+
+        app:inputTextColor="@color/gray"
+        app:sendBtnBackgroundTint="@color/icon_color"
+        app:sendBtnIcon="@drawable/ic_send"
         chatview:backgroundColor="@color/white"
-        chatview:inputBackgroundColor="@color/white"
-        chatview:inputUseEditorAction="true"
-        chatview:inputHint="Start typing"
         chatview:bubbleBackgroundRcv="@color/blue"
         chatview:bubbleBackgroundSend="@color/white"
         chatview:bubbleElevation="elevated"
-        chatview:inputHintColor="@color/light_grey"
-        android:layout_marginBottom="10dp"/>
+        chatview:inputHint="Start typing"
+        chatview:inputHintColor="@color/gray"
+        chatview:inputUseEditorAction="true" />
 
 </RelativeLayout>

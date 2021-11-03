@@ -19,9 +19,15 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class EmailSignUp extends AppCompatActivity {
@@ -38,6 +44,8 @@ public class EmailSignUp extends AppCompatActivity {
     public static final String EMAIL = "email";
     public static final String USER_UID = "uid";
 
+    public DatabaseReference root ;
+    private String temp_key;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -148,6 +156,7 @@ public class EmailSignUp extends AppCompatActivity {
 
                             uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
+
                             Intent intent = new Intent(EmailSignUp.this, SignUpInformation.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -160,6 +169,23 @@ public class EmailSignUp extends AppCompatActivity {
                         }
                     }
                 });
+    }
+
+    private void initChat() {
+
+        root = FirebaseDatabase.getInstance("https://ultimate-storm-default-rtdb.europe-west1.firebasedatabase.app").getReference().child(uid);
+
+        Map<String,Object> map1 = new HashMap<String, Object>();
+        temp_key = root.push().getKey();
+        map1.put(uid, "");
+        root.updateChildren(map1);
+
+        DatabaseReference message_root = root.child(temp_key);
+        Map<String,Object> map2 = new HashMap<String,Object>();
+        map2.put("name", "Warona");
+        map2.put("message", "Good day sir!");
+        message_root.updateChildren(map2);
+
     }
 
     //Saves login credentials to shared preferences
