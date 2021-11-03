@@ -4,7 +4,7 @@
 
     <corners android:radius="30dp"/>
     <stroke android:width="3dp"
-        android:color="@color/error"
+        android:color="@color/button_color"
         />
     <solid android:color="@color/white"/>
     <size android:height="100dp"

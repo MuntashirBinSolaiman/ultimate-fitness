@@ -256,11 +256,12 @@
                             android:orientation="vertical">
 
 
-                            <Button
+                            <androidx.appcompat.widget.AppCompatButton
+                                android:gravity="center"
                                 android:id="@+id/btnDrinkWater"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:backgroundTint="@color/button_color"
+                                android:layout_width="165dp"
+                                android:layout_height="54dp"
+                                android:background="@drawable/btn_red"
                                 android:onClick="drinkWater"
                                 android:text="Drink" />
 
