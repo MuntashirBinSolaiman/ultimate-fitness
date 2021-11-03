@@ -73,6 +73,7 @@ public class HomeWorkoutsAdapter extends RecyclerView.Adapter<HomeWorkoutsAdapte
         public void onClick(View view) {
 
             onWorkoutListener.onWorkoutClick(getAbsoluteAdapterPosition());
+
         }
     }
 

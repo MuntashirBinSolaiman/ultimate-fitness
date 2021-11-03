@@ -26,6 +26,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -49,10 +50,22 @@ public class WorkoutsFragment extends Fragment implements HomeWorkoutsAdapter.On
     private TextView userName;
     private ProgressBar progressBar;
 
+    public ImageButton imgHideAbsWorkouts;
+
+    public SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
+
     public static final String PICTURE ="picture";
     public static final String FIRST_NAME ="firstName";
     public static final String LAST_NAME ="lastName";
     public static final String USER_PREFS ="userPrefs";
+
+    public static final String VISIBLE_ZONE_PREFS ="visibleZonePrefs";
+    public static final String ZONE_ABS ="zoneAbs";
+
+    public String zoneAbs = "VISIBLE";
+
+
 
     private WorkoutsViewModel mViewModel;
 
@@ -64,6 +77,10 @@ public class WorkoutsFragment extends Fragment implements HomeWorkoutsAdapter.On
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_workouts, container, false);
+
+        sharedPreferences = getActivity().getApplicationContext().getSharedPreferences(VISIBLE_ZONE_PREFS,MODE_PRIVATE);
+        zoneAbs = sharedPreferences.getString(ZONE_ABS, "VISIBLE");
+        imgHideAbsWorkouts = view.findViewById(R.id.hide_Arrow);
 
         recyclerViewAbs = view.findViewById(R.id.RvAbs_workouts);
         recyclerViewBack = view.findViewById(R.id.RvBack_workouts);
@@ -114,7 +131,17 @@ public class WorkoutsFragment extends Fragment implements HomeWorkoutsAdapter.On
 
 
 
+        imgHideAbsWorkouts.setOnClickListener(v ->{
+
+            changeVisibility();
+
+
+        });
+
+
         loadImage();
+        checkVisibility();
+
 
         //recyclerView.setHasFixedSize(true);
         recyclerViewAbs.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
@@ -145,12 +172,65 @@ public class WorkoutsFragment extends Fragment implements HomeWorkoutsAdapter.On
         return view;
     }
 
+    public void checkVisibility() {
+        sharedPreferences = getActivity().getApplicationContext().getSharedPreferences(VISIBLE_ZONE_PREFS,MODE_PRIVATE);
+        zoneAbs = sharedPreferences.getString(ZONE_ABS, "INVISIBLE");
+
+        switch (zoneAbs) {
+            case "VISIBLE":
+
+                imgHideAbsWorkouts.setImageResource(R.drawable.ic_down_arrow);
+                recyclerViewAbs.setVisibility(View.VISIBLE);
+                break;
+
+            case "GONE":
+                imgHideAbsWorkouts.setImageResource(R.drawable.ic_up_arrow);
+                recyclerViewAbs.setVisibility(View.GONE);
+                break;
+
+
+        }
+        editor = sharedPreferences.edit();
+        editor.putString(ZONE_ABS, zoneAbs);
+        editor.apply();
+
+
+
+    }
+    public void changeVisibility() {
+        sharedPreferences = getActivity().getApplicationContext().getSharedPreferences(VISIBLE_ZONE_PREFS,MODE_PRIVATE);
+        zoneAbs = sharedPreferences.getString(ZONE_ABS, "INVISIBLE");
+
+        switch (zoneAbs) {
+            case "VISIBLE":
+
+                zoneAbs = "GONE";
+                imgHideAbsWorkouts.setImageResource(R.drawable.ic_up_arrow);
+                recyclerViewAbs.setVisibility(View.GONE);
+                break;
+
+            case "GONE":
+                zoneAbs = "VISIBLE";
+                imgHideAbsWorkouts.setImageResource(R.drawable.ic_down_arrow);
+                recyclerViewAbs.setVisibility(View.VISIBLE);
+                break;
+
+
+        }
+        editor = sharedPreferences.edit();
+        editor.putString(ZONE_ABS, zoneAbs);
+        editor.apply();
+
+    }
+
+
     @Override
     public void onResume() {
         super.onResume();
 
         progressBar.setVisibility(View.GONE);
         bookingImage.setVisibility(View.VISIBLE);
+        checkVisibility();
 
     }
 
@@ -163,17 +243,17 @@ public class WorkoutsFragment extends Fragment implements HomeWorkoutsAdapter.On
             absWorkoutsList.add(new WorkoutsModel("Bicycle", "Abs", R.drawable.bicycle, "" +
                 "1. Start by lying on the ground, with your lower back pressed flat into the floor and your head and shoulders raised slightly above it.\n" +
                 "\n" +
-                "2. Place your hands lightly on the sides of your head; don’t knit your fingers behind. Be careful not to yank your head with your hands at any point during the exercise.\n" +
+                "2. Place your hands lightly on the sides of your head; don’t knit your fingers behind.\n" +
                 "\n" +
                 "3. Lift one leg just off the ground and extend it out.\n" +
                 "\n" +
                 "4. Lift the other leg and bend your knee towards your chest.\n" +
                 "\n" +
-                "5. As you do so twist through your core so the opposite arm comes towards the raised knee. You don’t need to touch elbow to knee, instead focus on moving through your core as you turn your torso. Your elbow should stay in same position relative to your head throughout – the turn that brings it closer to the knee comes from your core. It might be best to think shoulder to knee as you move, rather than elbow to knee.\n" +
+                "5. As you do so twist through your core so the opposite arm comes towards the raised knee. It might be best to think shoulder to knee as you move.\n" +
                 "\n" +
                 "6. Lower your leg and arm at the same time while bringing up the opposite two limbs to mirror the movement.\n" +
                 "\n" +
-                "7. Keep on alternating sides until you’ve managed 10 reps on each, aiming for three sets of 10 in total, or add the bicycle crunch into circuit training and just keep going for as long as the timer runs.\n"));}
+                "7. Keep on alternating sides until you’ve managed 10 reps on each, aiming for three sets of 10 in total.\n"));}
         {
             absWorkoutsList.add(new WorkoutsModel("Flutter Kicks", "Abs", R.drawable.flutter_kicks, "" +
         "1. Lie down on your back, facing up.\n" +
@@ -199,13 +279,13 @@ public class WorkoutsFragment extends Fragment implements HomeWorkoutsAdapter.On
         "\n" +
         "2. Tighten your core, and keep a straight back as you raise your hands and feet from the floor, and bring your knees up to your chest. You are now in the ‘in’ position\n" +
         "\n" +
-        "3. Gently lean back, keeping your spine straight, as you straighten your legs out in front of you. Imagine the movement as a balancing act between your upper body and legs, with your bottom being the only part of your body that makes contact with the floor\n" +
+        "3. Gently lean back, keeping your spine straight, as you straighten your legs out in front of you.\n" +
         "\n" +
-        "4. As your shoulders come close to the floor, hold the position without allowing them, or any other part of your body except your bottom, make contact with the floor. You are now in the ‘out’ position.\n" +
+        "4. As your shoulders come close to the floor, hold the position without allowing them, or any other part of your body except your bottom, make contact with the floor.\n" +
         "\n" +
         "5. Now lift your shoulders, and bend your legs back into the ‘in’ position. Remember to keep your core tight throughout.\n" +
         "\n" +
-        "6. Repeat the ‘in’, ‘out’ movement for the desired number of repetitions.\n"));}
+        "6. Repeat the ‘in’, ‘out’ movement for the desired number of repetitions."));}
         {
             absWorkoutsList.add(new WorkoutsModel("Leg Raises", "Abs", R.drawable.leg_raises,
 "1. Lie on your back, legs straight and together. \n" +
@@ -773,6 +853,7 @@ public class WorkoutsFragment extends Fragment implements HomeWorkoutsAdapter.On
 
 
 
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -792,7 +873,7 @@ public class WorkoutsFragment extends Fragment implements HomeWorkoutsAdapter.On
     }
 
     public  void loadImage(){
-        SharedPreferences sharedPreferences = getActivity().getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
+        sharedPreferences = getActivity().getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
         String picture = sharedPreferences.getString(PICTURE,"");
         String firstName = sharedPreferences.getString(FIRST_NAME,"");
         String lastName = sharedPreferences.getString(LAST_NAME,"");
@@ -822,5 +903,9 @@ public class WorkoutsFragment extends Fragment implements HomeWorkoutsAdapter.On
                 = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
+    private void onHideAbs(){
+
     }
 }

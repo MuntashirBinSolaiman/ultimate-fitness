@@ -23,52 +23,61 @@
             android:paddingTop="10dp">
 
             <RelativeLayout
-            android:id="@+id/absLayout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingTop="10dp">
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardView_Abs_Workouts"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                app:cardCornerRadius="5dp"
-                app:cardElevation="1dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:fontFamily="sans-serif-light"
-                    android:text="@string/abs"
-                    android:textColor="@color/black"
-                    android:textSize="15sp"/>
-
-            </androidx.cardview.widget.CardView>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/RvAbs_workouts"
-                class="androidx.appcompat.app.AlertController$RecycleListView"
+                android:id="@+id/absLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/cardView_Abs_Workouts"
-                android:layout_marginTop="10dp">
+                android:paddingTop="10dp">
 
-            </androidx.recyclerview.widget.RecyclerView>
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardView_Abs_Workouts"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    app:cardCornerRadius="5dp"
+                    app:cardElevation="1dp">
 
-            <View
-                android:id="@+id/viewSeparator1"
-                android:layout_width="275dp"
-                android:layout_height="0.2dp"
-                android:layout_below="@id/RvAbs_workouts"
-                android:layout_centerHorizontal="true"
-                android:layout_marginVertical="20dp"
-                android:background="@color/light_grey"
-                android:paddingHorizontal="15dp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="sans-serif-light"
+                        android:text="@string/abs"
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
+
+                    <ImageButton
+                        android:id="@+id/hide_Arrow"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center_vertical|end"
+                        android:layout_marginEnd="20dp"
+                        android:src="@drawable/ic_down_arrow"
+                        app:tint="@color/black"
+                        android:onClick="onHideAbs"/>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/RvAbs_workouts"
+                    class="androidx.appcompat.app.AlertController$RecycleListView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/cardView_Abs_Workouts"
+                    android:layout_marginTop="10dp">
+
+                </androidx.recyclerview.widget.RecyclerView>
+
+                <View
+                    android:id="@+id/viewSeparator1"
+                    android:layout_width="275dp"
+                    android:layout_height="0.2dp"
+                    android:layout_below="@id/RvAbs_workouts"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginVertical="20dp"
+                    android:background="@color/light_grey"
+                    android:paddingHorizontal="15dp" />
 
 
-
-        </RelativeLayout>
+            </RelativeLayout>
             <RelativeLayout
             android:id="@+id/backLayout"
             android:layout_below="@id/absLayout"

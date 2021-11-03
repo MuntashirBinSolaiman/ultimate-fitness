@@ -20,7 +20,7 @@
 
         <VideoView
             android:id="@+id/video_Workout"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <ImageView
@@ -39,8 +39,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/frame_Video"
-        android:layout_margin="20dp"
-        >
+        android:layout_margin="20dp">
 
         <TextView
             android:id="@+id/txt_workoutName"
@@ -55,25 +54,25 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/txt_workoutName"
-            android:layout_alignParentLeft="true"
-            android:text="Zone"
-            android:textSize="17dp"
+            android:layout_alignParentStart="true"
+            android:text="@string/zone"
+            android:textSize="17sp"
             android:textStyle="bold" />
 
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/txt_workoutZone"
-            >
+            android:layout_marginBottom="?attr/actionBarSize">
 
-        <TextView
-            android:id="@+id/txt_workoutDescription"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="17dp"
-            android:text="@string/placeholder_text"
-            android:textSize="17sp" />
+
+            <TextView
+                android:id="@+id/txt_workoutDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/placeholder_text"
+                android:textSize="14sp"
+                android:paddingTop="10dp"/>
         </ScrollView>
 
 

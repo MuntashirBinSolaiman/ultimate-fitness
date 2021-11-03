@@ -80,6 +80,7 @@
     <string name="shoulders">SHOULDERS</string>
     <string name="triceps">TRICEPS</string>
     <string name="upper_body">UPPER BODY</string>
+    <string name="zone">Zone</string>
 
 
 </resources>
