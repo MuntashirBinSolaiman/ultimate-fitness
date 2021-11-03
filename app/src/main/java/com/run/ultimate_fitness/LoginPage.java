@@ -51,7 +51,11 @@ public class LoginPage extends AppCompatActivity {
     public static final String PICTURE ="picture";
 
     public static final String CREDENTIALS_PREFS = "credentials";
+    public static final String PASSWORD = "password";
+    public static final String EMAIL = "email";
     public static final String USER_UID = "uid";
+
+    private String uid ="";
 
 
     @Override
@@ -162,6 +166,7 @@ public class LoginPage extends AppCompatActivity {
                         if(task.isSuccessful()){
                             loadData();
                             UID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                            saveCredentials(email,password);
 
                         }else{
                             Toast.makeText(LoginPage.this,"Failed to login! Please check your credentials", Toast.LENGTH_LONG).show();
@@ -227,6 +232,16 @@ public class LoginPage extends AppCompatActivity {
                         Toast.makeText(LoginPage.this,"Error!!",Toast.LENGTH_LONG).show();
                     }
                 });
+    }
+
+    //Saves login credentials to shared preferences
+    private void saveCredentials(String email, String password){
+        SharedPreferences sharedPreferences = getSharedPreferences(CREDENTIALS_PREFS,MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(USER_UID,uid);
+        editor.putString(EMAIL,email);
+        editor.putString(PASSWORD,password);
+        editor.apply();
     }
 
 }

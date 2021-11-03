@@ -1,8 +1,5 @@
 package com.run.ultimate_fitness.adapters;
 
-/* Author: Takunda Ziki
- *  Last modified: 28-10-2021 */
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,7 +34,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
         return holder;
     }
     @Override
-
     public void onBindViewHolder(RecyclerItemViewHolder holder, final int position) {
 
         Log.d("onBindViewHoler ", myList.size() + "");

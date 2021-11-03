@@ -1,7 +1,6 @@
 package com.run.ultimate_fitness.ui.nutrition;
 
-/* Author: Takunda Ziki
-        *  Last modified: 28-10-2021 */
+
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -37,6 +36,7 @@ import com.run.ultimate_fitness.RecyclerViewData;
 import com.run.ultimate_fitness.RemoveClickListner;
 import com.run.ultimate_fitness.WebPage;
 import com.run.ultimate_fitness.adapters.RecyclerAdapter;
+import com.run.ultimate_fitness.database.DBHelper;
 
 import java.util.ArrayList;
 
@@ -74,6 +74,8 @@ public class NutritionFragment extends Fragment implements RemoveClickListner {
     ImageView crossImage;
     Dialog builder;
     int totalFood = 0, totalExcercise = 0, totalGoal = 0, totalProgress;
+    //reference to the database
+    DBHelper dbHelper;
 
     @Nullable
     @Override
@@ -120,12 +122,26 @@ public class NutritionFragment extends Fragment implements RemoveClickListner {
         RecyclerView mRecyclerViewLunch = (RecyclerView) view.findViewById(R.id.recyclerLunch_view);
         textViewGoal = view.findViewById(R.id.textGoal);
         textViewGoal.setText(String.valueOf(sharedPreferences.getInt(CALORIES_GOAL, 0)));
-
         textViewFood = view.findViewById(R.id.textFood);
-
         textViewExcercise = view.findViewById(R.id.textExcercise);
         textViewRemaining = view.findViewById(R.id.textTotal);
 
+        //db helper stuff
+        dbHelper=new DBHelper(getActivity());
+        myList=  dbHelper.load(1);
+        myListLunch=  dbHelper.load(2);
+        myListDinner=  dbHelper.load(3);
+        myListSnacks=  dbHelper.load(4);
+        myListExcercise=  dbHelper.load(5);
+       //sus code below
+        btnAdd = (TextView) view.findViewById(R.id.btnAddItem);
+        textViewGoal.setText(""+getGoal());
+        textViewFood.setText(""+getFood());
+        textViewExcercise.setText(""+getExcercise());
+        //textViewRemaining.setText(String.valueOf(getGoal() - (getFood() + getExcercise()))); */
+        totalGoal=getGoal();
+        totalExcercise=getExcercise();
+        totalFood=getFood();
 
         //Attach Linear Layout with  breakfast
         mRecyclerAdapter = new RecyclerAdapter(myList, this, "1");
@@ -217,26 +233,33 @@ public class NutritionFragment extends Fragment implements RemoveClickListner {
             //remove calories for Breakfast , myList is arraylist of model type RecyclerViewData
             //by using  myList.remove(index) function we can remove data from given index
             totalFood = totalFood - Integer.parseInt(myList.get(index).getDescription());
+            setFood(totalFood);
             textViewFood.setText(String.valueOf(totalFood));
             textViewRemaining.setText(String.valueOf(totalGoal - (totalFood + totalExcercise)));
             myList.remove(index);
 
+            dbHelper.deleteItem(dbHelper.load(1).get(index).getItem_id());
             mRecyclerAdapter.notifyData(myList);
+
         } else if (value.equals("2")) {
             //remove calories for Lunch ,myList is arraylist of model type RecyclerViewData
              //by using  myList.remove(index) function we can remove data from given index
             totalFood = totalFood - Integer.parseInt(myList.get(index).getDescription());
+            setFood(totalFood);
             textViewFood.setText(String.valueOf(totalFood));
             textViewRemaining.setText(String.valueOf(totalGoal - (totalFood + totalExcercise)));
             myList.remove(index);
             //Notifying Recyclerview to update new data on views
+            dbHelper.deleteItem(dbHelper.load(2).get(index).getItem_id());
             mRecyclerAdapterLunch.notifyData(myList);
         } else if (value.equals("3")) {
             //remove calories for Dinner
             totalFood = totalFood - Integer.parseInt(myList.get(index).getDescription());
+            setFood(totalFood);
             textViewFood.setText(String.valueOf(totalFood));
             textViewRemaining.setText(String.valueOf(totalGoal - (totalFood + totalExcercise)));
             myList.remove(index);
+            dbHelper.deleteItem(dbHelper.load(3).get(index).getItem_id());
 
             //Notifying Recyclerview to update new data on views
             mRecyclerAdapterDinner.notifyData(myList);
@@ -244,19 +267,23 @@ public class NutritionFragment extends Fragment implements RemoveClickListner {
             //remove calories for Snacks
             Toast.makeText(getActivity(), "" + String.valueOf(totalFood), Toast.LENGTH_SHORT).show();
             totalFood = totalFood - Integer.parseInt(myList.get(index).getDescription());
+            setFood(totalFood);
             textViewFood.setText(String.valueOf(totalFood));
             textViewRemaining.setText(String.valueOf(totalGoal - (totalFood + totalExcercise)));
             myList.remove(index);
+            dbHelper.deleteItem(dbHelper.load(4).get(index).getItem_id());
             //Notifying Recyclerview to update new data on views
             mRecyclerAdapterSnacks.notifyData(myList);
         } else if (value.equals("5")) {
             //remove calories for Excercise
             totalExcercise = totalExcercise - Integer.parseInt(myList.get(index).getDescription());
+            setExercise(totalExcercise);
 
             textViewExcercise.setText(String.valueOf(totalExcercise));
             textViewRemaining.setText(String.valueOf(totalGoal - (totalFood + totalExcercise)));
             //remove Excercise from given index
             myList.remove(index);
+            dbHelper.deleteItem(dbHelper.load(5).get(index).getItem_id());
             //Notifying Recyclerview to update new data on views
             mRecyclerAdapterExcercise.notifyData(myList);
         }
@@ -320,27 +347,33 @@ public class NutritionFragment extends Fragment implements RemoveClickListner {
                 if (btn.equalsIgnoreCase("1")) {
                     //add calories for Breakfast
                     totalFood = Integer.parseInt(description) + totalFood;
+                    setFood(totalFood);
                     textViewFood.setText(String.valueOf(totalFood));
                     textViewRemaining.setText(String.valueOf(totalGoal - (totalFood + totalExcercise)));
                     myList.add(mLog);
+                    dbHelper.addItem(1,title,description);
                     mRecyclerAdapter.notifyData(myList);
                     etTitle.setText("");
                     etDescription.setText("");
                 } else if (btn.equalsIgnoreCase("2")) {
                     //add calories for Lunch
                     totalFood = Integer.parseInt(description) + totalFood;
+                    setFood(totalFood);
                     textViewFood.setText(String.valueOf(totalFood));
                     textViewRemaining.setText(String.valueOf(totalGoal - (totalFood + totalExcercise)));
                     myListLunch.add(mLog);
+                    dbHelper.addItem(2,title,description);
                     mRecyclerAdapterLunch.notifyData(myListLunch);
                     etTitle.setText("");
                     etDescription.setText("");
                 } else if (btn.equalsIgnoreCase("3")) {
                     //add calories for Dinner
                     totalFood = Integer.parseInt(description) + totalFood;
+                    setFood(totalFood);
                     textViewFood.setText(String.valueOf(totalFood));
                     textViewRemaining.setText(String.valueOf(totalGoal - (totalFood + totalExcercise)));
                     myListDinner.add(mLog);
+                    dbHelper.addItem(3,title,description);
                     mRecyclerAdapterDinner.notifyData(myListDinner);
                     etTitle.setText("");
                     etDescription.setText("");
@@ -348,9 +381,11 @@ public class NutritionFragment extends Fragment implements RemoveClickListner {
 
                     //add calories for Snacks
                     totalFood = Integer.parseInt(description) + totalFood;
+                    setFood(totalFood);
                     textViewFood.setText(String.valueOf(totalFood));
                     textViewRemaining.setText(String.valueOf(totalGoal - (totalFood + totalExcercise)));
                     myListSnacks.add(mLog);
+                    dbHelper.addItem(4,title,description);
                     mRecyclerAdapterSnacks.notifyData(myListSnacks);
                     etTitle.setText("");
                     etDescription.setText("");
@@ -358,10 +393,11 @@ public class NutritionFragment extends Fragment implements RemoveClickListner {
                     //add calories for Excercise
                     totalExcercise = Integer.parseInt(description) + totalExcercise;
                     textViewExcercise.setText(String.valueOf(totalExcercise));
-
+                    setExercise(totalExcercise);
                     textViewFood.setText(String.valueOf(totalFood));
                     textViewRemaining.setText(String.valueOf(totalGoal - (totalFood + totalExcercise)));
                     myListExcercise.add(mLog);
+                    dbHelper.addItem(5,title,description);
                     mRecyclerAdapterExcercise.notifyData(myListExcercise);
                     etTitle.setText("");
                     etDescription.setText("");
@@ -427,6 +463,40 @@ public class NutritionFragment extends Fragment implements RemoveClickListner {
         });
         builder.show();
     }
+
+    void setGoal(int goal){
+        SharedPreferences pref =getContext().getSharedPreferences("TAG", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putInt("goal", goal);
+        editor.commit();
+    }
+    int getGoal(){
+        SharedPreferences pref = getContext().getSharedPreferences("TAG", Context.MODE_PRIVATE);
+        return pref.getInt("goal",0);
+    }
+
+    void setFood(int food){
+        SharedPreferences pref =getContext().getSharedPreferences("TAG", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putInt("food", food);
+        editor.commit();
+    }
+    int getFood(){
+        SharedPreferences pref = getContext().getSharedPreferences("TAG", Context.MODE_PRIVATE);
+        return pref.getInt("food",0);
+    }
+    void setExercise(int food){
+        SharedPreferences pref =getContext().getSharedPreferences("TAG", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putInt("exercise", food);
+        editor.commit();
+    }
+    int getExcercise(){
+        SharedPreferences pref = getContext().getSharedPreferences("TAG", Context.MODE_PRIVATE);
+        return pref.getInt("exercise",0);
+    }
+
+
 
     public Bitmap StringToBitMap(String encodedString){
         try {
