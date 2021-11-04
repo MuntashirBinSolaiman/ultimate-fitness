@@ -10,7 +10,7 @@
 
     <include
         android:id="@+id/topbar"
-        layout="@layout/topbar"/>
+        layout="@layout/profilebar" />
 
     <co.intentservice.chatui.ChatView
 
@@ -31,6 +31,8 @@
         chatview:bubbleElevation="elevated"
         chatview:inputHint="Start typing"
         chatview:inputHintColor="@color/gray"
-        chatview:inputUseEditorAction="true" />
+        chatview:inputUseEditorAction="true"
+        android:onClick="msg"
+        />
 
 </RelativeLayout>

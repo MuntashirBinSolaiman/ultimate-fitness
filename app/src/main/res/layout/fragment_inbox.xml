@@ -27,7 +27,7 @@
             android:layout_width="72dp"
             android:layout_height="75dp"
             android:layout_marginRight="10dp"
-            android:src="@drawable/blankprofile" />
+            android:src="@drawable/ultimate_fitness" />
 
         <TextView
             android:text="Ultimate Fitness"

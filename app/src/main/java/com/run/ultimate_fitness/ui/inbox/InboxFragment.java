@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -27,6 +28,7 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.run.ultimate_fitness.EditProfile;
 import com.run.ultimate_fitness.MainActivity;
 import com.run.ultimate_fitness.R;
 import com.run.ultimate_fitness.WebPage;
@@ -97,8 +99,27 @@ public class InboxFragment extends Fragment {
         conversatonsCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getContext(), ChatPage.class);
-                startActivity(intent);
+                if (isNetworkAvailable()) {
+                    try {
+                        Intent intent = new Intent(getContext(), ChatPage.class);
+                        startActivity(intent);
+                    }
+                    catch (Exception e)
+                    {
+                    }
+                }
+                    else{
+
+                    new AlertDialog.Builder(getContext())
+                            .setTitle("Check Internet connection")
+                            .setMessage("Please make sure you have an active internet connection")
+
+                            // Specifying a listener allows you to take an action before dismissing the dialog.
+                            // The dialog is automatically dismissed when a dialog button is clicked.
+                            .setPositiveButton(android.R.string.yes, null)
+                            .show();
+
+                }
             }
         });
 

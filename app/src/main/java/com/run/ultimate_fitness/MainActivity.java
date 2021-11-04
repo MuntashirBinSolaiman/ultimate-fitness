@@ -27,11 +27,17 @@ import com.cometchat.pro.models.User;
 import com.facebook.stetho.Stetho;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.run.ultimate_fitness.databinding.ActivityMainBinding;
 import com.run.ultimate_fitness.stepCounter.StepCounterActivity;
 import com.run.ultimate_fitness.utils.Constants;
 import com.run.ultimate_fitness.water.Water_Tracker_Activity;
 import  com.run.ultimate_fitness.ui.workouts.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import okhttp3.OkHttpClient;
 
@@ -53,9 +59,12 @@ public class MainActivity extends AppCompatActivity {
     String authKey = "AUTH_KEY"; // Replace with your App Auth Key
 
 
+    private String picture;
+
     /*Workouts Tab*/
     private RecyclerView homeWorkouts;
     private RecyclerView.Adapter adapter;
+    private String uid;
 
 
     @Override
@@ -64,6 +73,8 @@ public class MainActivity extends AppCompatActivity {
 
         SharedPreferences sharedPreferences = getSharedPreferences(USER_PREFS, MODE_PRIVATE);
         SharedPreferences sharedPreferences2 = getSharedPreferences(CREDENTIALS_PREFS, MODE_PRIVATE);
+
+        //uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         boolean loggedIn = sharedPreferences.getBoolean(IS_LOGGED_IN,false);
         if (!loggedIn) {
@@ -94,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
 
         profilePicImage = findViewById(R.id.icon_user);
         loadImage();
+        //writeImageToFirebase();
 
 
 
@@ -115,6 +127,8 @@ public class MainActivity extends AppCompatActivity {
 
 
         //UID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+
 
 
     }
@@ -198,9 +212,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
     public  void loadImage(){
             SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
-            String picture = sharedPreferences.getString(PICTURE,"");
+            picture = sharedPreferences.getString(PICTURE,"");
         profilePicImage.setImageBitmap(StringToBitMap(picture));
 
         }

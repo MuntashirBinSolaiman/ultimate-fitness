@@ -31,6 +31,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.run.ultimate_fitness.utils.Constants;
 
 
 public class LoginPage extends AppCompatActivity {
@@ -196,12 +197,13 @@ public class LoginPage extends AppCompatActivity {
                             String height = documentSnapshot.getDouble("height").toString();
                             String picture = documentSnapshot.getString("picture").toString();
 
+                            String temp_uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
                             SharedPreferences sharedPreferences = getSharedPreferences(USER_PREFS, MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedPreferences.edit();
 
                             SharedPreferences sharedPreferences2 = getSharedPreferences(CREDENTIALS_PREFS, MODE_PRIVATE);
                             SharedPreferences.Editor editor2 = sharedPreferences2.edit();
-                            editor2.putString(USER_UID, FirebaseAuth.getInstance().getCurrentUser().getUid());
+                            editor2.putString(USER_UID, temp_uid);
                             editor2.apply();
 
 
