@@ -287,6 +287,8 @@ public class HomeFragment extends Fragment {
                     DatabaseReference message_root = root;
                     Map<String, Object> map = new HashMap<String, Object>();
                     map.put("image", picture);
+                    map.put("name", "Warona Mogolwane");
+
                     message_root.updateChildren(map);
                 } catch (Exception e) {
                 }

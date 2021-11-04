@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.cometchat.pro.constants.CometChatConstants;
 import com.cometchat.pro.core.CometChat;
@@ -56,11 +57,11 @@ public class ChatPage extends AppCompatActivity {
     public static final String USER_UID = "uid";
     public String userUID;
     private String temp_key;
+    TextView txtUsername;
 
     public String uid ="";
 
-    public  DatabaseReference root = FirebaseDatabase.getInstance("https://ultimate-storm-default-rtdb.europe-west1.firebasedatabase.app").getReference().child(uid);
-
+    public  DatabaseReference root;
     public Iterator i;
     public boolean x = false;
 
@@ -84,6 +85,7 @@ public class ChatPage extends AppCompatActivity {
 
         uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
+
         profilePicImage = findViewById(R.id.icon_user);
 
 
@@ -94,6 +96,7 @@ public class ChatPage extends AppCompatActivity {
 
 
         chatView = (ChatView) findViewById(R.id.chat_view);
+        txtUsername = (TextView) findViewById(R.id.txtUsername);
 
 
         chatView.setOnSentMessageListener(new ChatView.OnSentMessageListener(){
@@ -111,7 +114,7 @@ public class ChatPage extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                        String image = snapshot.child("image").getValue().toString();
+                        //String image = snapshot.child("image").getValue().toString();
                     }
 
                     @Override
@@ -133,6 +136,8 @@ public class ChatPage extends AppCompatActivity {
     }
 
     private void loadChat() {
+        root = FirebaseDatabase.getInstance("https://ultimate-storm-default-rtdb.europe-west1.firebasedatabase.app").getReference().child("lHRkYjOj2YNQnK4NNIPHw4nO8pg1");
+
         root.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
@@ -220,7 +225,7 @@ public class ChatPage extends AppCompatActivity {
 
 
     private void sendFirebaseMessage() {
-        root = FirebaseDatabase.getInstance("https://ultimate-storm-default-rtdb.europe-west1.firebasedatabase.app").getReference().child("qwA1Ou5vbWPb2SHpUd55tjA5wWF2");
+        root = FirebaseDatabase.getInstance("https://ultimate-storm-default-rtdb.europe-west1.firebasedatabase.app").getReference().child("lHRkYjOj2YNQnK4NNIPHw4nO8pg1");
 
         Map<String,Object> map1 = new HashMap<String, Object>();
         temp_key = root.push().getKey();
@@ -238,10 +243,13 @@ public class ChatPage extends AppCompatActivity {
 
     public  void loadImage() {
 
+        root = FirebaseDatabase.getInstance("https://ultimate-storm-default-rtdb.europe-west1.firebasedatabase.app").getReference().child("lHRkYjOj2YNQnK4NNIPHw4nO8pg1");
+
         SharedPreferences sharedPreferences = this.getApplicationContext().getSharedPreferences(USER_PREFS, MODE_PRIVATE);
         firstName = sharedPreferences.getString(FIRST_NAME, "");
         lastName = sharedPreferences.getString(LAST_NAME, "");
         fullName = firstName + " " + lastName;
+
 
         if (uid.equals("69wADqnIpqYUnmidwcZwaO5F8RL2")) {
             profilePicImage.setImageBitmap(StringToBitMap(picture));
@@ -250,8 +258,11 @@ public class ChatPage extends AppCompatActivity {
             root.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    String picture = snapshot.child("image").getValue().toString();
+                    picture = (String) snapshot.child("image").getValue();
                     profilePicImage.setImageBitmap(StringToBitMap(picture));
+                    String temp_name =(String) snapshot.child("name").getValue();
+                    txtUsername.setText(temp_name);
+
                 }
 
                 @Override
@@ -263,6 +274,8 @@ public class ChatPage extends AppCompatActivity {
         }
         else{
          profilePicImage.setImageResource(R.drawable.ultimate_fitness);
+            txtUsername.setText("Ultimate Fitness");
+
         }
 
     }
