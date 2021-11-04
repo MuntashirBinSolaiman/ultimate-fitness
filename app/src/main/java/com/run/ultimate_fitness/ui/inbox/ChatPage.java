@@ -59,7 +59,7 @@ public class ChatPage extends AppCompatActivity {
 
     public String uid ="";
 
-    public  DatabaseReference root = FirebaseDatabase.getInstance("https://ultimate-storm-default-rtdb.europe-west1.firebasedatabase.app").getReference().child("lHRkYjOj2YNQnK4NNIPHw4nO8pg1");
+    public  DatabaseReference root = FirebaseDatabase.getInstance("https://ultimate-storm-default-rtdb.europe-west1.firebasedatabase.app").getReference().child(uid);
 
     public Iterator i;
     public boolean x = false;

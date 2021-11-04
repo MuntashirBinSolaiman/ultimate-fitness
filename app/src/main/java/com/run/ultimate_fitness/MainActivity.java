@@ -58,8 +58,6 @@ public class MainActivity extends AppCompatActivity {
     String UID1 = "user1"; // Replace with the UID of the user to login
     String authKey = "AUTH_KEY"; // Replace with your App Auth Key
 
-    public DatabaseReference root = FirebaseDatabase.getInstance("https://ultimate-storm-default-rtdb.europe-west1.firebasedatabase.app").getReference().child("qwA1Ou5vbWPb2SHpUd55tjA5wWF2");
-    private String temp_key;
 
     private String picture;
 
@@ -107,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
 
         profilePicImage = findViewById(R.id.icon_user);
         loadImage();
-        writeImageToFirebase();
+        //writeImageToFirebase();
 
 
 
@@ -212,17 +210,6 @@ public class MainActivity extends AppCompatActivity {
             e.getMessage();
             return null;
         }
-    }
-
-    private void writeImageToFirebase() {
-        root = FirebaseDatabase.getInstance("https://ultimate-storm-default-rtdb.europe-west1.firebasedatabase.app").getReference().child("qwA1Ou5vbWPb2SHpUd55tjA5wWF2");
-
-        DatabaseReference message_root = root;
-        Map<String,Object> map = new HashMap<String,Object>();
-        map.put("image", picture);
-        message_root.updateChildren(map);
-
-
     }
 
 

@@ -29,11 +29,13 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.run.ultimate_fitness.R;
 import com.run.ultimate_fitness.WebPage;
 import com.run.ultimate_fitness.databinding.FragmentHomeBinding;
+import com.run.ultimate_fitness.utils.Constants;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -64,8 +66,12 @@ public class HomeFragment extends Fragment {
     public static final String CALORIES_GOAL ="calories_goal";
     public static final String STEPS_GOAL ="steps_goal";
 
-    public DatabaseReference root = FirebaseDatabase.getInstance("https://ultimate-storm-default-rtdb.europe-west1.firebasedatabase.app").getReference().child("qwA1Ou5vbWPb2SHpUd55tjA5wWF2");
-    private String temp_key;
+    public static final String USER_UID = "uid";
+    public static final String CREDENTIALS_PREFS = "credentials";
+
+
+    public DatabaseReference root;
+    String picture;
 
     String waterDrank ;
     String waterProgress;
@@ -79,14 +85,18 @@ public class HomeFragment extends Fragment {
     public Button btnDrink;
     private TextView txtWaterDrank, txtStepsTaken, txtCaloriesEaten;
     private TextView stepsTakenText, caloriesEatenText;
+    public String uid;
 
+    SharedPreferences sharedPreferences, sharedPreferences2;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        SharedPreferences sharedPreferences = getActivity().getApplicationContext().getSharedPreferences(GOALS_PREFS,MODE_PRIVATE);
+        sharedPreferences = getActivity().getApplicationContext().getSharedPreferences(GOALS_PREFS,MODE_PRIVATE);
+        sharedPreferences2 = getActivity().getApplicationContext().getSharedPreferences(CREDENTIALS_PREFS,MODE_PRIVATE);
 
-        writeImageToFirebase();
+        uid = sharedPreferences2.getString(USER_UID, " ");
+
 
         homeViewModel =
                 new ViewModelProvider(this).get(HomeViewModel.class);
@@ -141,6 +151,8 @@ public class HomeFragment extends Fragment {
         profilePicImage = root.findViewById(R.id.icon_user);
         userName = root.findViewById(R.id.txtUsername);
         loadImage();
+        writeImageToFirebase();
+
 
 
         waterLayout =  root.findViewById(R.id.layout_waterProgress);
@@ -192,6 +204,7 @@ public class HomeFragment extends Fragment {
         waterGoal = sharedPreferences.getInt(WATER_GOAL, 0);
         caloriesGoal = sharedPreferences.getInt(CALORIES_GOAL, 0);
         stepsGoal = sharedPreferences.getInt(STEPS_GOAL, 0);
+
 
         txtCaloriesEaten = root.findViewById(R.id.txtCalorieProgress);
         txtCaloriesEaten.setText(calories + "/" + caloriesGoal);
@@ -265,12 +278,21 @@ public class HomeFragment extends Fragment {
     }
 
     private void writeImageToFirebase() {
-        root = FirebaseDatabase.getInstance("https://ultimate-storm-default-rtdb.europe-west1.firebasedatabase.app").getReference().child("qwA1Ou5vbWPb2SHpUd55tjA5wWF2");
 
-        DatabaseReference message_root = root.child(temp_key);
-        Map<String,Object> map2 = new HashMap<String,Object>();
-        map2.put("image", "this is an image");
-        message_root.updateChildren(map2);
+        if (isNetworkAvailable()) {
+            if (!uid.equals(Constants.MASTER_UID)) {
+                try {
+                    root = FirebaseDatabase.getInstance("https://ultimate-storm-default-rtdb.europe-west1.firebasedatabase.app").getReference().child(uid);
+
+                    DatabaseReference message_root = root;
+                    Map<String, Object> map = new HashMap<String, Object>();
+                    map.put("image", picture);
+                    message_root.updateChildren(map);
+                } catch (Exception e) {
+                }
+
+            }
+        }
 
 
     }
@@ -294,8 +316,9 @@ public class HomeFragment extends Fragment {
 
     //Loads the profile image
     public  void loadImage(){
+
         SharedPreferences sharedPreferences = getActivity().getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
-        String picture = sharedPreferences.getString(PICTURE,"");
+        picture = sharedPreferences.getString(PICTURE,"");
         String firstName = sharedPreferences.getString(FIRST_NAME,"");
         String lastName = sharedPreferences.getString(LAST_NAME,"");
 

@@ -35,18 +35,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/stepIcon"
+            android:padding="10dp"
             android:text="@string/steps_tracked"
-            android:textSize="17sp"
-            android:padding="10dp"/>
+            android:textSize="17sp" />
 
         <TextView
             android:id="@+id/tv2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/android_steps_tracked"
-            android:textSize="17sp"
             android:layout_below="@id/tv1"
-            android:padding="10dp"/>
+            android:padding="10dp"
+            android:text="@string/android_steps_tracked"
+            android:textSize="17sp" />
 
         <!-- Use weights to split the screen in half -->
         <com.jjoe64.graphview.GraphView
