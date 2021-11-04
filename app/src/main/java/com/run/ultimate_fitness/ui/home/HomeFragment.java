@@ -95,7 +95,7 @@ public class HomeFragment extends Fragment {
         sharedPreferences = getActivity().getApplicationContext().getSharedPreferences(GOALS_PREFS,MODE_PRIVATE);
         sharedPreferences2 = getActivity().getApplicationContext().getSharedPreferences(CREDENTIALS_PREFS,MODE_PRIVATE);
 
-        uid = sharedPreferences2.getString(USER_UID, " ");
+        uid = sharedPreferences2.getString(USER_UID, "");
 
 
         homeViewModel =
