@@ -36,7 +36,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Peter Ombati"
-                    android:textColor="@color/bar_and_alternate_text_color"
+                    android:textColor="@color/nutrition_page_text_colour"
                     android:textSize="20dp"
                     android:layout_marginTop="8dp"
                     android:textStyle="bold"/>

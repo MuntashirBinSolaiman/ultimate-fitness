@@ -202,7 +202,7 @@
                         android:padding="10dp"
 
                         android:textStyle="bold"
-                        android:textColor="@color/bar_and_alternate_text_color"
+                        android:textColor="@color/nutrition_page_text_colour"
                         android:id="@+id/btnAddItemBreakfast"
                         android:text="Add Item"
                         android:layout_width="match_parent"
@@ -237,7 +237,7 @@
                         android:padding="10dp"
 
                         android:textStyle="bold"
-                        android:textColor="@color/bar_and_alternate_text_color"
+                        android:textColor="@color/nutrition_page_text_colour"
                         android:id="@+id/btnAddItemLunch"
                         android:text="Add Item"
                         android:layout_width="match_parent"
@@ -270,7 +270,7 @@
                         android:padding="10dp"
 
                         android:textStyle="bold"
-                        android:textColor="@color/bar_and_alternate_text_color"
+                        android:textColor="@color/nutrition_page_text_colour"
                         android:id="@+id/btnAddItemSnacks"
                         android:text="Add Item"
                         android:layout_width="match_parent"
@@ -302,7 +302,7 @@
                     <TextView
                         android:padding="10dp"
                         android:textStyle="bold"
-                        android:textColor="@color/bar_and_alternate_text_color"
+                        android:textColor="@color/nutrition_page_text_colour"
                         android:id="@+id/btnAddItemDinner"
                         android:text="Add Item"
                         android:layout_width="match_parent"
@@ -336,7 +336,7 @@
                         android:padding="10dp"
 
                         android:textStyle="bold"
-                        android:textColor="@color/bar_and_alternate_text_color"
+                        android:textColor="@color/nutrition_page_text_colour"
                         android:id="@+id/btnAddItemExcercise"
                         android:text="Add Item"
                         android:layout_width="match_parent"
