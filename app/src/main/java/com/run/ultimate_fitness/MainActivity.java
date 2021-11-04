@@ -27,11 +27,17 @@ import com.cometchat.pro.models.User;
 import com.facebook.stetho.Stetho;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.run.ultimate_fitness.databinding.ActivityMainBinding;
 import com.run.ultimate_fitness.stepCounter.StepCounterActivity;
 import com.run.ultimate_fitness.utils.Constants;
 import com.run.ultimate_fitness.water.Water_Tracker_Activity;
 import  com.run.ultimate_fitness.ui.workouts.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import okhttp3.OkHttpClient;
 
@@ -52,10 +58,15 @@ public class MainActivity extends AppCompatActivity {
     String UID1 = "user1"; // Replace with the UID of the user to login
     String authKey = "AUTH_KEY"; // Replace with your App Auth Key
 
+    public DatabaseReference root = FirebaseDatabase.getInstance("https://ultimate-storm-default-rtdb.europe-west1.firebasedatabase.app").getReference().child("qwA1Ou5vbWPb2SHpUd55tjA5wWF2");
+    private String temp_key;
+
+    private String picture;
 
     /*Workouts Tab*/
     private RecyclerView homeWorkouts;
     private RecyclerView.Adapter adapter;
+    private String uid;
 
 
     @Override
@@ -64,6 +75,8 @@ public class MainActivity extends AppCompatActivity {
 
         SharedPreferences sharedPreferences = getSharedPreferences(USER_PREFS, MODE_PRIVATE);
         SharedPreferences sharedPreferences2 = getSharedPreferences(CREDENTIALS_PREFS, MODE_PRIVATE);
+
+        //uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         boolean loggedIn = sharedPreferences.getBoolean(IS_LOGGED_IN,false);
         if (!loggedIn) {
@@ -94,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
 
         profilePicImage = findViewById(R.id.icon_user);
         loadImage();
+        writeImageToFirebase();
 
 
 
@@ -115,6 +129,8 @@ public class MainActivity extends AppCompatActivity {
 
 
         //UID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+
 
 
     }
@@ -198,9 +214,21 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private void writeImageToFirebase() {
+        root = FirebaseDatabase.getInstance("https://ultimate-storm-default-rtdb.europe-west1.firebasedatabase.app").getReference().child("qwA1Ou5vbWPb2SHpUd55tjA5wWF2");
+
+        DatabaseReference message_root = root;
+        Map<String,Object> map = new HashMap<String,Object>();
+        map.put("image", picture);
+        message_root.updateChildren(map);
+
+
+    }
+
+
     public  void loadImage(){
             SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
-            String picture = sharedPreferences.getString(PICTURE,"");
+            picture = sharedPreferences.getString(PICTURE,"");
         profilePicImage.setImageBitmap(StringToBitMap(picture));
 
         }

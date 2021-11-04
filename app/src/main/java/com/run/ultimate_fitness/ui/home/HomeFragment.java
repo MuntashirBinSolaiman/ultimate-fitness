@@ -29,9 +29,14 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.run.ultimate_fitness.R;
 import com.run.ultimate_fitness.WebPage;
 import com.run.ultimate_fitness.databinding.FragmentHomeBinding;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class HomeFragment extends Fragment {
 
@@ -59,8 +64,8 @@ public class HomeFragment extends Fragment {
     public static final String CALORIES_GOAL ="calories_goal";
     public static final String STEPS_GOAL ="steps_goal";
 
-
-
+    public DatabaseReference root = FirebaseDatabase.getInstance("https://ultimate-storm-default-rtdb.europe-west1.firebasedatabase.app").getReference().child("qwA1Ou5vbWPb2SHpUd55tjA5wWF2");
+    private String temp_key;
 
     String waterDrank ;
     String waterProgress;
@@ -81,6 +86,7 @@ public class HomeFragment extends Fragment {
 
         SharedPreferences sharedPreferences = getActivity().getApplicationContext().getSharedPreferences(GOALS_PREFS,MODE_PRIVATE);
 
+        writeImageToFirebase();
 
         homeViewModel =
                 new ViewModelProvider(this).get(HomeViewModel.class);
@@ -257,6 +263,18 @@ public class HomeFragment extends Fragment {
 
         return root;
     }
+
+    private void writeImageToFirebase() {
+        root = FirebaseDatabase.getInstance("https://ultimate-storm-default-rtdb.europe-west1.firebasedatabase.app").getReference().child("qwA1Ou5vbWPb2SHpUd55tjA5wWF2");
+
+        DatabaseReference message_root = root.child(temp_key);
+        Map<String,Object> map2 = new HashMap<String,Object>();
+        map2.put("image", "this is an image");
+        message_root.updateChildren(map2);
+
+
+    }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
