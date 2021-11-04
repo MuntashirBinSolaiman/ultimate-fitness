@@ -46,6 +46,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class SignUpInformation extends AppCompatActivity {
 //...
@@ -109,7 +111,6 @@ public class SignUpInformation extends AppCompatActivity {
 
     }
 
-
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -155,8 +156,16 @@ public class SignUpInformation extends AppCompatActivity {
         String weight = weightNameTxt.getText().toString();
         String height = heightNameTxt.getText().toString();
 
+        double checkWeight = Double.parseDouble(weight);
+        double checkHeight = Double.parseDouble(height);
+
+        Pattern pattern = Pattern.compile("[^a-zA-Z0-9]");
+        Matcher firstNameMatcher = pattern.matcher(firstName);
+        Matcher lastNameMatcher = pattern.matcher(firstName);
+
         if(firstName.isEmpty()){
             firstNameTxt.setError("First name is required");
+
             firstNameTxt.requestFocus();
             return;
         }
@@ -173,8 +182,8 @@ public class SignUpInformation extends AppCompatActivity {
             return;
         }
 
-        if(phoneNumber.length() > 10){
-            phoneNumberTxt.setError("Phone number is too long");
+        if(phoneNumber.length() != 10){
+            phoneNumberTxt.setError("Please enter valid phone number");
             phoneNumberTxt.requestFocus();
             return;
         }
@@ -190,6 +199,34 @@ public class SignUpInformation extends AppCompatActivity {
             heightNameTxt.requestFocus();
             return;
         }
+
+        if(checkWeight < 30.00 || checkWeight > 150.00){
+            weightNameTxt.setError("Weight must be between 30Kgs and 150Kgs");
+            weightNameTxt.requestFocus();
+            return;
+        }
+
+        if(checkHeight < 1.00 || checkHeight > 3.00){
+            heightNameTxt.setError("Height must be between 1m and 3m");
+            heightNameTxt.requestFocus();
+            return;
+        }
+
+        boolean isFContainsSpecialCharacters = firstNameMatcher.find();
+        boolean isLContainsSpecialCharacters = lastNameMatcher.find();
+
+        if(isFContainsSpecialCharacters){
+            firstNameTxt.setError("Cannot contain special characters");
+            firstNameTxt.requestFocus();
+            return;
+        }
+
+        if(isLContainsSpecialCharacters){
+            lastNameTxt.setError("Cannot contain special characters");
+            lastNameTxt.requestFocus();
+            return;
+        }
+
 
         progressBar.setVisibility(View.VISIBLE);
         addInfoButton.setVisibility(View.GONE);

@@ -42,6 +42,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class EditProfile extends AppCompatActivity {
 
@@ -121,51 +123,89 @@ public class EditProfile extends AppCompatActivity {
 
         if (isNetworkAvailable())
         {
+            String firstName = firstNameTxt.getText().toString();
+            String lastName = lastNameTxt.getText().toString();
+            String phoneNumber = phoneNumberEdit.getText().toString();
+            String weight = weightTxt.getText().toString();
+            String height = heightTxt.getText().toString();
+
+            Pattern pattern = Pattern.compile("[^a-zA-Z0-9]");
+
+            if(!firstName.isEmpty()){
+                Matcher firstNameMatcher = pattern.matcher(firstName);
+                boolean isFContainsSpecialCharacters = firstNameMatcher.find();
+                if(isFContainsSpecialCharacters){
+                    firstNameTxt.setError("Cannot contain special characters");
+                    firstNameTxt.requestFocus();
+                    return;
+                }
+
+
+                SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString(FIRST_NAME,firstName);
+                editor.apply();
+            }
+
+            if(!lastName.isEmpty()){
+                Matcher lastNameMatcher = pattern.matcher(firstName);
+                boolean isLContainsSpecialCharacters = lastNameMatcher.find();
+                if(isLContainsSpecialCharacters){
+                    lastNameTxt.setError("Cannot contain special characters");
+                    lastNameTxt.requestFocus();
+                    return;
+                }
+
+                SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString(LAST_NAME,lastName);
+                editor.apply();
+            }
+
+            if(!phoneNumber.isEmpty()){
+                if(phoneNumber.length() != 10){
+                    phoneNumberEdit.setError("Please enter valid phone number");
+                    phoneNumberEdit.requestFocus();
+                    return;
+                }
+                SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString(PHONE_NUMBER,phoneNumber);
+                editor.apply();
+            }
+
+            if(!weight.isEmpty()){
+
+                Double checkWeight = Double.parseDouble(weight);
+
+                if(checkWeight < 30.00 || checkWeight > 150.00){
+                    weightTxt.setError("Weight must be between 30Kgs and 150Kgs");
+                    weightTxt.requestFocus();
+                    return;
+                }
+                SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString(WEIGHT,weight);
+                editor.apply();
+            }
+
+            if(!height.isEmpty()){
+                Double checkHeight = Double.parseDouble(height);
+
+                if(checkHeight < 1.00 || checkHeight > 3.00){
+                    heightTxt.setError("Height must be between 1m and 3m");
+                    heightTxt.requestFocus();
+                    return;
+                }
+                SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString(HEIGHT,height);
+                editor.apply();
+            }
+
             try{
-                String firstName = firstNameTxt.getText().toString();
-                String lastName = lastNameTxt.getText().toString();
-                String phoneNumber = phoneNumberEdit.getText().toString();
-                String weight = weightTxt.getText().toString();
-                String height = heightTxt.getText().toString();
-
-                if(!firstName.isEmpty()){
-                    SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString(FIRST_NAME,firstName);
-                    editor.apply();
-                }
-
-                if(!lastName.isEmpty()){
-                    SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString(LAST_NAME,lastName);
-                    editor.apply();
-                }
-
-                if(!phoneNumber.isEmpty()){
-                    SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString(PHONE_NUMBER,phoneNumber);
-                    editor.apply();
-                }
-
-                if(!weight.isEmpty()){
-                    SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString(WEIGHT,weight);
-                    editor.apply();
-                }
-
-                if(!height.isEmpty()){
-                    SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString(HEIGHT,height);
-                    editor.apply();
-                }
-
                 progressBar.setVisibility(View.VISIBLE);
                 updateDataButton.setVisibility(View.GONE);
-
 
                 updateOnline();
             }

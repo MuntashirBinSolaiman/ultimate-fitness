@@ -9,6 +9,7 @@ import android.hardware.SensorManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
@@ -61,10 +62,30 @@ public class StepCounterActivity extends AppCompatActivity implements SensorEven
     double noiseThreshold = 2d;
     private int windowSize = 10;
 
+    private ImageView backButtonImage;
+    private TextView toolDisplayView , logoutText;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step_counter);
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
+
+        logoutText = findViewById(R.id.toolbarLogoutTextView);
+        toolDisplayView = findViewById(R.id.toolbarTextView);
+        backButtonImage =findViewById(R.id.toolbarBackButton);
+
+        logoutText.setVisibility(View.GONE);
+        backButtonImage.setOnClickListener(v -> {
+            Intent intent = new Intent(StepCounterActivity.this, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        });
+        toolDisplayView.setText("Step Counter");
 
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         mSensorCount = mSensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);

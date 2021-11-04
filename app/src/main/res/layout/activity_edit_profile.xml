@@ -151,6 +151,7 @@
                     android:layout_marginLeft="25dp"
                     android:hint="Tap here"
                     android:inputType="phone"
+                    android:maxLength="10"
                     android:textColor="@color/darker_grey"
                     android:textSize="18dp" />
             </LinearLayout>
@@ -191,6 +192,7 @@
                     android:layout_marginLeft="25dp"
                     android:hint="Tap here"
                     android:importantForAutofill="no"
+                    android:maxLength="3"
                     android:inputType="numberDecimal"
                     android:textColor="@color/darker_grey"
                     android:textSize="18dp"
@@ -233,6 +235,7 @@
                     android:layout_marginLeft="25dp"
                     android:hint="Tap here"
                     android:textColor="@color/darker_grey"
+                    android:maxLength="5"
                     android:textSize="18dp"
                     android:inputType="numberDecimal"/>
             </LinearLayout>

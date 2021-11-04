@@ -122,6 +122,7 @@
                 android:layout_height="50dp"
                 android:background="@drawable/bg_button"
                 android:ems="10"
+                android:maxLength="5"
                 android:hint="Weight (Kgs)"
                 android:inputType="numberDecimal"/>
         </LinearLayout>
@@ -149,6 +150,7 @@
                 android:layout_height="50dp"
                 android:background="@drawable/bg_button"
                 android:ems="10"
+                android:maxLength="3"
                 android:hint="Height (m)"
                 android:inputType="numberDecimal"/>
 
@@ -177,6 +179,7 @@
                 android:layout_height="50dp"
                 android:background="@drawable/bg_button"
                 android:ems="10"
+                android:maxLength="10"
                 android:hint="Phone number"
                 android:inputType="phone"/>
 
