@@ -6,7 +6,16 @@ public class WorkoutsModel {
     private String workout_zone;
     private String workout_description;
     private int workout_image;
+    private String workout_video;
 
+
+    public String getWorkout_video() {
+        return workout_video;
+    }
+
+    public void setWorkout_video(String workout_video) {
+        this.workout_video = workout_video;
+    }
 
 
 
@@ -50,12 +59,14 @@ public class WorkoutsModel {
 
 
 
-    public WorkoutsModel(String workout_name, String workout_zone, int workout_image, String workout_description) {
+    public WorkoutsModel(String workout_name, String workout_zone, int workout_image, String workout_description, String workout_video) {
         this.workout_image = workout_image;
 
         this.workout_name = workout_name;
         this.workout_zone = workout_zone;
         this.workout_description = workout_description;
+        this.workout_video = workout_video;
+
 
 
 

@@ -31,12 +31,17 @@ public class WorkoutPage extends AppCompatActivity {
             workoutName = extras.getString("workout_name");
             workoutZone = extras.getString("workout_zone");
             workoutDescription = extras.getString("workout_description");
+            videoPath = extras.getString("video");
+
 
         }
 
         //Creating the video view
         videoView = findViewById(R.id.video_Workout);
-        videoPath = "android.resource://" + getPackageName() + "/" + R.raw.push_ups;
+        //videoPath = "android.resource://" + getPackageName() + "/" + R.raw.flutter_kicks;
+        //videoPath = "android.resource://com.run.ultimate_fitness/raw/push_ups.mp4";
+
+        System.out.println(videoPath);
         uri = Uri.parse(videoPath);
         videoView.setVideoURI(uri);
         videoView.seekTo(400);
