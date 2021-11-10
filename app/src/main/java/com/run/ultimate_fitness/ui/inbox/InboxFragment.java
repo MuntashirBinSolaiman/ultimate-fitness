@@ -23,9 +23,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -33,15 +31,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.run.ultimate_fitness.R;
 import com.run.ultimate_fitness.WebPage;
-import com.run.ultimate_fitness.adapters.GymWorkoutsAdapter;
 import com.run.ultimate_fitness.adapters.workout_adapters.InboxAdapter;
-import com.run.ultimate_fitness.ui.workouts.WorkoutsModel;
 import com.run.ultimate_fitness.utils.Constants;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Iterator;
-import java.util.Set;
+import java.util.Map;
 
 public class InboxFragment extends Fragment {
 
@@ -63,6 +58,9 @@ public class InboxFragment extends Fragment {
 
     public DatabaseReference root, children;
     public Iterator i;
+    public int x = 1;
+    ArrayList<InboxModel> arrayList;
+
 
 
 
@@ -76,7 +74,7 @@ public class InboxFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_inbox, container, false);
 
         SharedPreferences sharedPreferences = getContext().getSharedPreferences(CREDENTIALS_PREFS,MODE_PRIVATE);
-        userUID = sharedPreferences.getString(USER_UID, "uid");
+        userUID = sharedPreferences.getString(USER_UID, "");
 
 
         bookingImage = view.findViewById(R.id.bookingsImage);
@@ -145,57 +143,92 @@ public class InboxFragment extends Fragment {
         chatsListView = view.findViewById(R.id.chatsListView);
 
 
-        ArrayList<InboxModel> arrayList = new ArrayList<>();
+        arrayList = new ArrayList<>();
 
         String temp_image = String.valueOf(R.drawable.ombati);
         //System.out.println(R.drawable.ombati);
 
-        arrayList.add(new InboxModel("", "Warona Mogolwane" ,"Hello Sir",StringToBitMap(temp_image)));
-
-        InboxAdapter inboxAdapter = new InboxAdapter(getContext(), R.layout.inbox_list_item,arrayList);
-        chatsListView.setAdapter(inboxAdapter);
 
 
 
 
 
 
-        //checkUser();
+
+        checkUser();
+        loadChat();
+
         loadImage();
         return view;
     }
 
-    private void updateChats(DataSnapshot snapshot) {
-        root = FirebaseDatabase.getInstance("https://ultimate-storm-default-rtdb.europe-west1.firebasedatabase.app").getReference().getRoot();
-        i = snapshot.getChildren().iterator();
-        while (i.hasNext()) {
-            String temp_child = (String) snapshot.getValue();
+    private void loadChat() {
+        root = FirebaseDatabase.getInstance("https://ultimate-storm-default-rtdb.europe-west1.firebasedatabase.app").getReference().child("users");
 
-            children = FirebaseDatabase.getInstance("https://ultimate-storm-default-rtdb.europe-west1.firebasedatabase.app").getReference().child(temp_child);
+        root.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
 
+                collectChats((Map<String,Object>) snapshot.getValue());
+            }
 
-            children.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });
-        }
+            }
+        });
     }
 
-    private void checkUser() {
-        if (userUID != Constants.MASTER_UID){
-            conversatonsCardView.setVisibility(View.VISIBLE);
-            chatsListView.setVisibility(View.GONE);
+    private void collectChats(Map<String, Object> users) {
+        ArrayList<String> images = new ArrayList<>();
+        ArrayList<String> names = new ArrayList<>();
+
+
+        //iterate through each user, ignoring their UID
+        for (Map.Entry<String, Object> entry : users.entrySet()){
+
+            //Get user map
+            Map singleUser = (Map) entry.getValue();
+            //Get phone field and append to list
+            images.add((String) singleUser.get("image"));
+            String temp_image =(String) singleUser.get("image");
+            names.add((String) singleUser.get("name"));
+            String temp_name =(String) singleUser.get("name");
+
+            arrayList.add(new InboxModel("", temp_name,
+                    "Hello Sir",StringToBitMap(temp_image)));
+
+
         }
-        else{
+        InboxAdapter inboxAdapter = new InboxAdapter(getContext(), R.layout.inbox_list_item,arrayList);
+        chatsListView.setAdapter(inboxAdapter);
+
+    }
+
+    public String chatMessage, chatName, temp_uid;
+
+    private void updateChats(DataSnapshot snapshot) {
+        i = snapshot.child("users").getChildren().iterator();
+        while (i.hasNext()){
+            System.out.println(x);
+            x++;
+            i.next();
+
+        }
+        }
+
+
+    private void checkUser() {
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences(CREDENTIALS_PREFS,MODE_PRIVATE);
+        userUID = sharedPreferences.getString(USER_UID, "");
+
+        if (userUID.equals(Constants.MASTER_UID)){
             conversatonsCardView.setVisibility(View.GONE);
             chatsListView.setVisibility(View.VISIBLE);
+        }
+        else{
+            conversatonsCardView.setVisibility(View.VISIBLE);
+            chatsListView.setVisibility(View.GONE);
 
         }
     }

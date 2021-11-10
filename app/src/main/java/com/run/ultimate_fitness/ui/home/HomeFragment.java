@@ -98,7 +98,7 @@ public class HomeFragment extends Fragment {
         sharedPreferences2 = getActivity().getApplicationContext().getSharedPreferences(CREDENTIALS_PREFS,MODE_PRIVATE);
         sharedPreferences3 = getActivity().getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
 
-        uid = sharedPreferences2.getString(USER_UID, "");
+        uid = sharedPreferences2.getString(USER_UID, null);
 
 
         homeViewModel =
@@ -282,26 +282,38 @@ public class HomeFragment extends Fragment {
 
     private void writeImageToFirebase() {
         boolean loggedIn = sharedPreferences3.getBoolean(IS_LOGGED_IN,false);
+        SharedPreferences.Editor editor = sharedPreferences3.edit();
+        editor.putBoolean(IS_LOGGED_IN,true);
+
 
         if(loggedIn == true) {
             if (isNetworkAvailable()) {
                 if (!uid.equals(Constants.MASTER_UID)) {
+
+                    uid = sharedPreferences2.getString(USER_UID, "");
+
+                    if (uid != "") {
                     try {
-                        root = FirebaseDatabase.getInstance("https://ultimate-storm-default-rtdb.europe-west1.firebasedatabase.app")
-                                .getReference()
-                                .child("users")
-                                .child(uid);
-
-                        DatabaseReference message_root = root;
-                        Map<String, Object> map = new HashMap<String, Object>();
-                        map.put("name", fullname);
-                        map.put("image", picture);
 
 
-                        message_root.updateChildren(map);
-                    } catch (Exception e) {
+
+
+                            root = FirebaseDatabase.getInstance("https://ultimate-storm-default-rtdb.europe-west1.firebasedatabase.app")
+                                    .getReference()
+                                    .child("users")
+                                    .child(uid);
+
+                            DatabaseReference message_root = root;
+                            Map<String, Object> map = new HashMap<String, Object>();
+                            map.put("name", fullname);
+                            map.put("image", picture);
+
+
+                            message_root.updateChildren(map);
+                        } catch(Exception e){
+                        }
+
                     }
-
                 }
             }
         }
