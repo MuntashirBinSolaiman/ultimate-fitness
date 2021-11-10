@@ -109,6 +109,8 @@ public class SignUpInformation extends AppCompatActivity {
         temp_key = root.push().getKey();
         map1.put("name", temp_fullName);
         map1.put("image", picture);
+        map1.put("uid", uid);
+
 
         root.updateChildren(map1);
 

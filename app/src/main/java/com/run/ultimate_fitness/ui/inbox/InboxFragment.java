@@ -192,11 +192,16 @@ public class InboxFragment extends Fragment {
             //Get phone field and append to list
             images.add((String) singleUser.get("image"));
             String temp_image =(String) singleUser.get("image");
-            names.add((String) singleUser.get("name"));
+            images.add((String) singleUser.get("image"));
+            String temp_message =(String) singleUser.get("message");
+            names.add((String) singleUser.get("message"));
             String temp_name =(String) singleUser.get("name");
+            names.add((String) singleUser.get("uid"));
+            String uid =(String) singleUser.get("uid");
 
-            arrayList.add(new InboxModel("", temp_name,
-                    "Hello Sir",StringToBitMap(temp_image)));
+
+            arrayList.add(new InboxModel(uid, temp_name,
+                    temp_message,StringToBitMap(temp_image)));
 
 
         }

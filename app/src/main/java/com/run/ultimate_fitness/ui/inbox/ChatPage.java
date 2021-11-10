@@ -61,7 +61,7 @@ public class ChatPage extends AppCompatActivity {
 
     public String uid ="";
 
-    public  DatabaseReference root;
+    public  DatabaseReference root, root2;
     public Iterator i;
     public boolean x = false;
 
@@ -136,7 +136,7 @@ public class ChatPage extends AppCompatActivity {
     }
 
     private void loadChat() {
-        root = FirebaseDatabase.getInstance("https://ultimate-storm-default-rtdb.europe-west1.firebasedatabase.app").getReference().child("lHRkYjOj2YNQnK4NNIPHw4nO8pg1");
+        root = FirebaseDatabase.getInstance("https://ultimate-storm-default-rtdb.europe-west1.firebasedatabase.app").getReference().getRoot().child("users").child(uid).child("chat");
 
         root.addChildEventListener(new ChildEventListener() {
             @Override
@@ -242,6 +242,22 @@ public class ChatPage extends AppCompatActivity {
         map2.put("uid", uid);
 
         message_root.updateChildren(map2);
+
+        addLastMessage();
+
+    }
+
+    private void addLastMessage() {
+        root2 = FirebaseDatabase.getInstance("https://ultimate-storm-default-rtdb.europe-west1.firebasedatabase.app")
+                .getReference()
+                .child("users")
+                .child(uid);
+
+        DatabaseReference message_root = root2;
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("message", messageText);
+        message_root.updateChildren(map);
+
 
     }
 

@@ -307,9 +307,11 @@ public class HomeFragment extends Fragment {
                             Map<String, Object> map = new HashMap<String, Object>();
                             map.put("name", fullname);
                             map.put("image", picture);
+                            map.put("uid", uid);
 
 
-                            message_root.updateChildren(map);
+
+                        message_root.updateChildren(map);
                         } catch(Exception e){
                         }
 
