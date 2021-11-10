@@ -1,4 +1,4 @@
-package com.run.ultimate_fitness.adapters;
+package com.run.ultimate_fitness.adapters.workout_adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,16 +12,16 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.run.ultimate_fitness.R;
-import com.run.ultimate_fitness.ui.workouts.WorkoutsModel;
+import com.run.ultimate_fitness.ui.inbox.InboxModel;
 
 import java.util.ArrayList;
 
-public class GymWorkoutsAdapter extends ArrayAdapter<WorkoutsModel> {
+public class InboxAdapter extends ArrayAdapter<InboxModel> {
 
     private Context mContext;
     private int mResource;
 
-    public GymWorkoutsAdapter(@NonNull Context context, int resource, @NonNull ArrayList<WorkoutsModel> objects) {
+    public InboxAdapter(@NonNull Context context, int resource, @NonNull ArrayList<InboxModel> objects) {
         super(context, resource, objects);
 
         this.mContext = context;
@@ -36,14 +36,16 @@ public class GymWorkoutsAdapter extends ArrayAdapter<WorkoutsModel> {
 
         convertView = layoutInflater.inflate(mResource,parent,false);
 
-        ImageView workoutImage = convertView.findViewById(R.id.imgGymWorkouts);
-        TextView workoutName = convertView.findViewById(R.id.txtChatName);
-        TextView workoutZone = convertView.findViewById(R.id.txtWorkoutZone);
+        ImageView chatImage = convertView.findViewById(R.id.avatarImageView);
+        TextView chatName = convertView.findViewById(R.id.userNameTextView);
+        TextView chatMessage = convertView.findViewById(R.id.messageTextView);
 
 
-        workoutName.setText(getItem(position).getWorkout_name());
-        workoutZone.setText(getItem(position).getWorkout_zone());
-        workoutImage.setImageResource(getItem(position).getWorkout_image());
+
+        chatName.setText(getItem(position).getName());
+        chatMessage.setText(getItem(position).getMessage());
+        chatImage.setImageBitmap(getItem(position).getImage());
+
 
 
 

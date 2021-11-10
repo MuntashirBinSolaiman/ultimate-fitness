@@ -192,7 +192,7 @@
                     android:layout_marginLeft="25dp"
                     android:hint="Tap here"
                     android:importantForAutofill="no"
-                    android:maxLength="3"
+                    android:maxLength="4"
                     android:inputType="numberDecimal"
                     android:textColor="@color/darker_grey"
                     android:textSize="18dp"
@@ -235,7 +235,7 @@
                     android:layout_marginLeft="25dp"
                     android:hint="Tap here"
                     android:textColor="@color/darker_grey"
-                    android:maxLength="5"
+                    android:maxLength="6"
                     android:textSize="18dp"
                     android:inputType="numberDecimal"/>
             </LinearLayout>

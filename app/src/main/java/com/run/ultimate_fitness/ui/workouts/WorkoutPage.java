@@ -2,8 +2,11 @@ package com.run.ultimate_fitness.ui.workouts;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.MediaController;
 import android.widget.TextView;
 import android.widget.VideoView;
@@ -13,9 +16,11 @@ import com.run.ultimate_fitness.R;
 public class WorkoutPage extends AppCompatActivity {
 
     private VideoView videoView;
+    public ImageButton iconBack;
     private String videoPath;
     private Uri uri;
     private MediaController mediaController;
+    private MediaPlayer mediaPlayer;
     private TextView txtWorkoutName, txtWorkoutZone, txtWorkoutDescription;
 
     String workoutName, workoutZone, workoutDescription;
@@ -36,10 +41,12 @@ public class WorkoutPage extends AppCompatActivity {
 
         }
 
+        iconBack = (ImageButton) findViewById(R.id.iconBack);
+
+
+
         //Creating the video view
         videoView = findViewById(R.id.video_Workout);
-        //videoPath = "android.resource://" + getPackageName() + "/" + R.raw.flutter_kicks;
-        //videoPath = "android.resource://com.run.ultimate_fitness/raw/push_ups.mp4";
 
         System.out.println(videoPath);
         uri = Uri.parse(videoPath);
@@ -62,5 +69,11 @@ public class WorkoutPage extends AppCompatActivity {
         txtWorkoutDescription.setText(workoutDescription);
 
 
+    }
+
+
+
+    public void goBack(View view) {
+        onBackPressed();
     }
 }

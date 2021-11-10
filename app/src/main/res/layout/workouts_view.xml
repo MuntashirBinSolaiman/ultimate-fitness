@@ -45,10 +45,10 @@
                 android:textStyle="bold"
                 android:paddingLeft="10dp"
                 app:layout_constraintStart_toStartOf="@+id/img_workout"
-                app:layout_constraintBottom_toTopOf="@id/txtWorkoutName"/>
+                app:layout_constraintBottom_toTopOf="@id/txtChatName"/>
 
             <TextView
-                android:id="@+id/txtWorkoutName"
+                android:id="@+id/txtChatName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="10dp"
@@ -59,13 +59,6 @@
                 app:layout_constraintBottom_toBottomOf="@id/img_workout"
                 app:layout_constraintStart_toStartOf="@+id/img_workout"/>
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_more"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:tint="@color/white" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

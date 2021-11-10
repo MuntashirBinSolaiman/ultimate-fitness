@@ -225,7 +225,11 @@ public class ChatPage extends AppCompatActivity {
 
 
     private void sendFirebaseMessage() {
-        root = FirebaseDatabase.getInstance("https://ultimate-storm-default-rtdb.europe-west1.firebasedatabase.app").getReference().child("lHRkYjOj2YNQnK4NNIPHw4nO8pg1");
+        root = FirebaseDatabase.getInstance("https://ultimate-storm-default-rtdb.europe-west1.firebasedatabase.app")
+                .getReference()
+                .child("users")
+                .child(uid)
+                .child("chat");
 
         Map<String,Object> map1 = new HashMap<String, Object>();
         temp_key = root.push().getKey();

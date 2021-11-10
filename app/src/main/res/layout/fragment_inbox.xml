@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:chatview="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.inbox.InboxFragment">
+    tools:context=".ui.inbox.InboxFragment"
+    android:orientation="vertical">
 
     <include layout="@layout/topbar"
         android:id="@+id/topBarLayout"/>
@@ -14,7 +15,6 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/conversatonsCardView"
         android:layout_width="match_parent"
-        android:layout_below="@id/topBarLayout"
         android:layout_height="wrap_content">
     <RelativeLayout
         android:id="@+id/conversationLayout"
@@ -30,27 +30,33 @@
             android:src="@drawable/ultimate_fitness" />
 
         <TextView
-            android:text="Ultimate Fitness"
             android:id="@+id/userNameTextView"
-            android:textSize="17dp"
-            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_toRightOf="@id/avatarImageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:text="Ultimate Fitness"
+            android:textSize="17dp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/messageTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
             android:layout_below="@id/userNameTextView"
+            android:layout_marginTop="5dp"
             android:layout_toRightOf="@id/avatarImageView"
-            android:textColor="@color/darker_grey"
             android:text="Welcome to Ultimate Fitness"
+            android:textColor="@color/darker_grey"
             android:textSize="15dp" />
 
 
     </RelativeLayout>
     </androidx.cardview.widget.CardView>
-</RelativeLayout>
+    <ListView
+        android:id="@+id/chatsListView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:listheader="Chats"
+        android:layout_marginBottom="?attr/actionBarSize"/>
+</LinearLayout>

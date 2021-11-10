@@ -3,8 +3,6 @@ package com.run.ultimate_fitness.ui.workouts;
 import static android.content.ContentValues.TAG;
 import static android.content.Context.MODE_PRIVATE;
 
-import androidx.lifecycle.ViewModelProvider;
-
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -13,7 +11,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -71,8 +68,6 @@ public class WorkoutsFragment extends Fragment implements AbsWorkoutsAdapter.OnW
     private String videoPath;
 
 
-    private WorkoutsViewModel mViewModel;
-
     public static WorkoutsFragment newInstance() {
         return new WorkoutsFragment();
     }
@@ -84,7 +79,6 @@ public class WorkoutsFragment extends Fragment implements AbsWorkoutsAdapter.OnW
 
         sharedPreferences = getActivity().getApplicationContext().getSharedPreferences(VISIBLE_ZONE_PREFS,MODE_PRIVATE);
         zoneAbs = sharedPreferences.getString(ZONE_ABS, "VISIBLE");
-        imgHideAbsWorkouts = view.findViewById(R.id.hide_Arrow);
 
         recyclerViewAbs = view.findViewById(R.id.RvAbs_workouts);
         recyclerViewBack = view.findViewById(R.id.RvBack_workouts);
@@ -132,15 +126,6 @@ public class WorkoutsFragment extends Fragment implements AbsWorkoutsAdapter.OnW
 
         });
 
-
-
-
-        imgHideAbsWorkouts.setOnClickListener(v ->{
-
-            changeVisibility();
-
-
-        });
 
 
         loadImage();
@@ -885,15 +870,6 @@ public class WorkoutsFragment extends Fragment implements AbsWorkoutsAdapter.OnW
 //        return upper_BodyWorkoutsList;
 //    }
 
-
-
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(WorkoutsViewModel.class);
-        // TODO: Use the ViewModel
-    }
 
     public Bitmap StringToBitMap(String encodedString){
         try {

@@ -53,6 +53,7 @@ public class HomeFragment extends Fragment {
     private ProgressBar progressBar;
 
     public static final String USER_PREFS ="userPrefs";
+    public static final String IS_LOGGED_IN ="isLoggedIn";
     public static final String PICTURE ="picture";
     public static final String FIRST_NAME ="firstName";
     public static final String LAST_NAME ="lastName";
@@ -87,13 +88,15 @@ public class HomeFragment extends Fragment {
     private TextView stepsTakenText, caloriesEatenText;
     public String uid;
 
-    SharedPreferences sharedPreferences, sharedPreferences2;
+    SharedPreferences sharedPreferences, sharedPreferences2,sharedPreferences3;
+    public String fullname;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         sharedPreferences = getActivity().getApplicationContext().getSharedPreferences(GOALS_PREFS,MODE_PRIVATE);
         sharedPreferences2 = getActivity().getApplicationContext().getSharedPreferences(CREDENTIALS_PREFS,MODE_PRIVATE);
+        sharedPreferences3 = getActivity().getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
 
         uid = sharedPreferences2.getString(USER_UID, "");
 
@@ -278,21 +281,28 @@ public class HomeFragment extends Fragment {
     }
 
     private void writeImageToFirebase() {
+        boolean loggedIn = sharedPreferences3.getBoolean(IS_LOGGED_IN,false);
 
-        if (isNetworkAvailable()) {
-            if (!uid.equals(Constants.MASTER_UID)) {
-                try {
-                    root = FirebaseDatabase.getInstance("https://ultimate-storm-default-rtdb.europe-west1.firebasedatabase.app").getReference().child(uid);
+        if(loggedIn == true) {
+            if (isNetworkAvailable()) {
+                if (!uid.equals(Constants.MASTER_UID)) {
+                    try {
+                        root = FirebaseDatabase.getInstance("https://ultimate-storm-default-rtdb.europe-west1.firebasedatabase.app")
+                                .getReference()
+                                .child("users")
+                                .child(uid);
 
-                    DatabaseReference message_root = root;
-                    Map<String, Object> map = new HashMap<String, Object>();
-                    map.put("image", picture);
-                    map.put("name", "Warona Mogolwane");
+                        DatabaseReference message_root = root;
+                        Map<String, Object> map = new HashMap<String, Object>();
+                        map.put("name", fullname);
+                        map.put("image", picture);
 
-                    message_root.updateChildren(map);
-                } catch (Exception e) {
+
+                        message_root.updateChildren(map);
+                    } catch (Exception e) {
+                    }
+
                 }
-
             }
         }
 
@@ -326,6 +336,7 @@ public class HomeFragment extends Fragment {
 
 
         userName.setText("Welcome, " + firstName);
+        fullname = firstName + " " + lastName;
 
         profilePicImage.setImageBitmap(StringToBitMap(picture));
     }

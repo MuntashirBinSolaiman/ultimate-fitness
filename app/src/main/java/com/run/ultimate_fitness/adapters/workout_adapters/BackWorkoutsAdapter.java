@@ -61,7 +61,7 @@ public class BackWorkoutsAdapter extends RecyclerView.Adapter<BackWorkoutsAdapte
             super(itemView);
 
             workoutImage = itemView.findViewById(R.id.img_workout);
-            txtWorkoutName = itemView.findViewById(R.id.txtWorkoutName);
+            txtWorkoutName = itemView.findViewById(R.id.txtChatName);
             txtWorkoutZone = itemView.findViewById(R.id.txtWorkoutZone);
             this.onWorkoutListener = onWorkoutListener;
 

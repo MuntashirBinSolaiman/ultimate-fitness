@@ -102,11 +102,11 @@ public class SignUpInformation extends AppCompatActivity {
     }
 
     private void initChat() {
-        root = FirebaseDatabase.getInstance("https://ultimate-storm-default-rtdb.europe-west1.firebasedatabase.app").getReference();
+        root = FirebaseDatabase.getInstance("https://ultimate-storm-default-rtdb.europe-west1.firebasedatabase.app").getReference().child("users").child(uid);
 
         Map<String,Object> map1 = new HashMap<String, Object>();
         temp_key = root.push().getKey();
-        map1.put(uid, "");
+        map1.put("name", "");
         root.updateChildren(map1);
 
     }

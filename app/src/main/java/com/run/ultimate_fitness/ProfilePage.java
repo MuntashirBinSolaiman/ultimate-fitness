@@ -26,6 +26,7 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class ProfilePage extends AppCompatActivity {
@@ -172,6 +173,17 @@ public class ProfilePage extends AppCompatActivity {
         editor.apply();
     }
 
+    private void clearRTDB(){
+
+        String temp_uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        FirebaseDatabase.getInstance("https://ultimate-storm-default-rtdb.europe-west1.firebasedatabase.app")
+                .getReference()
+                .child("users")
+                .child(temp_uid)
+                .removeValue();
+
+    }
+
     private void clearAuth(){
         SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(CREDENTIALS_PREFS,MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -200,6 +212,7 @@ public class ProfilePage extends AppCompatActivity {
                             public void onComplete(@NonNull Task<Void> task) {
                                 if(task.isSuccessful()){
                                     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                                    clearRTDB();
                                     user.delete()
                                             .addOnCompleteListener(new OnCompleteListener<Void>() {
                                                 @Override

@@ -14,27 +14,34 @@ import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.widget.CalendarView;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.RecyclerView;
 
-import com.run.ultimate_fitness.EditProfile;
-import com.run.ultimate_fitness.MainActivity;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.run.ultimate_fitness.R;
 import com.run.ultimate_fitness.WebPage;
-import com.run.ultimate_fitness.ui.workouts.WorkoutsViewModel;
+import com.run.ultimate_fitness.adapters.GymWorkoutsAdapter;
+import com.run.ultimate_fitness.adapters.workout_adapters.InboxAdapter;
+import com.run.ultimate_fitness.ui.workouts.WorkoutsModel;
+import com.run.ultimate_fitness.utils.Constants;
 
-import co.intentservice.chatui.ChatView;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 public class InboxFragment extends Fragment {
 
@@ -47,9 +54,17 @@ public class InboxFragment extends Fragment {
     private TextView userName;
     private ProgressBar progressBar;
 
-    private InboxViewModel mViewModel;
+    public static final String CREDENTIALS_PREFS = "credentials";
+    public static final String USER_UID = "uid";
 
     private CardView conversatonsCardView;
+    public ListView chatsListView;
+    private String userUID;
+
+    public DatabaseReference root, children;
+    public Iterator i;
+
+
 
     public static InboxFragment newInstance() {
         return new InboxFragment();
@@ -59,6 +74,10 @@ public class InboxFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_inbox, container, false);
+
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences(CREDENTIALS_PREFS,MODE_PRIVATE);
+        userUID = sharedPreferences.getString(USER_UID, "uid");
+
 
         bookingImage = view.findViewById(R.id.bookingsImage);
         progressBar = view.findViewById(R.id.topBarProgress);
@@ -123,19 +142,64 @@ public class InboxFragment extends Fragment {
             }
         });
 
+        chatsListView = view.findViewById(R.id.chatsListView);
 
+
+        ArrayList<InboxModel> arrayList = new ArrayList<>();
+
+        String temp_image = String.valueOf(R.drawable.ombati);
+        //System.out.println(R.drawable.ombati);
+
+        arrayList.add(new InboxModel("", "Warona Mogolwane" ,"Hello Sir",StringToBitMap(temp_image)));
+
+        InboxAdapter inboxAdapter = new InboxAdapter(getContext(), R.layout.inbox_list_item,arrayList);
+        chatsListView.setAdapter(inboxAdapter);
+
+
+
+
+
+
+        //checkUser();
         loadImage();
         return view;
     }
 
+    private void updateChats(DataSnapshot snapshot) {
+        root = FirebaseDatabase.getInstance("https://ultimate-storm-default-rtdb.europe-west1.firebasedatabase.app").getReference().getRoot();
+        i = snapshot.getChildren().iterator();
+        while (i.hasNext()) {
+            String temp_child = (String) snapshot.getValue();
+
+            children = FirebaseDatabase.getInstance("https://ultimate-storm-default-rtdb.europe-west1.firebasedatabase.app").getReference().child(temp_child);
 
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(InboxViewModel.class);
-        // TODO: Use the ViewModel
+            children.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        }
     }
+
+    private void checkUser() {
+        if (userUID != Constants.MASTER_UID){
+            conversatonsCardView.setVisibility(View.VISIBLE);
+            chatsListView.setVisibility(View.GONE);
+        }
+        else{
+            conversatonsCardView.setVisibility(View.GONE);
+            chatsListView.setVisibility(View.VISIBLE);
+
+        }
+    }
+
 
     @Override
     public void onResume() {
@@ -176,4 +240,6 @@ public class InboxFragment extends Fragment {
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
+
+
 }
