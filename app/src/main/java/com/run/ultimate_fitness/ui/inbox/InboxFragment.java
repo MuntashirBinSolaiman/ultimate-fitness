@@ -14,6 +14,7 @@ import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -32,6 +33,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.run.ultimate_fitness.R;
 import com.run.ultimate_fitness.WebPage;
 import com.run.ultimate_fitness.adapters.workout_adapters.InboxAdapter;
+import com.run.ultimate_fitness.ui.workouts.WorkoutPage;
 import com.run.ultimate_fitness.utils.Constants;
 
 import java.util.ArrayList;
@@ -60,6 +62,8 @@ public class InboxFragment extends Fragment {
     public Iterator i;
     public int x = 1;
     ArrayList<InboxModel> arrayList;
+    public ArrayList<String> uids;
+    public String client_uid;
 
 
 
@@ -159,6 +163,24 @@ public class InboxFragment extends Fragment {
         loadChat();
 
         loadImage();
+        chatsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                int index = position;
+                Bundle mBundle = new Bundle();
+                client_uid = uids.get(index).toString();
+
+                mBundle.putString("client_uid", client_uid);
+                Intent intent = new Intent(getContext(), ChatPage.class);
+
+                intent.putExtra("client_uid", client_uid);
+
+                startActivity(intent);
+
+
+
+            }
+        });
         return view;
     }
 
@@ -182,6 +204,7 @@ public class InboxFragment extends Fragment {
     private void collectChats(Map<String, Object> users) {
         ArrayList<String> images = new ArrayList<>();
         ArrayList<String> names = new ArrayList<>();
+        uids = new ArrayList<>();
 
 
         //iterate through each user, ignoring their UID
@@ -196,7 +219,7 @@ public class InboxFragment extends Fragment {
             String temp_message =(String) singleUser.get("message");
             names.add((String) singleUser.get("message"));
             String temp_name =(String) singleUser.get("name");
-            names.add((String) singleUser.get("uid"));
+            uids.add((String) singleUser.get("uid"));
             String uid =(String) singleUser.get("uid");
 
 

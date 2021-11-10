@@ -37,8 +37,6 @@ public class WorkoutPage extends AppCompatActivity {
             workoutZone = extras.getString("workout_zone");
             workoutDescription = extras.getString("workout_description");
             videoPath = extras.getString("video");
-
-
         }
 
         iconBack = (ImageButton) findViewById(R.id.iconBack);

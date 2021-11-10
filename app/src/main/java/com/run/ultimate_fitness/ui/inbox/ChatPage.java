@@ -58,12 +58,14 @@ public class ChatPage extends AppCompatActivity {
     public String userUID;
     private String temp_key;
     TextView txtUsername;
+    public String temp_clientUID;
 
     public String uid ="";
 
     public  DatabaseReference root, root2;
     public Iterator i;
     public boolean x = false;
+    public String clientUID;
 
 
     @Override
@@ -83,14 +85,26 @@ public class ChatPage extends AppCompatActivity {
         setContentView(R.layout.activity_chat_page);
         getSupportActionBar().hide();
 
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(CREDENTIALS_PREFS,MODE_PRIVATE);
+        userUID = sharedPreferences.getString(USER_UID, "uid");
+
         uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        Bundle mbundle = getIntent().getExtras();
+        if (!userUID.equals(Constants.MASTER_UID)){
+            clientUID = uid;
+        }
+          else{
+            temp_clientUID = mbundle.getString("client_uid");
+            clientUID = temp_clientUID;
+
+        }
+
+
 
 
         profilePicImage = findViewById(R.id.icon_user);
 
 
-        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(CREDENTIALS_PREFS,MODE_PRIVATE);
-        userUID = sharedPreferences.getString(USER_UID, "uid");
 
 
 
@@ -136,7 +150,7 @@ public class ChatPage extends AppCompatActivity {
     }
 
     private void loadChat() {
-        root = FirebaseDatabase.getInstance("https://ultimate-storm-default-rtdb.europe-west1.firebasedatabase.app").getReference().getRoot().child("users").child(uid).child("chat");
+        root = FirebaseDatabase.getInstance("https://ultimate-storm-default-rtdb.europe-west1.firebasedatabase.app").getReference().getRoot().child("users").child(clientUID).child("chat");
 
         root.addChildEventListener(new ChildEventListener() {
             @Override
@@ -225,6 +239,10 @@ public class ChatPage extends AppCompatActivity {
 
 
     private void sendFirebaseMessage() {
+        if (uid.equals(Constants.MASTER_UID)){
+            uid = clientUID;
+        }
+
         root = FirebaseDatabase.getInstance("https://ultimate-storm-default-rtdb.europe-west1.firebasedatabase.app")
                 .getReference()
                 .child("users")
@@ -263,7 +281,7 @@ public class ChatPage extends AppCompatActivity {
 
     public  void loadImage() {
 
-        root = FirebaseDatabase.getInstance("https://ultimate-storm-default-rtdb.europe-west1.firebasedatabase.app").getReference().child("lHRkYjOj2YNQnK4NNIPHw4nO8pg1");
+        root = FirebaseDatabase.getInstance("https://ultimate-storm-default-rtdb.europe-west1.firebasedatabase.app").getReference().getRoot().child("users").child(clientUID);
 
         SharedPreferences sharedPreferences = this.getApplicationContext().getSharedPreferences(USER_PREFS, MODE_PRIVATE);
         firstName = sharedPreferences.getString(FIRST_NAME, "");
@@ -273,7 +291,6 @@ public class ChatPage extends AppCompatActivity {
 
         if (uid.equals("69wADqnIpqYUnmidwcZwaO5F8RL2")) {
             profilePicImage.setImageBitmap(StringToBitMap(picture));
-
 
             root.addValueEventListener(new ValueEventListener() {
                 @Override
