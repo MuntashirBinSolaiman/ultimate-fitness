@@ -46,7 +46,8 @@
             android:layout_below="@id/tv1"
             android:padding="10dp"
             android:text="@string/android_steps_tracked"
-            android:textSize="17sp" />
+            android:textSize="17sp"
+            android:visibility="gone"/>
 
         <!-- Use weights to split the screen in half -->
         <com.jjoe64.graphview.GraphView

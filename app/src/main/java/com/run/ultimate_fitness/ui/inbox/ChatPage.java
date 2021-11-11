@@ -52,6 +52,11 @@ public class ChatPage extends AppCompatActivity {
     public static final String FIRST_NAME ="firstName";
     public static final String LAST_NAME ="lastName";
 
+    public static final String CHAT_PREFS ="chatPrefs";
+    public static final String IS_UPDATING = "isUpdating";
+
+
+
 
     public static final String CREDENTIALS_PREFS = "credentials";
     public static final String USER_UID = "uid";
@@ -64,8 +69,11 @@ public class ChatPage extends AppCompatActivity {
 
     public  DatabaseReference root, root2;
     public Iterator i;
-    public boolean x = false;
+    public boolean x;
     public String clientUID;
+    public int message_count;
+
+    SharedPreferences updateChat, sharedPreferences;
 
 
     @Override
@@ -85,8 +93,11 @@ public class ChatPage extends AppCompatActivity {
         setContentView(R.layout.activity_chat_page);
         getSupportActionBar().hide();
 
-        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(CREDENTIALS_PREFS,MODE_PRIVATE);
+        sharedPreferences = getApplicationContext().getSharedPreferences(CREDENTIALS_PREFS,MODE_PRIVATE);
         userUID = sharedPreferences.getString(USER_UID, "uid");
+
+        checkIfUpdating();
+
 
         uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         Bundle mbundle = getIntent().getExtras();
@@ -96,46 +107,21 @@ public class ChatPage extends AppCompatActivity {
           else{
             temp_clientUID = mbundle.getString("client_uid");
             clientUID = temp_clientUID;
-
         }
-
-
-
 
         profilePicImage = findViewById(R.id.icon_user);
 
-
-
-
-
-
         chatView = (ChatView) findViewById(R.id.chat_view);
         txtUsername = (TextView) findViewById(R.id.txtUsername);
-
 
         chatView.setOnSentMessageListener(new ChatView.OnSentMessageListener(){
             @Override
             public boolean sendMessage(ChatMessage chatMessage){
                 // perform actual message sending
+                checkIfSending();
+
                 messageText = chatView.getTypedMessage();
-
-
-                x = true;
-
                 sendFirebaseMessage();
-
-                root.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                        //String image = snapshot.child("image").getValue().toString();
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
 
 
                 return true;
@@ -149,6 +135,24 @@ public class ChatPage extends AppCompatActivity {
 
     }
 
+    private void checkIfUpdating() {
+        updateChat = getApplicationContext().getSharedPreferences(CHAT_PREFS,MODE_PRIVATE);
+        SharedPreferences.Editor editor = updateChat.edit();
+        editor.putBoolean(IS_UPDATING, false);
+        editor.apply();
+        x=false;
+    }
+    private void checkIfSending() {
+
+        updateChat = getApplicationContext().getSharedPreferences(CHAT_PREFS,MODE_PRIVATE);
+        SharedPreferences.Editor editor = updateChat.edit();
+        editor.putBoolean(IS_UPDATING, true);
+        editor.apply();
+        x=true;
+
+    }
+
+
     private void loadChat() {
         root = FirebaseDatabase.getInstance("https://ultimate-storm-default-rtdb.europe-west1.firebasedatabase.app").getReference().getRoot().child("users").child(clientUID).child("chat");
 
@@ -157,7 +161,6 @@ public class ChatPage extends AppCompatActivity {
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
 
                 picture = (String) snapshot.child("image").getValue();
-
                 updateChatConversation(snapshot);
 
 
@@ -165,7 +168,6 @@ public class ChatPage extends AppCompatActivity {
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
                 updateChatConversation(snapshot);
 
             }
@@ -189,56 +191,48 @@ public class ChatPage extends AppCompatActivity {
     }
 
     public String chatMessage, userName, temp_uid;
+    public long timestamp;
 
     private void updateChatConversation(DataSnapshot snapshot) {
 
 
-        i = snapshot.getChildren().iterator();
-        while (i.hasNext()){
-
-
-
-            chatMessage = (String) ((DataSnapshot)i.next()).getValue();
-            userName = (String) ((DataSnapshot)i.next()).getValue();
-           temp_uid = (String) ((DataSnapshot)i.next()).getValue();
-
-            if (temp_uid.equals(uid)){
-                if (x == false) {
-                    chatView.addMessage(new ChatMessage(chatMessage, System.currentTimeMillis(), ChatMessage.Type.SENT));
-                }
-            }
-
-            if (!temp_uid.equals(uid)) {
-                chatView.addMessage(new ChatMessage(chatMessage, System.currentTimeMillis(), ChatMessage.Type.RECEIVED));
-            }
-
-
-        }
-
-
-    }
-    private void receiveChatConversation(DataSnapshot snapshot) {
 
         i = snapshot.getChildren().iterator();
         while (i.hasNext()){
 
 
+            System.out.println(System.currentTimeMillis());
 
             chatMessage = (String) ((DataSnapshot)i.next()).getValue();
             userName = (String) ((DataSnapshot)i.next()).getValue();
+            timestamp = (Long) ((DataSnapshot)i.next()).getValue();
             temp_uid = (String) ((DataSnapshot)i.next()).getValue();
 
 
-            if (!temp_uid.equals(uid)) {
-                chatView.addMessage(new ChatMessage(chatMessage, System.currentTimeMillis(), ChatMessage.Type.RECEIVED));
+            if (x == false) {
+
+                if (userName.equals(fullName)) {
+                    chatView.addMessage(new ChatMessage(chatMessage, timestamp, ChatMessage.Type.SENT));
+
+                }
+                    else {
+                        chatView.addMessage(new ChatMessage(chatMessage, timestamp, ChatMessage.Type.RECEIVED));
+
+
+                }
             }
 
-
+            x=false;
         }
+
+
+        message_count = (int) snapshot.getChildrenCount();
     }
 
 
+
     private void sendFirebaseMessage() {
+
         if (uid.equals(Constants.MASTER_UID)){
             uid = clientUID;
         }
@@ -253,11 +247,14 @@ public class ChatPage extends AppCompatActivity {
         temp_key = root.push().getKey();
         root.updateChildren(map1);
 
+        String myUID = FirebaseAuth.getInstance().getCurrentUser().getUid();
         DatabaseReference message_root = root.child(temp_key);
         Map<String,Object> map2 = new HashMap<String,Object>();
         map2.put("name", fullName);
         map2.put("message", messageText);
-        map2.put("uid", uid);
+        map2.put("uid", myUID);
+        map2.put("timestamp", System.currentTimeMillis());
+
 
         message_root.updateChildren(map2);
 
@@ -274,6 +271,7 @@ public class ChatPage extends AppCompatActivity {
         DatabaseReference message_root = root2;
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("message", messageText);
+        map.put("lastUID", userUID);
         message_root.updateChildren(map);
 
 
@@ -289,7 +287,7 @@ public class ChatPage extends AppCompatActivity {
         fullName = firstName + " " + lastName;
 
 
-        if (uid.equals("69wADqnIpqYUnmidwcZwaO5F8RL2")) {
+        if (uid.equals(Constants.MASTER_UID)) {
             profilePicImage.setImageBitmap(StringToBitMap(picture));
 
             root.addValueEventListener(new ValueEventListener() {
