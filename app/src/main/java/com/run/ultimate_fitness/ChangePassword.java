@@ -56,6 +56,10 @@ public class ChangePassword extends AppCompatActivity {
         toolDisplay.setText("Change Password");
         toolLogout.setVisibility(View.GONE);
 
+        forgotPasswordButton.setVisibility(View.VISIBLE);
+        updateButton.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.GONE);
+
         backButtonImage.setOnClickListener(v -> {
             Intent intent = new Intent(ChangePassword.this, ProfilePage.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -96,7 +100,7 @@ public class ChangePassword extends AppCompatActivity {
 
     //Navigates to forgot password page
     public void forgotPassword(View view){
-        Intent intent = new Intent(this, EmailSignUp.class);
+        Intent intent = new Intent(this, ForgotPassword.class);
         forgotPasswordButton.setVisibility(View.GONE);
         updateButton.setVisibility(View.GONE);
         progressBar.setVisibility(View.VISIBLE);
