@@ -18,7 +18,7 @@ public class Splash_Screen extends AppCompatActivity {
     private ImageView img_U,img_F,img_Ultimate,img_Fitness;
     private Animation leftAnimation,rightAnimation,bottomAnimation, bottomAnimation2;
 
-    private static int SPLASH_SCREEN = 3000;
+    private static int SPLASH_SCREEN = 2000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

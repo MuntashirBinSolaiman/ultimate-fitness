@@ -280,24 +280,21 @@ public class HomeFragment extends Fragment {
         return root;
     }
 
+    //Writes image to Firebase RTDB for the Admin to read
     private void writeImageToFirebase() {
-        boolean loggedIn = sharedPreferences3.getBoolean(IS_LOGGED_IN,false);
+        boolean loggedIn = sharedPreferences3.getBoolean(IS_LOGGED_IN, false);
         SharedPreferences.Editor editor = sharedPreferences3.edit();
-        editor.putBoolean(IS_LOGGED_IN,true);
+        editor.putBoolean(IS_LOGGED_IN, true);
 
-
-        if(loggedIn == true) {
+        if (loggedIn == true) {
             if (isNetworkAvailable()) {
                 if (!uid.equals(Constants.MASTER_UID)) {
 
                     uid = sharedPreferences2.getString(USER_UID, "");
 
                     if (uid != "") {
-                    try {
-
-
-
-
+                        try {
+                            //Sets the the root to a specific child in the Firebase RTDB
                             root = FirebaseDatabase.getInstance("https://ultimate-storm-default-rtdb.europe-west1.firebasedatabase.app")
                                     .getReference()
                                     .child("users")
@@ -305,22 +302,17 @@ public class HomeFragment extends Fragment {
 
                             DatabaseReference message_root = root;
                             Map<String, Object> map = new HashMap<String, Object>();
+                            //Writes these strings into the RTDB
                             map.put("name", fullname);
                             map.put("image", picture);
                             map.put("uid", uid);
 
-
-
-                        message_root.updateChildren(map);
-                        } catch(Exception e){
-                        }
-
+                            message_root.updateChildren(map);
+                        } catch (Exception e) { }
                     }
                 }
             }
         }
-
-
     }
 
     @Override
@@ -329,6 +321,7 @@ public class HomeFragment extends Fragment {
         binding = null;
     }
 
+    //This method converts a string to a Bitmap image
     public Bitmap StringToBitMap(String encodedString){
         try {
             byte [] encodeByte= Base64.decode(encodedString,Base64.DEFAULT);
@@ -355,9 +348,9 @@ public class HomeFragment extends Fragment {
         profilePicImage.setImageBitmap(StringToBitMap(picture));
     }
 
+    //On click listeners for displaying respective card on click
     private void initOnClickListeners() {
 
-        //On click listeners for displaying respective card on click
         waterCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -384,24 +377,20 @@ public class HomeFragment extends Fragment {
         waterLayout.setVisibility(View.VISIBLE);
         stepsLayout.setVisibility(View.INVISIBLE);
         caloriesLayout.setVisibility(View.INVISIBLE);
-
-
     }
     public void stepsCardClicked(){
         waterLayout.setVisibility(View.INVISIBLE);
         stepsLayout.setVisibility(View.VISIBLE);
         caloriesLayout.setVisibility(View.INVISIBLE);
-
-
     }
     public void caloriesCardClicked(){
         waterLayout.setVisibility(View.INVISIBLE);
         stepsLayout.setVisibility(View.INVISIBLE);
         caloriesLayout.setVisibility(View.VISIBLE);
-
-
     }
 
+
+    //Checks if the device is connected to the internet
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -409,17 +398,17 @@ public class HomeFragment extends Fragment {
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
-    public void drinkWater(){
+    //This method adds a glass of water to the water progress
+    public void drinkWater() {
         water++;
         waterDrank = String.valueOf(water);
         waterProgress = waterDrank + "/" + waterGoal;
-        txtWaterDrank.setText("" + waterProgress );
+        txtWaterDrank.setText("" + waterProgress);
         txtWaterDrank2.setText("" + waterProgress);
         System.out.println(waterProgress);
         CurrentProgress = CurrentProgress + 10;
         waterProgressBar.setProgress(water);
-        if (water == waterGoal)
-        {
+        if (water == waterGoal) {
             new AlertDialog.Builder(this.getContext())
                     .setTitle("Achievement")
                     .setMessage("You have completed your daily water goal!")
@@ -432,15 +421,12 @@ public class HomeFragment extends Fragment {
                         }
                     }).show();
 /*
-
                         // A null listener allows the button to dismiss the dialog and take no further action.
                         .setNegativeButton(android.R.string.ok, null)
                         .setIcon(android.R.drawable.ic_dialog_alert)
                         .show();
 */
-
             water = 0;
-
         }
 
         if (water > 13) {
@@ -456,21 +442,20 @@ public class HomeFragment extends Fragment {
                         }
                     }).show();
 /*
-
                         // A null listener allows the button to dismiss the dialog and take no further action.
                         .setNegativeButton(android.R.string.ok, null)
                         .setIcon(android.R.drawable.ic_dialog_alert)
                         .show();
  */
             water = 0;
-
-
-        }}
+        }
+    }
 
     @Override
     public void onResume() {
         super.onResume();
-
+        //Ensures that the progress bar for opening the appointments page is GONE when returning
+        //to the home page
         progressBar.setVisibility(View.GONE);
         bookingImage.setVisibility(View.VISIBLE);
 

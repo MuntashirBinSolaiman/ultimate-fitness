@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:chatview="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.inbox.InboxFragment"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".ui.inbox.InboxFragment">
 
-    <include layout="@layout/topbar"
-        android:id="@+id/topBarLayout"/>
+    <include android:id="@+id/topBarLayout"
+        layout="@layout/topbar"/>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/conversatonsCardView"
@@ -26,7 +24,7 @@
             android:id="@+id/avatarImageView"
             android:layout_width="72dp"
             android:layout_height="75dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"
             android:src="@drawable/ultimate_fitness" />
 
         <TextView
@@ -34,9 +32,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:layout_toRightOf="@id/avatarImageView"
-            android:text="Ultimate Fitness"
-            android:textSize="17dp"
+            android:layout_toEndOf="@id/avatarImageView"
+            android:text="@string/ultimate_fitness"
+            android:textSize="17sp"
             android:textStyle="bold" />
 
         <TextView
@@ -45,10 +43,10 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/userNameTextView"
             android:layout_marginTop="5dp"
-            android:layout_toRightOf="@id/avatarImageView"
-            android:text="Welcome to Ultimate Fitness"
+            android:layout_toEndOf="@id/avatarImageView"
+            android:text="@string/welcome_to_ultimate_fitness"
             android:textColor="@color/darker_grey"
-            android:textSize="15dp" />
+            android:textSize="15sp" />
 
 
     </RelativeLayout>

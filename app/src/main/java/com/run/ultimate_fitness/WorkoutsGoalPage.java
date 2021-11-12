@@ -30,14 +30,14 @@ import com.cometchat.pro.models.User;
 public class WorkoutsGoalPage extends AppCompatActivity {
 
     private NumberPicker stepsGoalPicker, waterGoalPicker, caloriesGoalPicker;
-    private TextView  txtNext, txtBack;
+    private TextView txtNext, txtBack;
     int layoutsMove = 1;
 
     int minValue = 1000;
     int maxValue = 10000;
     int step = 1000;
 
-    public String[] stepsValueSet,waterValueSet,caloriesValueSet;
+    public String[] stepsValueSet, waterValueSet, caloriesValueSet;
 
 
     private Button summerBodyBtn, gainMuscleBtn, loseWeightBtn, loseQuickWeightBtn;
@@ -47,23 +47,19 @@ public class WorkoutsGoalPage extends AppCompatActivity {
 
     private RelativeLayout fitnessLayout, stepsLayout, waterLayout, caloriesLayout;
 
-    public static final String USER_PREFS ="userPrefs";
-    public static final String GOALS_PREFS ="goalsPrefs";
+    public static final String USER_PREFS = "userPrefs";
+    public static final String GOALS_PREFS = "goalsPrefs";
 
-    public static final String FIRST_NAME ="firstName";
-    public static final String LAST_NAME ="lastName";
+    public static final String FIRST_NAME = "firstName";
+    public static final String LAST_NAME = "lastName";
 
-    private static  String fullName;
-
-
-    public static final String WATER_GOAL ="water_goal";
-    public static final String STEPS_GOAL ="steps_goal";
-    public static final String CALORIES_GOAL ="calories_goal";
-    public static final String WORKOUT_GOAL ="workout_goal";
+    private static String fullName;
 
 
-
-
+    public static final String WATER_GOAL = "water_goal";
+    public static final String STEPS_GOAL = "steps_goal";
+    public static final String CALORIES_GOAL = "calories_goal";
+    public static final String WORKOUT_GOAL = "workout_goal";
 
 
     @Override
@@ -76,7 +72,6 @@ public class WorkoutsGoalPage extends AppCompatActivity {
         gainMuscleBtn = findViewById(R.id.gainMuscleBtn);
         loseWeightBtn = findViewById(R.id.loseWeightBtn);
         loseQuickWeightBtn = findViewById(R.id.loseQuickWeightBtn);
-
 
 
         stepsGoalPicker = findViewById(R.id.pickerStepsGoal);
@@ -109,7 +104,6 @@ public class WorkoutsGoalPage extends AppCompatActivity {
         caloriesGoalPicker.setMinValue(0);
 
 
-
         stepsGoalPicker.setDisplayedValues(stepsValueSet);
         caloriesGoalPicker.setDisplayedValues(caloriesValueSet);
         waterGoalPicker.setDisplayedValues(waterValueSet);
@@ -119,20 +113,18 @@ public class WorkoutsGoalPage extends AppCompatActivity {
         caloriesLayout.setTranslationX(650);
 
 
-
-
         stepsGoalPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker numberPicker, int oldVal, int newVal) {
                 //stepsGoalPicker.setValue((newVal < oldVal )? oldVal - 1000: oldVal + 1000);
-                stepGoalFinal  = Integer.parseInt(stepsValueSet[newVal]);
+                stepGoalFinal = Integer.parseInt(stepsValueSet[newVal]);
             }
         });
 
         waterGoalPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker numberPicker, int oldVal, int newVal) {
-                waterGoalFinal  = Integer.parseInt(waterValueSet[newVal]);
+                waterGoalFinal = Integer.parseInt(waterValueSet[newVal]);
 
             }
         });
@@ -141,7 +133,7 @@ public class WorkoutsGoalPage extends AppCompatActivity {
         caloriesGoalPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker numberPicker, int oldVal, int newVal) {
-                caloriesGoalFinal  = Integer.parseInt(caloriesValueSet[newVal]);
+                caloriesGoalFinal = Integer.parseInt(caloriesValueSet[newVal]);
             }
         });
 
@@ -156,7 +148,7 @@ public class WorkoutsGoalPage extends AppCompatActivity {
     private void initValueSets() {
         stepsValueSet = new String[11];
         for (int s = 0; s <= 10000; s += 1000) {
-            stepsValueSet[s/1000] = String.valueOf(s);
+            stepsValueSet[s / 1000] = String.valueOf(s);
         }
 
         waterValueSet = new String[14];
@@ -166,12 +158,12 @@ public class WorkoutsGoalPage extends AppCompatActivity {
 
         caloriesValueSet = new String[26];
         for (int c = 0; c <= 2500; c += 100) {
-            caloriesValueSet[(c/100) ] = String.valueOf(c);
+            caloriesValueSet[(c / 100)] = String.valueOf(c);
         }
     }
 
     private void registerChatUser() {
-        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(USER_PREFS, MODE_PRIVATE);
         fullName = sharedPreferences.getString(FIRST_NAME, "0") + " " + sharedPreferences.getString(LAST_NAME, "0");
 
         UID = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -195,8 +187,7 @@ public class WorkoutsGoalPage extends AppCompatActivity {
     }
 
     @Override
-    public void onBackPressed()
-    {
+    public void onBackPressed() {
 
     }
 
@@ -240,8 +231,6 @@ public class WorkoutsGoalPage extends AppCompatActivity {
 
 
                 txtBack.animate().alpha(1.0F);
-
-
 
 
                 break;
@@ -288,7 +277,7 @@ public class WorkoutsGoalPage extends AppCompatActivity {
 
             case 5:
 
-                SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(GOALS_PREFS,MODE_PRIVATE);
+                SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(GOALS_PREFS, MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putInt(WATER_GOAL, waterGoalFinal);
                 editor.putInt(CALORIES_GOAL, caloriesGoalFinal);
@@ -297,9 +286,7 @@ public class WorkoutsGoalPage extends AppCompatActivity {
                 System.out.println(workoutGoalFinal);
                 editor.apply();
 
-
                 chatLogin();
-
 
                 Intent intent = new Intent(WorkoutsGoalPage.this, MainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -308,9 +295,9 @@ public class WorkoutsGoalPage extends AppCompatActivity {
 
                 break;
         }
+    }
 
-        }
-//Logs the user into the chat before sending messages
+    //Logs the user into the chat before sending messages
     private void chatLogin() {
 
         if (CometChat.getLoggedInUser() == null) {
@@ -350,9 +337,6 @@ public class WorkoutsGoalPage extends AppCompatActivity {
 
             }
         });
-
-
-
 
 
     }

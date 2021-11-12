@@ -4,11 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.workouts.WorkoutsFragment"
-    android:background="@drawable/img_background">
+    android:background="@drawable/img_background"
+    tools:context=".ui.workouts.WorkoutsFragment">
 
-    <include layout="@layout/topbar"
-        android:id="@+id/topBar"/>
+    <include
+        android:id="@+id/topBar"
+        layout="@layout/topbar" />
 
 
     <ScrollView
@@ -69,59 +70,60 @@
 
 
             </RelativeLayout>
+
             <RelativeLayout
-            android:id="@+id/backLayout"
-            android:layout_below="@id/absLayout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingTop="10dp">
+                android:id="@+id/backLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/absLayout"
+                android:paddingTop="10dp">
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardView_Back_Workouts"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                app:cardCornerRadius="5dp"
-                app:cardElevation="1dp">
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardView_Back_Workouts"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    app:cardCornerRadius="5dp"
+                    app:cardElevation="1dp">
 
-                <TextView
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="sans-serif-light"
+                        android:text="@string/back"
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/RvBack_workouts"
+                    class="androidx.appcompat.app.AlertController$RecycleListView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:fontFamily="sans-serif-light"
-                    android:text="@string/back"
-                    android:textColor="@color/black"
-                    android:textSize="15sp"/>
+                    android:layout_below="@id/cardView_Back_Workouts"
+                    android:layout_marginTop="10dp">
 
-            </androidx.cardview.widget.CardView>
+                </androidx.recyclerview.widget.RecyclerView>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/RvBack_workouts"
-                class="androidx.appcompat.app.AlertController$RecycleListView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/cardView_Back_Workouts"
-                android:layout_marginTop="10dp">
-
-            </androidx.recyclerview.widget.RecyclerView>
-
-            <View
-                android:id="@+id/viewSeparator2"
-                android:layout_width="275dp"
-                android:layout_height="0.2dp"
-                android:layout_below="@id/RvBack_workouts"
-                android:layout_centerHorizontal="true"
-                android:layout_marginVertical="20dp"
-                android:background="@color/light_grey"
-                android:paddingHorizontal="15dp" />
+                <View
+                    android:id="@+id/viewSeparator2"
+                    android:layout_width="275dp"
+                    android:layout_height="0.2dp"
+                    android:layout_below="@id/RvBack_workouts"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginVertical="20dp"
+                    android:background="@color/light_grey"
+                    android:paddingHorizontal="15dp" />
 
 
+            </RelativeLayout>
 
-        </RelativeLayout>
             <RelativeLayout
                 android:id="@+id/bicepsLayout"
-                android:layout_below="@id/backLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/backLayout"
                 android:paddingTop="10dp">
 
                 <androidx.cardview.widget.CardView
@@ -138,7 +140,7 @@
                         android:fontFamily="sans-serif-light"
                         android:text="@string/biceps"
                         android:textColor="@color/black"
-                        android:textSize="15sp"/>
+                        android:textSize="15sp" />
 
                 </androidx.cardview.widget.CardView>
 
@@ -163,13 +165,13 @@
                     android:paddingHorizontal="15dp" />
 
 
-
             </RelativeLayout>
+
             <RelativeLayout
                 android:id="@+id/hamstringsLayout"
-                android:layout_below="@id/bicepsLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/bicepsLayout"
                 android:paddingTop="10dp">
 
                 <androidx.cardview.widget.CardView
@@ -186,7 +188,7 @@
                         android:fontFamily="sans-serif-light"
                         android:text="@string/hamstrings"
                         android:textColor="@color/black"
-                        android:textSize="15sp"/>
+                        android:textSize="15sp" />
 
                 </androidx.cardview.widget.CardView>
 
@@ -211,13 +213,13 @@
                     android:paddingHorizontal="15dp" />
 
 
-
             </RelativeLayout>
+
             <RelativeLayout
                 android:id="@+id/hiitLayout"
-                android:layout_below="@id/hamstringsLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/hamstringsLayout"
                 android:paddingTop="10dp">
 
                 <androidx.cardview.widget.CardView
@@ -234,7 +236,7 @@
                         android:fontFamily="sans-serif-light"
                         android:text="@string/hiit"
                         android:textColor="@color/black"
-                        android:textSize="15sp"/>
+                        android:textSize="15sp" />
 
                 </androidx.cardview.widget.CardView>
 
@@ -259,13 +261,13 @@
                     android:paddingHorizontal="15dp" />
 
 
-
             </RelativeLayout>
+
             <RelativeLayout
                 android:id="@+id/legsLayout"
-                android:layout_below="@id/hiitLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/hiitLayout"
                 android:paddingTop="10dp">
 
                 <androidx.cardview.widget.CardView
@@ -282,7 +284,7 @@
                         android:fontFamily="sans-serif-light"
                         android:text="@string/legs"
                         android:textColor="@color/black"
-                        android:textSize="15sp"/>
+                        android:textSize="15sp" />
 
                 </androidx.cardview.widget.CardView>
 
@@ -307,13 +309,13 @@
                     android:paddingHorizontal="15dp" />
 
 
-
             </RelativeLayout>
+
             <RelativeLayout
                 android:id="@+id/lower_BodyLayout"
-                android:layout_below="@id/legsLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/legsLayout"
                 android:paddingTop="10dp">
 
                 <androidx.cardview.widget.CardView
@@ -330,7 +332,7 @@
                         android:fontFamily="sans-serif-light"
                         android:text="@string/lower_body"
                         android:textColor="@color/black"
-                        android:textSize="15sp"/>
+                        android:textSize="15sp" />
 
                 </androidx.cardview.widget.CardView>
 
@@ -355,13 +357,13 @@
                     android:paddingHorizontal="15dp" />
 
 
-
             </RelativeLayout>
+
             <RelativeLayout
                 android:id="@+id/shouldersLayout"
-                android:layout_below="@id/lower_BodyLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/lower_BodyLayout"
                 android:paddingTop="10dp">
 
                 <androidx.cardview.widget.CardView
@@ -378,7 +380,7 @@
                         android:fontFamily="sans-serif-light"
                         android:text="@string/shoulders"
                         android:textColor="@color/black"
-                        android:textSize="15sp"/>
+                        android:textSize="15sp" />
 
                 </androidx.cardview.widget.CardView>
 
@@ -403,13 +405,13 @@
                     android:paddingHorizontal="15dp" />
 
 
-
             </RelativeLayout>
+
             <RelativeLayout
                 android:id="@+id/tricpsLayout"
-                android:layout_below="@id/shouldersLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/shouldersLayout"
                 android:paddingTop="10dp">
 
                 <androidx.cardview.widget.CardView
@@ -426,7 +428,7 @@
                         android:fontFamily="sans-serif-light"
                         android:text="@string/triceps"
                         android:textColor="@color/black"
-                        android:textSize="15sp"/>
+                        android:textSize="15sp" />
 
                 </androidx.cardview.widget.CardView>
 
@@ -451,13 +453,13 @@
                     android:paddingHorizontal="15dp" />
 
 
-
             </RelativeLayout>
+
             <RelativeLayout
                 android:id="@+id/upperBodyLayout"
-                android:layout_below="@id/tricpsLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/tricpsLayout"
                 android:paddingTop="10dp">
 
                 <androidx.cardview.widget.CardView
@@ -474,7 +476,7 @@
                         android:fontFamily="sans-serif-light"
                         android:text="@string/upper_body"
                         android:textColor="@color/black"
-                        android:textSize="15sp"/>
+                        android:textSize="15sp" />
 
                 </androidx.cardview.widget.CardView>
 
@@ -497,7 +499,6 @@
                     android:layout_marginVertical="20dp"
                     android:background="@color/light_grey"
                     android:paddingHorizontal="15dp" />
-
 
 
             </RelativeLayout>

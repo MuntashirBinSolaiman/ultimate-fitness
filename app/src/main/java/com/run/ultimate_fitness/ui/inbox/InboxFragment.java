@@ -1,4 +1,5 @@
 package com.run.ultimate_fitness.ui.inbox;
+
 import static android.content.Context.MODE_PRIVATE;
 
 import android.app.AlertDialog;
@@ -42,12 +43,12 @@ import java.util.Map;
 
 public class InboxFragment extends Fragment {
 
-    public static final String PICTURE ="picture";
-    public static final String FIRST_NAME ="firstName";
-    public static final String LAST_NAME ="lastName";
-    public static final String USER_PREFS ="userPrefs";
+    public static final String PICTURE = "picture";
+    public static final String FIRST_NAME = "firstName";
+    public static final String LAST_NAME = "lastName";
+    public static final String USER_PREFS = "userPrefs";
 
-    private ImageView profilePicImage, imgGymWorkouts,bookingImage;
+    private ImageView profilePicImage, imgGymWorkouts, bookingImage;
     private TextView userName;
     private ProgressBar progressBar;
 
@@ -66,8 +67,6 @@ public class InboxFragment extends Fragment {
     public String client_uid;
 
 
-
-
     public static InboxFragment newInstance() {
         return new InboxFragment();
     }
@@ -77,26 +76,21 @@ public class InboxFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_inbox, container, false);
 
-        SharedPreferences sharedPreferences = getContext().getSharedPreferences(CREDENTIALS_PREFS,MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences(CREDENTIALS_PREFS, MODE_PRIVATE);
         userUID = sharedPreferences.getString(USER_UID, "");
 
 
         bookingImage = view.findViewById(R.id.bookingsImage);
-        progressBar = view.findViewById(R.id.topBarProgress);
-
-
-
         bookingImage.setOnClickListener(v -> {
 
-            if (isNetworkAvailable())
-            {
+            if (isNetworkAvailable()) {
                 progressBar.setVisibility(View.VISIBLE);
                 bookingImage.setVisibility(View.GONE);
 
                 Intent intent = new Intent(view.getContext(), WebPage.class);
                 startActivity(intent);
 
-            }else{
+            } else {
 
                 new AlertDialog.Builder(view.getContext())
                         .setTitle("Check Internet connection")
@@ -112,8 +106,8 @@ public class InboxFragment extends Fragment {
 
         });
 
+        progressBar = view.findViewById(R.id.topBarProgress);
         profilePicImage = view.findViewById(R.id.icon_user);
-
         userName = view.findViewById(R.id.txtUsername);
 
         conversatonsCardView = view.findViewById(R.id.conversatonsCardView);
@@ -124,12 +118,9 @@ public class InboxFragment extends Fragment {
                     try {
                         Intent intent = new Intent(getContext(), ChatPage.class);
                         startActivity(intent);
+                    } catch (Exception e) {
                     }
-                    catch (Exception e)
-                    {
-                    }
-                }
-                    else{
+                } else {
 
                     new AlertDialog.Builder(getContext())
                             .setTitle("Check Internet connection")
@@ -139,7 +130,6 @@ public class InboxFragment extends Fragment {
                             // The dialog is automatically dismissed when a dialog button is clicked.
                             .setPositiveButton(android.R.string.yes, null)
                             .show();
-
                 }
             }
         });
@@ -149,20 +139,11 @@ public class InboxFragment extends Fragment {
 
         arrayList = new ArrayList<>();
 
-        String temp_image = String.valueOf(R.drawable.ombati);
-        //System.out.println(R.drawable.ombati);
-
-
-
-
-
-
-
-
         checkUser();
         loadChat();
-
         loadImage();
+
+        //The listener that detects which list item has been selected.
         chatsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
@@ -170,17 +151,16 @@ public class InboxFragment extends Fragment {
                 Bundle mBundle = new Bundle();
                 client_uid = uids.get(index).toString();
 
+                //A bundle is passed to the chat activity to determine which
+                //chat was opened by the Admin
                 mBundle.putString("client_uid", client_uid);
                 Intent intent = new Intent(getContext(), ChatPage.class);
-
                 intent.putExtra("client_uid", client_uid);
-
                 startActivity(intent);
-
-
-
             }
         });
+
+
         return view;
     }
 
@@ -191,7 +171,7 @@ public class InboxFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                collectChats((Map<String,Object>) snapshot.getValue());
+                collectChats((Map<String, Object>) snapshot.getValue());
             }
 
             @Override
@@ -201,63 +181,54 @@ public class InboxFragment extends Fragment {
         });
     }
 
+    //Loads all the chats for the admin
     private void collectChats(Map<String, Object> users) {
         ArrayList<String> images = new ArrayList<>();
         ArrayList<String> names = new ArrayList<>();
         uids = new ArrayList<>();
 
-
         //iterate through each user, ignoring their UID
-        for (Map.Entry<String, Object> entry : users.entrySet()){
+        for (Map.Entry<String, Object> entry : users.entrySet()) {
 
             //Get user map
             Map singleUser = (Map) entry.getValue();
+
             //Get phone field and append to list
             images.add((String) singleUser.get("image"));
-            String temp_image =(String) singleUser.get("image");
+            String temp_image = (String) singleUser.get("image");
+
             images.add((String) singleUser.get("image"));
-            String temp_message =(String) singleUser.get("message");
+            String temp_message = (String) singleUser.get("message");
+
             names.add((String) singleUser.get("message"));
-            String temp_name =(String) singleUser.get("name");
+            String temp_name = (String) singleUser.get("name");
+
             uids.add((String) singleUser.get("uid"));
-            String uid =(String) singleUser.get("uid");
+            String uid = (String) singleUser.get("uid");
 
 
+            //Adds chats to the list view
             arrayList.add(new InboxModel(uid, temp_name,
-                    temp_message,StringToBitMap(temp_image)));
-
-
+                    temp_message, StringToBitMap(temp_image)));
         }
-        InboxAdapter inboxAdapter = new InboxAdapter(getContext(), R.layout.inbox_list_item,arrayList);
-        chatsListView.setAdapter(inboxAdapter);
 
+        InboxAdapter inboxAdapter = new InboxAdapter(getContext(), R.layout.inbox_list_item, arrayList);
+        chatsListView.setAdapter(inboxAdapter);
     }
 
-    public String chatMessage, chatName, temp_uid;
 
-    private void updateChats(DataSnapshot snapshot) {
-        i = snapshot.child("users").getChildren().iterator();
-        while (i.hasNext()){
-            System.out.println(x);
-            x++;
-            i.next();
-
-        }
-        }
-
-
+    //Checks if the users is the admin
     private void checkUser() {
-        SharedPreferences sharedPreferences = getContext().getSharedPreferences(CREDENTIALS_PREFS,MODE_PRIVATE);
+        //Loading the current user's UID from the shared preferences
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences(CREDENTIALS_PREFS, MODE_PRIVATE);
         userUID = sharedPreferences.getString(USER_UID, "");
 
-        if (userUID.equals(Constants.MASTER_UID)){
+        if (userUID.equals(Constants.MASTER_UID)) {
             conversatonsCardView.setVisibility(View.GONE);
             chatsListView.setVisibility(View.VISIBLE);
-        }
-        else{
+        } else {
             conversatonsCardView.setVisibility(View.VISIBLE);
             chatsListView.setVisibility(View.GONE);
-
         }
     }
 
@@ -265,30 +236,25 @@ public class InboxFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-
         progressBar.setVisibility(View.GONE);
         bookingImage.setVisibility(View.VISIBLE);
-
     }
 
-    public  void loadImage(){
-        SharedPreferences sharedPreferences = getActivity().getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
-        String picture = sharedPreferences.getString(PICTURE,"");
-        String firstName = sharedPreferences.getString(FIRST_NAME,"");
-        String lastName = sharedPreferences.getString(LAST_NAME,"");
-
-
+    public void loadImage() {
+        SharedPreferences sharedPreferences = getActivity().getApplicationContext().getSharedPreferences(USER_PREFS, MODE_PRIVATE);
+        String picture = sharedPreferences.getString(PICTURE, "");
+        String firstName = sharedPreferences.getString(FIRST_NAME, "");
+        String lastName = sharedPreferences.getString(LAST_NAME, "");
         userName.setText("INBOX");
-
         profilePicImage.setImageBitmap(StringToBitMap(picture));
     }
 
-    public Bitmap StringToBitMap(String encodedString){
+    public Bitmap StringToBitMap(String encodedString) {
         try {
-            byte [] encodeByte= Base64.decode(encodedString,Base64.DEFAULT);
-            Bitmap bitmap= BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+            byte[] encodeByte = Base64.decode(encodedString, Base64.DEFAULT);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
             return bitmap;
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.getMessage();
             return null;
         }
