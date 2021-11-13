@@ -47,7 +47,7 @@ public class WorkoutsFragment extends Fragment implements AbsWorkoutsAdapter.OnW
     ArrayList<WorkoutsModel> absWorkoutsList, backWorkoutsList, bicepsWorkoutsList, hamstringsWorkoutsList, hiitWorkoutsList;
     ArrayList<WorkoutsModel> legsWorkoutsList, lower_BodyWorkoutsList, shouldersWorkoutsList, tricepsWorkoutsList, upper_BodyWorkoutsList;
 
-    private ImageView profilePicImage, imgGymWorkouts, bookingImage;
+    private ImageView profilePicImage, bookingImage;
     private TextView userName;
     private ProgressBar progressBar;
 
@@ -144,15 +144,15 @@ public class WorkoutsFragment extends Fragment implements AbsWorkoutsAdapter.OnW
 
         //initData();
         recyclerViewAbs.setAdapter(new AbsWorkoutsAdapter(initAbsData(), this));
-//        recyclerViewBack.setAdapter(new BackWorkoutsAdapter(initBackData(), this));
-//        recyclerViewBiceps.setAdapter(new BicepsWorkoutsAdapter(initBicepsData(), this));
-//        recyclerViewHamstrings.setAdapter(new HamstringsWorkoutsAdapter(initHamstringsData(), this));
-//        recyclerViewHiit.setAdapter(new HIITWorkoutsAdapter(initHiitData(), this));
-//        recyclerViewLegs.setAdapter(new LegsWorkoutsAdapter(initLegsData(), this));
-//        recyclerViewLower_Body.setAdapter(new LowerBodyWorkoutsAdapter(initLowerBodyData(), this));
-//        recyclerViewShoulders.setAdapter(new ShouldersWorkoutsAdapter(initShouldersData(), this));
-//        recyclerViewTriceps.setAdapter(new TricepsWorkoutsAdapter(initTricepsData(), this));
-//        recyclerViewUpper_Body.setAdapter(new UpperBodyWorkoutsAdapter(initUpperBodyData(), this));
+        recyclerViewBack.setAdapter(new BackWorkoutsAdapter(initBackData(), this));
+        recyclerViewBiceps.setAdapter(new BicepsWorkoutsAdapter(initBicepsData(), this));
+        recyclerViewHamstrings.setAdapter(new HamstringsWorkoutsAdapter(initHamstringsData(), this));
+        recyclerViewHiit.setAdapter(new HIITWorkoutsAdapter(initHiitData(), this));
+        recyclerViewLegs.setAdapter(new LegsWorkoutsAdapter(initLegsData(), this));
+        recyclerViewLower_Body.setAdapter(new LowerBodyWorkoutsAdapter(initLowerBodyData(), this));
+        recyclerViewShoulders.setAdapter(new ShouldersWorkoutsAdapter(initShouldersData(), this));
+        recyclerViewTriceps.setAdapter(new TricepsWorkoutsAdapter(initTricepsData(), this));
+        recyclerViewUpper_Body.setAdapter(new UpperBodyWorkoutsAdapter(initUpperBodyData(), this));
 
 
         return view;
@@ -336,517 +336,604 @@ public class WorkoutsFragment extends Fragment implements AbsWorkoutsAdapter.OnW
 
         return absWorkoutsList;
     }
-//    private ArrayList<WorkoutsModel> initBackData() {
-//
-//        backWorkoutsList = new ArrayList<>();
-//
-//        //Adding Back workouts
-//        {
-//            backWorkoutsList.add(new WorkoutsModel("Bent Over Row", "Back", R.drawable.bent_over_row, "" +
-//                    "1. Start by lying on the ground, with your lower back pressed flat into the floor and your head and shoulders raised slightly above it.\n" +
-//                    "\n" +
-//                    "2. Place your hands lightly on the sides of your head; don’t knit your fingers behind. Be careful not to yank your head with your hands at any point during the exercise.\n" +
-//                    "\n" +
-//                    "3. Lift one leg just off the ground and extend it out.\n" +
-//                    "\n" +
-//                    "4. Lift the other leg and bend your knee towards your chest.\n" +
-//                    "\n" +
-//                    "5. As you do so twist through your core so the opposite arm comes towards the raised knee. You don’t need to touch elbow to knee, instead focus on moving through your core as you turn your torso. Your elbow should stay in same position relative to your head throughout – the turn that brings it closer to the knee comes from your core. It might be best to think shoulder to knee as you move, rather than elbow to knee.\n" +
-//                    "\n" +
-//                    "6. Lower your leg and arm at the same time while bringing up the opposite two limbs to mirror the movement.\n" +
-//                    "\n" +
-//                    "7. Keep on alternating sides until you’ve managed 10 reps on each, aiming for three sets of 10 in total, or add the bicycle crunch into circuit training and just keep going for as long as the timer runs.\n"));}
-//
-//        return backWorkoutsList;
-//    }
-//    private ArrayList<WorkoutsModel> initBicepsData() {
-//
-//        bicepsWorkoutsList = new ArrayList<>();
-//
-//        //Adding Biceps workouts
-//        {
-//            bicepsWorkoutsList.add(new WorkoutsModel("Hammer Curls", "Biceps", R.drawable.hammer_curls, "" +
-//                    "1. Start by lying on the ground, with your lower back pressed flat into the floor and your head and shoulders raised slightly above it.\n" +
-//                    "\n" +
-//                    "2. Place your hands lightly on the sides of your head; don’t knit your fingers behind. Be careful not to yank your head with your hands at any point during the exercise.\n" +
-//                    "\n" +
-//                    "3. Lift one leg just off the ground and extend it out.\n" +
-//                    "\n" +
-//                    "4. Lift the other leg and bend your knee towards your chest.\n" +
-//                    "\n" +
-//                    "5. As you do so twist through your core so the opposite arm comes towards the raised knee. You don’t need to touch elbow to knee, instead focus on moving through your core as you turn your torso. Your elbow should stay in same position relative to your head throughout – the turn that brings it closer to the knee comes from your core. It might be best to think shoulder to knee as you move, rather than elbow to knee.\n" +
-//                    "\n" +
-//                    "6. Lower your leg and arm at the same time while bringing up the opposite two limbs to mirror the movement.\n" +
-//                    "\n" +
-//                    "7. Keep on alternating sides until you’ve managed 10 reps on each, aiming for three sets of 10 in total, or add the bicycle crunch into circuit training and just keep going for as long as the timer runs.\n"));}
-//        {
-//            bicepsWorkoutsList.add(new WorkoutsModel("Single Arm Dumbbell Curl", "Biceps", R.drawable.single_arm_dummbell_curls, "" +
-//                    "1. Start by lying on the ground, with your lower back pressed flat into the floor and your head and shoulders raised slightly above it.\n" +
-//                    "\n" +
-//                    "2. Place your hands lightly on the sides of your head; don’t knit your fingers behind. Be careful not to yank your head with your hands at any point during the exercise.\n" +
-//                    "\n" +
-//                    "3. Lift one leg just off the ground and extend it out.\n" +
-//                    "\n" +
-//                    "4. Lift the other leg and bend your knee towards your chest.\n" +
-//                    "\n" +
-//                    "5. As you do so twist through your core so the opposite arm comes towards the raised knee. You don’t need to touch elbow to knee, instead focus on moving through your core as you turn your torso. Your elbow should stay in same position relative to your head throughout – the turn that brings it closer to the knee comes from your core. It might be best to think shoulder to knee as you move, rather than elbow to knee.\n" +
-//                    "\n" +
-//                    "6. Lower your leg and arm at the same time while bringing up the opposite two limbs to mirror the movement.\n" +
-//                    "\n" +
-//                    "7. Keep on alternating sides until you’ve managed 10 reps on each, aiming for three sets of 10 in total, or add the bicycle crunch into circuit training and just keep going for as long as the timer runs.\n"));}
-//
-//
-//        return bicepsWorkoutsList;
-//    }
-//    private ArrayList<WorkoutsModel> initHamstringsData() {
-//
-//        hamstringsWorkoutsList = new ArrayList<>();
-//
-//        //Adding Hamstrings workouts
-//        {
-//            hamstringsWorkoutsList.add(new WorkoutsModel("Ramanian Deadlifts", "Hamstrings", R.drawable.romanian_deadlift, "" +
-//                    "1. Start by lying on the ground, with your lower back pressed flat into the floor and your head and shoulders raised slightly above it.\n" +
-//                    "\n" +
-//                    "2. Place your hands lightly on the sides of your head; don’t knit your fingers behind. Be careful not to yank your head with your hands at any point during the exercise.\n" +
-//                    "\n" +
-//                    "3. Lift one leg just off the ground and extend it out.\n" +
-//                    "\n" +
-//                    "4. Lift the other leg and bend your knee towards your chest.\n" +
-//                    "\n" +
-//                    "5. As you do so twist through your core so the opposite arm comes towards the raised knee. You don’t need to touch elbow to knee, instead focus on moving through your core as you turn your torso. Your elbow should stay in same position relative to your head throughout – the turn that brings it closer to the knee comes from your core. It might be best to think shoulder to knee as you move, rather than elbow to knee.\n" +
-//                    "\n" +
-//                    "6. Lower your leg and arm at the same time while bringing up the opposite two limbs to mirror the movement.\n" +
-//                    "\n" +
-//                    "7. Keep on alternating sides until you’ve managed 10 reps on each, aiming for three sets of 10 in total, or add the bicycle crunch into circuit training and just keep going for as long as the timer runs.\n"));}
-//
-//
-//        return hamstringsWorkoutsList;
-//    }
-//    private ArrayList<WorkoutsModel> initHiitData() {
-//
-//        hiitWorkoutsList = new ArrayList<>();
-//
-//        //Adding HIIT workouts
-//        {
-//            hiitWorkoutsList.add(new WorkoutsModel("Burpees (Home)", "HIIT", R.drawable.burpees_home, "" +
-//                    "1. Start by lying on the ground, with your lower back pressed flat into the floor and your head and shoulders raised slightly above it.\n" +
-//                    "\n" +
-//                    "2. Place your hands lightly on the sides of your head; don’t knit your fingers behind. Be careful not to yank your head with your hands at any point during the exercise.\n" +
-//                    "\n" +
-//                    "3. Lift one leg just off the ground and extend it out.\n" +
-//                    "\n" +
-//                    "4. Lift the other leg and bend your knee towards your chest.\n" +
-//                    "\n" +
-//                    "5. As you do so twist through your core so the opposite arm comes towards the raised knee. You don’t need to touch elbow to knee, instead focus on moving through your core as you turn your torso. Your elbow should stay in same position relative to your head throughout – the turn that brings it closer to the knee comes from your core. It might be best to think shoulder to knee as you move, rather than elbow to knee.\n" +
-//                    "\n" +
-//                    "6. Lower your leg and arm at the same time while bringing up the opposite two limbs to mirror the movement.\n" +
-//                    "\n" +
-//                    "7. Keep on alternating sides until you’ve managed 10 reps on each, aiming for three sets of 10 in total, or add the bicycle crunch into circuit training and just keep going for as long as the timer runs.\n"));}
-//        {
-//            hiitWorkoutsList.add(new WorkoutsModel("Dumbbell Thruster", "HIIT", R.drawable.dumbell_thruster, "" +
-//                    "1. Start by lying on the ground, with your lower back pressed flat into the floor and your head and shoulders raised slightly above it.\n" +
-//                    "\n" +
-//                    "2. Place your hands lightly on the sides of your head; don’t knit your fingers behind. Be careful not to yank your head with your hands at any point during the exercise.\n" +
-//                    "\n" +
-//                    "3. Lift one leg just off the ground and extend it out.\n" +
-//                    "\n" +
-//                    "4. Lift the other leg and bend your knee towards your chest.\n" +
-//                    "\n" +
-//                    "5. As you do so twist through your core so the opposite arm comes towards the raised knee. You don’t need to touch elbow to knee, instead focus on moving through your core as you turn your torso. Your elbow should stay in same position relative to your head throughout – the turn that brings it closer to the knee comes from your core. It might be best to think shoulder to knee as you move, rather than elbow to knee.\n" +
-//                    "\n" +
-//                    "6. Lower your leg and arm at the same time while bringing up the opposite two limbs to mirror the movement.\n" +
-//                    "\n" +
-//                    "7. Keep on alternating sides until you’ve managed 10 reps on each, aiming for three sets of 10 in total, or add the bicycle crunch into circuit training and just keep going for as long as the timer runs.\n"));}
-//        {
-//            hiitWorkoutsList.add(new WorkoutsModel("Push Up Burpees", "HIIT", R.drawable.pushup_burpees, "" +
-//                    "1. Start by lying on the ground, with your lower back pressed flat into the floor and your head and shoulders raised slightly above it.\n" +
-//                    "\n" +
-//                    "2. Place your hands lightly on the sides of your head; don’t knit your fingers behind. Be careful not to yank your head with your hands at any point during the exercise.\n" +
-//                    "\n" +
-//                    "3. Lift one leg just off the ground and extend it out.\n" +
-//                    "\n" +
-//                    "4. Lift the other leg and bend your knee towards your chest.\n" +
-//                    "\n" +
-//                    "5. As you do so twist through your core so the opposite arm comes towards the raised knee. You don’t need to touch elbow to knee, instead focus on moving through your core as you turn your torso. Your elbow should stay in same position relative to your head throughout – the turn that brings it closer to the knee comes from your core. It might be best to think shoulder to knee as you move, rather than elbow to knee.\n" +
-//                    "\n" +
-//                    "6. Lower your leg and arm at the same time while bringing up the opposite two limbs to mirror the movement.\n" +
-//                    "\n" +
-//                    "7. Keep on alternating sides until you’ve managed 10 reps on each, aiming for three sets of 10 in total, or add the bicycle crunch into circuit training and just keep going for as long as the timer runs.\n"));}
-//        {
-//            hiitWorkoutsList.add(new WorkoutsModel("Renegade Rows", "HIIT", R.drawable.renegade_rows, "" +
-//                    "1. Start by lying on the ground, with your lower back pressed flat into the floor and your head and shoulders raised slightly above it.\n" +
-//                    "\n" +
-//                    "2. Place your hands lightly on the sides of your head; don’t knit your fingers behind. Be careful not to yank your head with your hands at any point during the exercise.\n" +
-//                    "\n" +
-//                    "3. Lift one leg just off the ground and extend it out.\n" +
-//                    "\n" +
-//                    "4. Lift the other leg and bend your knee towards your chest.\n" +
-//                    "\n" +
-//                    "5. As you do so twist through your core so the opposite arm comes towards the raised knee. You don’t need to touch elbow to knee, instead focus on moving through your core as you turn your torso. Your elbow should stay in same position relative to your head throughout – the turn that brings it closer to the knee comes from your core. It might be best to think shoulder to knee as you move, rather than elbow to knee.\n" +
-//                    "\n" +
-//                    "6. Lower your leg and arm at the same time while bringing up the opposite two limbs to mirror the movement.\n" +
-//                    "\n" +
-//                    "7. Keep on alternating sides until you’ve managed 10 reps on each, aiming for three sets of 10 in total, or add the bicycle crunch into circuit training and just keep going for as long as the timer runs.\n"));}
-//
-//        return hiitWorkoutsList;
-//    }
-//    private ArrayList<WorkoutsModel> initLegsData() {
-//
-//        legsWorkoutsList = new ArrayList<>();
-//
-//        //Adding Legs workouts
-//        {
-//            legsWorkoutsList.add(new WorkoutsModel("Back Squats", "Legs", R.drawable.back_squats, "" +
-//                    "1. Start by lying on the ground, with your lower back pressed flat into the floor and your head and shoulders raised slightly above it.\n" +
-//                    "\n" +
-//                    "2. Place your hands lightly on the sides of your head; don’t knit your fingers behind. Be careful not to yank your head with your hands at any point during the exercise.\n" +
-//                    "\n" +
-//                    "3. Lift one leg just off the ground and extend it out.\n" +
-//                    "\n" +
-//                    "4. Lift the other leg and bend your knee towards your chest.\n" +
-//                    "\n" +
-//                    "5. As you do so twist through your core so the opposite arm comes towards the raised knee. You don’t need to touch elbow to knee, instead focus on moving through your core as you turn your torso. Your elbow should stay in same position relative to your head throughout – the turn that brings it closer to the knee comes from your core. It might be best to think shoulder to knee as you move, rather than elbow to knee.\n" +
-//                    "\n" +
-//                    "6. Lower your leg and arm at the same time while bringing up the opposite two limbs to mirror the movement.\n" +
-//                    "\n" +
-//                    "7. Keep on alternating sides until you’ve managed 10 reps on each, aiming for three sets of 10 in total, or add the bicycle crunch into circuit training and just keep going for as long as the timer runs.\n"));}
-//        {
-//            legsWorkoutsList.add(new WorkoutsModel("Dumbbell Lunges", "Legs", R.drawable.dumbell_lunges, "" +
-//                    "1. Start by lying on the ground, with your lower back pressed flat into the floor and your head and shoulders raised slightly above it.\n" +
-//                    "\n" +
-//                    "2. Place your hands lightly on the sides of your head; don’t knit your fingers behind. Be careful not to yank your head with your hands at any point during the exercise.\n" +
-//                    "\n" +
-//                    "3. Lift one leg just off the ground and extend it out.\n" +
-//                    "\n" +
-//                    "4. Lift the other leg and bend your knee towards your chest.\n" +
-//                    "\n" +
-//                    "5. As you do so twist through your core so the opposite arm comes towards the raised knee. You don’t need to touch elbow to knee, instead focus on moving through your core as you turn your torso. Your elbow should stay in same position relative to your head throughout – the turn that brings it closer to the knee comes from your core. It might be best to think shoulder to knee as you move, rather than elbow to knee.\n" +
-//                    "\n" +
-//                    "6. Lower your leg and arm at the same time while bringing up the opposite two limbs to mirror the movement.\n" +
-//                    "\n" +
-//                    "7. Keep on alternating sides until you’ve managed 10 reps on each, aiming for three sets of 10 in total, or add the bicycle crunch into circuit training and just keep going for as long as the timer runs.\n"));}
-//        {
-//            legsWorkoutsList.add(new WorkoutsModel("Dumbbell Suitcase Squats", "Legs", R.drawable.dumbell_suitcase_squats, "" +
-//                    "1. Start by lying on the ground, with your lower back pressed flat into the floor and your head and shoulders raised slightly above it.\n" +
-//                    "\n" +
-//                    "2. Place your hands lightly on the sides of your head; don’t knit your fingers behind. Be careful not to yank your head with your hands at any point during the exercise.\n" +
-//                    "\n" +
-//                    "3. Lift one leg just off the ground and extend it out.\n" +
-//                    "\n" +
-//                    "4. Lift the other leg and bend your knee towards your chest.\n" +
-//                    "\n" +
-//                    "5. As you do so twist through your core so the opposite arm comes towards the raised knee. You don’t need to touch elbow to knee, instead focus on moving through your core as you turn your torso. Your elbow should stay in same position relative to your head throughout – the turn that brings it closer to the knee comes from your core. It might be best to think shoulder to knee as you move, rather than elbow to knee.\n" +
-//                    "\n" +
-//                    "6. Lower your leg and arm at the same time while bringing up the opposite two limbs to mirror the movement.\n" +
-//                    "\n" +
-//                    "7. Keep on alternating sides until you’ve managed 10 reps on each, aiming for three sets of 10 in total, or add the bicycle crunch into circuit training and just keep going for as long as the timer runs.\n"));}
-//        {
-//            legsWorkoutsList.add(new WorkoutsModel("Reverse Dumbbell Lunges", "Legs", R.drawable.reverse_dumbbell_lunges, "" +
-//                    "1. Start by lying on the ground, with your lower back pressed flat into the floor and your head and shoulders raised slightly above it.\n" +
-//                    "\n" +
-//                    "2. Place your hands lightly on the sides of your head; don’t knit your fingers behind. Be careful not to yank your head with your hands at any point during the exercise.\n" +
-//                    "\n" +
-//                    "3. Lift one leg just off the ground and extend it out.\n" +
-//                    "\n" +
-//                    "4. Lift the other leg and bend your knee towards your chest.\n" +
-//                    "\n" +
-//                    "5. As you do so twist through your core so the opposite arm comes towards the raised knee. You don’t need to touch elbow to knee, instead focus on moving through your core as you turn your torso. Your elbow should stay in same position relative to your head throughout – the turn that brings it closer to the knee comes from your core. It might be best to think shoulder to knee as you move, rather than elbow to knee.\n" +
-//                    "\n" +
-//                    "6. Lower your leg and arm at the same time while bringing up the opposite two limbs to mirror the movement.\n" +
-//                    "\n" +
-//                    "7. Keep on alternating sides until you’ve managed 10 reps on each, aiming for three sets of 10 in total, or add the bicycle crunch into circuit training and just keep going for as long as the timer runs.\n"));}
-//
-//        return legsWorkoutsList;
-//    }
-//    private ArrayList<WorkoutsModel> initLowerBodyData() {
-//
-//        lower_BodyWorkoutsList = new ArrayList<>();
-//
-//        //Adding Lower Body workouts
-//        {
-//            lower_BodyWorkoutsList.add(new WorkoutsModel("Box Squats", "Lower Body", R.drawable.box_squats, "" +
-//                    "1. Start by lying on the ground, with your lower back pressed flat into the floor and your head and shoulders raised slightly above it.\n" +
-//                    "\n" +
-//                    "2. Place your hands lightly on the sides of your head; don’t knit your fingers behind. Be careful not to yank your head with your hands at any point during the exercise.\n" +
-//                    "\n" +
-//                    "3. Lift one leg just off the ground and extend it out.\n" +
-//                    "\n" +
-//                    "4. Lift the other leg and bend your knee towards your chest.\n" +
-//                    "\n" +
-//                    "5. As you do so twist through your core so the opposite arm comes towards the raised knee. You don’t need to touch elbow to knee, instead focus on moving through your core as you turn your torso. Your elbow should stay in same position relative to your head throughout – the turn that brings it closer to the knee comes from your core. It might be best to think shoulder to knee as you move, rather than elbow to knee.\n" +
-//                    "\n" +
-//                    "6. Lower your leg and arm at the same time while bringing up the opposite two limbs to mirror the movement.\n" +
-//                    "\n" +
-//                    "7. Keep on alternating sides until you’ve managed 10 reps on each, aiming for three sets of 10 in total, or add the bicycle crunch into circuit training and just keep going for as long as the timer runs.\n"));}
-//        {
-//            lower_BodyWorkoutsList.add(new WorkoutsModel("Bulgarian Split Squats", "Lower Body", R.drawable.bulgarian_split_squats, "" +
-//                    "1. Start by lying on the ground, with your lower back pressed flat into the floor and your head and shoulders raised slightly above it.\n" +
-//                    "\n" +
-//                    "2. Place your hands lightly on the sides of your head; don’t knit your fingers behind. Be careful not to yank your head with your hands at any point during the exercise.\n" +
-//                    "\n" +
-//                    "3. Lift one leg just off the ground and extend it out.\n" +
-//                    "\n" +
-//                    "4. Lift the other leg and bend your knee towards your chest.\n" +
-//                    "\n" +
-//                    "5. As you do so twist through your core so the opposite arm comes towards the raised knee. You don’t need to touch elbow to knee, instead focus on moving through your core as you turn your torso. Your elbow should stay in same position relative to your head throughout – the turn that brings it closer to the knee comes from your core. It might be best to think shoulder to knee as you move, rather than elbow to knee.\n" +
-//                    "\n" +
-//                    "6. Lower your leg and arm at the same time while bringing up the opposite two limbs to mirror the movement.\n" +
-//                    "\n" +
-//                    "7. Keep on alternating sides until you’ve managed 10 reps on each, aiming for three sets of 10 in total, or add the bicycle crunch into circuit training and just keep going for as long as the timer runs.\n"));}
-//        {
-//            lower_BodyWorkoutsList.add(new WorkoutsModel("Jump Squats (Home)", "Lower Body", R.drawable.jump_sqauts_home, "" +
-//                    "1. Start by lying on the ground, with your lower back pressed flat into the floor and your head and shoulders raised slightly above it.\n" +
-//                    "\n" +
-//                    "2. Place your hands lightly on the sides of your head; don’t knit your fingers behind. Be careful not to yank your head with your hands at any point during the exercise.\n" +
-//                    "\n" +
-//                    "3. Lift one leg just off the ground and extend it out.\n" +
-//                    "\n" +
-//                    "4. Lift the other leg and bend your knee towards your chest.\n" +
-//                    "\n" +
-//                    "5. As you do so twist through your core so the opposite arm comes towards the raised knee. You don’t need to touch elbow to knee, instead focus on moving through your core as you turn your torso. Your elbow should stay in same position relative to your head throughout – the turn that brings it closer to the knee comes from your core. It might be best to think shoulder to knee as you move, rather than elbow to knee.\n" +
-//                    "\n" +
-//                    "6. Lower your leg and arm at the same time while bringing up the opposite two limbs to mirror the movement.\n" +
-//                    "\n" +
-//                    "7. Keep on alternating sides until you’ve managed 10 reps on each, aiming for three sets of 10 in total, or add the bicycle crunch into circuit training and just keep going for as long as the timer runs.\n"));}
-//        {
-//            lower_BodyWorkoutsList.add(new WorkoutsModel("Jumping Lunges (Home)", "Lower Body", R.drawable.jumping_lunges_home, "" +
-//                    "1. Start by lying on the ground, with your lower back pressed flat into the floor and your head and shoulders raised slightly above it.\n" +
-//                    "\n" +
-//                    "2. Place your hands lightly on the sides of your head; don’t knit your fingers behind. Be careful not to yank your head with your hands at any point during the exercise.\n" +
-//                    "\n" +
-//                    "3. Lift one leg just off the ground and extend it out.\n" +
-//                    "\n" +
-//                    "4. Lift the other leg and bend your knee towards your chest.\n" +
-//                    "\n" +
-//                    "5. As you do so twist through your core so the opposite arm comes towards the raised knee. You don’t need to touch elbow to knee, instead focus on moving through your core as you turn your torso. Your elbow should stay in same position relative to your head throughout – the turn that brings it closer to the knee comes from your core. It might be best to think shoulder to knee as you move, rather than elbow to knee.\n" +
-//                    "\n" +
-//                    "6. Lower your leg and arm at the same time while bringing up the opposite two limbs to mirror the movement.\n" +
-//                    "\n" +
-//                    "7. Keep on alternating sides until you’ve managed 10 reps on each, aiming for three sets of 10 in total, or add the bicycle crunch into circuit training and just keep going for as long as the timer runs.\n"));}
-//        {
-//            lower_BodyWorkoutsList.add(new WorkoutsModel("Lunges (Home)", "Lower Body", R.drawable.lunges_home, "" +
-//                    "1. Start by lying on the ground, with your lower back pressed flat into the floor and your head and shoulders raised slightly above it.\n" +
-//                    "\n" +
-//                    "2. Place your hands lightly on the sides of your head; don’t knit your fingers behind. Be careful not to yank your head with your hands at any point during the exercise.\n" +
-//                    "\n" +
-//                    "3. Lift one leg just off the ground and extend it out.\n" +
-//                    "\n" +
-//                    "4. Lift the other leg and bend your knee towards your chest.\n" +
-//                    "\n" +
-//                    "5. As you do so twist through your core so the opposite arm comes towards the raised knee. You don’t need to touch elbow to knee, instead focus on moving through your core as you turn your torso. Your elbow should stay in same position relative to your head throughout – the turn that brings it closer to the knee comes from your core. It might be best to think shoulder to knee as you move, rather than elbow to knee.\n" +
-//                    "\n" +
-//                    "6. Lower your leg and arm at the same time while bringing up the opposite two limbs to mirror the movement.\n" +
-//                    "\n" +
-//                    "7. Keep on alternating sides until you’ve managed 10 reps on each, aiming for three sets of 10 in total, or add the bicycle crunch into circuit training and just keep going for as long as the timer runs.\n"));}
-//        {
-//            lower_BodyWorkoutsList.add(new WorkoutsModel("Reverse Lunges (Home)", "Lower Body", R.drawable.reverse_lunges_home, "" +
-//                    "1. Start by lying on the ground, with your lower back pressed flat into the floor and your head and shoulders raised slightly above it.\n" +
-//                    "\n" +
-//                    "2. Place your hands lightly on the sides of your head; don’t knit your fingers behind. Be careful not to yank your head with your hands at any point during the exercise.\n" +
-//                    "\n" +
-//                    "3. Lift one leg just off the ground and extend it out.\n" +
-//                    "\n" +
-//                    "4. Lift the other leg and bend your knee towards your chest.\n" +
-//                    "\n" +
-//                    "5. As you do so twist through your core so the opposite arm comes towards the raised knee. You don’t need to touch elbow to knee, instead focus on moving through your core as you turn your torso. Your elbow should stay in same position relative to your head throughout – the turn that brings it closer to the knee comes from your core. It might be best to think shoulder to knee as you move, rather than elbow to knee.\n" +
-//                    "\n" +
-//                    "6. Lower your leg and arm at the same time while bringing up the opposite two limbs to mirror the movement.\n" +
-//                    "\n" +
-//                    "7. Keep on alternating sides until you’ve managed 10 reps on each, aiming for three sets of 10 in total, or add the bicycle crunch into circuit training and just keep going for as long as the timer runs.\n"));}
-//        {
-//            lower_BodyWorkoutsList.add(new WorkoutsModel("Split Squats", "Lower Body", R.drawable.split_squats, "" +
-//                    "1. Start by lying on the ground, with your lower back pressed flat into the floor and your head and shoulders raised slightly above it.\n" +
-//                    "\n" +
-//                    "2. Place your hands lightly on the sides of your head; don’t knit your fingers behind. Be careful not to yank your head with your hands at any point during the exercise.\n" +
-//                    "\n" +
-//                    "3. Lift one leg just off the ground and extend it out.\n" +
-//                    "\n" +
-//                    "4. Lift the other leg and bend your knee towards your chest.\n" +
-//                    "\n" +
-//                    "5. As you do so twist through your core so the opposite arm comes towards the raised knee. You don’t need to touch elbow to knee, instead focus on moving through your core as you turn your torso. Your elbow should stay in same position relative to your head throughout – the turn that brings it closer to the knee comes from your core. It might be best to think shoulder to knee as you move, rather than elbow to knee.\n" +
-//                    "\n" +
-//                    "6. Lower your leg and arm at the same time while bringing up the opposite two limbs to mirror the movement.\n" +
-//                    "\n" +
-//                    "7. Keep on alternating sides until you’ve managed 10 reps on each, aiming for three sets of 10 in total, or add the bicycle crunch into circuit training and just keep going for as long as the timer runs.\n"));}
-//        {
-//            lower_BodyWorkoutsList.add(new WorkoutsModel("Squats (Home)", "Lower Body", R.drawable.squats_home, "" +
-//                    "1. Start by lying on the ground, with your lower back pressed flat into the floor and your head and shoulders raised slightly above it.\n" +
-//                    "\n" +
-//                    "2. Place your hands lightly on the sides of your head; don’t knit your fingers behind. Be careful not to yank your head with your hands at any point during the exercise.\n" +
-//                    "\n" +
-//                    "3. Lift one leg just off the ground and extend it out.\n" +
-//                    "\n" +
-//                    "4. Lift the other leg and bend your knee towards your chest.\n" +
-//                    "\n" +
-//                    "5. As you do so twist through your core so the opposite arm comes towards the raised knee. You don’t need to touch elbow to knee, instead focus on moving through your core as you turn your torso. Your elbow should stay in same position relative to your head throughout – the turn that brings it closer to the knee comes from your core. It might be best to think shoulder to knee as you move, rather than elbow to knee.\n" +
-//                    "\n" +
-//                    "6. Lower your leg and arm at the same time while bringing up the opposite two limbs to mirror the movement.\n" +
-//                    "\n" +
-//                    "7. Keep on alternating sides until you’ve managed 10 reps on each, aiming for three sets of 10 in total, or add the bicycle crunch into circuit training and just keep going for as long as the timer runs.\n"));}
-//
-//
-//        return lower_BodyWorkoutsList;
-//    }
-//    private ArrayList<WorkoutsModel> initShouldersData() {
-//
-//        shouldersWorkoutsList = new ArrayList<>();
-//
-//        //Adding Shoulders workouts
-//        {
-//            shouldersWorkoutsList.add(new WorkoutsModel("Dumbbell Press", "Shoulders", R.drawable.dumbbell_press, "" +
-//                    "1. Start by lying on the ground, with your lower back pressed flat into the floor and your head and shoulders raised slightly above it.\n" +
-//                    "\n" +
-//                    "2. Place your hands lightly on the sides of your head; don’t knit your fingers behind. Be careful not to yank your head with your hands at any point during the exercise.\n" +
-//                    "\n" +
-//                    "3. Lift one leg just off the ground and extend it out.\n" +
-//                    "\n" +
-//                    "4. Lift the other leg and bend your knee towards your chest.\n" +
-//                    "\n" +
-//                    "5. As you do so twist through your core so the opposite arm comes towards the raised knee. You don’t need to touch elbow to knee, instead focus on moving through your core as you turn your torso. Your elbow should stay in same position relative to your head throughout – the turn that brings it closer to the knee comes from your core. It might be best to think shoulder to knee as you move, rather than elbow to knee.\n" +
-//                    "\n" +
-//                    "6. Lower your leg and arm at the same time while bringing up the opposite two limbs to mirror the movement.\n" +
-//                    "\n" +
-//                    "7. Keep on alternating sides until you’ve managed 10 reps on each, aiming for three sets of 10 in total, or add the bicycle crunch into circuit training and just keep going for as long as the timer runs.\n"));}
-//        {
-//            shouldersWorkoutsList.add(new WorkoutsModel("Military Press", "Shoulders", R.drawable.military_press, "" +
-//                    "1. Start by lying on the ground, with your lower back pressed flat into the floor and your head and shoulders raised slightly above it.\n" +
-//                    "\n" +
-//                    "2. Place your hands lightly on the sides of your head; don’t knit your fingers behind. Be careful not to yank your head with your hands at any point during the exercise.\n" +
-//                    "\n" +
-//                    "3. Lift one leg just off the ground and extend it out.\n" +
-//                    "\n" +
-//                    "4. Lift the other leg and bend your knee towards your chest.\n" +
-//                    "\n" +
-//                    "5. As you do so twist through your core so the opposite arm comes towards the raised knee. You don’t need to touch elbow to knee, instead focus on moving through your core as you turn your torso. Your elbow should stay in same position relative to your head throughout – the turn that brings it closer to the knee comes from your core. It might be best to think shoulder to knee as you move, rather than elbow to knee.\n" +
-//                    "\n" +
-//                    "6. Lower your leg and arm at the same time while bringing up the opposite two limbs to mirror the movement.\n" +
-//                    "\n" +
-//                    "7. Keep on alternating sides until you’ve managed 10 reps on each, aiming for three sets of 10 in total, or add the bicycle crunch into circuit training and just keep going for as long as the timer runs.\n"));}
-//        {
-//            shouldersWorkoutsList.add(new WorkoutsModel("Shoulder Fly", "Shoulders", R.drawable.shoulder_fly, "" +
-//                    "1. Start by lying on the ground, with your lower back pressed flat into the floor and your head and shoulders raised slightly above it.\n" +
-//                    "\n" +
-//                    "2. Place your hands lightly on the sides of your head; don’t knit your fingers behind. Be careful not to yank your head with your hands at any point during the exercise.\n" +
-//                    "\n" +
-//                    "3. Lift one leg just off the ground and extend it out.\n" +
-//                    "\n" +
-//                    "4. Lift the other leg and bend your knee towards your chest.\n" +
-//                    "\n" +
-//                    "5. As you do so twist through your core so the opposite arm comes towards the raised knee. You don’t need to touch elbow to knee, instead focus on moving through your core as you turn your torso. Your elbow should stay in same position relative to your head throughout – the turn that brings it closer to the knee comes from your core. It might be best to think shoulder to knee as you move, rather than elbow to knee.\n" +
-//                    "\n" +
-//                    "6. Lower your leg and arm at the same time while bringing up the opposite two limbs to mirror the movement.\n" +
-//                    "\n" +
-//                    "7. Keep on alternating sides until you’ve managed 10 reps on each, aiming for three sets of 10 in total, or add the bicycle crunch into circuit training and just keep going for as long as the timer runs.\n"));}
-//        {
-//            shouldersWorkoutsList.add(new WorkoutsModel("Upright Row", "Shoulders", R.drawable.upright_row, "" +
-//                    "1. Start by lying on the ground, with your lower back pressed flat into the floor and your head and shoulders raised slightly above it.\n" +
-//                    "\n" +
-//                    "2. Place your hands lightly on the sides of your head; don’t knit your fingers behind. Be careful not to yank your head with your hands at any point during the exercise.\n" +
-//                    "\n" +
-//                    "3. Lift one leg just off the ground and extend it out.\n" +
-//                    "\n" +
-//                    "4. Lift the other leg and bend your knee towards your chest.\n" +
-//                    "\n" +
-//                    "5. As you do so twist through your core so the opposite arm comes towards the raised knee. You don’t need to touch elbow to knee, instead focus on moving through your core as you turn your torso. Your elbow should stay in same position relative to your head throughout – the turn that brings it closer to the knee comes from your core. It might be best to think shoulder to knee as you move, rather than elbow to knee.\n" +
-//                    "\n" +
-//                    "6. Lower your leg and arm at the same time while bringing up the opposite two limbs to mirror the movement.\n" +
-//                    "\n" +
-//                    "7. Keep on alternating sides until you’ve managed 10 reps on each, aiming for three sets of 10 in total, or add the bicycle crunch into circuit training and just keep going for as long as the timer runs.\n"));}
-//
-//        return shouldersWorkoutsList;
-//    }
-//    private ArrayList<WorkoutsModel> initTricepsData() {
-//
-//        tricepsWorkoutsList = new ArrayList<>();
-//
-//        //Adding Triceps workouts
-//        {
-//            tricepsWorkoutsList.add(new WorkoutsModel("Tricep Kickback", "Shoulders", R.drawable.tricep_kickback, "" +
-//                    "1. Start by lying on the ground, with your lower back pressed flat into the floor and your head and shoulders raised slightly above it.\n" +
-//                    "\n" +
-//                    "2. Place your hands lightly on the sides of your head; don’t knit your fingers behind. Be careful not to yank your head with your hands at any point during the exercise.\n" +
-//                    "\n" +
-//                    "3. Lift one leg just off the ground and extend it out.\n" +
-//                    "\n" +
-//                    "4. Lift the other leg and bend your knee towards your chest.\n" +
-//                    "\n" +
-//                    "5. As you do so twist through your core so the opposite arm comes towards the raised knee. You don’t need to touch elbow to knee, instead focus on moving through your core as you turn your torso. Your elbow should stay in same position relative to your head throughout – the turn that brings it closer to the knee comes from your core. It might be best to think shoulder to knee as you move, rather than elbow to knee.\n" +
-//                    "\n" +
-//                    "6. Lower your leg and arm at the same time while bringing up the opposite two limbs to mirror the movement.\n" +
-//                    "\n" +
-//                    "7. Keep on alternating sides until you’ve managed 10 reps on each, aiming for three sets of 10 in total, or add the bicycle crunch into circuit training and just keep going for as long as the timer runs.\n"));}
-//
-//
-//        return tricepsWorkoutsList;
-//    }
-//    private ArrayList<WorkoutsModel> initUpperBodyData() {
-//
-//        upper_BodyWorkoutsList = new ArrayList<>();
-//
-//        //Adding Upper Body workouts
-//        {
-//            upper_BodyWorkoutsList.add(new WorkoutsModel("Declined Push Ups (Home) ", "Upper Body", R.drawable.decline_pushups_home, "" +
-//                    "1. Start by lying on the ground, with your lower back pressed flat into the floor and your head and shoulders raised slightly above it.\n" +
-//                    "\n" +
-//                    "2. Place your hands lightly on the sides of your head; don’t knit your fingers behind. Be careful not to yank your head with your hands at any point during the exercise.\n" +
-//                    "\n" +
-//                    "3. Lift one leg just off the ground and extend it out.\n" +
-//                    "\n" +
-//                    "4. Lift the other leg and bend your knee towards your chest.\n" +
-//                    "\n" +
-//                    "5. As you do so twist through your core so the opposite arm comes towards the raised knee. You don’t need to touch elbow to knee, instead focus on moving through your core as you turn your torso. Your elbow should stay in same position relative to your head throughout – the turn that brings it closer to the knee comes from your core. It might be best to think shoulder to knee as you move, rather than elbow to knee.\n" +
-//                    "\n" +
-//                    "6. Lower your leg and arm at the same time while bringing up the opposite two limbs to mirror the movement.\n" +
-//                    "\n" +
-//                    "7. Keep on alternating sides until you’ve managed 10 reps on each, aiming for three sets of 10 in total, or add the bicycle crunch into circuit training and just keep going for as long as the timer runs.\n"));}
-//        {
-//            upper_BodyWorkoutsList.add(new WorkoutsModel("Inclined Push Ups (Home) ", "Upper Body", R.drawable.incline_pushups_home, "" +
-//                    "1. Start by lying on the ground, with your lower back pressed flat into the floor and your head and shoulders raised slightly above it.\n" +
-//                    "\n" +
-//                    "2. Place your hands lightly on the sides of your head; don’t knit your fingers behind. Be careful not to yank your head with your hands at any point during the exercise.\n" +
-//                    "\n" +
-//                    "3. Lift one leg just off the ground and extend it out.\n" +
-//                    "\n" +
-//                    "4. Lift the other leg and bend your knee towards your chest.\n" +
-//                    "\n" +
-//                    "5. As you do so twist through your core so the opposite arm comes towards the raised knee. You don’t need to touch elbow to knee, instead focus on moving through your core as you turn your torso. Your elbow should stay in same position relative to your head throughout – the turn that brings it closer to the knee comes from your core. It might be best to think shoulder to knee as you move, rather than elbow to knee.\n" +
-//                    "\n" +
-//                    "6. Lower your leg and arm at the same time while bringing up the opposite two limbs to mirror the movement.\n" +
-//                    "\n" +
-//                    "7. Keep on alternating sides until you’ve managed 10 reps on each, aiming for three sets of 10 in total, or add the bicycle crunch into circuit training and just keep going for as long as the timer runs.\n"));}
-//        {
-//            upper_BodyWorkoutsList.add(new WorkoutsModel("Push Ups (Home) ", "Upper Body", R.drawable.pushups_home, "" +
-//                    "1. Start by lying on the ground, with your lower back pressed flat into the floor and your head and shoulders raised slightly above it.\n" +
-//                    "\n" +
-//                    "2. Place your hands lightly on the sides of your head; don’t knit your fingers behind. Be careful not to yank your head with your hands at any point during the exercise.\n" +
-//                    "\n" +
-//                    "3. Lift one leg just off the ground and extend it out.\n" +
-//                    "\n" +
-//                    "4. Lift the other leg and bend your knee towards your chest.\n" +
-//                    "\n" +
-//                    "5. As you do so twist through your core so the opposite arm comes towards the raised knee. You don’t need to touch elbow to knee, instead focus on moving through your core as you turn your torso. Your elbow should stay in same position relative to your head throughout – the turn that brings it closer to the knee comes from your core. It might be best to think shoulder to knee as you move, rather than elbow to knee.\n" +
-//                    "\n" +
-//                    "6. Lower your leg and arm at the same time while bringing up the opposite two limbs to mirror the movement.\n" +
-//                    "\n" +
-//                    "7. Keep on alternating sides until you’ve managed 10 reps on each, aiming for three sets of 10 in total, or add the bicycle crunch into circuit training and just keep going for as long as the timer runs.\n"));}
-//        {
-//            upper_BodyWorkoutsList.add(new WorkoutsModel("Tricep Dips (Home) ", "Upper Body", R.drawable.tricep_dips_home, "" +
-//                    "1. Start by lying on the ground, with your lower back pressed flat into the floor and your head and shoulders raised slightly above it.\n" +
-//                    "\n" +
-//                    "2. Place your hands lightly on the sides of your head; don’t knit your fingers behind. Be careful not to yank your head with your hands at any point during the exercise.\n" +
-//                    "\n" +
-//                    "3. Lift one leg just off the ground and extend it out.\n" +
-//                    "\n" +
-//                    "4. Lift the other leg and bend your knee towards your chest.\n" +
-//                    "\n" +
-//                    "5. As you do so twist through your core so the opposite arm comes towards the raised knee. You don’t need to touch elbow to knee, instead focus on moving through your core as you turn your torso. Your elbow should stay in same position relative to your head throughout – the turn that brings it closer to the knee comes from your core. It might be best to think shoulder to knee as you move, rather than elbow to knee.\n" +
-//                    "\n" +
-//                    "6. Lower your leg and arm at the same time while bringing up the opposite two limbs to mirror the movement.\n" +
-//                    "\n" +
-//                    "7. Keep on alternating sides until you’ve managed 10 reps on each, aiming for three sets of 10 in total, or add the bicycle crunch into circuit training and just keep going for as long as the timer runs.\n"));}
-//
-//        return upper_BodyWorkoutsList;
-//    }
+    private ArrayList<WorkoutsModel> initBackData() {
+
+        backWorkoutsList = new ArrayList<>();
+
+        //Adding Back workouts
+        {            videoPath = "android.resource://com.run.ultimate_fitness/" + R.raw.bent_over_row;
+
+            backWorkoutsList.add(new WorkoutsModel("Bent Over Row", "Back", R.drawable.bent_over_row, "" +
+                    "1. Start by lying on the ground, with your lower back pressed flat into the floor and your head and shoulders raised slightly above it.\n" +
+                    "\n" +
+                    "2. Place your hands lightly on the sides of your head; don’t knit your fingers behind. Be careful not to yank your head with your hands at any point during the exercise.\n" +
+                    "\n" +
+                    "3. Lift one leg just off the ground and extend it out.\n" +
+                    "\n" +
+                    "4. Lift the other leg and bend your knee towards your chest.\n" +
+                    "\n" +
+                    "5. As you do so twist through your core so the opposite arm comes towards the raised knee. You don’t need to touch elbow to knee, instead focus on moving through your core as you turn your torso. Your elbow should stay in same position relative to your head throughout – the turn that brings it closer to the knee comes from your core. It might be best to think shoulder to knee as you move, rather than elbow to knee.\n" +
+                    "\n" +
+                    "6. Lower your leg and arm at the same time while bringing up the opposite two limbs to mirror the movement.\n" +
+                    "\n" +
+                    "7. Keep on alternating sides until you’ve managed 10 reps on each, aiming for three sets of 10 in total, or add the bicycle crunch into circuit training and just keep going for as long as the timer runs.\n",
+                    videoPath));}
+
+        return backWorkoutsList;
+    }
+    private ArrayList<WorkoutsModel> initBicepsData() {
+
+        bicepsWorkoutsList = new ArrayList<>();
+
+        //Adding Biceps workouts
+        {
+            videoPath = "android.resource://com.run.ultimate_fitness/" + R.raw.hammer_curls;
+
+            bicepsWorkoutsList.add(new WorkoutsModel("Hammer Curls", "Biceps", R.drawable.hammer_curls, "" +
+                    "1. Start by lying on the ground, with your lower back pressed flat into the floor and your head and shoulders raised slightly above it.\n" +
+                    "\n" +
+                    "2. Place your hands lightly on the sides of your head; don’t knit your fingers behind. Be careful not to yank your head with your hands at any point during the exercise.\n" +
+                    "\n" +
+                    "3. Lift one leg just off the ground and extend it out.\n" +
+                    "\n" +
+                    "4. Lift the other leg and bend your knee towards your chest.\n" +
+                    "\n" +
+                    "5. As you do so twist through your core so the opposite arm comes towards the raised knee. You don’t need to touch elbow to knee, instead focus on moving through your core as you turn your torso. Your elbow should stay in same position relative to your head throughout – the turn that brings it closer to the knee comes from your core. It might be best to think shoulder to knee as you move, rather than elbow to knee.\n" +
+                    "\n" +
+                    "6. Lower your leg and arm at the same time while bringing up the opposite two limbs to mirror the movement.\n" +
+                    "\n" +
+                    "7. Keep on alternating sides until you’ve managed 10 reps on each, aiming for three sets of 10 in total, or add the bicycle crunch into circuit training and just keep going for as long as the timer runs.\n",
+                    videoPath));}
+        {
+            videoPath = "android.resource://com.run.ultimate_fitness/" + R.raw.single_arm_dummbell_culrs;
+
+
+            bicepsWorkoutsList.add(new WorkoutsModel("Single Arm Dumbbell Curl", "Biceps", R.drawable.single_arm_dummbell_curls, "" +
+                    "1. Start by lying on the ground, with your lower back pressed flat into the floor and your head and shoulders raised slightly above it.\n" +
+                    "\n" +
+                    "2. Place your hands lightly on the sides of your head; don’t knit your fingers behind. Be careful not to yank your head with your hands at any point during the exercise.\n" +
+                    "\n" +
+                    "3. Lift one leg just off the ground and extend it out.\n" +
+                    "\n" +
+                    "4. Lift the other leg and bend your knee towards your chest.\n" +
+                    "\n" +
+                    "5. As you do so twist through your core so the opposite arm comes towards the raised knee. You don’t need to touch elbow to knee, instead focus on moving through your core as you turn your torso. Your elbow should stay in same position relative to your head throughout – the turn that brings it closer to the knee comes from your core. It might be best to think shoulder to knee as you move, rather than elbow to knee.\n" +
+                    "\n" +
+                    "6. Lower your leg and arm at the same time while bringing up the opposite two limbs to mirror the movement.\n" +
+                    "\n" +
+                    "7. Keep on alternating sides until you’ve managed 10 reps on each, aiming for three sets of 10 in total, or add the bicycle crunch into circuit training and just keep going for as long as the timer runs.\n",
+                    videoPath));}
+
+
+        return bicepsWorkoutsList;
+    }
+    private ArrayList<WorkoutsModel> initHamstringsData() {
+
+        hamstringsWorkoutsList = new ArrayList<>();
+
+        //Adding Hamstrings workouts
+        {
+            videoPath = "android.resource://com.run.ultimate_fitness/" + R.raw.romanian_deadlift;
+
+            hamstringsWorkoutsList.add(new WorkoutsModel("Ramanian Deadlifts", "Hamstrings", R.drawable.romanian_deadlift, "" +
+                    "1. Start by lying on the ground, with your lower back pressed flat into the floor and your head and shoulders raised slightly above it.\n" +
+                    "\n" +
+                    "2. Place your hands lightly on the sides of your head; don’t knit your fingers behind. Be careful not to yank your head with your hands at any point during the exercise.\n" +
+                    "\n" +
+                    "3. Lift one leg just off the ground and extend it out.\n" +
+                    "\n" +
+                    "4. Lift the other leg and bend your knee towards your chest.\n" +
+                    "\n" +
+                    "5. As you do so twist through your core so the opposite arm comes towards the raised knee. You don’t need to touch elbow to knee, instead focus on moving through your core as you turn your torso. Your elbow should stay in same position relative to your head throughout – the turn that brings it closer to the knee comes from your core. It might be best to think shoulder to knee as you move, rather than elbow to knee.\n" +
+                    "\n" +
+                    "6. Lower your leg and arm at the same time while bringing up the opposite two limbs to mirror the movement.\n" +
+                    "\n" +
+                    "7. Keep on alternating sides until you’ve managed 10 reps on each, aiming for three sets of 10 in total, or add the bicycle crunch into circuit training and just keep going for as long as the timer runs.\n",
+                    videoPath));}
+
+
+        return hamstringsWorkoutsList;
+    }
+    private ArrayList<WorkoutsModel> initHiitData() {
+
+        hiitWorkoutsList = new ArrayList<>();
+
+        //Adding HIIT workouts
+        {
+            videoPath = "android.resource://com.run.ultimate_fitness/" + R.raw.burpees_home;
+
+            hiitWorkoutsList.add(new WorkoutsModel("Burpees (Home)", "HIIT", R.drawable.burpees_home, "" +
+                    "1. Start by lying on the ground, with your lower back pressed flat into the floor and your head and shoulders raised slightly above it.\n" +
+                    "\n" +
+                    "2. Place your hands lightly on the sides of your head; don’t knit your fingers behind. Be careful not to yank your head with your hands at any point during the exercise.\n" +
+                    "\n" +
+                    "3. Lift one leg just off the ground and extend it out.\n" +
+                    "\n" +
+                    "4. Lift the other leg and bend your knee towards your chest.\n" +
+                    "\n" +
+                    "5. As you do so twist through your core so the opposite arm comes towards the raised knee. You don’t need to touch elbow to knee, instead focus on moving through your core as you turn your torso. Your elbow should stay in same position relative to your head throughout – the turn that brings it closer to the knee comes from your core. It might be best to think shoulder to knee as you move, rather than elbow to knee.\n" +
+                    "\n" +
+                    "6. Lower your leg and arm at the same time while bringing up the opposite two limbs to mirror the movement.\n" +
+                    "\n" +
+                    "7. Keep on alternating sides until you’ve managed 10 reps on each, aiming for three sets of 10 in total, or add the bicycle crunch into circuit training and just keep going for as long as the timer runs.\n",
+                    videoPath));}
+        {
+            videoPath = "android.resource://com.run.ultimate_fitness/" + R.raw.dumbbell_thruster;
+
+            hiitWorkoutsList.add(new WorkoutsModel("Dumbbell Thruster", "HIIT", R.drawable.dumbell_thruster, "" +
+                    "1. Start by lying on the ground, with your lower back pressed flat into the floor and your head and shoulders raised slightly above it.\n" +
+                    "\n" +
+                    "2. Place your hands lightly on the sides of your head; don’t knit your fingers behind. Be careful not to yank your head with your hands at any point during the exercise.\n" +
+                    "\n" +
+                    "3. Lift one leg just off the ground and extend it out.\n" +
+                    "\n" +
+                    "4. Lift the other leg and bend your knee towards your chest.\n" +
+                    "\n" +
+                    "5. As you do so twist through your core so the opposite arm comes towards the raised knee. You don’t need to touch elbow to knee, instead focus on moving through your core as you turn your torso. Your elbow should stay in same position relative to your head throughout – the turn that brings it closer to the knee comes from your core. It might be best to think shoulder to knee as you move, rather than elbow to knee.\n" +
+                    "\n" +
+                    "6. Lower your leg and arm at the same time while bringing up the opposite two limbs to mirror the movement.\n" +
+                    "\n" +
+                    "7. Keep on alternating sides until you’ve managed 10 reps on each, aiming for three sets of 10 in total, or add the bicycle crunch into circuit training and just keep going for as long as the timer runs.\n",
+                    videoPath));}
+        {
+            videoPath = "android.resource://com.run.ultimate_fitness/" + R.raw.pushup_burpees;
+
+            hiitWorkoutsList.add(new WorkoutsModel("Push Up Burpees", "HIIT", R.drawable.pushup_burpees, "" +
+                    "1. Start by lying on the ground, with your lower back pressed flat into the floor and your head and shoulders raised slightly above it.\n" +
+                    "\n" +
+                    "2. Place your hands lightly on the sides of your head; don’t knit your fingers behind. Be careful not to yank your head with your hands at any point during the exercise.\n" +
+                    "\n" +
+                    "3. Lift one leg just off the ground and extend it out.\n" +
+                    "\n" +
+                    "4. Lift the other leg and bend your knee towards your chest.\n" +
+                    "\n" +
+                    "5. As you do so twist through your core so the opposite arm comes towards the raised knee. You don’t need to touch elbow to knee, instead focus on moving through your core as you turn your torso. Your elbow should stay in same position relative to your head throughout – the turn that brings it closer to the knee comes from your core. It might be best to think shoulder to knee as you move, rather than elbow to knee.\n" +
+                    "\n" +
+                    "6. Lower your leg and arm at the same time while bringing up the opposite two limbs to mirror the movement.\n" +
+                    "\n" +
+                    "7. Keep on alternating sides until you’ve managed 10 reps on each, aiming for three sets of 10 in total, or add the bicycle crunch into circuit training and just keep going for as long as the timer runs.\n",
+                    videoPath));}
+        {
+            videoPath = "android.resource://com.run.ultimate_fitness/" + R.raw.renegade_rows;
+
+            hiitWorkoutsList.add(new WorkoutsModel("Renegade Rows", "HIIT", R.drawable.renegade_rows, "" +
+                    "1. Start by lying on the ground, with your lower back pressed flat into the floor and your head and shoulders raised slightly above it.\n" +
+                    "\n" +
+                    "2. Place your hands lightly on the sides of your head; don’t knit your fingers behind. Be careful not to yank your head with your hands at any point during the exercise.\n" +
+                    "\n" +
+                    "3. Lift one leg just off the ground and extend it out.\n" +
+                    "\n" +
+                    "4. Lift the other leg and bend your knee towards your chest.\n" +
+                    "\n" +
+                    "5. As you do so twist through your core so the opposite arm comes towards the raised knee. You don’t need to touch elbow to knee, instead focus on moving through your core as you turn your torso. Your elbow should stay in same position relative to your head throughout – the turn that brings it closer to the knee comes from your core. It might be best to think shoulder to knee as you move, rather than elbow to knee.\n" +
+                    "\n" +
+                    "6. Lower your leg and arm at the same time while bringing up the opposite two limbs to mirror the movement.\n" +
+                    "\n" +
+                    "7. Keep on alternating sides until you’ve managed 10 reps on each, aiming for three sets of 10 in total, or add the bicycle crunch into circuit training and just keep going for as long as the timer runs.\n",
+                    videoPath));}
+
+        return hiitWorkoutsList;
+    }
+    private ArrayList<WorkoutsModel> initLegsData() {
+
+        legsWorkoutsList = new ArrayList<>();
+
+        //Adding Legs workouts
+        {
+            videoPath = "android.resource://com.run.ultimate_fitness/" + R.raw.back_squats;
+
+            legsWorkoutsList.add(new WorkoutsModel("Back Squats", "Legs", R.drawable.back_squats, "" +
+                    "1. Start by lying on the ground, with your lower back pressed flat into the floor and your head and shoulders raised slightly above it.\n" +
+                    "\n" +
+                    "2. Place your hands lightly on the sides of your head; don’t knit your fingers behind. Be careful not to yank your head with your hands at any point during the exercise.\n" +
+                    "\n" +
+                    "3. Lift one leg just off the ground and extend it out.\n" +
+                    "\n" +
+                    "4. Lift the other leg and bend your knee towards your chest.\n" +
+                    "\n" +
+                    "5. As you do so twist through your core so the opposite arm comes towards the raised knee. You don’t need to touch elbow to knee, instead focus on moving through your core as you turn your torso. Your elbow should stay in same position relative to your head throughout – the turn that brings it closer to the knee comes from your core. It might be best to think shoulder to knee as you move, rather than elbow to knee.\n" +
+                    "\n" +
+                    "6. Lower your leg and arm at the same time while bringing up the opposite two limbs to mirror the movement.\n" +
+                    "\n" +
+                    "7. Keep on alternating sides until you’ve managed 10 reps on each, aiming for three sets of 10 in total, or add the bicycle crunch into circuit training and just keep going for as long as the timer runs.\n",
+                    videoPath));}
+        {
+            videoPath = "android.resource://com.run.ultimate_fitness/" + R.raw.dumbbell_lunges;
+
+            legsWorkoutsList.add(new WorkoutsModel("Dumbbell Lunges", "Legs", R.drawable.dumbell_lunges, "" +
+                    "1. Start by lying on the ground, with your lower back pressed flat into the floor and your head and shoulders raised slightly above it.\n" +
+                    "\n" +
+                    "2. Place your hands lightly on the sides of your head; don’t knit your fingers behind. Be careful not to yank your head with your hands at any point during the exercise.\n" +
+                    "\n" +
+                    "3. Lift one leg just off the ground and extend it out.\n" +
+                    "\n" +
+                    "4. Lift the other leg and bend your knee towards your chest.\n" +
+                    "\n" +
+                    "5. As you do so twist through your core so the opposite arm comes towards the raised knee. You don’t need to touch elbow to knee, instead focus on moving through your core as you turn your torso. Your elbow should stay in same position relative to your head throughout – the turn that brings it closer to the knee comes from your core. It might be best to think shoulder to knee as you move, rather than elbow to knee.\n" +
+                    "\n" +
+                    "6. Lower your leg and arm at the same time while bringing up the opposite two limbs to mirror the movement.\n" +
+                    "\n" +
+                    "7. Keep on alternating sides until you’ve managed 10 reps on each, aiming for three sets of 10 in total, or add the bicycle crunch into circuit training and just keep going for as long as the timer runs.\n",
+                    videoPath));}
+        {
+            videoPath = "android.resource://com.run.ultimate_fitness/" + R.raw.dumbell_suitcase_squats;
+
+            legsWorkoutsList.add(new WorkoutsModel("Dumbbell Suitcase Squats", "Legs", R.drawable.dumbell_suitcase_squats, "" +
+                    "1. Start by lying on the ground, with your lower back pressed flat into the floor and your head and shoulders raised slightly above it.\n" +
+                    "\n" +
+                    "2. Place your hands lightly on the sides of your head; don’t knit your fingers behind. Be careful not to yank your head with your hands at any point during the exercise.\n" +
+                    "\n" +
+                    "3. Lift one leg just off the ground and extend it out.\n" +
+                    "\n" +
+                    "4. Lift the other leg and bend your knee towards your chest.\n" +
+                    "\n" +
+                    "5. As you do so twist through your core so the opposite arm comes towards the raised knee. You don’t need to touch elbow to knee, instead focus on moving through your core as you turn your torso. Your elbow should stay in same position relative to your head throughout – the turn that brings it closer to the knee comes from your core. It might be best to think shoulder to knee as you move, rather than elbow to knee.\n" +
+                    "\n" +
+                    "6. Lower your leg and arm at the same time while bringing up the opposite two limbs to mirror the movement.\n" +
+                    "\n" +
+                    "7. Keep on alternating sides until you’ve managed 10 reps on each, aiming for three sets of 10 in total, or add the bicycle crunch into circuit training and just keep going for as long as the timer runs.\n",
+                    videoPath));}
+        {
+            videoPath = "android.resource://com.run.ultimate_fitness/" + R.raw.reverse_dumbell_lunges;
+
+            legsWorkoutsList.add(new WorkoutsModel("Reverse Dumbbell Lunges", "Legs", R.drawable.reverse_dumbbell_lunges, "" +
+                    "1. Start by lying on the ground, with your lower back pressed flat into the floor and your head and shoulders raised slightly above it.\n" +
+                    "\n" +
+                    "2. Place your hands lightly on the sides of your head; don’t knit your fingers behind. Be careful not to yank your head with your hands at any point during the exercise.\n" +
+                    "\n" +
+                    "3. Lift one leg just off the ground and extend it out.\n" +
+                    "\n" +
+                    "4. Lift the other leg and bend your knee towards your chest.\n" +
+                    "\n" +
+                    "5. As you do so twist through your core so the opposite arm comes towards the raised knee. You don’t need to touch elbow to knee, instead focus on moving through your core as you turn your torso. Your elbow should stay in same position relative to your head throughout – the turn that brings it closer to the knee comes from your core. It might be best to think shoulder to knee as you move, rather than elbow to knee.\n" +
+                    "\n" +
+                    "6. Lower your leg and arm at the same time while bringing up the opposite two limbs to mirror the movement.\n" +
+                    "\n" +
+                    "7. Keep on alternating sides until you’ve managed 10 reps on each, aiming for three sets of 10 in total, or add the bicycle crunch into circuit training and just keep going for as long as the timer runs.\n",
+                    videoPath));}
+
+        return legsWorkoutsList;
+    }
+    private ArrayList<WorkoutsModel> initLowerBodyData() {
+
+        lower_BodyWorkoutsList = new ArrayList<>();
+
+        //Adding Lower Body workouts
+        {
+            videoPath = "android.resource://com.run.ultimate_fitness/" + R.raw.box_squats;
+
+            lower_BodyWorkoutsList.add(new WorkoutsModel("Box Squats", "Lower Body", R.drawable.box_squats, "" +
+                    "1. Start by lying on the ground, with your lower back pressed flat into the floor and your head and shoulders raised slightly above it.\n" +
+                    "\n" +
+                    "2. Place your hands lightly on the sides of your head; don’t knit your fingers behind. Be careful not to yank your head with your hands at any point during the exercise.\n" +
+                    "\n" +
+                    "3. Lift one leg just off the ground and extend it out.\n" +
+                    "\n" +
+                    "4. Lift the other leg and bend your knee towards your chest.\n" +
+                    "\n" +
+                    "5. As you do so twist through your core so the opposite arm comes towards the raised knee. You don’t need to touch elbow to knee, instead focus on moving through your core as you turn your torso. Your elbow should stay in same position relative to your head throughout – the turn that brings it closer to the knee comes from your core. It might be best to think shoulder to knee as you move, rather than elbow to knee.\n" +
+                    "\n" +
+                    "6. Lower your leg and arm at the same time while bringing up the opposite two limbs to mirror the movement.\n" +
+                    "\n" +
+                    "7. Keep on alternating sides until you’ve managed 10 reps on each, aiming for three sets of 10 in total, or add the bicycle crunch into circuit training and just keep going for as long as the timer runs.\n",
+                    videoPath));}
+        {
+            videoPath = "android.resource://com.run.ultimate_fitness/" + R.raw.bulgarian_split_squats;
+
+            lower_BodyWorkoutsList.add(new WorkoutsModel("Bulgarian Split Squats", "Lower Body", R.drawable.bulgarian_split_squats, "" +
+                    "1. Start by lying on the ground, with your lower back pressed flat into the floor and your head and shoulders raised slightly above it.\n" +
+                    "\n" +
+                    "2. Place your hands lightly on the sides of your head; don’t knit your fingers behind. Be careful not to yank your head with your hands at any point during the exercise.\n" +
+                    "\n" +
+                    "3. Lift one leg just off the ground and extend it out.\n" +
+                    "\n" +
+                    "4. Lift the other leg and bend your knee towards your chest.\n" +
+                    "\n" +
+                    "5. As you do so twist through your core so the opposite arm comes towards the raised knee. You don’t need to touch elbow to knee, instead focus on moving through your core as you turn your torso. Your elbow should stay in same position relative to your head throughout – the turn that brings it closer to the knee comes from your core. It might be best to think shoulder to knee as you move, rather than elbow to knee.\n" +
+                    "\n" +
+                    "6. Lower your leg and arm at the same time while bringing up the opposite two limbs to mirror the movement.\n" +
+                    "\n" +
+                    "7. Keep on alternating sides until you’ve managed 10 reps on each, aiming for three sets of 10 in total, or add the bicycle crunch into circuit training and just keep going for as long as the timer runs.\n",
+                    videoPath));}
+        {
+            videoPath = "android.resource://com.run.ultimate_fitness/" + R.raw.jump_squats_home;
+
+            lower_BodyWorkoutsList.add(new WorkoutsModel("Jump Squats (Home)", "Lower Body", R.drawable.jump_sqauts_home, "" +
+                    "1. Start by lying on the ground, with your lower back pressed flat into the floor and your head and shoulders raised slightly above it.\n" +
+                    "\n" +
+                    "2. Place your hands lightly on the sides of your head; don’t knit your fingers behind. Be careful not to yank your head with your hands at any point during the exercise.\n" +
+                    "\n" +
+                    "3. Lift one leg just off the ground and extend it out.\n" +
+                    "\n" +
+                    "4. Lift the other leg and bend your knee towards your chest.\n" +
+                    "\n" +
+                    "5. As you do so twist through your core so the opposite arm comes towards the raised knee. You don’t need to touch elbow to knee, instead focus on moving through your core as you turn your torso. Your elbow should stay in same position relative to your head throughout – the turn that brings it closer to the knee comes from your core. It might be best to think shoulder to knee as you move, rather than elbow to knee.\n" +
+                    "\n" +
+                    "6. Lower your leg and arm at the same time while bringing up the opposite two limbs to mirror the movement.\n" +
+                    "\n" +
+                    "7. Keep on alternating sides until you’ve managed 10 reps on each, aiming for three sets of 10 in total, or add the bicycle crunch into circuit training and just keep going for as long as the timer runs.\n",
+                    videoPath));}
+        {
+            videoPath = "android.resource://com.run.ultimate_fitness/" + R.raw.jumping_lunges_home;
+
+            lower_BodyWorkoutsList.add(new WorkoutsModel("Jumping Lunges (Home)", "Lower Body", R.drawable.jumping_lunges_home, "" +
+                    "1. Start by lying on the ground, with your lower back pressed flat into the floor and your head and shoulders raised slightly above it.\n" +
+                    "\n" +
+                    "2. Place your hands lightly on the sides of your head; don’t knit your fingers behind. Be careful not to yank your head with your hands at any point during the exercise.\n" +
+                    "\n" +
+                    "3. Lift one leg just off the ground and extend it out.\n" +
+                    "\n" +
+                    "4. Lift the other leg and bend your knee towards your chest.\n" +
+                    "\n" +
+                    "5. As you do so twist through your core so the opposite arm comes towards the raised knee. You don’t need to touch elbow to knee, instead focus on moving through your core as you turn your torso. Your elbow should stay in same position relative to your head throughout – the turn that brings it closer to the knee comes from your core. It might be best to think shoulder to knee as you move, rather than elbow to knee.\n" +
+                    "\n" +
+                    "6. Lower your leg and arm at the same time while bringing up the opposite two limbs to mirror the movement.\n" +
+                    "\n" +
+                    "7. Keep on alternating sides until you’ve managed 10 reps on each, aiming for three sets of 10 in total, or add the bicycle crunch into circuit training and just keep going for as long as the timer runs.\n",
+                    videoPath));}
+        {
+            videoPath = "android.resource://com.run.ultimate_fitness/" + R.raw.lunges_home;
+
+            lower_BodyWorkoutsList.add(new WorkoutsModel("Lunges (Home)", "Lower Body", R.drawable.lunges_home, "" +
+                    "1. Start by lying on the ground, with your lower back pressed flat into the floor and your head and shoulders raised slightly above it.\n" +
+                    "\n" +
+                    "2. Place your hands lightly on the sides of your head; don’t knit your fingers behind. Be careful not to yank your head with your hands at any point during the exercise.\n" +
+                    "\n" +
+                    "3. Lift one leg just off the ground and extend it out.\n" +
+                    "\n" +
+                    "4. Lift the other leg and bend your knee towards your chest.\n" +
+                    "\n" +
+                    "5. As you do so twist through your core so the opposite arm comes towards the raised knee. You don’t need to touch elbow to knee, instead focus on moving through your core as you turn your torso. Your elbow should stay in same position relative to your head throughout – the turn that brings it closer to the knee comes from your core. It might be best to think shoulder to knee as you move, rather than elbow to knee.\n" +
+                    "\n" +
+                    "6. Lower your leg and arm at the same time while bringing up the opposite two limbs to mirror the movement.\n" +
+                    "\n" +
+                    "7. Keep on alternating sides until you’ve managed 10 reps on each, aiming for three sets of 10 in total, or add the bicycle crunch into circuit training and just keep going for as long as the timer runs.\n",
+                    videoPath));}
+        {
+            videoPath = "android.resource://com.run.ultimate_fitness/" + R.raw.reverse_lunges_home;
+
+            lower_BodyWorkoutsList.add(new WorkoutsModel("Reverse Lunges (Home)", "Lower Body", R.drawable.reverse_lunges_home, "" +
+                    "1. Start by lying on the ground, with your lower back pressed flat into the floor and your head and shoulders raised slightly above it.\n" +
+                    "\n" +
+                    "2. Place your hands lightly on the sides of your head; don’t knit your fingers behind. Be careful not to yank your head with your hands at any point during the exercise.\n" +
+                    "\n" +
+                    "3. Lift one leg just off the ground and extend it out.\n" +
+                    "\n" +
+                    "4. Lift the other leg and bend your knee towards your chest.\n" +
+                    "\n" +
+                    "5. As you do so twist through your core so the opposite arm comes towards the raised knee. You don’t need to touch elbow to knee, instead focus on moving through your core as you turn your torso. Your elbow should stay in same position relative to your head throughout – the turn that brings it closer to the knee comes from your core. It might be best to think shoulder to knee as you move, rather than elbow to knee.\n" +
+                    "\n" +
+                    "6. Lower your leg and arm at the same time while bringing up the opposite two limbs to mirror the movement.\n" +
+                    "\n" +
+                    "7. Keep on alternating sides until you’ve managed 10 reps on each, aiming for three sets of 10 in total, or add the bicycle crunch into circuit training and just keep going for as long as the timer runs.\n",
+                    videoPath));}
+        {
+            videoPath = "android.resource://com.run.ultimate_fitness/" + R.raw.split_squats;
+
+            lower_BodyWorkoutsList.add(new WorkoutsModel("Split Squats", "Lower Body", R.drawable.split_squats, "" +
+                    "1. Start by lying on the ground, with your lower back pressed flat into the floor and your head and shoulders raised slightly above it.\n" +
+                    "\n" +
+                    "2. Place your hands lightly on the sides of your head; don’t knit your fingers behind. Be careful not to yank your head with your hands at any point during the exercise.\n" +
+                    "\n" +
+                    "3. Lift one leg just off the ground and extend it out.\n" +
+                    "\n" +
+                    "4. Lift the other leg and bend your knee towards your chest.\n" +
+                    "\n" +
+                    "5. As you do so twist through your core so the opposite arm comes towards the raised knee. You don’t need to touch elbow to knee, instead focus on moving through your core as you turn your torso. Your elbow should stay in same position relative to your head throughout – the turn that brings it closer to the knee comes from your core. It might be best to think shoulder to knee as you move, rather than elbow to knee.\n" +
+                    "\n" +
+                    "6. Lower your leg and arm at the same time while bringing up the opposite two limbs to mirror the movement.\n" +
+                    "\n" +
+                    "7. Keep on alternating sides until you’ve managed 10 reps on each, aiming for three sets of 10 in total, or add the bicycle crunch into circuit training and just keep going for as long as the timer runs.\n",
+                    videoPath));}
+        {
+            videoPath = "android.resource://com.run.ultimate_fitness/" + R.raw.squats_home;
+
+            lower_BodyWorkoutsList.add(new WorkoutsModel("Squats (Home)", "Lower Body", R.drawable.squats_home, "" +
+                    "1. Start by lying on the ground, with your lower back pressed flat into the floor and your head and shoulders raised slightly above it.\n" +
+                    "\n" +
+                    "2. Place your hands lightly on the sides of your head; don’t knit your fingers behind. Be careful not to yank your head with your hands at any point during the exercise.\n" +
+                    "\n" +
+                    "3. Lift one leg just off the ground and extend it out.\n" +
+                    "\n" +
+                    "4. Lift the other leg and bend your knee towards your chest.\n" +
+                    "\n" +
+                    "5. As you do so twist through your core so the opposite arm comes towards the raised knee. You don’t need to touch elbow to knee, instead focus on moving through your core as you turn your torso. Your elbow should stay in same position relative to your head throughout – the turn that brings it closer to the knee comes from your core. It might be best to think shoulder to knee as you move, rather than elbow to knee.\n" +
+                    "\n" +
+                    "6. Lower your leg and arm at the same time while bringing up the opposite two limbs to mirror the movement.\n" +
+                    "\n" +
+                    "7. Keep on alternating sides until you’ve managed 10 reps on each, aiming for three sets of 10 in total, or add the bicycle crunch into circuit training and just keep going for as long as the timer runs.\n",
+                    videoPath));}
+
+
+        return lower_BodyWorkoutsList;
+    }
+    private ArrayList<WorkoutsModel> initShouldersData() {
+
+        shouldersWorkoutsList = new ArrayList<>();
+
+        //Adding Shoulders workouts
+        {
+            videoPath = "android.resource://com.run.ultimate_fitness/" + R.raw.dumbbell_press;
+
+            shouldersWorkoutsList.add(new WorkoutsModel("Dumbbell Press", "Shoulders", R.drawable.dumbbell_press, "" +
+                    "1. Start by lying on the ground, with your lower back pressed flat into the floor and your head and shoulders raised slightly above it.\n" +
+                    "\n" +
+                    "2. Place your hands lightly on the sides of your head; don’t knit your fingers behind. Be careful not to yank your head with your hands at any point during the exercise.\n" +
+                    "\n" +
+                    "3. Lift one leg just off the ground and extend it out.\n" +
+                    "\n" +
+                    "4. Lift the other leg and bend your knee towards your chest.\n" +
+                    "\n" +
+                    "5. As you do so twist through your core so the opposite arm comes towards the raised knee. You don’t need to touch elbow to knee, instead focus on moving through your core as you turn your torso. Your elbow should stay in same position relative to your head throughout – the turn that brings it closer to the knee comes from your core. It might be best to think shoulder to knee as you move, rather than elbow to knee.\n" +
+                    "\n" +
+                    "6. Lower your leg and arm at the same time while bringing up the opposite two limbs to mirror the movement.\n" +
+                    "\n" +
+                    "7. Keep on alternating sides until you’ve managed 10 reps on each, aiming for three sets of 10 in total, or add the bicycle crunch into circuit training and just keep going for as long as the timer runs.\n",
+                    videoPath));}
+        {
+            videoPath = "android.resource://com.run.ultimate_fitness/" + R.raw.military_press;
+
+            shouldersWorkoutsList.add(new WorkoutsModel("Military Press", "Shoulders", R.drawable.military_press, "" +
+                    "1. Start by lying on the ground, with your lower back pressed flat into the floor and your head and shoulders raised slightly above it.\n" +
+                    "\n" +
+                    "2. Place your hands lightly on the sides of your head; don’t knit your fingers behind. Be careful not to yank your head with your hands at any point during the exercise.\n" +
+                    "\n" +
+                    "3. Lift one leg just off the ground and extend it out.\n" +
+                    "\n" +
+                    "4. Lift the other leg and bend your knee towards your chest.\n" +
+                    "\n" +
+                    "5. As you do so twist through your core so the opposite arm comes towards the raised knee. You don’t need to touch elbow to knee, instead focus on moving through your core as you turn your torso. Your elbow should stay in same position relative to your head throughout – the turn that brings it closer to the knee comes from your core. It might be best to think shoulder to knee as you move, rather than elbow to knee.\n" +
+                    "\n" +
+                    "6. Lower your leg and arm at the same time while bringing up the opposite two limbs to mirror the movement.\n" +
+                    "\n" +
+                    "7. Keep on alternating sides until you’ve managed 10 reps on each, aiming for three sets of 10 in total, or add the bicycle crunch into circuit training and just keep going for as long as the timer runs.\n",
+                    videoPath));}
+        {
+            videoPath = "android.resource://com.run.ultimate_fitness/" + R.raw.shoulder_fly;
+
+            shouldersWorkoutsList.add(new WorkoutsModel("Shoulder Fly", "Shoulders", R.drawable.shoulder_fly, "" +
+                    "1. Start by lying on the ground, with your lower back pressed flat into the floor and your head and shoulders raised slightly above it.\n" +
+                    "\n" +
+                    "2. Place your hands lightly on the sides of your head; don’t knit your fingers behind. Be careful not to yank your head with your hands at any point during the exercise.\n" +
+                    "\n" +
+                    "3. Lift one leg just off the ground and extend it out.\n" +
+                    "\n" +
+                    "4. Lift the other leg and bend your knee towards your chest.\n" +
+                    "\n" +
+                    "5. As you do so twist through your core so the opposite arm comes towards the raised knee. You don’t need to touch elbow to knee, instead focus on moving through your core as you turn your torso. Your elbow should stay in same position relative to your head throughout – the turn that brings it closer to the knee comes from your core. It might be best to think shoulder to knee as you move, rather than elbow to knee.\n" +
+                    "\n" +
+                    "6. Lower your leg and arm at the same time while bringing up the opposite two limbs to mirror the movement.\n" +
+                    "\n" +
+                    "7. Keep on alternating sides until you’ve managed 10 reps on each, aiming for three sets of 10 in total, or add the bicycle crunch into circuit training and just keep going for as long as the timer runs.\n",
+                    videoPath));}
+        {
+            videoPath = "android.resource://com.run.ultimate_fitness/" + R.raw.upright_row;
+
+            shouldersWorkoutsList.add(new WorkoutsModel("Upright Row", "Shoulders", R.drawable.upright_row, "" +
+                    "1. Start by lying on the ground, with your lower back pressed flat into the floor and your head and shoulders raised slightly above it.\n" +
+                    "\n" +
+                    "2. Place your hands lightly on the sides of your head; don’t knit your fingers behind. Be careful not to yank your head with your hands at any point during the exercise.\n" +
+                    "\n" +
+                    "3. Lift one leg just off the ground and extend it out.\n" +
+                    "\n" +
+                    "4. Lift the other leg and bend your knee towards your chest.\n" +
+                    "\n" +
+                    "5. As you do so twist through your core so the opposite arm comes towards the raised knee. You don’t need to touch elbow to knee, instead focus on moving through your core as you turn your torso. Your elbow should stay in same position relative to your head throughout – the turn that brings it closer to the knee comes from your core. It might be best to think shoulder to knee as you move, rather than elbow to knee.\n" +
+                    "\n" +
+                    "6. Lower your leg and arm at the same time while bringing up the opposite two limbs to mirror the movement.\n" +
+                    "\n" +
+                    "7. Keep on alternating sides until you’ve managed 10 reps on each, aiming for three sets of 10 in total, or add the bicycle crunch into circuit training and just keep going for as long as the timer runs.\n",
+                    videoPath));}
+
+        return shouldersWorkoutsList;
+    }
+    private ArrayList<WorkoutsModel> initTricepsData() {
+
+        tricepsWorkoutsList = new ArrayList<>();
+
+        //Adding Triceps workouts
+        {
+            videoPath = "android.resource://com.run.ultimate_fitness/" + R.raw.tricep_kickback;
+
+            tricepsWorkoutsList.add(new WorkoutsModel("Tricep Kickback", "Shoulders", R.drawable.tricep_kickback, "" +
+                    "1. Start by lying on the ground, with your lower back pressed flat into the floor and your head and shoulders raised slightly above it.\n" +
+                    "\n" +
+                    "2. Place your hands lightly on the sides of your head; don’t knit your fingers behind. Be careful not to yank your head with your hands at any point during the exercise.\n" +
+                    "\n" +
+                    "3. Lift one leg just off the ground and extend it out.\n" +
+                    "\n" +
+                    "4. Lift the other leg and bend your knee towards your chest.\n" +
+                    "\n" +
+                    "5. As you do so twist through your core so the opposite arm comes towards the raised knee. You don’t need to touch elbow to knee, instead focus on moving through your core as you turn your torso. Your elbow should stay in same position relative to your head throughout – the turn that brings it closer to the knee comes from your core. It might be best to think shoulder to knee as you move, rather than elbow to knee.\n" +
+                    "\n" +
+                    "6. Lower your leg and arm at the same time while bringing up the opposite two limbs to mirror the movement.\n" +
+                    "\n" +
+                    "7. Keep on alternating sides until you’ve managed 10 reps on each, aiming for three sets of 10 in total, or add the bicycle crunch into circuit training and just keep going for as long as the timer runs.\n",
+                    videoPath));}
+
+
+        return tricepsWorkoutsList;
+    }
+    private ArrayList<WorkoutsModel> initUpperBodyData() {
+
+        upper_BodyWorkoutsList = new ArrayList<>();
+
+        //Adding Upper Body workouts
+        {
+            videoPath = "android.resource://com.run.ultimate_fitness/" + R.raw.declined_pushups_home;
+
+            upper_BodyWorkoutsList.add(new WorkoutsModel("Declined Push Ups (Home) ", "Upper Body", R.drawable.decline_pushups_home, "" +
+                    "1. Start by lying on the ground, with your lower back pressed flat into the floor and your head and shoulders raised slightly above it.\n" +
+                    "\n" +
+                    "2. Place your hands lightly on the sides of your head; don’t knit your fingers behind. Be careful not to yank your head with your hands at any point during the exercise.\n" +
+                    "\n" +
+                    "3. Lift one leg just off the ground and extend it out.\n" +
+                    "\n" +
+                    "4. Lift the other leg and bend your knee towards your chest.\n" +
+                    "\n" +
+                    "5. As you do so twist through your core so the opposite arm comes towards the raised knee. You don’t need to touch elbow to knee, instead focus on moving through your core as you turn your torso. Your elbow should stay in same position relative to your head throughout – the turn that brings it closer to the knee comes from your core. It might be best to think shoulder to knee as you move, rather than elbow to knee.\n" +
+                    "\n" +
+                    "6. Lower your leg and arm at the same time while bringing up the opposite two limbs to mirror the movement.\n" +
+                    "\n" +
+                    "7. Keep on alternating sides until you’ve managed 10 reps on each, aiming for three sets of 10 in total, or add the bicycle crunch into circuit training and just keep going for as long as the timer runs.\n",
+                    videoPath));}
+        {
+            videoPath = "android.resource://com.run.ultimate_fitness/" + R.raw.inclined_pushups_home;
+
+            upper_BodyWorkoutsList.add(new WorkoutsModel("Inclined Push Ups (Home) ", "Upper Body", R.drawable.incline_pushups_home, "" +
+                    "1. Start by lying on the ground, with your lower back pressed flat into the floor and your head and shoulders raised slightly above it.\n" +
+                    "\n" +
+                    "2. Place your hands lightly on the sides of your head; don’t knit your fingers behind. Be careful not to yank your head with your hands at any point during the exercise.\n" +
+                    "\n" +
+                    "3. Lift one leg just off the ground and extend it out.\n" +
+                    "\n" +
+                    "4. Lift the other leg and bend your knee towards your chest.\n" +
+                    "\n" +
+                    "5. As you do so twist through your core so the opposite arm comes towards the raised knee. You don’t need to touch elbow to knee, instead focus on moving through your core as you turn your torso. Your elbow should stay in same position relative to your head throughout – the turn that brings it closer to the knee comes from your core. It might be best to think shoulder to knee as you move, rather than elbow to knee.\n" +
+                    "\n" +
+                    "6. Lower your leg and arm at the same time while bringing up the opposite two limbs to mirror the movement.\n" +
+                    "\n" +
+                    "7. Keep on alternating sides until you’ve managed 10 reps on each, aiming for three sets of 10 in total, or add the bicycle crunch into circuit training and just keep going for as long as the timer runs.\n",
+                    videoPath));}
+        {
+            videoPath = "android.resource://com.run.ultimate_fitness/" + R.raw.pushups_home;
+
+            upper_BodyWorkoutsList.add(new WorkoutsModel("Push Ups (Home) ", "Upper Body", R.drawable.pushups_home, "" +
+                    "1. Start by lying on the ground, with your lower back pressed flat into the floor and your head and shoulders raised slightly above it.\n" +
+                    "\n" +
+                    "2. Place your hands lightly on the sides of your head; don’t knit your fingers behind. Be careful not to yank your head with your hands at any point during the exercise.\n" +
+                    "\n" +
+                    "3. Lift one leg just off the ground and extend it out.\n" +
+                    "\n" +
+                    "4. Lift the other leg and bend your knee towards your chest.\n" +
+                    "\n" +
+                    "5. As you do so twist through your core so the opposite arm comes towards the raised knee. You don’t need to touch elbow to knee, instead focus on moving through your core as you turn your torso. Your elbow should stay in same position relative to your head throughout – the turn that brings it closer to the knee comes from your core. It might be best to think shoulder to knee as you move, rather than elbow to knee.\n" +
+                    "\n" +
+                    "6. Lower your leg and arm at the same time while bringing up the opposite two limbs to mirror the movement.\n" +
+                    "\n" +
+                    "7. Keep on alternating sides until you’ve managed 10 reps on each, aiming for three sets of 10 in total, or add the bicycle crunch into circuit training and just keep going for as long as the timer runs.\n",
+                    videoPath));}
+        {
+            videoPath = "android.resource://com.run.ultimate_fitness/" + R.raw.tricep_dips_home;
+
+            upper_BodyWorkoutsList.add(new WorkoutsModel("Tricep Dips (Home) ", "Upper Body", R.drawable.tricep_dips_home, "" +
+                    "1. Start by lying on the ground, with your lower back pressed flat into the floor and your head and shoulders raised slightly above it.\n" +
+                    "\n" +
+                    "2. Place your hands lightly on the sides of your head; don’t knit your fingers behind. Be careful not to yank your head with your hands at any point during the exercise.\n" +
+                    "\n" +
+                    "3. Lift one leg just off the ground and extend it out.\n" +
+                    "\n" +
+                    "4. Lift the other leg and bend your knee towards your chest.\n" +
+                    "\n" +
+                    "5. As you do so twist through your core so the opposite arm comes towards the raised knee. You don’t need to touch elbow to knee, instead focus on moving through your core as you turn your torso. Your elbow should stay in same position relative to your head throughout – the turn that brings it closer to the knee comes from your core. It might be best to think shoulder to knee as you move, rather than elbow to knee.\n" +
+                    "\n" +
+                    "6. Lower your leg and arm at the same time while bringing up the opposite two limbs to mirror the movement.\n" +
+                    "\n" +
+                    "7. Keep on alternating sides until you’ve managed 10 reps on each, aiming for three sets of 10 in total, or add the bicycle crunch into circuit training and just keep going for as long as the timer runs.\n",
+                    videoPath));}
+
+        return upper_BodyWorkoutsList;
+    }
 
 
     public Bitmap StringToBitMap(String encodedString) {
@@ -912,6 +999,7 @@ public class WorkoutsFragment extends Fragment implements AbsWorkoutsAdapter.OnW
         intent.putExtra("workout_zone", bicepsWorkoutsList.get(position).getWorkout_zone());
         intent.putExtra("workout_image", bicepsWorkoutsList.get(position).getWorkout_image());
         intent.putExtra("workout_description", bicepsWorkoutsList.get(position).getWorkout_description());
+        intent.putExtra("video", bicepsWorkoutsList.get(position).getWorkout_video());
 
         startActivity(intent);
     }
@@ -926,6 +1014,7 @@ public class WorkoutsFragment extends Fragment implements AbsWorkoutsAdapter.OnW
         intent.putExtra("workout_zone", hamstringsWorkoutsList.get(position).getWorkout_zone());
         intent.putExtra("workout_image", hamstringsWorkoutsList.get(position).getWorkout_image());
         intent.putExtra("workout_description", hamstringsWorkoutsList.get(position).getWorkout_description());
+        intent.putExtra("video", hamstringsWorkoutsList.get(position).getWorkout_video());
 
         startActivity(intent);
     }
@@ -940,6 +1029,7 @@ public class WorkoutsFragment extends Fragment implements AbsWorkoutsAdapter.OnW
         intent.putExtra("workout_zone", hiitWorkoutsList.get(position).getWorkout_zone());
         intent.putExtra("workout_image", hiitWorkoutsList.get(position).getWorkout_image());
         intent.putExtra("workout_description", hiitWorkoutsList.get(position).getWorkout_description());
+        intent.putExtra("video", hiitWorkoutsList.get(position).getWorkout_video());
 
         startActivity(intent);
     }
@@ -954,6 +1044,7 @@ public class WorkoutsFragment extends Fragment implements AbsWorkoutsAdapter.OnW
         intent.putExtra("workout_zone", legsWorkoutsList.get(position).getWorkout_zone());
         intent.putExtra("workout_image", legsWorkoutsList.get(position).getWorkout_image());
         intent.putExtra("workout_description", legsWorkoutsList.get(position).getWorkout_description());
+        intent.putExtra("video", legsWorkoutsList.get(position).getWorkout_video());
 
         startActivity(intent);
     }
@@ -968,6 +1059,7 @@ public class WorkoutsFragment extends Fragment implements AbsWorkoutsAdapter.OnW
         intent.putExtra("workout_zone", lower_BodyWorkoutsList.get(position).getWorkout_zone());
         intent.putExtra("workout_image", lower_BodyWorkoutsList.get(position).getWorkout_image());
         intent.putExtra("workout_description", lower_BodyWorkoutsList.get(position).getWorkout_description());
+        intent.putExtra("video", lower_BodyWorkoutsList.get(position).getWorkout_video());
 
         startActivity(intent);
     }
@@ -982,6 +1074,7 @@ public class WorkoutsFragment extends Fragment implements AbsWorkoutsAdapter.OnW
         intent.putExtra("workout_zone", shouldersWorkoutsList.get(position).getWorkout_zone());
         intent.putExtra("workout_image", shouldersWorkoutsList.get(position).getWorkout_image());
         intent.putExtra("workout_description", shouldersWorkoutsList.get(position).getWorkout_description());
+        intent.putExtra("video", shouldersWorkoutsList.get(position).getWorkout_video());
 
         startActivity(intent);
     }
@@ -996,6 +1089,7 @@ public class WorkoutsFragment extends Fragment implements AbsWorkoutsAdapter.OnW
         intent.putExtra("workout_zone", tricepsWorkoutsList.get(position).getWorkout_zone());
         intent.putExtra("workout_image", tricepsWorkoutsList.get(position).getWorkout_image());
         intent.putExtra("workout_description", tricepsWorkoutsList.get(position).getWorkout_description());
+        intent.putExtra("video", tricepsWorkoutsList.get(position).getWorkout_video());
 
         startActivity(intent);
     }
@@ -1010,6 +1104,7 @@ public class WorkoutsFragment extends Fragment implements AbsWorkoutsAdapter.OnW
         intent.putExtra("workout_zone", upper_BodyWorkoutsList.get(position).getWorkout_zone());
         intent.putExtra("workout_image", upper_BodyWorkoutsList.get(position).getWorkout_image());
         intent.putExtra("workout_description", upper_BodyWorkoutsList.get(position).getWorkout_description());
+        intent.putExtra("video", upper_BodyWorkoutsList.get(position).getWorkout_video());
 
         startActivity(intent);
     }
