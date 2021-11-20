@@ -401,7 +401,7 @@ public class SignUpInformation extends AppCompatActivity {
                                 //TODO your background code
                                 try {
                                     RequestOptions myOptions = new RequestOptions()
-                                            .override(100, 100);
+                                            .override(700, 700);
 
                                     bitmap = Glide
                                             .with(SignUpInformation.this)
