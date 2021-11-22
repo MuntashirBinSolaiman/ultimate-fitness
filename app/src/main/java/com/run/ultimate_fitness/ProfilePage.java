@@ -32,13 +32,15 @@ import com.run.ultimate_fitness.utils.Constants;
 
 public class ProfilePage extends AppCompatActivity {
 
-    TextView logoutText, firstNameTextView,lastNameTextView, phoneNumberTextView,heightTextView,weightTextView, fullNameTextView, deleteBtn;
+    TextView logoutText, firstNameTextView,lastNameTextView, phoneNumberTextView,heightTextView,weightTextView, fullNameTextView, deleteBtnTextView;
     private ImageView backButtonImage, displayImage;
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
     public static final String CREDENTIALS_PREFS = "credentials";
     public static final String PASSWORD = "password";
     public static final String EMAIL = "email";
+
+    public static final String USER_UID = "uid";
 
     public static final String USER_PREFS ="userPrefs";
     public static final String FIRST_NAME ="firstName";
@@ -58,8 +60,6 @@ public class ProfilePage extends AppCompatActivity {
             getSupportActionBar().hide();
         }
 
-        protectUserAccount();
-
         logoutText = findViewById(R.id.toolbarLogoutTextView);
         displayImage = findViewById(R.id.profilePicture);
         firstNameTextView = findViewById(R.id.firstNameProfileTextView);
@@ -69,8 +69,9 @@ public class ProfilePage extends AppCompatActivity {
         heightTextView = findViewById(R.id.heightProfileTextView);
         weightTextView = findViewById(R.id.weightProfileTextView);
         backButtonImage = findViewById(R.id.toolbarBackButton);
-        deleteBtn = findViewById(R.id.deleteBtn);
+        deleteBtnTextView = findViewById(R.id.deleteBtn);
 
+        protectUserAccount();
 
         loadValues();
 
@@ -95,12 +96,12 @@ public class ProfilePage extends AppCompatActivity {
     }
 
     private void protectUserAccount(){
-        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(CREDENTIALS_PREFS,MODE_PRIVATE);
 
-        String checkUserRights = sharedPreferences.getString("uid", "");
+        String checkUserRights = sharedPreferences.getString(USER_UID, "");
 
         if(checkUserRights.equals(Constants.MASTER_UID)){
-            deleteBtn.setVisibility(View.GONE);
+            deleteBtnTextView.setVisibility(View.GONE);
         }
     }
 
