@@ -277,6 +277,7 @@
                     android:layout_marginTop="15dp"/>
 
                 <TextView
+                    android:id="@+id/deleteBtn"
                     android:onClick="deleteProfileButton"
                     android:layout_width="300dp"
                     android:layout_height="50dp"

@@ -28,10 +28,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.run.ultimate_fitness.utils.Constants;
 
 public class ProfilePage extends AppCompatActivity {
 
-    TextView logoutText, firstNameTextView,lastNameTextView, phoneNumberTextView,heightTextView,weightTextView, fullNameTextView;
+    TextView logoutText, firstNameTextView,lastNameTextView, phoneNumberTextView,heightTextView,weightTextView, fullNameTextView, deleteBtn;
     private ImageView backButtonImage, displayImage;
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -57,6 +58,8 @@ public class ProfilePage extends AppCompatActivity {
             getSupportActionBar().hide();
         }
 
+        protectUserAccount();
+
         logoutText = findViewById(R.id.toolbarLogoutTextView);
         displayImage = findViewById(R.id.profilePicture);
         firstNameTextView = findViewById(R.id.firstNameProfileTextView);
@@ -65,7 +68,9 @@ public class ProfilePage extends AppCompatActivity {
         phoneNumberTextView = findViewById(R.id.phoneNumberProfileTextView);
         heightTextView = findViewById(R.id.heightProfileTextView);
         weightTextView = findViewById(R.id.weightProfileTextView);
-        backButtonImage =findViewById(R.id.toolbarBackButton);
+        backButtonImage = findViewById(R.id.toolbarBackButton);
+        deleteBtn = findViewById(R.id.deleteBtn);
+
 
         loadValues();
 
@@ -87,6 +92,16 @@ public class ProfilePage extends AppCompatActivity {
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
         });
+    }
+
+    private void protectUserAccount(){
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
+
+        String checkUserRights = sharedPreferences.getString("uid", "");
+
+        if(checkUserRights.equals(Constants.MASTER_UID)){
+            deleteBtn.setVisibility(View.GONE);
+        }
     }
 
     private boolean isNetworkAvailable() {

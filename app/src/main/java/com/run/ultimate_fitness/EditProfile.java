@@ -36,6 +36,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.run.ultimate_fitness.utils.Constants;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -75,6 +76,7 @@ public class EditProfile extends AppCompatActivity {
             getSupportActionBar().hide();
         }
 
+
         profilePicImage = findViewById(R.id.imageImageView);
         toolDisplayView = findViewById(R.id.toolbarTextView);
         updateDataButton = findViewById(R.id.updateUserButton);
@@ -103,6 +105,7 @@ public class EditProfile extends AppCompatActivity {
             startActivity(intent);
         });
     }
+
 
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
