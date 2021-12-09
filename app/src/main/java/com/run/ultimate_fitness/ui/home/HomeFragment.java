@@ -512,7 +512,6 @@ public class HomeFragment extends Fragment {
                         .setIcon(android.R.drawable.ic_dialog_alert)
                         .show();
 */
-            water = 0;
         }
 
         if (water > 13) {
@@ -533,7 +532,6 @@ public class HomeFragment extends Fragment {
                         .setIcon(android.R.drawable.ic_dialog_alert)
                         .show();
  */
-            water = 0;
         }
     }
 
