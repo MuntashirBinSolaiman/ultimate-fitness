@@ -33,10 +33,6 @@ public class WorkoutsGoalPage extends AppCompatActivity {
     private TextView txtNext, txtBack;
     int layoutsMove = 1;
 
-    int minValue = 1000;
-    int maxValue = 10000;
-    int step = 1000;
-
     public String[] stepsValueSet, waterValueSet, caloriesValueSet;
 
 
@@ -140,9 +136,6 @@ public class WorkoutsGoalPage extends AppCompatActivity {
         moveLayouts();
 
 
-        registerChatUser();
-
-
     }
 
     private void initValueSets() {
@@ -162,29 +155,6 @@ public class WorkoutsGoalPage extends AppCompatActivity {
         }
     }
 
-    private void registerChatUser() {
-        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(USER_PREFS, MODE_PRIVATE);
-        fullName = sharedPreferences.getString(FIRST_NAME, "0") + " " + sharedPreferences.getString(LAST_NAME, "0");
-
-        UID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
-        User user = new User();
-        user.setUid(UID); // Replace with the UID for the user to be created
-        user.setName(fullName); // Replace with the name of the user
-
-
-        CometChat.createUser(user, Constants.AUTH_KEY, new CometChat.CallbackListener<User>() {
-            @Override
-            public void onSuccess(User user) {
-                Log.d("createUser", user.toString());
-            }
-
-            @Override
-            public void onError(CometChatException e) {
-                Log.e("createUser", e.getMessage());
-            }
-        });
-    }
 
     @Override
     public void onBackPressed() {
@@ -269,8 +239,6 @@ public class WorkoutsGoalPage extends AppCompatActivity {
                 System.out.println(workoutGoalFinal);
                 editor.apply();
 
-                chatLogin();
-
                 Intent intent = new Intent(WorkoutsGoalPage.this, MainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -280,26 +248,6 @@ public class WorkoutsGoalPage extends AppCompatActivity {
         }
     }
 
-    //Logs the user into the chat before sending messages
-    private void chatLogin() {
-
-        if (CometChat.getLoggedInUser() == null) {
-            CometChat.login(UID, Constants.AUTH_KEY, new CometChat.CallbackListener<User>() {
-
-                @Override
-                public void onSuccess(User user) {
-                    Log.d(TAG, "Login Successful : " + user.toString());
-                }
-
-                @Override
-                public void onError(CometChatException e) {
-                    Log.d(TAG, "Login failed with exception: " + e.getMessage());
-                }
-            });
-        } else {
-            // User already logged in
-        }
-    }
 
     private void initOnClickListeners() {
         txtNext.setOnClickListener(new View.OnClickListener() {

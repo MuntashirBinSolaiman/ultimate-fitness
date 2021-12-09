@@ -56,16 +56,9 @@ public class MainActivity extends AppCompatActivity {
 
 
     String UID1 = "user1"; // Replace with the UID of the user to login
-    String authKey = "AUTH_KEY"; // Replace with your App Auth Key
 
 
     private String picture;
-
-    /*Workouts Tab*/
-    private RecyclerView homeWorkouts;
-    private RecyclerView.Adapter adapter;
-    private String uid;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +67,6 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences(USER_PREFS, MODE_PRIVATE);
         SharedPreferences sharedPreferences2 = getSharedPreferences(CREDENTIALS_PREFS, MODE_PRIVATE);
 
-        //uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         boolean loggedIn = sharedPreferences.getBoolean(IS_LOGGED_IN,false);
         if (!loggedIn) {
@@ -105,32 +97,8 @@ public class MainActivity extends AppCompatActivity {
 
         profilePicImage = findViewById(R.id.icon_user);
         loadImage();
-        //writeImageToFirebase();
-
-
 
         UID1 = sharedPreferences2.getString(USER_UID, ""); // Replace with the UID of the user to login
-        authKey = Constants.AUTH_KEY; // Replace with your App Auth Key
-        initChat();
-        loginChat();
-
-
-        /*Food Database stuff----------------------------------------------------------------*/
-
-        /*Stetho-------------------------------------------------*/
-        Stetho.initializeWithDefaults(this);
-
-        new OkHttpClient.Builder()
-                .addNetworkInterceptor(new StethoInterceptor())
-                .build();
-        
-
-
-        //UID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
-
-
-
     }
 
     public void onBackPressed(){
@@ -138,41 +106,6 @@ public class MainActivity extends AppCompatActivity {
         a.addCategory(Intent.CATEGORY_HOME);
         a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(a);
-    }
-
-    private void loginChat() {
-
-        if (CometChat.getLoggedInUser() == null) {
-            CometChat.login(UID1, authKey, new CometChat.CallbackListener<User>() {
-
-                @Override
-                public void onSuccess(User user) {
-                    Log.d(TAG, "Login Successful : " + user.toString());
-                }
-
-                @Override
-                public void onError(CometChatException e) {
-                    Log.d(TAG, "Login failed with exception: " + e.getMessage());
-                }
-            });
-        } else {
-            // User already logged in
-        }
-    }
-
-    private void initChat() {
-
-        AppSettings appSettings=new AppSettings.AppSettingsBuilder().subscribePresenceForAllUsers().setRegion(Constants.REGION).build();
-
-        CometChat.init(this, Constants.APP_ID,appSettings, new CometChat.CallbackListener<String>() {
-            @Override
-            public void onSuccess(String successMessage) {
-            }
-            @Override
-            public void onError(CometChatException e) {
-            }
-
-        });
     }
 
     public void goToProfile(View view){
@@ -195,11 +128,6 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-    public void goToGymWorkouts(View view){
-        Intent intent = new Intent(MainActivity.this, GymWorkouts.class);
-        startActivity(intent);
-
-    }
 
     public Bitmap StringToBitMap(String encodedString){
         try {

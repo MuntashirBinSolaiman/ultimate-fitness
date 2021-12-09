@@ -91,7 +91,7 @@ public class HomeFragment extends Fragment {
 
 
     private static  int CurrentProgress = 0;
-    private ProgressBar waterProgressBar, stepsProgressBar, caloriesProgressBar;
+    public ProgressBar waterProgressBar, stepsProgressBar, caloriesProgressBar;
     public Button btnDrink;
     private TextView txtWaterDrank, txtStepsTaken, txtCaloriesEaten;
     private TextView stepsTakenText, caloriesEatenText;
@@ -328,7 +328,7 @@ public class HomeFragment extends Fragment {
         }
     }
 
-    private void checkDate() throws ParseException {
+    public void checkDate() throws ParseException {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
         Date dateToday = new Date();
@@ -349,6 +349,8 @@ public class HomeFragment extends Fragment {
             if (!temp_dateToday.equals(temp_dateYesterday)) {
                 resetProgress();
                 System.out.println("Reset");
+                temp_date = temp_dateToday;
+
 
             } else {
                 System.out.println("Same day");
@@ -359,6 +361,7 @@ public class HomeFragment extends Fragment {
             System.out.println(temp_date);
 
         }
+
 
         SharedPreferences.Editor editor = datePrefs.edit();
         editor.putString(DATE_PREFS, temp_date);
@@ -542,8 +545,6 @@ public class HomeFragment extends Fragment {
         water =0;
         calories=0;
 
-        waterProgressBar.setProgress(0);
-        caloriesProgressBar.setProgress(0);
         SharedPreferences.Editor editor = progressPrefs.edit();
         editor.putInt(WATER, 0);
         editor.putInt(CALORIES, 0);
