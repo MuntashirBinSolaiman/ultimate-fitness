@@ -35,6 +35,9 @@ public class ProfilePage extends AppCompatActivity {
     TextView logoutText, firstNameTextView,lastNameTextView, phoneNumberTextView,heightTextView,weightTextView, fullNameTextView, deleteBtnTextView;
     private ImageView backButtonImage, displayImage;
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    public static final String GOALS_PREFS ="goalsPrefs";
+    public static final String PROGRESS_PREFS ="progressPrefs";
+
 
     public static final String CREDENTIALS_PREFS = "credentials";
     public static final String PASSWORD = "password";
@@ -181,12 +184,22 @@ public class ProfilePage extends AppCompatActivity {
         displayImage.setImageBitmap(StringToBitMap(picture));
     }
 
-    //Clears shred preferences.
-    private void clearData(){
-        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
+    //Clears shred preferences
+    public void clearData(){
+        SharedPreferences userPrefs = getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
+        SharedPreferences goalsPrefs = getApplicationContext().getSharedPreferences(GOALS_PREFS,MODE_PRIVATE);
+        SharedPreferences progressPrefs = getApplicationContext().getSharedPreferences(PROGRESS_PREFS,MODE_PRIVATE);
+
+        SharedPreferences.Editor editor = userPrefs.edit();
+        SharedPreferences.Editor editor2 = goalsPrefs.edit();
+        SharedPreferences.Editor editor3 = progressPrefs.edit();
+
         editor.clear();
         editor.apply();
+        editor2.clear();
+        editor2.apply();
+        editor3.clear();
+        editor3.apply();
     }
 
     private void clearRTDB(){

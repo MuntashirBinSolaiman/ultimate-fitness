@@ -55,8 +55,8 @@ public class NutritionFragment extends Fragment implements RemoveClickListner {
     public static final String USER_PREFS ="userPrefs";
     public static final String CALORIES ="calories";
 
-
     public static final String GOALS_PREFS ="goalsPrefs";
+    public static final String PROGRESS_PREFS ="progressPrefs";
     public static final String CALORIES_GOAL ="calories_goal";
 
     private ImageView profilePicImage, bookingImage;
@@ -84,8 +84,8 @@ public class NutritionFragment extends Fragment implements RemoveClickListner {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_nutrition, container, false);
 
-        SharedPreferences sharedPreferences = getActivity().getApplicationContext().getSharedPreferences(GOALS_PREFS, MODE_PRIVATE);
-        totalGoal = sharedPreferences.getInt(CALORIES_GOAL, 0);
+        SharedPreferences goalsPrefs = getActivity().getApplicationContext().getSharedPreferences(GOALS_PREFS, MODE_PRIVATE);
+        totalGoal = goalsPrefs.getInt(CALORIES_GOAL, 0);
 
         bookingImage = view.findViewById(R.id.bookingsImage);
         progressBar = view.findViewById(R.id.topBarProgress);
@@ -242,6 +242,7 @@ public class NutritionFragment extends Fragment implements RemoveClickListner {
             textViewRemaining.setText(String.valueOf(totalGoal - (totalFood + totalExcercise)));
             myList.remove(index);
 
+
             dbHelper.deleteItem(dbHelper.load(1).get(index).getItem_id());
             mRecyclerAdapter.notifyData(myList);
 
@@ -293,7 +294,7 @@ public class NutritionFragment extends Fragment implements RemoveClickListner {
         }
 
 
-        SharedPreferences sharedPreferences = getContext().getApplicationContext().getSharedPreferences(GOALS_PREFS,MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getContext().getApplicationContext().getSharedPreferences(PROGRESS_PREFS,MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putInt(CALORIES, totalFood);
         editor.apply();
@@ -412,7 +413,7 @@ public class NutritionFragment extends Fragment implements RemoveClickListner {
                 }
 
 
-                SharedPreferences sharedPreferences = getContext().getApplicationContext().getSharedPreferences(GOALS_PREFS,MODE_PRIVATE);
+                SharedPreferences sharedPreferences = getContext().getApplicationContext().getSharedPreferences(PROGRESS_PREFS,MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putInt(CALORIES, totalFood);
                 editor.apply();
@@ -456,7 +457,7 @@ public class NutritionFragment extends Fragment implements RemoveClickListner {
         tvDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SharedPreferences sharedPreferences = getActivity().getApplicationContext().getSharedPreferences(GOALS_PREFS, MODE_PRIVATE);
+                SharedPreferences sharedPreferences = getActivity().getApplicationContext().getSharedPreferences(PROGRESS_PREFS, MODE_PRIVATE);
 
                 if (title.matches("")) {
                     Toast.makeText(getActivity(), "You did not enter your Goal", Toast.LENGTH_SHORT).show();
@@ -490,13 +491,13 @@ public class NutritionFragment extends Fragment implements RemoveClickListner {
     }
 
     void setFood(int food){
-        SharedPreferences pref =getContext().getSharedPreferences("TAG", Context.MODE_PRIVATE);
+        SharedPreferences pref =getContext().getSharedPreferences(PROGRESS_PREFS, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
         editor.putInt("food", food);
         editor.commit();
     }
     int getFood(){
-        SharedPreferences pref = getContext().getSharedPreferences("TAG", Context.MODE_PRIVATE);
+        SharedPreferences pref = getContext().getSharedPreferences(PROGRESS_PREFS, Context.MODE_PRIVATE);
         return pref.getInt("food",0);
     }
     void setExercise(int food){

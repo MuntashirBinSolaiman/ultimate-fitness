@@ -1,59 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".ui.inbox.InboxFragment">
 
     <include android:id="@+id/topBarLayout"
         layout="@layout/topbar"/>
 
+    <ProgressBar
+        android:id="@+id/loadingProgressBar"
+        android:layout_gravity="center_horizontal|center_vertical"
+        android:layout_width="75dp"
+        android:layout_height="75dp"/>
+
     <androidx.cardview.widget.CardView
         android:id="@+id/conversatonsCardView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    <RelativeLayout
-        android:id="@+id/conversationLayout"
-        android:layout_width="match_parent"
-        android:layout_height="75dp">
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RelativeLayout
+            android:id="@+id/conversationLayout"
+            android:layout_width="match_parent"
+            android:layout_height="85dp">
 
 
-        <ImageView
-            android:id="@+id/avatarImageView"
-            android:layout_width="72dp"
-            android:layout_height="75dp"
-            android:layout_marginEnd="10dp"
-            android:src="@drawable/ultimate_fitness" />
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/avatarImageView"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="10dp"
+                android:src="@drawable/uf" />
 
-        <TextView
-            android:id="@+id/userNameTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_toEndOf="@id/avatarImageView"
-            android:text="@string/ultimate_fitness"
-            android:textSize="17sp"
-            android:textStyle="bold" />
+            <TextView
+                android:id="@+id/userNameTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="10dp"
+                android:layout_toEndOf="@id/avatarImageView"
+                android:text="@string/ultimate_fitness"
+                android:textSize="17sp"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/messageTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/userNameTextView"
-            android:layout_marginTop="5dp"
-            android:layout_toEndOf="@id/avatarImageView"
-            android:text="@string/welcome_to_ultimate_fitness"
-            android:textColor="@color/darker_grey"
-            android:textSize="15sp" />
+            <TextView
+                android:id="@+id/messageTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_below="@id/userNameTextView"
+                android:layout_toEndOf="@id/avatarImageView"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:text="@string/welcome_to_ultimate_fitness"
+                android:textColor="@color/dark_gray"
+                android:textSize="15sp" />
 
 
-    </RelativeLayout>
+        </RelativeLayout>
+
     </androidx.cardview.widget.CardView>
     <ListView
         android:id="@+id/chatsListView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="?attr/actionBarSize"/>
+        android:layout_marginBottom="?attr/actionBarSize"
+        android:visibility="gone"/>
 </LinearLayout>

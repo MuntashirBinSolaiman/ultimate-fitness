@@ -29,14 +29,19 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.run.ultimate_fitness.R;
 import com.run.ultimate_fitness.WebPage;
+import com.run.ultimate_fitness.WorkoutsGoalPage;
+import com.run.ultimate_fitness.database.DBHelper;
 import com.run.ultimate_fitness.databinding.FragmentHomeBinding;
 import com.run.ultimate_fitness.utils.Constants;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -62,6 +67,10 @@ public class HomeFragment extends Fragment {
     public static final String STEPS ="steps";
 
     public static final String GOALS_PREFS ="goalsPrefs";
+    public static final String PROGRESS_PREFS ="progressPrefs";
+    public static final String DATE_PREFS ="datePrefs";
+
+
 
     public static final String WATER_GOAL ="water_goal";
     public static final String CALORIES_GOAL ="calories_goal";
@@ -87,19 +96,32 @@ public class HomeFragment extends Fragment {
     private TextView txtWaterDrank, txtStepsTaken, txtCaloriesEaten;
     private TextView stepsTakenText, caloriesEatenText;
     public String uid;
+    private DBHelper dbHelper;
 
-    SharedPreferences sharedPreferences, sharedPreferences2,sharedPreferences3;
+    public Date currentDate, dateYesterday;
+
+    public String temp_date;
+
+    SharedPreferences goalPrefs, credentialPrefs, userPrefs, progressPrefs;
     public String fullname;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        sharedPreferences = getActivity().getApplicationContext().getSharedPreferences(GOALS_PREFS,MODE_PRIVATE);
-        sharedPreferences2 = getActivity().getApplicationContext().getSharedPreferences(CREDENTIALS_PREFS,MODE_PRIVATE);
-        sharedPreferences3 = getActivity().getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
+        goalPrefs = getActivity().getApplicationContext().getSharedPreferences(GOALS_PREFS,MODE_PRIVATE);
+        credentialPrefs = getActivity().getApplicationContext().getSharedPreferences(CREDENTIALS_PREFS,MODE_PRIVATE);
+        userPrefs = getActivity().getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
+        progressPrefs = getActivity().getApplicationContext().getSharedPreferences(PROGRESS_PREFS,MODE_PRIVATE);
 
-        uid = sharedPreferences2.getString(USER_UID, null);
+        dbHelper =new DBHelper(getActivity());
 
+        try {
+            checkDate();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        uid = credentialPrefs.getString(USER_UID, null);
 
         homeViewModel =
                 new ViewModelProvider(this).get(HomeViewModel.class);
@@ -200,13 +222,13 @@ public class HomeFragment extends Fragment {
 
 
 
-        water = sharedPreferences.getInt(WATER, 0);
-        calories = sharedPreferences.getInt(CALORIES, 0);
-        steps = sharedPreferences.getInt(STEPS, 0);
+        water = progressPrefs.getInt(WATER, 0);
+        calories = progressPrefs.getInt(CALORIES, 0);
+        steps = progressPrefs.getInt(STEPS, 0);
 
-        waterGoal = sharedPreferences.getInt(WATER_GOAL, 0);
-        caloriesGoal = sharedPreferences.getInt(CALORIES_GOAL, 0);
-        stepsGoal = sharedPreferences.getInt(STEPS_GOAL, 0);
+        waterGoal = goalPrefs.getInt(WATER_GOAL, 0);
+        caloriesGoal = goalPrefs.getInt(CALORIES_GOAL, 0);
+        stepsGoal = goalPrefs.getInt(STEPS_GOAL, 0);
 
 
         txtCaloriesEaten = root.findViewById(R.id.txtCalorieProgress);
@@ -267,7 +289,7 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
                 // Perform action on click
                 drinkWater();
-                SharedPreferences.Editor editor = sharedPreferences.edit();
+                SharedPreferences.Editor editor = progressPrefs.edit();
                 editor.putInt(WATER, water);
                 editor.apply();
 
@@ -276,21 +298,86 @@ public class HomeFragment extends Fragment {
         });
 
 
+        checkGoals();
 
         return root;
     }
 
+    private void checkGoals() {
+        if (waterGoal == 0 || caloriesGoal == 0){
+            new AlertDialog.Builder(this.getContext())
+                    .setTitle("Attention")
+                    .setMessage("You have not set all your fitness goals. Please set up your fitness profile.")
+
+                    // Specifying a listener allows you to take an action before dismissing the dialog.
+                    // The dialog is automatically dismissed when a dialog button is clicked.
+                    .setPositiveButton("Setup", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent intent = new Intent(getContext(), WorkoutsGoalPage.class);
+                            startActivity(intent);
+
+                        }
+                    }).show();
+/*
+                        // A null listener allows the button to dismiss the dialog and take no further action.
+                        .setNegativeButton(android.R.string.ok, null)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+ */
+            water = 0;
+        }
+    }
+
+    private void checkDate() throws ParseException {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        Date dateToday = new Date();
+        SharedPreferences datePrefs = this.getContext().getSharedPreferences(DATE_PREFS,MODE_PRIVATE);
+
+        temp_date = datePrefs.getString(DATE_PREFS, "");
+
+
+        currentDate = new Date();
+
+        if(temp_date != "") {
+
+
+            String temp_dateToday = dateFormat.format(dateToday);
+            String temp_dateYesterday = datePrefs.getString(DATE_PREFS, "");
+
+
+            if (!temp_dateToday.equals(temp_dateYesterday)) {
+                resetProgress();
+                System.out.println("Reset");
+
+            } else {
+                System.out.println("Same day");
+            }
+        }
+        else {
+            temp_date = dateFormat.format(dateToday);
+            System.out.println(temp_date);
+
+        }
+
+        SharedPreferences.Editor editor = datePrefs.edit();
+        editor.putString(DATE_PREFS, temp_date);
+        editor.apply();
+
+
+    }
+
     //Writes image to Firebase RTDB for the Admin to read
     private void writeImageToFirebase() {
-        boolean loggedIn = sharedPreferences3.getBoolean(IS_LOGGED_IN, false);
-        SharedPreferences.Editor editor = sharedPreferences3.edit();
+        boolean loggedIn = userPrefs.getBoolean(IS_LOGGED_IN, false);
+        SharedPreferences.Editor editor = userPrefs.edit();
         editor.putBoolean(IS_LOGGED_IN, true);
 
         if (loggedIn == true) {
             if (isNetworkAvailable()) {
                 if (!uid.equals(Constants.MASTER_UID)) {
 
-                    uid = sharedPreferences2.getString(USER_UID, "");
+                    uid = credentialPrefs.getString(USER_UID, "");
 
                     if (uid != "") {
                         try {
@@ -405,7 +492,6 @@ public class HomeFragment extends Fragment {
         waterProgress = waterDrank + "/" + waterGoal;
         txtWaterDrank.setText("" + waterProgress);
         txtWaterDrank2.setText("" + waterProgress);
-        System.out.println(waterProgress);
         CurrentProgress = CurrentProgress + 10;
         waterProgressBar.setProgress(water);
         if (water == waterGoal) {
@@ -450,6 +536,27 @@ public class HomeFragment extends Fragment {
             water = 0;
         }
     }
+
+    public void resetProgress(){
+        dbHelper.deleteAllItems();
+        SharedPreferences progressPrefs = this.getContext().getSharedPreferences(PROGRESS_PREFS,MODE_PRIVATE);
+
+        water =0;
+        calories=0;
+
+        waterProgressBar.setProgress(0);
+        caloriesProgressBar.setProgress(0);
+        SharedPreferences.Editor editor = progressPrefs.edit();
+        editor.putInt(WATER, 0);
+        editor.putInt(CALORIES, 0);
+
+        editor.apply();
+
+
+        editor.clear();
+        editor.apply();
+    }
+
 
     @Override
     public void onResume() {

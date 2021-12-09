@@ -39,7 +39,8 @@ public class Water_Tracker_Activity extends AppCompatActivity {
     private TextView toolDisplayView, logoutText;
     private ImageView backButtonImage;
 
-    public static final String GOALS_PREFS ="goalsPrefs";
+    public static final String GOALS_PREFS = "goalsPrefs";
+    public static final String PROGRESS_PREFS ="progressPrefs";
     public static final String USER_PREFS ="userPrefs";
     public static final String WATER ="water";
     public static final String WATER_GOAL ="water_goal";
@@ -81,10 +82,12 @@ public class Water_Tracker_Activity extends AppCompatActivity {
 
         waterTrackerDobHelper = new Water_Tracker_DOBHelper(Water_Tracker_Activity.this);
 
-        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(GOALS_PREFS,MODE_PRIVATE);
+        SharedPreferences progressPrefs = getApplicationContext().getSharedPreferences(PROGRESS_PREFS,MODE_PRIVATE);
+        SharedPreferences goalsPrefs = getApplicationContext().getSharedPreferences(GOALS_PREFS,MODE_PRIVATE);
 
-        cups_of_water = sharedPreferences.getInt(WATER, 0);
-        waterGoal = sharedPreferences.getInt(WATER_GOAL, 0);
+
+        cups_of_water = progressPrefs.getInt(WATER, 0);
+        waterGoal = goalsPrefs.getInt(WATER_GOAL, 0);
 
         text_view_progress.setText("" + cups_of_water );
         progressBar.setMax(waterGoal);
@@ -223,12 +226,12 @@ public class Water_Tracker_Activity extends AppCompatActivity {
     public void drinkWater(View view) {
 
             cups_of_water++;
+
+            updateProgressBar();
             String waterDrank = String.valueOf(cups_of_water);
             String waterProgress = waterDrank + "";
             text_view_progress.setText("" + cups_of_water );
-            System.out.println(waterProgress);
-            updateProgressBar();
-            SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(GOALS_PREFS,MODE_PRIVATE);
+            SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(PROGRESS_PREFS,MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putInt(WATER, cups_of_water);
             editor.apply();
@@ -271,12 +274,11 @@ public class Water_Tracker_Activity extends AppCompatActivity {
             String waterProgress = waterDrank + "";
             text_view_progress.setText("" + cups_of_water );
 
-            System.out.println(waterProgress);
             updateProgressBar();
         }
 
-        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(GOALS_PREFS,MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
+        SharedPreferences progressPrefs = getApplicationContext().getSharedPreferences(PROGRESS_PREFS,MODE_PRIVATE);
+        SharedPreferences.Editor editor = progressPrefs.edit();
         editor.putInt(WATER, cups_of_water);
         editor.apply();
 

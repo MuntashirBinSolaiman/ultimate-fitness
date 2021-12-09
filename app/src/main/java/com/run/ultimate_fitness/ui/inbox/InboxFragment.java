@@ -50,7 +50,7 @@ public class InboxFragment extends Fragment {
 
     private ImageView profilePicImage, imgGymWorkouts, bookingImage;
     private TextView userName;
-    private ProgressBar progressBar;
+    private ProgressBar progressBar, loadingProressBar;
 
     public static final String CREDENTIALS_PREFS = "credentials";
     public static final String USER_UID = "uid";
@@ -60,8 +60,6 @@ public class InboxFragment extends Fragment {
     private String userUID;
 
     public DatabaseReference root, children;
-    public Iterator i;
-    public int x = 1;
     ArrayList<InboxModel> arrayList;
     public ArrayList<String> uids;
     public String client_uid;
@@ -109,6 +107,7 @@ public class InboxFragment extends Fragment {
         progressBar = view.findViewById(R.id.topBarProgress);
         profilePicImage = view.findViewById(R.id.icon_user);
         userName = view.findViewById(R.id.txtUsername);
+        loadingProressBar = view.findViewById(R.id.loadingProgressBar);
 
         conversatonsCardView = view.findViewById(R.id.conversatonsCardView);
         conversatonsCardView.setOnClickListener(new View.OnClickListener() {
@@ -203,6 +202,7 @@ public class InboxFragment extends Fragment {
             names.add((String) singleUser.get("message"));
             String temp_name = (String) singleUser.get("name");
 
+
             uids.add((String) singleUser.get("uid"));
             String uid = (String) singleUser.get("uid");
 
@@ -211,6 +211,8 @@ public class InboxFragment extends Fragment {
             arrayList.add(new InboxModel(uid, temp_name,
                     temp_message, StringToBitMap(temp_image)));
         }
+
+        loadingProressBar.setVisibility(View.GONE);
 
         InboxAdapter inboxAdapter = new InboxAdapter(getContext(), R.layout.inbox_list_item, arrayList);
         chatsListView.setAdapter(inboxAdapter);

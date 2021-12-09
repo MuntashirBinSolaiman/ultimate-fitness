@@ -31,22 +31,14 @@ public class WorkoutPage extends AppCompatActivity {
         setContentView(R.layout.activity_workout_page);
         getSupportActionBar().hide();
 
-        Bundle extras = getIntent().getExtras();
-        if (extras != null){
-            workoutName = extras.getString("workout_name");
-            workoutZone = extras.getString("workout_zone");
-            workoutDescription = extras.getString("workout_description");
-            videoPath = extras.getString("video");
-        }
+
+        loadBundle();
 
         iconBack = (ImageButton) findViewById(R.id.iconBack);
-
-
 
         //Creating the video view
         videoView = findViewById(R.id.video_Workout);
 
-        System.out.println(videoPath);
         uri = Uri.parse(videoPath);
         videoView.setVideoURI(uri);
         videoView.seekTo(400);
@@ -69,6 +61,16 @@ public class WorkoutPage extends AppCompatActivity {
 
     }
 
+    private void loadBundle() {
+        Bundle extras = getIntent().getExtras();
+        if (extras != null){
+            workoutName = extras.getString("workout_name");
+            workoutZone = extras.getString("workout_zone");
+            workoutDescription = extras.getString("workout_description");
+            videoPath = extras.getString("video");
+        }
+
+    }
 
 
     public void goBack(View view) {

@@ -232,6 +232,7 @@ public class WorkoutsGoalPage extends AppCompatActivity {
 
                 txtBack.animate().alpha(1.0F);
 
+                txtNext.setText("Next");
 
                 break;
             //steps the fitness goals
@@ -246,36 +247,18 @@ public class WorkoutsGoalPage extends AppCompatActivity {
                 stepsLayout.animate().translationX(0);
                 stepsLayout.animate().alpha(1.0F);
 
-                caloriesLayout.animate().translationX(650);
-                caloriesLayout.animate().alpha(0.0F);
-
-                txtNext.setText("Next");
-                System.out.println(waterGoalFinal);
-
-
-                break;
-            //display the calories goals
-
-            case 4:
-                fitnessLayout.animate().translationX(-650);
-                fitnessLayout.animate().alpha(0.0F);
-
-                waterLayout.animate().translationX(-650);
-                waterLayout.animate().alpha(0.0F);
-
-                stepsLayout.animate().translationX(-650);
-                stepsLayout.animate().alpha(0.0F);
-
                 caloriesLayout.animate().translationX(0);
                 caloriesLayout.animate().alpha(1.0F);
 
                 txtNext.setText("Finish");
 
+
                 break;
+            //display the calories goals
 
             //save the goals and go to the home page
 
-            case 5:
+            case 4:
 
                 SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(GOALS_PREFS, MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();

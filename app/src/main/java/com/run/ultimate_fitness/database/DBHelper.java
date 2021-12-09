@@ -73,6 +73,12 @@ public class DBHelper extends SQLiteOpenHelper {
         }
         db.close();
     }
+
+    public void deleteAllItems(){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        db.execSQL("DELETE FROM MY_TABLE");
+    }
     public ArrayList<RecyclerViewData> load(int category_id)
     {
         RecyclerViewData mLog ;
