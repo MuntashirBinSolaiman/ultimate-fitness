@@ -28,7 +28,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.run.ultimate_fitness.database.DBHelper;
 import com.run.ultimate_fitness.utils.Constants;
+
+import com.run.ultimate_fitness.database.DBHelper;
+
 
 public class ProfilePage extends AppCompatActivity {
 
@@ -53,6 +57,8 @@ public class ProfilePage extends AppCompatActivity {
     public static final String HEIGHT ="height";
     public static final String PICTURE ="picture";
 
+    private DBHelper dbHelper;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +79,7 @@ public class ProfilePage extends AppCompatActivity {
         weightTextView = findViewById(R.id.weightProfileTextView);
         backButtonImage = findViewById(R.id.toolbarBackButton);
         deleteBtnTextView = findViewById(R.id.deleteBtn);
+
 
         protectUserAccount();
 
@@ -194,12 +201,16 @@ public class ProfilePage extends AppCompatActivity {
         SharedPreferences.Editor editor2 = goalsPrefs.edit();
         SharedPreferences.Editor editor3 = progressPrefs.edit();
 
+        dbHelper = new DBHelper(getApplication());
+        dbHelper.deleteAllItems();
+
         editor.clear();
         editor.apply();
         editor2.clear();
         editor2.apply();
         editor3.clear();
         editor3.apply();
+
     }
 
     private void clearRTDB(){

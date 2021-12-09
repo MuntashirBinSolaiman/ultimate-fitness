@@ -49,7 +49,7 @@ public class InboxFragment extends Fragment {
     public static final String USER_PREFS = "userPrefs";
 
     private ImageView profilePicImage, imgGymWorkouts, bookingImage;
-    private TextView userName;
+    private TextView userName, lastMessage;
     private ProgressBar progressBar, loadingProressBar;
 
     public static final String CREDENTIALS_PREFS = "credentials";
@@ -133,12 +133,12 @@ public class InboxFragment extends Fragment {
             }
         });
 
+        lastMessage = view.findViewById(R.id.messageTextView);
         chatsListView = view.findViewById(R.id.chatsListView);
 
 
         arrayList = new ArrayList<>();
 
-        checkUser();
         loadChat();
         loadImage();
 
@@ -169,6 +169,8 @@ public class InboxFragment extends Fragment {
         root.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                lastMessage.setText(snapshot.child(userUID).child("message").getValue(String.class));
 
                 collectChats((Map<String, Object>) snapshot.getValue());
             }
@@ -203,6 +205,7 @@ public class InboxFragment extends Fragment {
             String temp_name = (String) singleUser.get("name");
 
 
+
             uids.add((String) singleUser.get("uid"));
             String uid = (String) singleUser.get("uid");
 
@@ -210,9 +213,11 @@ public class InboxFragment extends Fragment {
             //Adds chats to the list view
             arrayList.add(new InboxModel(uid, temp_name,
                     temp_message, StringToBitMap(temp_image)));
+
         }
 
         loadingProressBar.setVisibility(View.GONE);
+        checkUser();
 
         InboxAdapter inboxAdapter = new InboxAdapter(getContext(), R.layout.inbox_list_item, arrayList);
         chatsListView.setAdapter(inboxAdapter);
