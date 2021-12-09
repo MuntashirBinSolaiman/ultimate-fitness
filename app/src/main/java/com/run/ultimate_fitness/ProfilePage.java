@@ -181,7 +181,7 @@ public class ProfilePage extends AppCompatActivity {
         displayImage.setImageBitmap(StringToBitMap(picture));
     }
 
-    //Clears shred preferences
+    //Clears shred preferences.
     private void clearData(){
         SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
