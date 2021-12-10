@@ -26,6 +26,8 @@ import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -61,7 +63,9 @@ public class InboxFragment extends Fragment {
 
     public DatabaseReference root, children;
     ArrayList<InboxModel> arrayList;
-    public ArrayList<String> uids;
+    public ArrayList<String> uids = new ArrayList<>();
+
+
     public String client_uid;
 
 
@@ -136,10 +140,12 @@ public class InboxFragment extends Fragment {
         lastMessage = view.findViewById(R.id.messageTextView);
         chatsListView = view.findViewById(R.id.chatsListView);
 
+        //getLastMessage();
+
 
         arrayList = new ArrayList<>();
 
-        loadChat();
+        //loadChat();
         loadImage();
 
         //The listener that detects which list item has been selected.
@@ -163,6 +169,45 @@ public class InboxFragment extends Fragment {
         return view;
     }
 
+    private void getLastMessage() {
+
+        root = FirebaseDatabase.getInstance("https://ultimate-storm-default-rtdb.europe-west1.firebasedatabase.app")
+                .getReference()
+                .child("users")
+                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .child("message");
+
+        root.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                lastMessage.setText(snapshot.getValue(String.class));
+
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+    }
+
     private void loadChat() {
         root = FirebaseDatabase.getInstance("https://ultimate-storm-default-rtdb.europe-west1.firebasedatabase.app").getReference().child("users");
 
@@ -182,11 +227,14 @@ public class InboxFragment extends Fragment {
         });
     }
 
+    ArrayList<String> images = new ArrayList<>();
+    ArrayList<String> names = new ArrayList<>();
+
+
+
     //Loads all the chats for the admin
     private void collectChats(Map<String, Object> users) {
-        ArrayList<String> images = new ArrayList<>();
-        ArrayList<String> names = new ArrayList<>();
-        uids = new ArrayList<>();
+
 
         //iterate through each user, ignoring their UID
         for (Map.Entry<String, Object> entry : users.entrySet()) {
@@ -198,10 +246,11 @@ public class InboxFragment extends Fragment {
             images.add((String) singleUser.get("image"));
             String temp_image = (String) singleUser.get("image");
 
-            images.add((String) singleUser.get("image"));
+            String temp_lastUID = (String) singleUser.get("lastUID");
+
             String temp_message = (String) singleUser.get("message");
 
-            names.add((String) singleUser.get("message"));
+            names.add((String) singleUser.get("name"));
             String temp_name = (String) singleUser.get("name");
 
 
@@ -209,10 +258,38 @@ public class InboxFragment extends Fragment {
             uids.add((String) singleUser.get("uid"));
             String uid = (String) singleUser.get("uid");
 
+            String chat;
+            String chat2 ="";
+
+            String myUID =FirebaseAuth.getInstance().getCurrentUser().getUid();
+            if (uid.equals(myUID)){
+
+                if (!temp_lastUID.equals(Constants.MASTER_UID)) {
+                    chat = "You: " + temp_message;
+
+                }
+                else{
+                    chat = "Rukudzo" + ": " + temp_message;
+
+                }
+
+
+                lastMessage.setText(chat);
+            }
+
+            if (!temp_lastUID.equals(Constants.MASTER_UID)) {
+                chat2 = temp_name+ ": " + temp_message;
+
+            }
+            else{
+                chat2 = "You: " + temp_message;
+
+            }
+
 
             //Adds chats to the list view
             arrayList.add(new InboxModel(uid, temp_name,
-                    temp_message, StringToBitMap(temp_image)));
+                    chat2, StringToBitMap(temp_image)));
 
         }
 
@@ -245,6 +322,13 @@ public class InboxFragment extends Fragment {
         super.onResume();
         progressBar.setVisibility(View.GONE);
         bookingImage.setVisibility(View.VISIBLE);
+
+        loadChat();
+
+        arrayList.clear();
+
+
+
     }
 
     public void loadImage() {

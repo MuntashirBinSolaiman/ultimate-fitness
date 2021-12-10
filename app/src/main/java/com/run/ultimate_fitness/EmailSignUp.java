@@ -171,22 +171,6 @@ public class EmailSignUp extends AppCompatActivity {
                 });
     }
 
-    private void initChat() {
-
-        root = FirebaseDatabase.getInstance("https://ultimate-storm-default-rtdb.europe-west1.firebasedatabase.app").getReference().child(uid);
-
-        Map<String,Object> map1 = new HashMap<String, Object>();
-        temp_key = root.push().getKey();
-        map1.put(uid, "");
-        root.updateChildren(map1);
-
-        DatabaseReference message_root = root.child(temp_key);
-        Map<String,Object> map2 = new HashMap<String,Object>();
-        map2.put("name", "Warona");
-        map2.put("message", "Good day sir!");
-        message_root.updateChildren(map2);
-
-    }
 
     //Saves login credentials to shared preferences
     private void saveCredentials(String email, String password){

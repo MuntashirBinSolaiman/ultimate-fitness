@@ -53,6 +53,7 @@ public class ChatPage extends AppCompatActivity {
     private String temp_key;
     TextView txtUsername;
     public String temp_clientUID;
+    private String myUID;
 
     public String uid = "";
 
@@ -89,6 +90,8 @@ public class ChatPage extends AppCompatActivity {
 
 
         uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        userUID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
         Bundle mbundle = getIntent().getExtras();
         if (!userUID.equals(Constants.MASTER_UID)) {
             clientUID = uid;
@@ -225,7 +228,7 @@ public class ChatPage extends AppCompatActivity {
         temp_key = root.push().getKey();
         root.updateChildren(map1);
 
-        String myUID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        myUID = FirebaseAuth.getInstance().getCurrentUser().getUid();
         DatabaseReference message_root = root.child(temp_key);
         Map<String, Object> map2 = new HashMap<String, Object>();
 

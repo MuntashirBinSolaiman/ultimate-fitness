@@ -38,6 +38,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.run.ultimate_fitness.utils.Constants;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -110,9 +111,14 @@ public class SignUpInformation extends AppCompatActivity {
         map1.put("name", temp_fullName);
         map1.put("image", picture);
         map1.put("uid", uid);
+        map1.put("message", "Welcome to Ultimate Fitness\uD83D\uDCAA\uD83C\uDFFF");
+        map1.put("lastUID", Constants.MASTER_UID);
+
 
 
         root.updateChildren(map1);
+
+        sendWelcomeMessage();
 
     }
 
@@ -270,7 +276,38 @@ public class SignUpInformation extends AppCompatActivity {
                         }
                     }
                 });
-        
+
+
+
+
+    }
+
+    private void sendWelcomeMessage() {
+
+        String fullName = firstNameTxt.getText().toString();
+
+        //Sets the root to the current user's chat
+        root = FirebaseDatabase.getInstance("https://ultimate-storm-default-rtdb.europe-west1.firebasedatabase.app")
+                .getReference()
+                .child("users")
+                .child(uid)
+                .child("chat");
+
+        Map<String, Object> map1 = new HashMap<String, Object>();
+        temp_key = root.push().getKey();
+        root.updateChildren(map1);
+
+        String myUID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference message_root = root.child(temp_key);
+        Map<String, Object> map2 = new HashMap<String, Object>();
+
+        //Adds data to the RTDB
+        map2.put("name", fullName);
+        map2.put("message", "Welcome to Ultimate Fitness\uD83D\uDCAA\uD83C\uDFFF");
+        map2.put("uid", Constants.MASTER_UID);
+        map2.put("timestamp", System.currentTimeMillis());
+        message_root.updateChildren(map2);
+        message_root.updateChildren(map2);
 
     }
 
