@@ -69,6 +69,7 @@ public class InboxFragment extends Fragment {
     public String client_uid;
 
 
+
     public static InboxFragment newInstance() {
         return new InboxFragment();
     }

@@ -91,5 +91,9 @@
     <string name="steps_today">Steps Today</string>
     <string name="daily_calories">Daily Calories</string>
     <string name="_0_0">0/0</string>
+    <string name="water_intake">Water Intake</string>
+    <string name="calories_consumed">Calories Consumed</string>
+    <string name="yesterday_s_progress">Yesterday\'s Progress</string>
+    <string name="okay">OKAY</string>
 
 </resources>

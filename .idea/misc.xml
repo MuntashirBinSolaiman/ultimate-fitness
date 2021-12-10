@@ -46,6 +46,7 @@
         <entry key="..\:/Users/Hp/AndroidStudioProjects/Ultimate_Fitness_Android/app/src/main/res/layout/water_tracker_activity_main.xml" value="0.45735707591377694" />
         <entry key="..\:/Users/zeyne/Documents/Ultimate_Fitness_Android/app/src/main/res/layout/water_tracker_activity_main.xml" value="0.20416666666666666" />
         <entry key="app/src/main/res-components/users/drawable/circular.xml" value="0.259375" />
+        <entry key="app/src/main/res-components/users/drawable/ic_medal.xml" value="0.26974358974358975" />
         <entry key="app/src/main/res-components/users/drawable/ic_send.xml" value="1.3166666666666667" />
         <entry key="app/src/main/res-components/users/drawable/ic_splash_f.xml" value="0.24635416666666668" />
         <entry key="app/src/main/res-components/users/drawable/ic_splash_u.xml" value="0.24635416666666668" />
@@ -90,6 +91,7 @@
         <entry key="app/src/main/res/layout/child_item.xml" value="0.2578125" />
         <entry key="app/src/main/res/layout/content_gym_workouts.xml" value="0.3890625" />
         <entry key="app/src/main/res/layout/content_main.xml" value="0.15208333333333332" />
+        <entry key="app/src/main/res/layout/custom_alert_dialog_layout.xml" value="0.25" />
         <entry key="app/src/main/res/layout/debug_main.xml" value="0.13645833333333332" />
         <entry key="app/src/main/res/layout/fitness_goals.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_appointments.xml" value="0.17074275362318841" />

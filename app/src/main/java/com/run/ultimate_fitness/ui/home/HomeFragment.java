@@ -3,12 +3,15 @@ package com.run.ultimate_fitness.ui.home;
 import static android.content.Context.MODE_PRIVATE;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -105,6 +108,9 @@ public class HomeFragment extends Fragment {
     SharedPreferences goalPrefs, credentialPrefs, userPrefs, progressPrefs;
     public String fullname;
 
+    private Dialog achievementDialog;
+
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
@@ -113,13 +119,9 @@ public class HomeFragment extends Fragment {
         userPrefs = getActivity().getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
         progressPrefs = getActivity().getApplicationContext().getSharedPreferences(PROGRESS_PREFS,MODE_PRIVATE);
 
-        dbHelper =new DBHelper(getActivity());
+        achievementDialog = new Dialog(getContext());
 
-        try {
-            checkDate();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        dbHelper =new DBHelper(getActivity());
 
         uid = credentialPrefs.getString(USER_UID, null);
 
@@ -347,7 +349,7 @@ public class HomeFragment extends Fragment {
 
 
             if (!temp_dateToday.equals(temp_dateYesterday)) {
-                resetProgress();
+                openAlert();
                 System.out.println("Reset");
                 temp_date = temp_dateToday;
 
@@ -368,6 +370,49 @@ public class HomeFragment extends Fragment {
         editor.apply();
 
 
+    }
+
+    private void openAlert() {
+        achievementDialog.setContentView(R.layout.custom_alert_dialog_layout);
+        achievementDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        ProgressBar waterDayProgress = achievementDialog.findViewById(R.id.waterDayProgress);
+        ProgressBar caloriesDayProgress = achievementDialog.findViewById(R.id.caloriesDayProgress);
+
+        TextView txtWaterDayProgress = (TextView) achievementDialog.findViewById(R.id.txtWaterAchievement);
+        TextView txtCaloriesDayProgress = (TextView) achievementDialog.findViewById(R.id.txtCaloriesAchievement);
+
+        txtWaterDayProgress.setText(water + "/" + waterGoal + " Glasses");
+        txtCaloriesDayProgress.setText(calories + "/" + caloriesGoal + " Calories");
+
+        waterDayProgress.setMax(waterGoal);
+        caloriesDayProgress.setMax(caloriesGoal);
+
+        waterDayProgress.setProgress(water);
+        caloriesDayProgress.setProgress(calories);
+
+        caloriesEatenText.setText("0/" + caloriesGoal);
+        txtWaterDrank.setText("0/" + waterGoal);
+
+        txtCaloriesEaten.setText("0/" + caloriesGoal);
+        txtWaterDrank2.setText("0/" + caloriesGoal);
+
+        caloriesProgressBar.setProgress(0);
+        waterProgressBar.setProgress(0);
+
+
+
+
+        androidx.appcompat.widget.AppCompatButton okayAlertBtn = achievementDialog.findViewById(R.id.okayAlertBtn);
+        okayAlertBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                achievementDialog.dismiss();
+                resetProgress();
+            }
+        });
+
+        achievementDialog.show();
     }
 
     //Writes image to Firebase RTDB for the Admin to read
@@ -551,7 +596,6 @@ public class HomeFragment extends Fragment {
 
         editor.apply();
 
-
         editor.clear();
         editor.apply();
     }
@@ -562,6 +606,11 @@ public class HomeFragment extends Fragment {
         super.onResume();
         //Ensures that the progress bar for opening the appointments page is GONE when returning
         //to the home page
+        try {
+            checkDate();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         progressBar.setVisibility(View.GONE);
         bookingImage.setVisibility(View.VISIBLE);
 
