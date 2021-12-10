@@ -96,7 +96,7 @@ public class WorkoutsGoalPage extends AppCompatActivity {
         waterGoalPicker.setMinValue(0);
         waterGoalPicker.setValue(0);
 
-        caloriesGoalPicker.setMaxValue(24);
+        caloriesGoalPicker.setMaxValue(30);
         caloriesGoalPicker.setMinValue(0);
 
 
@@ -149,8 +149,8 @@ public class WorkoutsGoalPage extends AppCompatActivity {
             waterValueSet[w] = String.valueOf(w);
         }
 
-        caloriesValueSet = new String[26];
-        for (int c = 0; c <= 2500; c += 100) {
+        caloriesValueSet = new String[32];
+        for (int c = 0; c <= 3100; c += 100) {
             caloriesValueSet[(c / 100)] = String.valueOf(c);
         }
     }
