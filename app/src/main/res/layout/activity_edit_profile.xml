@@ -134,47 +134,6 @@
                 <ImageView
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:src="@drawable/ic_phone"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Phone Number"
-                    android:textStyle="bold"
-                    android:textSize="18dp"
-                    android:textColor="@color/black"
-                    android:layout_marginLeft="5dp"/>
-
-                <EditText
-                    android:id="@+id/phoneNumberChangeEditText"
-                    android:layout_width="209dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="25dp"
-                    android:hint="Tap here"
-                    android:inputType="phone"
-                    android:maxLength="10"
-                    android:textColor="@color/darker_grey"
-                    android:textSize="18dp" />
-            </LinearLayout>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:background="@color/darker_grey"
-                android:layout_marginTop="10dp"
-                android:paddingRight="15dp"
-                android:paddingLeft="15dp"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingStart="15dp"
-                android:paddingEnd="15dp"
-                android:layout_marginTop="20dp"
-                android:gravity="center_vertical">
-
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
                     android:src="@drawable/ic_height"/>
                 <TextView
                     android:layout_width="wrap_content"

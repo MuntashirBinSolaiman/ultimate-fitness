@@ -41,6 +41,17 @@
     <string name="next">Next</string>
     <string name="previous">Previous</string>
 
+    <!-- OTP Strings-->
+    <string name="otp_verification">OTP Verification</string>
+    <string name="we_will_a_one_time_password_on_the_mobile_number">We will a One Time Password on the mobile number</string>
+    <string name="enter_mobile_number">enter mobile number</string>
+    <string name="_91">+27-</string>
+    <string name="get_otp">GET OTP</string>
+    <string name="enter_the_otp_sent_to">Enter the OTP sent to</string>
+    <string name="didn_t_receive_the_otp">didn\'t receive the OTP?</string>
+    <string name="resend_otp">RESEND OTP</string>
+    <string name="verify">Verify</string>
+
     <!-- Fitness Goals -->
     <string-array name="stepsArray">
         <item>"1000"</item>
@@ -62,13 +73,10 @@
     </string>
 
 
-
-
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
-    
-    
-    
+
+
     <string name="abs">ABS</string>
     <string name="back">BACK</string>
     <string name="biceps">BICEPS</string>

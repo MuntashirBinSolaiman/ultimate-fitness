@@ -116,7 +116,7 @@ public class LoginPage extends AppCompatActivity {
 
     //Navigates to sign up page
     public void signUp(View view){
-        Intent intent = new Intent(this, EmailSignUp.class);
+        Intent intent = new Intent(this, SendOTPActivity.class);
         startActivity(intent);
     }
 
@@ -161,19 +161,16 @@ public class LoginPage extends AppCompatActivity {
         TheProgressBar.setVisibility(View.VISIBLE);
 
         mAuth.signInWithEmailAndPassword(email,password)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
-                            loadData();
-                            UID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                            saveCredentials(email,password);
+                .addOnCompleteListener(task -> {
+                    if(task.isSuccessful()){
+                        loadData();
+                        UID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                        saveCredentials(email,password);
 
-                        }else{
-                            Toast.makeText(LoginPage.this,"Failed to login! Please check your credentials", Toast.LENGTH_LONG).show();
-                            TheProgressBar.setVisibility(View.GONE);
-                            loginButton.setVisibility(View.VISIBLE);
-                        }
+                    }else{
+                        Toast.makeText(LoginPage.this,"Failed to login! Please check your credentials", Toast.LENGTH_LONG).show();
+                        TheProgressBar.setVisibility(View.GONE);
+                        loginButton.setVisibility(View.VISIBLE);
                     }
                 });
     }
@@ -185,55 +182,47 @@ public class LoginPage extends AppCompatActivity {
         DocumentReference noteRef = db.collection("Users")
                 .document(FirebaseAuth.getInstance().getCurrentUser().getUid());
         noteRef.get()
-                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                    @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        if(documentSnapshot.exists()){
+                .addOnSuccessListener(documentSnapshot -> {
+                    if(documentSnapshot.exists()){
 
-                            String firstName = documentSnapshot.getString("firstName");
-                            String lastName = documentSnapshot.getString("lastName");
-                            String phoneNumber = documentSnapshot.getLong("phoneNumber").toString();
-                            String weight = documentSnapshot.getDouble("weight").toString();
-                            String height = documentSnapshot.getDouble("height").toString();
-                            String picture = documentSnapshot.getString("picture").toString();
+                        String firstName = documentSnapshot.getString("firstName");
+                        String lastName = documentSnapshot.getString("lastName");
+                        String phoneNumber = documentSnapshot.getLong("phoneNumber").toString();
+                        String weight = documentSnapshot.getDouble("weight").toString();
+                        String height = documentSnapshot.getDouble("height").toString();
+                        String picture = documentSnapshot.getString("picture").toString();
 
-                            String temp_uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                            SharedPreferences sharedPreferences = getSharedPreferences(USER_PREFS, MODE_PRIVATE);
-                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                        String temp_uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                        SharedPreferences sharedPreferences = getSharedPreferences(USER_PREFS, MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
 
-                            SharedPreferences sharedPreferences2 = getSharedPreferences(CREDENTIALS_PREFS, MODE_PRIVATE);
-                            SharedPreferences.Editor editor2 = sharedPreferences2.edit();
-                            editor2.putString(USER_UID, temp_uid);
-                            editor2.apply();
+                        SharedPreferences sharedPreferences2 = getSharedPreferences(CREDENTIALS_PREFS, MODE_PRIVATE);
+                        SharedPreferences.Editor editor2 = sharedPreferences2.edit();
+                        editor2.putString(USER_UID, temp_uid);
+                        editor2.apply();
 
 
 
 
-                            editor.putString(FIRST_NAME, firstName);
-                            editor.putString(LAST_NAME, lastName);
-                            editor.putString(PHONE_NUMBER, phoneNumber);
-                            editor.putString(WEIGHT, weight);
-                            editor.putString(HEIGHT, height);
-                            editor.putString(PICTURE, picture);
-                            editor.putBoolean(IS_LOGGED_IN, true);
-                            editor.apply();
+                        editor.putString(FIRST_NAME, firstName);
+                        editor.putString(LAST_NAME, lastName);
+                        editor.putString(PHONE_NUMBER, phoneNumber);
+                        editor.putString(WEIGHT, weight);
+                        editor.putString(HEIGHT, height);
+                        editor.putString(PICTURE, picture);
+                        editor.putBoolean(IS_LOGGED_IN, true);
+                        editor.apply();
 
-                            Intent intent = new Intent(LoginPage.this, MainActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            startActivity(intent);
-                        }else{
-                            Toast.makeText(LoginPage.this,"Document does not exist",Toast.LENGTH_LONG).show();
-                            loginButton.setVisibility(View.VISIBLE);
-                        }
+                        Intent intent = new Intent(LoginPage.this, MainActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                    }else{
+                        Toast.makeText(LoginPage.this,"Document does not exist",Toast.LENGTH_LONG).show();
+                        loginButton.setVisibility(View.VISIBLE);
                     }
                 })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(LoginPage.this,"Error!!",Toast.LENGTH_LONG).show();
-                    }
-                });
+                .addOnFailureListener(e -> Toast.makeText(LoginPage.this,"Error!!",Toast.LENGTH_LONG).show());
     }
 
     //Saves login credentials to shared preferences

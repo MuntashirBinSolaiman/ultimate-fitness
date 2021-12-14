@@ -50,7 +50,7 @@ public class EditProfile extends AppCompatActivity {
 
     private TextView toolDisplayView, toolLogoutView, updateDataButton;
     private ImageView backButtonImage, profilePicImage;
-    private EditText firstNameTxt, lastNameTxt, phoneNumberEdit, heightTxt, weightTxt;
+    private EditText firstNameTxt, lastNameTxt, heightTxt, weightTxt;
     private ProgressBar progressBar;
     private Bitmap bitmap;
     private String thePicture = "";
@@ -86,7 +86,6 @@ public class EditProfile extends AppCompatActivity {
 
         firstNameTxt = findViewById(R.id.firstNameChangeTextView);
         lastNameTxt = findViewById(R.id.lastNameChangeEditText);
-        phoneNumberEdit = findViewById(R.id.phoneNumberChangeEditText);
         heightTxt = findViewById(R.id.heightChangeEditText);
         weightTxt =findViewById(R.id.weightChangeEditText);
 
@@ -105,7 +104,6 @@ public class EditProfile extends AppCompatActivity {
             startActivity(intent);
         });
     }
-
 
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
@@ -128,7 +126,6 @@ public class EditProfile extends AppCompatActivity {
         {
             String firstName = firstNameTxt.getText().toString();
             String lastName = lastNameTxt.getText().toString();
-            String phoneNumber = phoneNumberEdit.getText().toString();
             String weight = weightTxt.getText().toString();
             String height = heightTxt.getText().toString();
 
@@ -162,18 +159,6 @@ public class EditProfile extends AppCompatActivity {
                 SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString(LAST_NAME,lastName);
-                editor.apply();
-            }
-
-            if(!phoneNumber.isEmpty()){
-                if(phoneNumber.length() != 10){
-                    phoneNumberEdit.setError("Please enter valid phone number");
-                    phoneNumberEdit.requestFocus();
-                    return;
-                }
-                SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(USER_PREFS,MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString(PHONE_NUMBER,phoneNumber);
                 editor.apply();
             }
 
@@ -270,23 +255,20 @@ public class EditProfile extends AppCompatActivity {
         db.collection("Users")
                 .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
                 .set(user)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if(task.isSuccessful()){
-                            Toast.makeText(EditProfile.this,"User has been successfully update", Toast.LENGTH_LONG).show();
+                .addOnCompleteListener(task -> {
+                    if(task.isSuccessful()){
+                        Toast.makeText(EditProfile.this,"User has been successfully update", Toast.LENGTH_LONG).show();
 
-                            progressBar.setVisibility(View.VISIBLE);
-                            updateDataButton.setVisibility(View.GONE);
+                        progressBar.setVisibility(View.VISIBLE);
+                        updateDataButton.setVisibility(View.GONE);
 
 
-                            Intent intent = new Intent(EditProfile.this, ProfilePage.class);
-                            startActivity(intent);
-                        }else{
-                            Toast.makeText(EditProfile.this,"User failed Update! Check connection and please try again!", Toast.LENGTH_LONG).show();
-                            progressBar.setVisibility(View.GONE);
-                            updateDataButton.setVisibility(View.VISIBLE);
-                        }
+                        Intent intent = new Intent(EditProfile.this, ProfilePage.class);
+                        startActivity(intent);
+                    }else{
+                        Toast.makeText(EditProfile.this,"User failed Update! Check connection and please try again!", Toast.LENGTH_LONG).show();
+                        progressBar.setVisibility(View.GONE);
+                        updateDataButton.setVisibility(View.VISIBLE);
                     }
                 });
     }
@@ -381,36 +363,30 @@ public class EditProfile extends AppCompatActivity {
                     if(resultCode == RESULT_OK && data != null){
                         Uri selectedImage = data.getData();
 
-                        AsyncTask.execute(new Runnable() {
-                            @Override
-                            public void run() {
-                                //TODO your background code
-                                try {
-                                    RequestOptions myOptions = new RequestOptions()
-                                            .override(700, 700);
+                        AsyncTask.execute(() -> {
+                            //TODO your background code
+                            try {
+                                RequestOptions myOptions = new RequestOptions()
+                                        .override(700, 700);
 
-                                    bitmap = Glide
-                                            .with(EditProfile.this)
-                                            .asBitmap()
-                                            .apply(myOptions)
-                                            .load(selectedImage)
-                                            .submit()
-                                            .get();
-                                } catch (ExecutionException e) {
-                                    e.printStackTrace();
-                                } catch (InterruptedException e) {
-                                    e.printStackTrace();
-                                }
+                                bitmap = Glide
+                                        .with(EditProfile.this)
+                                        .asBitmap()
+                                        .apply(myOptions)
+                                        .load(selectedImage)
+                                        .submit()
+                                        .get();
+                            } catch (ExecutionException e) {
+                                e.printStackTrace();
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
                             }
                         });
 
-                        new ClearSpTask(new ClearSpTask.AsynResponse() {
-                            @Override
-                            public void processFinish(Boolean output) {
-                                // you can go here
-                                thePicture = BitMapToString(bitmap);
-                                profilePicImage.setImageBitmap(bitmap);
-                            }
+                        new ClearSpTask(output -> {
+                            // you can go here
+                            thePicture = BitMapToString(bitmap);
+                            profilePicImage.setImageBitmap(bitmap);
                         }).execute();
 
                     }

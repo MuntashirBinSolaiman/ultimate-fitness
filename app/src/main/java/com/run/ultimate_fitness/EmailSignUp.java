@@ -1,5 +1,8 @@
 package com.run.ultimate_fitness;
 
+
+import static android.content.ContentValues.TAG;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,6 +13,7 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
@@ -19,15 +23,17 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 
 public class EmailSignUp extends AppCompatActivity {
@@ -142,35 +148,34 @@ public class EmailSignUp extends AppCompatActivity {
         progressBar.setVisibility(View.VISIBLE);
         addEmailButton.setVisibility(View.GONE);
 
-        mAuth.createUserWithEmailAndPassword(email,password)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
-                            progressBar.setVisibility(View.VISIBLE);
-                            addEmailButton.setVisibility(View.GONE);
+        AuthCredential credential = EmailAuthProvider.getCredential(email, password);
 
-                            saveCredentials(email,password);
+        Objects.requireNonNull(mAuth.getCurrentUser()).linkWithCredential(credential)
+                .addOnCompleteListener(task -> {
+                    if(task.isSuccessful()){
+                        progressBar.setVisibility(View.VISIBLE);
+                        addEmailButton.setVisibility(View.GONE);
 
-                            Toast.makeText(EmailSignUp.this,"Email and password registered successfully",Toast.LENGTH_LONG).show();
+                        saveCredentials(email,password);
+                        //mergeCredentials(email,password);
 
-                            uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                        Toast.makeText(EmailSignUp.this,"Email and password registered successfully",Toast.LENGTH_LONG).show();
+
+                        uid = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
 
 
-                            Intent intent = new Intent(EmailSignUp.this, SignUpInformation.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            startActivity(intent);
-                        }else{
-                            //something went wrong
-                            Toast.makeText(EmailSignUp.this,"Failed to registers email and password", Toast.LENGTH_LONG).show();
-                            progressBar.setVisibility(View.GONE);
-                            addEmailButton.setVisibility(View.VISIBLE);
-                        }
+                        Intent intent = new Intent(EmailSignUp.this, SignUpInformation.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                    }else{
+                        //something went wrong
+                        Toast.makeText(EmailSignUp.this,"Failed to registers email and password", Toast.LENGTH_LONG).show();
+                        progressBar.setVisibility(View.GONE);
+                        addEmailButton.setVisibility(View.VISIBLE);
                     }
                 });
     }
-
 
     //Saves login credentials to shared preferences
     private void saveCredentials(String email, String password){
@@ -181,4 +186,5 @@ public class EmailSignUp extends AppCompatActivity {
         editor.putString(PASSWORD,password);
         editor.apply();
     }
+
 }

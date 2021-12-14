@@ -26,6 +26,7 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.run.ultimate_fitness.database.DBHelper;
@@ -145,11 +146,9 @@ public class ProfilePage extends AppCompatActivity {
 
                     // Specifying a listener allows you to take an action before dismissing the dialog.
                     // The dialog is automatically dismissed when a dialog button is clicked.
-                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            // Continue with delete operation
-                            deleteProfile();
-                        }
+                    .setPositiveButton(android.R.string.yes, (dialog, which) -> {
+                        // Continue with delete operation
+                        deleteProfile();
                     })
                     .setNegativeButton(android.R.string.no, null)
                     //.setIcon(android.R.drawable.ic_dialog_alert)
@@ -239,45 +238,37 @@ public class ProfilePage extends AppCompatActivity {
         String password = sharedPreferences.getString(PASSWORD,"");
 
         AuthCredential credential = EmailAuthProvider.getCredential(email,password);
+        //AuthCredential phoneCredential = PhoneAuthProvider.getCredential(email,password);
 
-        user.reauthenticate(credential).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                FirebaseFirestore db = FirebaseFirestore.getInstance();
-                db.collection("Users")
-                        .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                        .delete()
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if(task.isSuccessful()){
-                                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                                    clearRTDB();
-                                    user.delete()
-                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                @Override
-                                                public void onComplete(@NonNull Task<Void> task) {
-                                                    if(task.isSuccessful()){
-                                                        Toast.makeText(ProfilePage.this,"Profile deleted successfully", Toast.LENGTH_LONG).show();
-                                                        clearData();
-                                                        clearAuth();
-                                                        Intent intent = new Intent(ProfilePage.this, MainActivity.class);
-                                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                                        startActivity(intent);
+        user.reauthenticate(credential).addOnCompleteListener(task -> {
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            db.collection("Users")
+                    .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                    .delete()
+                    .addOnCompleteListener(task1 -> {
+                        if(task1.isSuccessful()){
+                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                            clearRTDB();
+                            user.delete()
+                                    .addOnCompleteListener(task11 -> {
+                                        if(task11.isSuccessful()){
+                                            Toast.makeText(ProfilePage.this,"Profile deleted successfully", Toast.LENGTH_LONG).show();
+                                            clearData();
+                                            clearAuth();
+                                            Intent intent = new Intent(ProfilePage.this, MainActivity.class);
+                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                            startActivity(intent);
 
-                                                    }else{
-                                                        Toast.makeText(ProfilePage.this,"Failed to delete profile please check internet connection", Toast.LENGTH_LONG).show();
-                                                        //progressBar.setVisibility(View.GONE);
-                                                    }
-                                                }
-                                            });
-                                }else{
-                                    Toast.makeText(ProfilePage.this,"Failed to delete data!", Toast.LENGTH_LONG).show();
-                                }
-                            }
-                        });
-            }
+                                        }else{
+                                            Toast.makeText(ProfilePage.this,"Failed to delete profile please check internet connection", Toast.LENGTH_LONG).show();
+                                            //progressBar.setVisibility(View.GONE);
+                                        }
+                                    });
+                        }else{
+                            Toast.makeText(ProfilePage.this,"Failed to delete data!", Toast.LENGTH_LONG).show();
+                        }
+                    });
         });
     }
 

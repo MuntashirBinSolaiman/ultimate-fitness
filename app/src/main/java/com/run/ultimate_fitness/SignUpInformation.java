@@ -53,8 +53,8 @@ import java.util.regex.Pattern;
 public class SignUpInformation extends AppCompatActivity {
 //...
     private FirebaseAuth mAuth;
-    private EditText firstNameTxt,lastNameTxt,phoneNumberTxt, weightNameTxt,heightNameTxt;
-    private TextView addInfoButton;
+    private EditText firstNameTxt,lastNameTxt, weightNameTxt,heightNameTxt;
+    private TextView addInfoButton, phoneNumberTxt;
     private ProgressBar progressBar;
     private ImageView profilePicImage;
     private Bitmap bitmap;
@@ -100,6 +100,8 @@ public class SignUpInformation extends AppCompatActivity {
         progressBar = findViewById(R.id.registerProgressBar);
         addInfoButton = findViewById(R.id.submitInformationButton);
         profilePicImage = findViewById(R.id.displayPic);
+
+        phoneNumberTxt.setText(getStoredNum());
     }
 
     private void initChat() {
@@ -159,11 +161,20 @@ public class SignUpInformation extends AppCompatActivity {
         }
     }
 
+    public String getStoredNum(){
+        SharedPreferences sharedPreferences = getSharedPreferences(USER_PREFS,MODE_PRIVATE);
+        String phoneNumber = sharedPreferences.getString(PHONE_NUMBER, "01");
+
+        return phoneNumber;
+    }
+
     //This method uploads files to firebase
     private void registerUser(){
+        SharedPreferences sharedPreferences = getSharedPreferences(USER_PREFS,MODE_PRIVATE);
+
         String firstName = firstNameTxt.getText().toString();
         String lastName = lastNameTxt.getText().toString();
-        String phoneNumber = phoneNumberTxt.getText().toString();
+        String phoneNumber = sharedPreferences.getString(PHONE_NUMBER, "01") ;
         String weight = weightNameTxt.getText().toString();
         String height = heightNameTxt.getText().toString();
 
@@ -184,18 +195,6 @@ public class SignUpInformation extends AppCompatActivity {
         if(lastName.isEmpty()){
             lastNameTxt.setError("Last name is required");
             lastNameTxt.requestFocus();
-            return;
-        }
-
-        if(phoneNumber.isEmpty()){
-            phoneNumberTxt.setError("Phone number is required");
-            phoneNumberTxt.requestFocus();
-            return;
-        }
-
-        if(phoneNumber.length() != 10){
-            phoneNumberTxt.setError("Please enter valid phone number");
-            phoneNumberTxt.requestFocus();
             return;
         }
 
@@ -253,33 +252,26 @@ public class SignUpInformation extends AppCompatActivity {
         db.collection("Users")
                 .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
                 .set(user)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if(task.isSuccessful()){
-                            Toast.makeText(SignUpInformation.this,"User has been successfully registered", Toast.LENGTH_LONG).show();
+                .addOnCompleteListener(task -> {
+                    if(task.isSuccessful()){
+                        Toast.makeText(SignUpInformation.this,"User has been successfully registered", Toast.LENGTH_LONG).show();
 
-                            progressBar.setVisibility(View.VISIBLE);
-                            addInfoButton.setVisibility(View.GONE);
+                        progressBar.setVisibility(View.VISIBLE);
+                        addInfoButton.setVisibility(View.GONE);
 
-                            initChat();
-                            saveDataLocal(firstName,lastName,phoneNumber,weight,height,picture, workoutGoal);
+                        initChat();
+                        saveDataLocal(firstName,lastName,phoneNumber,weight,height,picture, workoutGoal);
 
-                            Intent intent = new Intent(SignUpInformation.this, WorkoutsGoalPage.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            startActivity(intent);
-                        }else{
-                            Toast.makeText(SignUpInformation.this,"Failed to Register! Please try again!", Toast.LENGTH_LONG).show();
-                            progressBar.setVisibility(View.GONE);
-                            addInfoButton.setVisibility(View.VISIBLE);
-                        }
+                        Intent intent = new Intent(SignUpInformation.this, WorkoutsGoalPage.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                    }else{
+                        Toast.makeText(SignUpInformation.this,"Failed to Register! Please try again!", Toast.LENGTH_LONG).show();
+                        progressBar.setVisibility(View.GONE);
+                        addInfoButton.setVisibility(View.VISIBLE);
                     }
                 });
-
-
-
-
     }
 
     private void sendWelcomeMessage() {
@@ -432,36 +424,30 @@ public class SignUpInformation extends AppCompatActivity {
                     if(resultCode == RESULT_OK && data != null){
                         Uri selectedImage = data.getData();
 
-                        AsyncTask.execute(new Runnable() {
-                            @Override
-                            public void run() {
-                                //TODO your background code
-                                try {
-                                    RequestOptions myOptions = new RequestOptions()
-                                            .override(700, 700);
+                        AsyncTask.execute(() -> {
+                            //TODO your background code
+                            try {
+                                RequestOptions myOptions = new RequestOptions()
+                                        .override(700, 700);
 
-                                    bitmap = Glide
-                                            .with(SignUpInformation.this)
-                                            .asBitmap()
-                                            .apply(myOptions)
-                                            .load(selectedImage)
-                                            .submit()
-                                            .get();
-                                } catch (ExecutionException e) {
-                                    e.printStackTrace();
-                                } catch (InterruptedException e) {
-                                    e.printStackTrace();
-                                }
+                                bitmap = Glide
+                                        .with(SignUpInformation.this)
+                                        .asBitmap()
+                                        .apply(myOptions)
+                                        .load(selectedImage)
+                                        .submit()
+                                        .get();
+                            } catch (ExecutionException e) {
+                                e.printStackTrace();
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
                             }
                         });
 
-                        new ClearSpTask(new ClearSpTask.AsynResponse() {
-                            @Override
-                            public void processFinish(Boolean output) {
-                                // you can go here
-                                picture = BitMapToString(bitmap);
-                                profilePicImage.setImageBitmap(bitmap);
-                            }
+                        new ClearSpTask(output -> {
+                            // you can go here
+                            picture = BitMapToString(bitmap);
+                            profilePicImage.setImageBitmap(bitmap);
                         }).execute();
                     }
                     break;
