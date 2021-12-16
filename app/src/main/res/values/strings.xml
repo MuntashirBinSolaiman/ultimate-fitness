@@ -103,5 +103,16 @@
     <string name="calories_consumed">Calories Consumed</string>
     <string name="yesterday_s_progress">Yesterday\'s Progress</string>
     <string name="okay">OKAY</string>
+    <string name="this_is_your_current_email_address">This is your current email address</string>
+    <string name="enter_new_email_address">Enter new email address</string>
+    <string name="password_recovery">Password Recovery</string>
+    <string name="change_email">Change Email</string>
+    <string name="this_is_your_current_phone_number">This is your current phone number</string>
+    <string name="enter_new_phone_number">Enter new phone number</string>
+    <string name="verify_number">Verify number</string>
+    <string name="update_number">Update number</string>
+    <string name="change_phone_number">Change Phone Number</string>
+    <string name="change_password">Change Password</string>
+    <string name="delete_profile">Delete Profile</string>
 
 </resources>

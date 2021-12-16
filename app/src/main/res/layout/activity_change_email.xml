@@ -4,25 +4,50 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ForgotPassword">
+    tools:context=".ChangeEmailActivity">
 
-    <include layout="@layout/toolbar"/>
+    <include
+        android:id="@+id/include2"
+        layout="@layout/toolbar" />
+
+    <TextView
+        android:id="@+id/emailTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:textSize="17sp"
+        android:textStyle="bold"
+        android:inputType="textEmailAddress"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="44dp"
+        android:textSize="20sp"
+        android:text="@string/this_is_your_current_email_address"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include2" />
 
     <EditText
         android:id="@+id/newNumberEditText"
         android:layout_width="250dp"
         android:layout_height="50dp"
         android:background="@drawable/bg_button"
-        android:drawableLeft="@drawable/ic_action_user"
+        android:drawableStart="@drawable/ic_action_user"
         android:ems="10"
-        android:hint="Enter Email Address"
+        android:hint="@string/enter_new_email_address"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.27" />
+        app:layout_constraintTop_toBottomOf="@+id/emailTextView"
+        app:layout_constraintVertical_bias="0.22" />
 
     <TextView
         android:id="@+id/changeEmailButton"
@@ -30,7 +55,7 @@
         android:layout_height="50dp"
         android:background="@drawable/bg_button"
         android:gravity="center"
-        android:onClick="forgotPassword"
+        android:onClick="changeEmail"
         android:padding="10dp"
         android:paddingLeft="-10dp"
         android:text="Submit"

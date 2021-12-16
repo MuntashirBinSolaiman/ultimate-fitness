@@ -1,11 +1,9 @@
 package com.run.ultimate_fitness;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -18,8 +16,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
     public class ForgotPassword extends AppCompatActivity {
@@ -44,9 +40,9 @@ import com.google.firebase.auth.FirebaseAuth;
         toolBarTitle = findViewById(R.id.toolbarTextView);
         backImage = findViewById(R.id.toolbarBackButton);
         toolBarLogOut = findViewById(R.id.toolbarLogoutTextView);
-        emailTxt = findViewById(R.id.emailForgotPasswordEditText);
+        emailTxt = findViewById(R.id.newNumberEditText);
         progressBar = findViewById(R.id.forgotEmailProgressbar);
-        submitButton = findViewById(R.id.submitForgotPasswordButton);
+        submitButton = findViewById(R.id.changeEmailButton);
 
         toolBarLogOut.setVisibility(View.GONE);
         toolBarTitle.setText("Password Recovery");
@@ -110,18 +106,15 @@ import com.google.firebase.auth.FirebaseAuth;
         submitButton.setVisibility(View.GONE);
 
 
-        mAuth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if(task.isSuccessful()){
-                    Toast.makeText(ForgotPassword.this,"Password link sent to email", Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(ForgotPassword.this, LoginPage.class);
-                    startActivity(intent);
-                }else{
-                    Toast.makeText(ForgotPassword.this,"Failed to send password reset link! Please try again", Toast.LENGTH_LONG).show();
-                    progressBar.setVisibility(View.GONE);
-                    submitButton.setVisibility(View.VISIBLE);
-                }
+        mAuth.sendPasswordResetEmail(email).addOnCompleteListener(task -> {
+            if(task.isSuccessful()){
+                Toast.makeText(ForgotPassword.this,"Password link sent to email", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(ForgotPassword.this, LoginPage.class);
+                startActivity(intent);
+            }else{
+                Toast.makeText(ForgotPassword.this,"Failed to send password reset link! Please try again", Toast.LENGTH_LONG).show();
+                progressBar.setVisibility(View.GONE);
+                submitButton.setVisibility(View.VISIBLE);
             }
         });
     }

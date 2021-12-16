@@ -283,5 +283,15 @@ public class ProfilePage extends AppCompatActivity {
             return null;
         }
     }
+
+    public void changePhoneNumberButton(View view) {
+        Intent intent = new Intent(this, ChangePhoneNumber.class);
+        startActivity(intent);
+    }
+
+    public void changeEmailButton(View view) {
+        Intent intent = new Intent(this, ChangeEmailActivity.class);
+        startActivity(intent);
+    }
 }
 

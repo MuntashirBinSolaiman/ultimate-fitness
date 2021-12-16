@@ -264,31 +264,58 @@
                     android:paddingLeft="-10dp"/>
 
                 <TextView
-                    android:onClick="changePasswordsButton"
+                    android:onClick="changeEmailButton"
                     android:layout_width="240dp"
                     android:layout_height="50dp"
                     android:background="@drawable/bg_button"
-                    android:text="Change Password"
+                    android:text="@string/change_email"
                     android:padding="10dp"
                     android:gravity="center"
-                    android:textSize="18dp"
-                    android:drawableLeft="@drawable/ic_lock"
-                    android:paddingLeft="20dp"
-                    android:layout_marginTop="15dp"/>
+                    android:textSize="18sp"
+                    android:paddingStart="20dp"
+                    android:layout_marginTop="15dp"
+                    app:drawableStartCompat="@drawable/ic_email" />
+
+                <TextView
+                    android:onClick="changePasswordsButton"
+                    android:layout_width="280dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/bg_button"
+                    android:text="@string/change_password"
+                    android:padding="10dp"
+                    android:gravity="center"
+                    android:textSize="18sp"
+                    android:paddingStart="20dp"
+                    android:layout_marginTop="15dp"
+                    app:drawableStartCompat="@drawable/ic_lock" />
+
+
+                <TextView
+                    android:onClick="changePhoneNumberButton"
+                    android:layout_width="320dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/bg_button"
+                    android:text="@string/change_phone_number"
+                    android:padding="10dp"
+                    android:gravity="center"
+                    android:textSize="18sp"
+                    android:paddingStart="20dp"
+                    android:layout_marginTop="15dp"
+                    app:drawableStartCompat="@drawable/ic_phone" />
 
                 <TextView
                     android:id="@+id/deleteBtn"
                     android:onClick="deleteProfileButton"
-                    android:layout_width="300dp"
+                    android:layout_width="380dp"
                     android:layout_height="50dp"
                     android:background="@drawable/bg_button"
-                    android:text="Delete Profile"
+                    android:text="@string/delete_profile"
                     android:padding="10dp"
                     android:gravity="center"
-                    android:textSize="18dp"
-                    android:drawableLeft="@drawable/ic_delete"
+                    android:textSize="18sp"
                     android:paddingLeft="40dp"
-                    android:layout_marginTop="30dp"/>
+                    android:layout_marginTop="30dp"
+                    app:drawableLeftCompat="@drawable/ic_delete" />
 
             </LinearLayout>
 
