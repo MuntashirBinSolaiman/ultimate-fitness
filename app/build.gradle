@@ -83,10 +83,9 @@ dependencies {
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
-    implementation 'com.mikhaellopez:circularimageview:4.3.0'
-
 
     implementation 'de.hdodenhof:circleimageview:3.1.0'
+    implementation 'com.github.joielechong:countrycodepicker:2.4.2'
 
     /*FIREBASE*/
     implementation 'com.google.firebase:firebase-auth:19.2.0'

@@ -20,6 +20,8 @@ import android.widget.Toast;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.rilixtech.widget.countrycodepicker.Country;
+import com.rilixtech.widget.countrycodepicker.CountryCodePicker;
 
 import java.util.concurrent.TimeUnit;
 
@@ -27,11 +29,16 @@ public class SendOTPActivity extends AppCompatActivity {
 
     public static final String PHONE_NUMBER ="phoneNumber";
     public static final String USER_PREFS ="userPrefs";
+    private String selectedCountryCode;
+    CountryCodePicker ccp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_send_otpactivity);
+
+        ccp = (CountryCodePicker) findViewById(R.id.ccp);
+        selectedCountryCode = ccp.getSelectedCountryCodeWithPlus();
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
@@ -62,8 +69,10 @@ public class SendOTPActivity extends AppCompatActivity {
             progressBar.setVisibility(View.VISIBLE);
             buttonGetOTP.setVisibility(View.GONE);
 
+
+
             PhoneAuthProvider.getInstance().verifyPhoneNumber(
-                    "+27" + inputMobile.getText().toString(),
+                    selectedCountryCode + inputMobile.getText().toString(),
                     60,
                     TimeUnit.SECONDS,
                     SendOTPActivity.this,
@@ -100,6 +109,11 @@ public class SendOTPActivity extends AppCompatActivity {
                     }
             );
         });
+
+        ccp.setOnCountryChangeListener(selectedCountry -> {
+            Toast.makeText(getApplicationContext(), "Updated " + selectedCountry.getName(), Toast.LENGTH_SHORT).show();
+            selectedCountryCode = ccp.getSelectedCountryCodeWithPlus();
+        });
     }
 
     private boolean isNetworkAvailable() {
@@ -108,4 +122,5 @@ public class SendOTPActivity extends AppCompatActivity {
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
+
 }

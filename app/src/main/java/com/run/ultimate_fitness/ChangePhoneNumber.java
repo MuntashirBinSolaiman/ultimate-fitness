@@ -30,6 +30,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.rilixtech.widget.countrycodepicker.CountryCodePicker;
 
 import java.util.concurrent.TimeUnit;
 
@@ -42,7 +43,8 @@ public class ChangePhoneNumber extends AppCompatActivity {
 
     private final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-    private String verification;
+    private String verification, selectedCountryCode;
+    CountryCodePicker ccp;
 
     public static final String CREDENTIALS_PREFS = "credentials";
     public static final String PASSWORD = "password";
@@ -53,6 +55,9 @@ public class ChangePhoneNumber extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_phone_number);
+
+        ccp = (CountryCodePicker) findViewById(R.id.ccp);
+        selectedCountryCode = ccp.getSelectedCountryCodeWithPlus();
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
@@ -120,6 +125,10 @@ public class ChangePhoneNumber extends AppCompatActivity {
 
         });
 
+        ccp.setOnCountryChangeListener(selectedCountry -> {
+            Toast.makeText(getApplicationContext(), "Updated " + selectedCountry.getName(), Toast.LENGTH_SHORT).show();
+            selectedCountryCode = ccp.getSelectedCountryCodeWithPlus();
+        });
     }
 
     private void displayNumber() {
@@ -166,7 +175,7 @@ public class ChangePhoneNumber extends AppCompatActivity {
         newNumberEditText.setVisibility(View.GONE);
 
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
-                "+27" + newNumberEditText.getText().toString(),
+                selectedCountryCode + newNumberEditText.getText().toString(),
                 60,
                 TimeUnit.SECONDS,
                 ChangePhoneNumber.this,
