@@ -43,9 +43,10 @@ import com.run.ultimate_fitness.utils.Constants;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class HomeFragment extends Fragment {
@@ -70,8 +71,15 @@ public class HomeFragment extends Fragment {
     public static final String STEPS ="steps";
 
     public static final String GOALS_PREFS ="goalsPrefs";
-    public static final String PROGRESS_PREFS ="progressPrefs";
     public static final String DATE_PREFS ="datePrefs";
+    public static final String PROGRESS_PREFS ="progressPrefs";
+    public static final String CURRENT_DATE_PREFS ="currentDatePrefs";
+    public static final String DAY_OF_WORKOUT = "dayOfWorkout";
+    public static final String WEEK_OF_WORKOUT = "weekOfWorkout";
+    public static final String WORKOUT_GOAL = "workout_goal";
+
+
+
 
 
 
@@ -97,7 +105,7 @@ public class HomeFragment extends Fragment {
     public ProgressBar waterProgressBar, stepsProgressBar, caloriesProgressBar;
     public Button btnDrink;
     private TextView txtWaterDrank, txtStepsTaken, txtCaloriesEaten;
-    private TextView stepsTakenText, caloriesEatenText;
+    private TextView dailyGymWorkout, dailyHomeWorkout, workoutWeek, workoutDay, caloriesEatenText;
     public String uid;
     private DBHelper dbHelper;
 
@@ -110,6 +118,12 @@ public class HomeFragment extends Fragment {
 
     private Dialog achievementDialog;
 
+    Map<Integer, List> workoutsMap;
+    private String workoutGoal = "";
+    String currentGymWorkout;
+    String currentHomeWorkout;
+    public int workoutDays;
+    public int workoutWeeks;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -199,11 +213,14 @@ public class HomeFragment extends Fragment {
         caloriesProgressBar = root.findViewById(R.id.calorieProgress_bar);
 
 
+        dailyGymWorkout = root.findViewById(R.id.txtGymWorkout);
+        dailyHomeWorkout = root.findViewById(R.id.txtHomeWorkout);
+        workoutWeek = root.findViewById(R.id.txtWeek);
+        workoutDay = root.findViewById(R.id.txtDay);
 
 
         txtWaterDrank = root.findViewById(R.id.txtWaterDrank);
 
-        stepsTakenText = root.findViewById(R.id.txtStepsTaken);
         caloriesEatenText = root.findViewById(R.id.txtCaloriesEaten);
 
         txtGlasses = root.findViewById(R.id.txtGlasses);
@@ -237,7 +254,6 @@ public class HomeFragment extends Fragment {
         txtCaloriesEaten.setText(calories + "/" + caloriesGoal);
 
         caloriesEatenText.setText(calories + "/" + caloriesGoal);
-        stepsTakenText.setText(steps + "/" + stepsGoal);
         txtStepsTaken.setText(steps + "/" + stepsGoal);
 
 
@@ -331,12 +347,22 @@ public class HomeFragment extends Fragment {
     }
 
     public void checkDate() throws ParseException {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat fullDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat dayOfWeekFormat = new SimpleDateFormat("EEEE");
 
         Date dateToday = new Date();
         SharedPreferences datePrefs = this.getContext().getSharedPreferences(DATE_PREFS,MODE_PRIVATE);
+        SharedPreferences goalsPrefs = this.getContext().getSharedPreferences(GOALS_PREFS, MODE_PRIVATE);
 
-        temp_date = datePrefs.getString(DATE_PREFS, "");
+
+
+        workoutDays = datePrefs.getInt(DAY_OF_WORKOUT, 1);
+        workoutWeeks = datePrefs.getInt(WEEK_OF_WORKOUT, 1);
+
+
+        workoutGoal = goalsPrefs.getString(WORKOUT_GOAL , "");
+
+        temp_date = datePrefs.getString(CURRENT_DATE_PREFS, "");
 
 
         currentDate = new Date();
@@ -344,11 +370,14 @@ public class HomeFragment extends Fragment {
         if(temp_date != "") {
 
 
-            String temp_dateToday = dateFormat.format(dateToday);
-            String temp_dateYesterday = datePrefs.getString(DATE_PREFS, "");
+            String temp_dateToday = fullDateFormat.format(dateToday);
+            String temp_dateYesterday = datePrefs.getString(CURRENT_DATE_PREFS, "");
+
+
 
 
             if (!temp_dateToday.equals(temp_dateYesterday)) {
+                workoutDays++;
                 openAlert();
                 System.out.println("Reset");
                 temp_date = temp_dateToday;
@@ -359,16 +388,121 @@ public class HomeFragment extends Fragment {
             }
         }
         else {
-            temp_date = dateFormat.format(dateToday);
+            temp_date = fullDateFormat.format(dateToday);
             System.out.println(temp_date);
 
         }
 
+        selectDailyWorkout();
+
+
+        calculateDayWeek();
+        dailyGymWorkout.setText(currentGymWorkout);
+        dailyHomeWorkout.setText(currentHomeWorkout);
 
         SharedPreferences.Editor editor = datePrefs.edit();
-        editor.putString(DATE_PREFS, temp_date);
+        editor.putString(CURRENT_DATE_PREFS, temp_date);
+        editor.putInt(DAY_OF_WORKOUT, workoutDays);
+        editor.putInt(WEEK_OF_WORKOUT, workoutWeeks);
         editor.apply();
 
+
+
+
+    }
+
+    private void calculateDayWeek() {
+
+        if (workoutDays == 8){
+
+            if (workoutWeeks == 1) {
+                workoutWeeks = 2;
+            }
+
+            else{
+                workoutWeeks = 1;
+            }
+            workoutDays = 1;
+
+        }
+
+
+
+
+        if (workoutWeeks == 1) {
+            currentGymWorkout = (String) workoutsMap.get(workoutDays).get(0);
+            currentHomeWorkout = (String) workoutsMap.get(workoutDays).get(1);
+
+            workoutWeek.setText("Week " + workoutWeeks);
+            workoutDay.setText("Day " + workoutDays);
+        }
+
+        else if (workoutWeeks == 2){
+            currentGymWorkout = (String) workoutsMap.get(workoutDays).get(2);
+            currentHomeWorkout = (String) workoutsMap.get(workoutDays).get(3);
+
+            workoutWeek.setText("Week " + workoutWeeks);
+            workoutDay.setText("Day " + workoutDays);
+        }
+
+    }
+
+
+
+
+    private void selectDailyWorkout() {
+
+        workoutsMap = new HashMap<Integer, List>() ;
+
+        switch (workoutGoal) {
+            case "Summer Body":
+
+
+                workoutsMap.put(1, Arrays.asList("Legs", "Lower Body", "Legs", "Lower Body"));
+                workoutsMap.put(2, Arrays.asList("HIIT", "HIIT", "HIIT", "HIIT"));
+                workoutsMap.put(3, Arrays.asList("Back,\nBiceps &\nTriceps", "Upper Body", "Shoulders,\nBiceps &\nTriceps", "Upper Body"));
+                workoutsMap.put(4, Arrays.asList("Legs", "Lower Body", "Legs", "Abs"));
+                workoutsMap.put(5, Arrays.asList("HIIT", "HIIT", "HIIT", "HIIT"));
+                workoutsMap.put(6, Arrays.asList("Abs", "Abs", "Back,\nBiceps & Triceps", "Lower Body"));
+                workoutsMap.put(7, Arrays.asList("REST", "REST", "REST", "REST"));
+
+                break;
+
+            case "Gain Muscle":
+
+                workoutsMap.put(1, Arrays.asList("Legs", "Lower Body", "Legs &\nHamstring", "HIIT"));
+                workoutsMap.put(2, Arrays.asList("Back,\nBiceps &\nTriceps", "Upper Body", "Back &\nBiceps", "Lower Body"));
+                workoutsMap.put(3, Arrays.asList("Legs &\nHamstring", "HIIT", "Upper Body &\nShoulders", "Upper Body"));
+                workoutsMap.put(4, Arrays.asList("Chest", "Abs", "Legs &\nHamstring", "Abs"));
+                workoutsMap.put(5, Arrays.asList("HIIT", "Lower Body", "HIIT & Chest", "HIIT"));
+                workoutsMap.put(6, Arrays.asList("Shoulders &\nAbs", "Upper Body", "Abs &\nTriceps", "Lower Body &\nUpper Body"));
+                workoutsMap.put(7, Arrays.asList("REST", "REST", "REST", "REST"));
+
+                break;
+
+            case "Lose Weight":
+                workoutsMap.put(1, Arrays.asList("Legs", "Lower Body", "Legs", "Lower Body &\nAbs"));
+                workoutsMap.put(2, Arrays.asList("HIIT", "HIIT", "HIIT", "HIIT"));
+                workoutsMap.put(3, Arrays.asList("Back,\nBiceps &\nTriceps", "Upper Body", "Abs,\nShoulders &\nTriceps", "Upper Body &\nAbs"));
+                workoutsMap.put(4, Arrays.asList("HIIT", "HIIT", "HIIT", "HIIT"));
+                workoutsMap.put(5, Arrays.asList("Legs", "Lower Body &\nAbs", "Legs &\nHamstring", "Lower Body &\nUpper Body"));
+                workoutsMap.put(6, Arrays.asList("HIIT", "HIIT", "Abs", "Abs"));
+                workoutsMap.put(7, Arrays.asList("REST", "REST", "REST", "REST"));
+                break;
+
+            case "Lose Quick Weight":
+
+                workoutsMap.put(1, Arrays.asList("HIIT & Lower Body", "HIIT & Legs", "Lower Body & Abs", "Legs & Abs"));
+                workoutsMap.put(2, Arrays.asList("Abs", "Abs", "HIIT", "HIIT"));
+                workoutsMap.put(3, Arrays.asList("HIIT, Upper Body", "HIIT,\nBiceps & Back", "Upper Body", "Biceps & Back"));
+                workoutsMap.put(4, Arrays.asList("Abs", "Chest & Hamstrings", "Lower Body & Abs", "Legs & Hamstrings"));
+                workoutsMap.put(5, Arrays.asList("HIIT & Lower Body", "HIIT & Legs", "HIIT", "HIIT"));
+                workoutsMap.put(6, Arrays.asList("Upper Body", "Triceps & Shoulders", "Upper Body", "Triceps & Shoulders"));
+                workoutsMap.put(7, Arrays.asList("REST", "REST", "REST", "REST"));
+
+                break;
+
+        }
 
     }
 
@@ -490,12 +624,6 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 waterCardClicked();
-            }
-        });
-        stepsCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                stepsCardClicked();
             }
         });
         caloriesCard.setOnClickListener(new View.OnClickListener() {

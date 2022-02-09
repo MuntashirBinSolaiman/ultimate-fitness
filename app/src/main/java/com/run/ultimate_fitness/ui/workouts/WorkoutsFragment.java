@@ -336,6 +336,7 @@ public class WorkoutsFragment extends Fragment implements AbsWorkoutsAdapter.OnW
 
 
         return absWorkoutsList;
+
     }
     private ArrayList<WorkoutsModel> initBackData() {
 

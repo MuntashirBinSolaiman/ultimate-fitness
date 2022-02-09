@@ -57,12 +57,19 @@ public class WorkoutsGoalPage extends AppCompatActivity {
     public static final String CALORIES_GOAL = "calories_goal";
     public static final String WORKOUT_GOAL = "workout_goal";
 
+    public static final String DATE_PREFS ="datePrefs";
+    public static final String DAY_OF_WORKOUT = "dayOfWorkout";
+    public static final String WEEK_OF_WORKOUT = "weekOfWorkout";
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_workouts_goal_page);
         getSupportActionBar().hide();
+
 
         summerBodyBtn = findViewById(R.id.summerBodyBtn);
         gainMuscleBtn = findViewById(R.id.gainMuscleBtn);
@@ -229,6 +236,12 @@ public class WorkoutsGoalPage extends AppCompatActivity {
             //save the goals and go to the home page
 
             case 4:
+                SharedPreferences datePrefs = getApplicationContext().getSharedPreferences(DATE_PREFS,MODE_PRIVATE);
+
+                SharedPreferences.Editor dateEditor = datePrefs.edit();
+                dateEditor.putInt(DAY_OF_WORKOUT, 1);
+                dateEditor.putInt(WEEK_OF_WORKOUT, 1);
+                dateEditor.apply();
 
                 SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(GOALS_PREFS, MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();

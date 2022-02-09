@@ -114,5 +114,6 @@
     <string name="change_phone_number">Change Phone Number</string>
     <string name="change_password">Change Password</string>
     <string name="delete_profile">Delete Profile</string>
+    <string name="week">Week 1</string>
 
 </resources>
